@@ -1,0 +1,91 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\eZ\Publish\:
+        resource: '../../../../src/lib/eZ/Publish/*'
+
+    eZ\Publish\SPI\Persistence\Handler: '@ezpublish.api.persistence_handler'
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\CreateLocation:
+        tags:
+            - {name: ezpublish.api.slot, signal: LocationService\CreateLocationSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\CopyContent:
+        tags:
+            - {name: ezpublish.api.slot, signal: ContentService\CopyContentSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\CopySubtree:
+        tags:
+            - {name: ezpublish.api.slot, signal: LocationService\CopySubtreeSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\CreateContent:
+        tags:
+            - {name: ezpublish.api.slot, signal: ContentService\CreateContentSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\DeleteContent:
+        tags:
+            - {name: ezpublish.api.slot, signal: LocationService\DeleteContent}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\DeleteLocation:
+        tags:
+            - {name: ezpublish.api.slot, signal: LocationService\DeleteLocationSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\DeleteVersion:
+        tags:
+            - {name: ezpublish.api.slot, signal: ContentService\DeleteVersionSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\HideContent:
+        tags:
+            - {name: ezpublish.api.slot, signal: ContentService\HideContentSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\HideLocation:
+        tags:
+            - {name: ezpublish.api.slot, signal: LocationService\HideLocationSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\MoveSubtree:
+        tags:
+            - {name: ezpublish.api.slot, signal: LocationService\MoveSubtreeSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\PersistenceAwareBase:
+        abstract: true
+        arguments:
+            $persistenceHandler: eZ\Publish\SPI\Persistence\Handler
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\PublishVersion:
+        tags:
+            - {name: ezpublish.api.slot, signal: ContentService\PublishVersionSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\Recover:
+        tags:
+            - {name: ezpublish.api.slot, signal: TrashService\RecoverSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\RevealContent:
+        tags:
+            - {name: ezpublish.api.slot, signal: ContentService\RevealContentSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\SwapLocation:
+        tags:
+            - {name: ezpublish.api.slot, signal: LocationService\SwapLocationSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\SetContentState:
+        tags:
+            - {name: ezpublish.api.slot, signal: ObjectStateService\SetContentStateSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\Trash:
+        tags:
+            - {name: ezpublish.api.slot, signal: TrashService\TrashSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\UnhideLocation:
+        tags:
+            - {name: ezpublish.api.slot, signal: LocationService\UnhideLocationSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\UpdateContent:
+        tags:
+            - {name: ezpublish.api.slot, signal: ContentService\UpdateContentSignal}
+
+    EzSystems\EzRecommendationClient\eZ\Publish\Slot\UpdateContentMetadata:
+        tags:
+            - {name: ezpublish.api.slot, signal: ContentService\UpdateContentMetadataSignal}

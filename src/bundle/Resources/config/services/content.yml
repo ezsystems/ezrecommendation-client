@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Content\:
+        resource: '../../../../src/lib/Content/*'
+
+    EzSystems\EzRecommendationClient\Content\Content:
+        arguments:
+            $defaultAuthorId: '%ez_recommendation.default.author_id%'

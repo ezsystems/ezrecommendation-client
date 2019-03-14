@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Api\:
+        resource: '../../../../src/lib/Api/*'
+
+    EzSystems\EzRecommendationClient\Api\AllowedApi: ~
+
+    EzSystems\EzRecommendationClient\Api\ExportNotifier:
+        tags:
+            - { name: monolog.logger, channel: ez_recommendation }

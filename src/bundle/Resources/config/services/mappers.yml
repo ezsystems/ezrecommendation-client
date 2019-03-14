@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Mapper\:
+        resource: '../../../../src/lib/Mapper/*'
+
+    EzSystems\EzRecommendationClient\Mapper\RelationMapper:
+        arguments:
+            $fieldMappings: "%ez_recommendation.relations%"

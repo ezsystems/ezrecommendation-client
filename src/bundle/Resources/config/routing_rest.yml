@@ -1,0 +1,25 @@
+ez_recommendation.content_type.get_content:
+    path: /ez_recommendation/v1/content/{idList}
+    defaults:
+        _controller: EzRecommendationClientBundle:Content:getContent
+    methods: [GET]
+
+ez_recommendation.content_type.get_content_type:
+    path: /ez_recommendation/v1/contenttypes/{idList}
+    defaults:
+        _controller: EzRecommendationClientBundle:ContentType:getContentType
+    methods: [GET]
+
+ez_recommendation.export.download:
+    path: /ez_recommendation/v1/exportDownload/{filePath}
+    defaults:
+        _controller: EzRecommendationClientBundle:Export:download
+    requirements:
+        filePath: '[a-zA-Z0-9\_\-\/]+'
+
+ez_recommendation.export.export:
+    path: /ez_recommendation/v1/runExport/{contentTypeIdList}
+    defaults:
+        _controller: EzRecommendationClientBundle:Export:export
+    methods: [GET]
+    prefix: '%ezpublish_rest.path_prefix%'

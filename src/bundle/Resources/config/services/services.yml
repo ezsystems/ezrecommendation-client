@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Service\:
+        resource: '../../../../src/lib/Service/*'
+
+    EzSystems\EzRecommendationClient\Service\SignalSlotService:
+        arguments:
+            $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\RecommendationNotifierCredentialsChecker'
+        tags:
+            - { name: monolog.logger, channel: ez_recommendation }
