@@ -19,77 +19,24 @@ class EzRecommendationClientExtension extends Extension
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
         $loader->load('services.yml');
-        $loader->load('services/slots.yml');
         $loader->load('default_settings.yml');
 
-        if (isset($config['api_endpoint'])) {
-            $container->setParameter('ez_recommendation.api_endpoint', $config['api_endpoint']);
-        }
-
-        if (isset($config['recommendation']['api_endpoint'])) {
-            $container->setParameter('ez_recommendation.recommendation.api_endpoint', $config['recommendation']['api_endpoint']);
-        }
-
-        if (isset($config['recommendation']['consume_timeout'])) {
-            $container->setParameter('ez_recommendation.recommendation.consume_timeout', $config['recommendation']['consume_timeout']);
-        }
-
-        if (isset($config['tracking']['script_url'])) {
-            $container->setParameter('ez_recommendation.tracking.script_url', $config['tracking']['script_url']);
-        }
-
-        if (isset($config['tracking']['api_endpoint'])) {
-            $container->setParameter('ez_recommendation.tracking.api_endpoint', $config['tracking']['api_endpoint']);
-        }
-
-        if (isset($config['system'])) {
-            $container->setParameter('ez_recommendation.siteaccess_config', $config['system']);
-        }
-
-        if (isset($config['export']['document_root'])) {
-            $container->setParameter(
-                'ez_recommendation.export.document_root',
-                $config['export']['document_root']
-            );
-        }
-
-        if (isset($config['export']['users_authentication']['method'])) {
-            $container->setParameter(
-                'ez_recommendation.export.users_authentication.method',
-                $config['export']['users_authentication']['method']
-            );
-        }
-
-        if (isset($config['export']['users_authentication']['login'])) {
-            $container->setParameter(
-                'ez_recommendation.export.users_authentication.login',
-                $config['export']['users_authentication']['login']
-            );
-        }
-
-        if (isset($config['export']['users_authentication']['password'])) {
-            $container->setParameter(
-                'ez_recommendation.export.users_authentication.password',
-                $config['export']['users_authentication']['password']
-            );
-        }
-
-        $processor = new ConfigurationProcessor($container, 'ez_recommendation');
+        $processor = new ConfigurationProcessor($container, 'ezrecommendation');
         $processor->mapConfig($config, new ConfigurationMapper());
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getAlias()
+    public function getAlias(): string
     {
-        return 'ez_recommendation';
+        return 'ezrecommendation';
     }
 }

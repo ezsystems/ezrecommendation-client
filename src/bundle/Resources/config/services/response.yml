@@ -9,4 +9,4 @@ services:
 
     EzSystems\EzRecommendationClient\Response\HttpResponse:
         tags:
-            - { name: ez_recommendation.rest.response_type, type: http }
+            - { name: ezrecommendation.rest.response_type, type: http }

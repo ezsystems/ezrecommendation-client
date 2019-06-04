@@ -10,6 +10,7 @@ namespace EzSystems\EzRecommendationClient\Event\Listener;
 use eZ\Publish\API\Repository\UserService as UserServiceInterface;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
+use EzSystems\EzRecommendationClient\Value\Parameters;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -113,8 +114,8 @@ class LoginListener
      */
     private function getNotificationEndpoint(): string
     {
-        $trackingEndPoint = $this->configResolver->getParameter('recommendation.customer_id', 'ez_recommendation');
-        $customerId = $this->configResolver->getParameter('api_endpoint', 'ez_recommendation', 'tracking');
+        $trackingEndPoint = $this->configResolver->getParameter('authentication.customer_id', Parameters::NAMESPACE);
+        $customerId = $this->configResolver->getParameter('event_tracking.endpoint', Parameters::NAMESPACE, Parameters::API_SCOPE);
 
         return sprintf('%s/api/%s/', $trackingEndPoint, $customerId);
     }
@@ -133,7 +134,7 @@ class LoginListener
         if (is_string($user)) {
             return $user;
         } elseif (method_exists($user, 'getAPIUser')) {
-            return $user->getAPIUser()->id;
+            return (string) $user->getAPIUser()->id;
         }
 
         return (string) $authenticationToken->getUsername();

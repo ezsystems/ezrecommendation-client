@@ -18,7 +18,7 @@ use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface;
 use EzSystems\EzRecommendationClient\Service\SignalSlotService;
 use EzSystems\EzRecommendationClient\Value\Config\RecommendationNotifierCredentials;
-use EzSystems\EzRecommendationClient\Value\RecommendationNotifierMetadata;
+use EzSystems\EzRecommendationClient\Value\EventNotifierMetadata;
 use GuzzleHttp\Psr7\Response;
 use Psr\Log\NullLogger;
 
@@ -605,12 +605,12 @@ class SignalSlotServiceTest
                 'transaction' => null,
                 'events' => [
                     [
-                        RecommendationNotifierMetadata::ACTION => $action,
-                        RecommendationNotifierMetadata::FORMAT => 'EZ',
-                        RecommendationNotifierMetadata::URI => sprintf('%s/api/ezp/v2/ez_recommendation/v1/content/%s?lang=%s', $serverUri, $contentId, 'eng-GB'),
-                        RecommendationNotifierMetadata::ITEM_ID => $contentId,
-                        RecommendationNotifierMetadata::CONTENT_TYPE_ID => $contentTypeId,
-                        RecommendationNotifierMetadata::LANG => 'eng-GB',
+                        EventNotifierMetadata::ACTION => $action,
+                        EventNotifierMetadata::FORMAT => 'EZ',
+                        EventNotifierMetadata::URI => sprintf('%s/api/ezp/v2/ez_recommendation/v1/content/%s?lang=%s', $serverUri, $contentId, 'eng-GB'),
+                        EventNotifierMetadata::ITEM_ID => $contentId,
+                        EventNotifierMetadata::CONTENT_TYPE_ID => $contentTypeId,
+                        EventNotifierMetadata::LANG => 'eng-GB',
                     ],
                 ],
             ],

@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\Config;
 
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Config\CredentialsChecker;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
@@ -31,7 +32,10 @@ class CredentialsCheckerTest extends TestCase
     {
         $this->credentialsCheckerMock = $this->getMockForAbstractClass(
             CredentialsChecker::class,
-            [new NullLogger()]
+            [
+                $this->getMockBuilder(ConfigResolverInterface::class)->getMock(),
+                new NullLogger()
+            ]
         );
         $this->loggerMock = $this->getMockBuilder(LoggerInterface::class)->disableOriginalConstructor()->getMock();
         $this->credentials = [

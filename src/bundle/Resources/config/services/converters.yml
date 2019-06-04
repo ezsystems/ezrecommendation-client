@@ -10,3 +10,7 @@ services:
     EzSystems\EzRecommendationClientBundle\ParamConverter\ListParamConverter:
         tags:
             - { name: request.param_converter, priority: -2, converter: list_converter }
+
+    EzSystems\EzRecommendationClientBundle\ParamConverter\ExportRequestParamConverter:
+        tags:
+            - { name: request.param_converter, priority: 2, converter: export_request_converter }

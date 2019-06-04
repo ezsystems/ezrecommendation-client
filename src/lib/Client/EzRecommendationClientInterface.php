@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Client;
 
 use EzSystems\EzRecommendationClient\Api\AbstractApi;
+use EzSystems\EzRecommendationClient\Api\Notifier;
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
@@ -16,8 +17,7 @@ use Psr\Http\Message\UriInterface;
 /**
  * @method \EzSystems\EzRecommendationClient\Api\Recommendation recommendation()
  * @method \EzSystems\EzRecommendationClient\Api\EventTracking eventTracking()
- * @method \EzSystems\EzRecommendationClient\Api\ExportNotifier exportNotifier()
- * @method \EzSystems\EzRecommendationClient\Api\RecommendationNotifier recommendationNotifier()
+ * @method \EzSystems\EzRecommendationClient\Api\Notifier notifier()
  */
 interface EzRecommendationClientInterface
 {

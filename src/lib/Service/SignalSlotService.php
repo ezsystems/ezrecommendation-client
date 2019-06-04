@@ -17,9 +17,11 @@ use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
 use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
-use EzSystems\EzRecommendationClient\Value\Config\RecommendationNotifierCredentials;
-use EzSystems\EzRecommendationClient\Value\RecommendationNotifierMetadata;
+use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
+use EzSystems\EzRecommendationClient\Value\Notification;
+use EzSystems\EzRecommendationClient\Value\EventNotifierMetadata;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use EzSystems\EzRecommendationClient\Value\Parameters;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerInterface;
 
@@ -234,14 +236,34 @@ class SignalSlotService implements SignalSlotServiceInterface
         if ($content) {
             $this->logger->debug(sprintf('RecommendationNotifier: Generating notification for %s(%s)', $method, $content->id));
 
-            $notifications = $this->generateNotifications($action, $content, $versionNo);
+            $notificationEvents = $this->generateNotificationEvents($action, $content, $versionNo);
+            $clientCredentials = $this->credentialsChecker->getCredentials();
+            $notification = $this->getNotification($notificationEvents, $clientCredentials);
 
             try {
-                $this->client->recommendationNotifier()->notify($this->credentialsChecker, $notifications);
+                $response = $this->client->notifier()->notify($notification);
             } catch (RequestException $e) {
                 $this->logger->error(sprintf('RecommendationNotifier: notification error for %s: %s', $method, $e->getMessage()));
             }
         }
+    }
+
+    /**
+     * @param array $notificationEvents
+     * @param \EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials $clientCredentials
+     *
+     * @return \EzSystems\EzRecommendationClient\Value\Notification
+     */
+    private function getNotification(
+        array $notificationEvents,
+        EzRecommendationClientCredentials $clientCredentials
+    ): Notification {
+        $notification = new Notification();
+        $notification->events = $notificationEvents;
+        $notification->customerId = $clientCredentials->getCustomerId();
+        $notification->licenseKey = $clientCredentials->getLicenseKey();
+
+        return $notification;
     }
 
     /**
@@ -254,23 +276,24 @@ class SignalSlotService implements SignalSlotServiceInterface
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    private function generateNotifications(string $action, Content $content, ?int $versionNo): array
+    private function generateNotificationEvents(string $action, Content $content, ?int $versionNo): array
     {
-        $notifications = [];
+        $events = [];
+
         foreach ($this->getLanguageCodes($content, $versionNo) as $lang) {
-            $notification = new RecommendationNotifierMetadata([
-                RecommendationNotifierMetadata::ACTION => $action,
-                RecommendationNotifierMetadata::FORMAT => 'EZ',
-                RecommendationNotifierMetadata::URI => $this->getContentUri($content, $lang),
-                RecommendationNotifierMetadata::ITEM_ID => $content->id,
-                RecommendationNotifierMetadata::CONTENT_TYPE_ID => $content->contentInfo->contentTypeId,
-                RecommendationNotifierMetadata::LANG => $lang ?? null,
+            $event = new EventNotifierMetadata([
+                EventNotifierMetadata::ACTION => $action,
+                EventNotifierMetadata::FORMAT => 'EZ',
+                EventNotifierMetadata::URI => $this->getContentUri($content, $lang),
+                EventNotifierMetadata::ITEM_ID => $content->id,
+                EventNotifierMetadata::CONTENT_TYPE_ID => $content->contentInfo->contentTypeId,
+                EventNotifierMetadata::LANG => $lang ?? null,
             ]);
 
-            $notifications[] = $notification->getMetadataAttributes();
+            $events[] = $event->getMetadataAttributes();
         }
 
-        return $notifications;
+        return $events;
     }
 
     /**
@@ -301,12 +324,9 @@ class SignalSlotService implements SignalSlotServiceInterface
      */
     private function getContentUri(Content $content, ?string $lang): string
     {
-        /** @var RecommendationNotifierCredentials $credentials */
-        $credentials = $this->credentialsChecker->getCredentials();
-
         return sprintf(
             '%s/api/ezp/v2/ez_recommendation/v1/content/%s%s',
-            $credentials->getServerUri(),
+            $this->configResolver->getParameter('host_uri', Parameters::NAMESPACE),
             $content->id,
             isset($lang) ? '?lang=' . $lang : ''
         );
@@ -329,7 +349,7 @@ class SignalSlotService implements SignalSlotServiceInterface
 
         return !in_array(
             $contentType->identifier,
-            $this->configResolver->getParameter('recommendation.included_content_types', 'ez_recommendation')
+            $this->configResolver->getParameter('included_content_types', Parameters::NAMESPACE)
         );
     }
 }

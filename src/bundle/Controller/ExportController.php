@@ -12,10 +12,11 @@ use EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface;
 use EzSystems\EzRecommendationClient\Exception\ExportInProgressException;
 use EzSystems\EzRecommendationClient\Helper\ExportProcessRunnerHelper;
 use EzSystems\EzRecommendationClient\Helper\FileSystemHelper;
+use EzSystems\EzRecommendationClient\Value\ExportRequest;
 use Psr\Log\LoggerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ExportController extends Controller
@@ -78,14 +79,15 @@ class ExportController extends Controller
     }
 
     /**
-     * @param string $contentTypeIdList
-     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \EzSystems\EzRecommendationClient\Value\ExportRequest $request
+     *
+     * @ParamConverter("export_request_converter")
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      *
      * @throws \EzSystems\EzRecommendationClient\Exception\ExportInProgressException
      */
-    public function exportAction(string $contentTypeIdList, Request $request): JsonResponse
+    public function exportAction(ExportRequest $request): JsonResponse
     {
         $response = new JsonResponse();
 
@@ -98,88 +100,11 @@ class ExportController extends Controller
             throw new ExportInProgressException('Export is running');
         }
 
-        $options = $this->parseRequest($request);
-        $options['contentTypeIdList'] = $contentTypeIdList;
-
-        $this->exportProcessRunner->run($options);
+        $this->exportProcessRunner->run($request->getExportRequestParameters());
 
         return $response->setData([sprintf(
             'Export started at %s',
             date('Y-m-d H:i:s')
         )]);
-    }
-
-    /**
-     * Parses the request values.
-     *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return array
-     *
-     * @throws \Exception
-     */
-    private function parseRequest(Request $request): array
-    {
-        $query = $request->query;
-
-        $path = $query->get('path');
-        $hidden = (int)$query->get('hidden', 0);
-        $image = $query->get('image');
-        $siteAccess = $query->get('siteaccess');
-        $webHook = $query->get('webHook');
-        $transaction = $query->get('transaction');
-        $fields = $query->get('fields');
-        $customerId = $query->get('customerId');
-        $licenseKey = $query->get('licenseKey');
-
-        if (preg_match('/^\/\d+(?:\/\d+)*\/$/', $path) !== 1) {
-            $path = null;
-        }
-
-        if (preg_match('/^[a-zA-Z0-9\-\_]+$/', $image) !== 1) {
-            $image = null;
-        }
-
-        if (preg_match('/^[a-zA-Z0-9_-]+$/', $siteAccess) !== 1) {
-            $siteAccess = null;
-        }
-
-        if (preg_match('/((http|https)\:\/\/)?[a-zA-Z0-9\.\/\?\:@\-_=#]+\.([a-zA-Z0-9\&\.\/\?\:@\-_=#])*/', $webHook) !== 1) {
-            $webHook = null;
-        }
-
-        if (preg_match('/^[0-9]+$/', $transaction) !== 1) {
-            $transaction = (new \DateTime())->format('YmdHisv');
-        }
-
-        if (preg_match('/^[a-zA-Z0-9\-\_\,]+$/', $fields) !== 1) {
-            $fields = null;
-        }
-
-        if (preg_match('/^[a-zA-Z0-9_-]+$/', $customerId) !== 1) {
-            $customerId = null;
-        }
-
-        if (preg_match('/^[a-zA-Z0-9_-]+$/', $licenseKey) !== 1) {
-            $licenseKey = null;
-        }
-
-        return [
-            'pageSize' => (int) $query->get('pageSize', null),
-            'page' => (int) $query->get('page', 1),
-            'path' => $path,
-            'hidden' => $hidden,
-            'image' => $image,
-            'siteaccess' => $siteAccess,
-            'documentRoot' => $request->server->get('DOCUMENT_ROOT'),
-            'host' => $request->getSchemeAndHttpHost(),
-            'webHook' => $webHook,
-            'transaction' => $transaction,
-            'lang' => preg_replace('/[^a-zA-Z0-9_-]+/', '', $query->get('lang')),
-            'fields' => $fields,
-            'mandatorId' => (int) $query->get('mandatorId', 0),
-            'customerId' => $customerId,
-            'licenseKey' => $licenseKey,
-        ];
     }
 }

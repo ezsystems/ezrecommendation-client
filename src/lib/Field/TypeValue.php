@@ -8,22 +8,18 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Field;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver;
-use eZ\Publish\SPI\Variation\VariationHandler as ImageVariationService;
 use eZ\Publish\Core\FieldType\RichText\Converter as RichTextConverterInterface;
 use eZ\Publish\Core\MVC\Exception\SourceImageNotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\Core\FieldType\XmlText\Converter\Html5 as XmlHtml5;
+use EzSystems\EzRecommendationClient\Helper\ImageHelper;
 use LogicException;
 
 class TypeValue
 {
-    /** @var \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver */
-    private $configResolver;
-
-    /** @var \eZ\Publish\SPI\Variation\VariationHandler */
-    private $imageVariationService;
+    /** @var \EzSystems\EzRecommendationClient\Helper\ImageHelper */
+    private $imageHelper;
 
     /** @var \eZ\Publish\Core\FieldType\RichText\Converter */
     private $richHtml5Converter;
@@ -32,19 +28,16 @@ class TypeValue
     private $xmlHtml5Converter;
 
     /**
-     * @param \eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver $configResolver
-     * @param \eZ\Publish\SPI\Variation\VariationHandler $imageVariationService
+     * @param \EzSystems\EzRecommendationClient\Helper\ImageHelper $imageHelper
      * @param \eZ\Publish\Core\FieldType\RichText\Converter $richHtml5Converter
      * @param \eZ\Publish\Core\FieldType\XmlText\Converter\Html5 $xmlHtml5Converter
      */
     public function __construct(
-        ConfigResolver $configResolver,
-        ImageVariationService $imageVariationService,
+        ImageHelper $imageHelper,
         RichTextConverterInterface $richHtml5Converter,
         ?XmlHtml5 $xmlHtml5Converter
     ) {
-        $this->configResolver = $configResolver;
-        $this->imageVariationService = $imageVariationService;
+        $this->imageHelper = $imageHelper;
         $this->richHtml5Converter = $richHtml5Converter;
         $this->xmlHtml5Converter = $xmlHtml5Converter;
     }
@@ -112,7 +105,7 @@ class TypeValue
         }
 
         try {
-            return $this->getImageUrl($field, $content, $options);
+            return $this->imageHelper->getImageUrl($field, $content, $options);
         } catch (SourceImageNotFoundException $exception) {
             return '';
         }
@@ -136,7 +129,7 @@ class TypeValue
         }
 
         try {
-            return $this->getImageUrl($field, $content, $options);
+            return $this->imageHelper->getImageUrl($field, $content, $options);
         } catch (SourceImageNotFoundException $exception) {
             return '';
         }
@@ -164,33 +157,5 @@ class TypeValue
         }
 
         return '';
-    }
-
-    /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param array $options
-     *
-     * @return string
-     */
-    private function getImageUrl(Field $field, Content $content, array $options): string
-    {
-        $variations = $this->configResolver->getParameter('image_variations');
-        $variation = 'original';
-
-        if ((!empty($options['image'])) && in_array($options['image'], array_keys($variations))) {
-            $variation = $options['image'];
-        }
-
-        $uri = $this
-            ->imageVariationService
-            ->getVariation($field, $content->versionInfo, $variation)
-            ->uri;
-
-        if (strpos($uri, 'http://:0') !== false) {
-            $uri = str_replace('http://:0', 'http://0', $uri);
-        }
-
-        return parse_url($uri, PHP_URL_PATH);
     }
 }

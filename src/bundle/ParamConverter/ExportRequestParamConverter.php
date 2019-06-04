@@ -10,31 +10,35 @@ namespace EzSystems\EzRecommendationClientBundle\ParamConverter;
 
 use eZ\Publish\Core\REST\Server\Exceptions\BadRequestException;
 use EzSystems\EzRecommendationClient\Exception\InvalidArgumentException;
-use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
-use EzSystems\EzRecommendationClient\Value\IdList;
+use EzSystems\EzRecommendationClient\Mapper\ExportRequestMapper;
+use EzSystems\EzRecommendationClient\Value\ExportRequest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
-class ListParamConverter implements ParamConverterInterface
+class ExportRequestParamConverter implements ParamConverterInterface
 {
+    /** @var \EzSystems\EzRecommendationClient\Mapper\ExportRequestMapper */
+    private $exportRequestMapper;
+
+    /**
+     * @param \EzSystems\EzRecommendationClient\Mapper\ExportRequestMapper $exportRequestMapper
+     */
+    public function __construct(ExportRequestMapper $exportRequestMapper)
+    {
+        $this->exportRequestMapper = $exportRequestMapper;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function apply(Request $request, ParamConverter $configuration): bool
     {
-        $paramName = $configuration->getName();
-
-        if (!$request->attributes->has($paramName)) {
-            return false;
-        }
-
         try {
-            $idListAsString = $request->attributes->get($paramName);
-            $idList = new IdList();
-            $idList->list = ParamsConverterHelper::getIdListFromString($idListAsString);
-            $request->attributes->set($paramName, $idList);
+            $exportRequest = $this->exportRequestMapper->getExportRequest($request);
+            $paramName = $configuration->getName();
+
+            $request->attributes->set($paramName, $exportRequest);
 
             return true;
         } catch (InvalidArgumentException $e) {
@@ -47,6 +51,6 @@ class ListParamConverter implements ParamConverterInterface
      */
     public function supports(ParamConverter $configuration): bool
     {
-        return IdList::class === $configuration->getClass();
+        return ExportRequest::class === $configuration->getClass();
     }
 }

@@ -8,19 +8,27 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Config;
 
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use Psr\Log\LoggerInterface;
 
 abstract class CredentialsChecker implements CredentialsCheckerInterface
 {
+    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    protected $configResolver;
+
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
     /**
+     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
      * @param \Psr\Log\LoggerInterface $logger
      */
-    public function __construct(LoggerInterface $logger)
-    {
+    public function __construct(
+        ConfigResolverInterface $configResolver,
+        LoggerInterface $logger
+    ) {
         $this->logger = $logger;
+        $this->configResolver = $configResolver;
     }
 
     /**

@@ -9,44 +9,111 @@ namespace EzSystems\EzRecommendationClientBundle\DependencyInjection;
 
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ContextualizerInterface;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\HookableConfigurationMapperInterface;
+use EzSystems\EzRecommendationClient\Value\Parameters;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ConfigurationMapper implements HookableConfigurationMapperInterface
 {
     /**
      * {@inheritdoc}
      */
-    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer)
+    public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
     {
-        // Common settings
-        if (isset($scopeSettings['server_uri'])) {
-            $contextualizer->setContextualParameter('server_uri', $currentScope, $scopeSettings['server_uri']);
+        if (isset($scopeSettings['authentication']['customer_id'])) {
+            $contextualizer->setContextualParameter('authentication.customer_id', $currentScope, $scopeSettings['authentication']['customer_id']);
         }
 
-        if (isset($scopeSettings['recommendation']['customer_id'])) {
-            $contextualizer->setContextualParameter('recommendation.customer_id', $currentScope, $scopeSettings['recommendation']['customer_id']);
-        }
-        if (isset($scopeSettings['recommendation']['license_key'])) {
-            $contextualizer->setContextualParameter('recommendation.license_key', $currentScope, $scopeSettings['recommendation']['license_key']);
+        if (isset($scopeSettings['authentication']['license_key'])) {
+            $contextualizer->setContextualParameter('authentication.license_key', $currentScope, $scopeSettings['authentication']['license_key']);
         }
 
-        if (isset($scopeSettings['recommendation']['included_content_types'])) {
-            $contextualizer->setContextualParameter('recommendation.included_content_types', $currentScope, $scopeSettings['recommendation']['included_content_types']);
+        if (isset($scopeSettings['included_content_types'])) {
+            $contextualizer->setContextualParameter('included_content_types', $currentScope, $scopeSettings['included_content_types']);
+        }
+
+        if (isset($scopeSettings['random_content_types'])) {
+            $contextualizer->setContextualParameter('random_content_types', $currentScope, $scopeSettings['random_content_types']);
+        }
+
+        if (isset($scopeSettings['host_uri'])) {
+            $contextualizer->setContextualParameter('host_uri', $currentScope, $scopeSettings['host_uri']);
+        }
+
+        if (isset($scopeSettings['author_id'])) {
+            $contextualizer->setContextualParameter('author_id', $currentScope, $scopeSettings['author_id']);
+        }
+
+        if (isset($scopeSettings['export']['authentication']['method'])) {
+            $contextualizer->setContextualParameter('export.authentication.method', $currentScope, $scopeSettings['export']['authentication']['method']);
+        }
+
+        if (isset($scopeSettings['export']['authentication']['login'])) {
+            $contextualizer->setContextualParameter('export.authentication.login', $currentScope, $scopeSettings['export']['authentication']['login']);
+        }
+
+        if (isset($scopeSettings['export']['authentication']['password'])) {
+            $contextualizer->setContextualParameter('export.authentication.password', $currentScope, $scopeSettings['export']['authentication']['password']);
         }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function preMap(array $config, ContextualizerInterface $contextualizer)
+    public function preMap(array $config, ContextualizerInterface $contextualizer): void
     {
-        // Nothing to do here.
+        $container = $contextualizer->getContainer();
+
+        if (isset($config['system'])) {
+            $container->setParameter('ezrecommendation.siteaccess_config', $config['system']);
+        }
+
+        if (isset($config['field'])) {
+            $this->setFieldSettings($container, $config['field']);
+        }
+
+        if (isset($config['api'])) {
+            $this->setApiSettings($container, $config['api']);
+        }
     }
 
     /**
      * {@inheritdoc}
      */
-    public function postMap(array $config, ContextualizerInterface $contextualizer)
+    public function postMap(array $config, ContextualizerInterface $contextualizer): void
     {
         // Nothing to do here.
+    }
+
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param array $settings
+     */
+    private function setApiSettings(ContainerInterface $container, array $settings): void
+    {
+        if ($settings) {
+            foreach ($settings as $settingKey => $settingValue) {
+                foreach ($settingValue as $parameterKey => $parameterValue) {
+                    $container->setParameter(
+                        Parameters::NAMESPACE . '.' . Parameters::API_SCOPE . '.' . $settingKey . '.' . $parameterKey,
+                        $parameterValue
+                    );
+                }
+            }
+        }
+    }
+
+    /**
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
+     * @param array $settings
+     */
+    private function setFieldSettings(ContainerInterface $container, array $settings)
+    {
+        if ($settings) {
+            $parametersName = array_keys($settings);
+
+            foreach ($parametersName as $name) {
+                $container->setParameter(Parameters::NAMESPACE . '.' . Parameters::FIELD_SCOPE . '.' . $name, $settings[$name]);
+            }
+        }
     }
 }

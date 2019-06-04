@@ -16,7 +16,7 @@ use Symfony\Component\DependencyInjection\Reference;
 class RestResponsePass implements CompilerPassInterface
 {
     /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
@@ -24,10 +24,10 @@ class RestResponsePass implements CompilerPassInterface
 
         $responseRenderers = [];
 
-        foreach ($container->findTaggedServiceIds('ez_recommendation.rest.response_type') as $id => $tags) {
+        foreach ($container->findTaggedServiceIds('ezrecommendation.rest.response_type') as $id => $tags) {
             $responseRenderers[$tags[0]['type']] = new Reference($id);
         }
 
-        $visitor->addMethodCall('setResponseRendereres', [$responseRenderers]);
+        $visitor->addMethodCall('setResponseRenderers', [$responseRenderers]);
     }
 }

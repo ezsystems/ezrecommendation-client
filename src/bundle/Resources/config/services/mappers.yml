@@ -9,4 +9,4 @@ services:
 
     EzSystems\EzRecommendationClient\Mapper\RelationMapper:
         arguments:
-            $fieldMappings: "%ez_recommendation.relations%"
+            $fieldMappings: "%ezrecommendation.field.relations%"

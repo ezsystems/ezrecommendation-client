@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Api;
 
+use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class EventTracking extends AbstractApi
@@ -17,9 +18,9 @@ class EventTracking extends AbstractApi
     /**
      * {@inheritdoc}
      */
-    public function getRawEndPointUri(): string
+    public function __construct(EzRecommendationClientInterface $client, string $recommendationEndPoint)
     {
-        return 'https://event.yoochoose.net/api/%d/rendered/%s/%d/';
+        parent::__construct($client, $recommendationEndPoint . '/api/%d/rendered/%s/%d/');
     }
 
     /**

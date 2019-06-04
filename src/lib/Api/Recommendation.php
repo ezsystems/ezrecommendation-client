@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Api;
 
+use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Value\RecommendationMetadata;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,9 +20,11 @@ class Recommendation extends AbstractApi
     /**
      * {@inheritdoc}
      */
-    public function getRawEndPointUri(): string
-    {
-        return 'https://reco.yoochoose.net/api/v2/%d/%s/%s';
+    public function __construct(
+        EzRecommendationClientInterface $client,
+        string $recommendationEndPoint
+    ) {
+        parent::__construct($client, $recommendationEndPoint . '/api/v2/%d/%s/%s');
     }
 
     /**

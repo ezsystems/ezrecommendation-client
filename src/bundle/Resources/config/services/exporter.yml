@@ -12,4 +12,4 @@ services:
             $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsChecker'
             $outputGenerator: '@ezpublish_rest.output.generator.json'
         tags:
-            - { name: monolog.logger, channel: ez_recommendation }
+            - { name: monolog.logger, channel: ezrecommendation }

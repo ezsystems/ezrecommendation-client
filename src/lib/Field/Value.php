@@ -138,7 +138,7 @@ class Value
      *
      * For example:
      *
-     *     ez_recommendation.field_identifiers:
+     *     ezrecommendation.field.identifiers:
      *         author:
      *             blog_post: authors
      *         image:

@@ -24,7 +24,7 @@ class ContentDataVisitor extends ValueObjectVisitor
     /**
      * @param array $responseRenderers
      */
-    public function setResponseRendereres($responseRenderers)
+    public function setResponseRenderers($responseRenderers)
     {
         $this->responseRenderers = $responseRenderers;
     }

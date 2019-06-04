@@ -42,16 +42,14 @@ class ExportProcessRunnerHelper
     /**
      * @param array $parameters
      */
-    public function run(array $parameters = []): void
+    public function run(array $parameters): void
     {
         $documentRoot = $parameters['documentRoot'];
         unset($parameters['documentRoot']);
 
-        $console = file_exists('bin/console') ? 'bin/console' : (file_exists('ezpublish/console') ? 'ezpublish/console' : 'app/console');
-
         $builder = new ProcessBuilder([
-            $documentRoot . '/../' . $console,
-            'ezreco:runexport',
+            $documentRoot . '/../bin/console',
+            'ezrecomendation:export:run',
             '--env=' . $this->kernelEnvironment,
         ]);
         $builder->setWorkingDirectory($documentRoot . '../');
@@ -65,6 +63,10 @@ class ExportProcessRunnerHelper
         foreach ($parameters as $key => $option) {
             if (empty($option)) {
                 continue;
+            }
+
+            if (is_array($option)) {
+                $option = implode(',', $option);
             }
 
             $builder->add(sprintf('--%s=%s', $key, $option));

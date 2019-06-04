@@ -8,5 +8,7 @@ services:
 
     EzSystems\EzRecommendationClientBundle\Templating\Twig\RecommendationExtension:
         public: true
+        arguments:
+            $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsChecker'
         tags:
             - { name: twig.extension }

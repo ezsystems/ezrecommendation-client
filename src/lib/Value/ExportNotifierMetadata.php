@@ -10,14 +10,15 @@ namespace EzSystems\EzRecommendationClient\Value;
 
 use EzSystems\EzRecommendationClient\Api\ApiMetadata;
 
-class RecommendationNotifierMetadata extends ApiMetadata
+class ExportNotifierMetadata extends ApiMetadata
 {
     const ACTION = 'action';
     const FORMAT = 'format';
-    const URI = 'uri';
-    const ITEM_ID = 'itemId';
     const CONTENT_TYPE_ID = 'contentTypeId';
+    const CONTENT_TYPE_NAME = 'contentTypeName';
     const LANG = 'lang';
+    const URI = 'uri';
+    const CREDENTIALS = 'credentials';
 
     /** @var string */
     public $action;
@@ -25,17 +26,20 @@ class RecommendationNotifierMetadata extends ApiMetadata
     /** @var string */
     public $format;
 
-    /** @var string */
-    public $uri;
-
-    /** @var int */
-    public $itemId;
-
     /** @var int */
     public $contentTypeId;
 
+    /** @var string */
+    public $contentTypeName;
+
     /** @var string|null */
     public $lang;
+
+    /** @var string */
+    public $uri;
+
+    /** @var array */
+    public $credentials;
 
     /**
      * @param array $parameters
@@ -53,10 +57,11 @@ class RecommendationNotifierMetadata extends ApiMetadata
         return [
             'action' => $this->action,
             'format' => $this->format,
-            'uri' => $this->uri,
-            'itemId' => $this->itemId,
             'contentTypeId' => $this->contentTypeId,
+            'contentTypeName' => $this->contentTypeName,
             'lang' => $this->lang,
+            'uri' => $this->uri,
+            'credentials' => $this->credentials,
         ];
     }
 }

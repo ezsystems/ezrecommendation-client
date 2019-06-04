@@ -24,6 +24,8 @@ use EzSystems\EzRecommendationClient\Helper\SiteAccessHelper;
 use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use EzSystems\EzRecommendationClient\Value\ContentData;
+use EzSystems\EzRecommendationClient\Value\ExportNotifierMetadata;
+use EzSystems\EzRecommendationClient\Value\Notification;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
@@ -131,8 +133,10 @@ class Exporter implements ExporterInterface
             $credentials = $this->credentialsChecker->getCredentials();
             $securedDirCredentials = $this->fileSystemHelper->secureDir($chunkDir, $credentials);
 
-            $response = $this->client->exportNotifier()->sendRecommendationResponse($urls, $options, $securedDirCredentials);
-            $this->logger->info(sprintf('eZ Recommendation Response: %s', $response));
+            $notification = $this->getNotification($options, $urls, $securedDirCredentials);
+            $response = $this->client->notifier()->notify($notification);
+
+            $this->logger->info(sprintf('eZ Recommendation Response: %s', $response->getBody()));
             $output->writeln('Done');
         } catch (Exception $e) {
             $this->logger->error(sprintf('Error while generating export: %s', $e->getMessage()));
@@ -420,5 +424,53 @@ class Exporter implements ExporterInterface
         unset($data);
 
         $this->logger->info(sprintf('Generating file: %s', $filePath));
+    }
+
+    /**
+     * @param array $options
+     * @param array $urls
+     * @param array $securedDirCredentials
+     *
+     * @return \EzSystems\EzRecommendationClient\Value\Notification
+     */
+    private function getNotification(array $options, array $urls, array $securedDirCredentials): Notification
+    {
+        $notfication = new Notification();
+        $notfication->events = $this->getNotificationEvents($urls, $securedDirCredentials);
+        $notfication->licenseKey = $options['licenseKey'];
+        $notfication->customerId = (int) $options['customerId'];
+        $notfication->transaction = $options['transaction'];
+        $notfication->endPointUri = $options['webHook'];
+
+        return $notfication;
+    }
+
+    /**
+     * @param array $urls
+     * @param array $securedDirCredentials
+     *
+     * @return array
+     */
+    private function getNotificationEvents(array $urls, array $securedDirCredentials): array
+    {
+        $notifications = [];
+
+        foreach ($urls as $contentTypeId => $languages) {
+            foreach ($languages as $lang => $contentTypeInfo) {
+                $notification = new ExportNotifierMetadata([
+                    ExportNotifierMetadata::ACTION => 'FULL',
+                    ExportNotifierMetadata::FORMAT => 'EZ',
+                    ExportNotifierMetadata::CONTENT_TYPE_ID => $contentTypeId,
+                    ExportNotifierMetadata::CONTENT_TYPE_NAME => $contentTypeInfo['contentTypeName'],
+                    ExportNotifierMetadata::LANG => $lang,
+                    ExportNotifierMetadata::URI => $contentTypeInfo['urlList'],
+                    ExportNotifierMetadata::CREDENTIALS => $securedDirCredentials ?? null,
+                ]);
+
+                $notifications[] = $notification->getMetadataAttributes();
+            }
+        }
+
+        return $notifications;
     }
 }

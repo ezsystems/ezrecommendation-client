@@ -7,6 +7,10 @@ services:
     EzSystems\EzRecommendationClientBundle\Controller\:
         resource: '../../../Controller/*'
 
+    EzSystems\EzRecommendationClientBundle\Controller\RecommendationController:
+        arguments:
+            $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsChecker'
+
     EzSystems\EzRecommendationClientBundle\Controller\ContentController:
         arguments:
             $authenticator: '@EzSystems\EzRecommendationClient\Authentication\ExportAuthenticator'
@@ -19,4 +23,4 @@ services:
         arguments:
             $authenticator: '@EzSystems\EzRecommendationClient\Authentication\ExportAuthenticator'
         tags:
-            - { name: monolog.logger, channel: ez_recommendation }
+            - { name: monolog.logger, channel: ezrecommendation }

@@ -46,9 +46,9 @@ class RecommendationResponseEvent extends Event
     }
 
     /**
-     * @return RecommendationItem[]
+     * @return RecommendationItem[]|null
      */
-    public function getRecommendationItems(): array
+    public function getRecommendationItems(): ?array
     {
         return $this->recommendationItems;
     }

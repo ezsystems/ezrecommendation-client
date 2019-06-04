@@ -16,7 +16,6 @@ use eZ\Publish\Core\REST\Server\Controller;
 use eZ\Publish\Core\REST\Server\Exceptions\AuthenticationFailedException;
 use EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface;
 use EzSystems\EzRecommendationClient\Content\Content;
-use EzSystems\EzRecommendationClient\Helper\ParameterHelper;
 use EzSystems\EzRecommendationClient\Helper\SiteAccessHelper;
 use EzSystems\EzRecommendationClient\Value\ContentData;
 use EzSystems\EzRecommendationClient\Value\IdList;
@@ -44,31 +43,25 @@ class ContentTypeController extends Controller
     /** @var \EzSystems\EzRecommendationClient\Helper\SiteAccessHelper */
     private $siteAccessHelper;
 
-    /** @var \EzSystems\EzRecommendationClient\Helper\ParameterHelper */
-    private $parameterHelper;
-
     /**
      * @param \eZ\Publish\API\Repository\LocationService $locationService
      * @param \eZ\Publish\API\Repository\SearchService $searchService
      * @param AuthenticatorInterface $authenticator
      * @param \EzSystems\EzRecommendationClient\Content\Content $content
      * @param \EzSystems\EzRecommendationClient\Helper\SiteAccessHelper $siteAccessHelper
-     * @param \EzSystems\EzRecommendationClient\Helper\ParameterHelper $parameterHelper
      */
     public function __construct(
         LocationServiceInterface $locationService,
         SearchServiceInterface $searchService,
         AuthenticatorInterface $authenticator,
         Content $content,
-        SiteAccessHelper $siteAccessHelper,
-        ParameterHelper $parameterHelper
+        SiteAccessHelper $siteAccessHelper
     ) {
         $this->locationService = $locationService;
         $this->searchService = $searchService;
         $this->authenticator = $authenticator;
         $this->content = $content;
         $this->siteAccessHelper = $siteAccessHelper;
-        $this->parameterHelper = $parameterHelper;
     }
 
     /**
@@ -110,29 +103,29 @@ class ContentTypeController extends Controller
      */
     private function prepareContentByContentTypeIds(array $contentTypeIds, Request $request): array
     {
-        $options = $this->parameterHelper->parseParameters($request->query, ['page_size', 'page', 'path', 'hidden', 'lang', 'sa', 'image']);
-
-        $lang = $options->get('lang');
+        $requestQuery = $request->query;
+        $lang = $requestQuery->get('lang');
 
         $contentItems = [];
 
         foreach ($contentTypeIds as $contentTypeId) {
             $contentItems[$contentTypeId] = $this->searchService->findContent(
-                $this->getQuery((int) $contentTypeId, $options),
+                $this->getQuery((int) $contentTypeId, $requestQuery),
                 (!empty($lang) ? ['languages' => [$lang]] : [])
             )->searchHits;
         }
 
-        $contentOptions = $this->parameterHelper->parseParameters($request->query, ['lang', 'fields', 'image']);
-
-        return $this->content->prepareContent($contentItems, $contentOptions);
+        return $this->content->prepareContent($contentItems, $requestQuery);
     }
 
     /**
-     * @param ParameterBag $parameterBag
      * @param int $contentTypeId
+     * @param \Symfony\Component\HttpFoundation\ParameterBag $parameterBag
      *
-     * @return Query
+     * @return \eZ\Publish\API\Repository\Values\Content\Query
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     private function getQuery(int $contentTypeId, ParameterBag $parameterBag): Query
     {

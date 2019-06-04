@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\Controller;
 
+use EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface;
 use EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent;
 use EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface;
 use EzSystems\EzRecommendationClient\Value\RecommendationMetadata;
-use Psr\Log\LoggerInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,11 +28,11 @@ class RecommendationController
     /** @var \EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface */
     private $recommendationService;
 
+    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface */
+    private $credentialsChecker;
+
     /** @var \Symfony\Bundle\TwigBundle\TwigEngine */
     protected $templateEngine;
-
-    /** @var \Psr\Log\LoggerInterface */
-    private $logger;
 
     /** @var bool */
     private $sendDeliveryFeedback = true;
@@ -40,19 +40,19 @@ class RecommendationController
     /**
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
      * @param \EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface $recommendationService
+     * @param \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface $credentialsChecker
      * @param \Symfony\Component\Templating\EngineInterface $templateEngine
-     * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         RecommendationServiceInterface $recommendationService,
-        EngineInterface $templateEngine,
-        LoggerInterface $logger
+        CredentialsCheckerInterface $credentialsChecker,
+        EngineInterface $templateEngine
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->recommendationService = $recommendationService;
+        $this->credentialsChecker = $credentialsChecker;
         $this->templateEngine = $templateEngine;
-        $this->logger = $logger;
     }
 
     /**
@@ -64,6 +64,10 @@ class RecommendationController
      */
     public function showRecommendationsAction(Request $request): Response
     {
+        if (!$this->credentialsChecker->hasCredentials()) {
+            return new Response();
+        }
+
         $event = new RecommendationResponseEvent($request->attributes);
         $this->eventDispatcher->dispatch(RecommendationResponseEvent::NAME, $event);
 

@@ -17,50 +17,44 @@ abstract class AbstractApi
     /** @var \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface */
     protected $client;
 
-    /** @var string */
+    /** @var \GuzzleHttp\Psr7\Uri */
     protected $endPointUri;
 
     /**
      * @param \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface $client
-     */
-    public function __construct(EzRecommendationClientInterface $client)
-    {
-        $this->client = $client;
-    }
-
-    /**
-     * @return string
-     */
-    abstract public function getRawEndPointUri(): string;
-
-    /**
      * @param string $endPointUri
      */
-    protected function setEndPointUri(string $endPointUri): void
+    public function __construct(EzRecommendationClientInterface $client, string $endPointUri)
     {
+        $this->client = $client;
         $this->endPointUri = $endPointUri;
     }
 
     /**
-     * @return string
+     * @return \Psr\Http\Message\UriInterface
      */
-    protected function getEndPointUri(): string
+    protected function getEndPointUri(): UriInterface
     {
-        return $this->endPointUri;
+        return new Uri($this->endPointUri);
     }
 
     /**
+     * @param string $rawEndPointUri
      * @param array $endPointParameters
      *
      * @return \Psr\Http\Message\UriInterface
      */
-    protected function buildEndPointUri(array $endPointParameters = []): UriInterface
+    protected function buildEndPointUri(array $endPointParameters, ?string $rawEndPointUri = null): UriInterface
     {
         if (!$endPointParameters) {
-            return new Uri($this->getRawEndPointUri());
+            return $this->getEndPointUri();
         }
 
-        return new Uri(vsprintf($this->getRawEndPointUri(), $endPointParameters));
+        if ($rawEndPointUri) {
+            return new Uri(vsprintf($rawEndPointUri, $endPointParameters));
+        }
+
+        return new Uri(vsprintf($this->endPointUri, $endPointParameters));
     }
 
     /**

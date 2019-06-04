@@ -11,43 +11,20 @@ namespace EzSystems\EzRecommendationClient\Config;
 use EzSystems\EzRecommendationClient\Value\Config\Credentials;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use EzSystems\EzRecommendationClient\Value\ExportMethod;
-use Psr\Log\LoggerInterface;
+use EzSystems\EzRecommendationClient\Value\Parameters;
 
 class ExportCredentialsChecker extends CredentialsChecker
 {
-    /** @var bool */
+    /** @var string */
     private $method;
-
-    /** @var string */
-    private $login;
-
-    /** @var string */
-    private $password;
-
-    /**
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param string $method
-     * @param string|null $login
-     * @param string|null $password
-     */
-    public function __construct(
-        LoggerInterface $logger,
-        string $method,
-        ?string $login,
-        ?string $password
-    ) {
-        $this->method = $method;
-        $this->login = $login;
-        $this->password = $password;
-
-        parent::__construct($logger);
-    }
 
     /**
      * {@inheritdoc}
      */
     public function getCredentials(): ?Credentials
     {
+        $this->method = $this->configResolver->getParameter('export.authentication.method', Parameters::NAMESPACE);
+
         if ($this->method === ExportMethod::USER && !$this->hasCredentials()) {
             return null;
         }
@@ -62,8 +39,8 @@ class ExportCredentialsChecker extends CredentialsChecker
     {
         return [
             'method' => $this->method,
-            'login' => $this->login,
-            'password' => $this->password,
+            'login' => $this->configResolver->getParameter('export.authentication.login', Parameters::NAMESPACE),
+            'password' => $this->configResolver->getParameter('export.authentication.password', Parameters::NAMESPACE),
         ];
     }
 }

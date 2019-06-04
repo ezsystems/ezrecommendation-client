@@ -15,7 +15,6 @@ use eZ\Publish\Core\REST\Server\Controller as BaseController;
 use eZ\Publish\Core\REST\Server\Exceptions\AuthenticationFailedException;
 use EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface;
 use EzSystems\EzRecommendationClient\Content\Content;
-use EzSystems\EzRecommendationClient\Helper\ParameterHelper;
 use EzSystems\EzRecommendationClient\Value\ContentData;
 use EzSystems\EzRecommendationClient\Value\IdList;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -34,25 +33,19 @@ class ContentController extends BaseController
     /** @var \EzSystems\EzRecommendationClient\Content\Content */
     private $content;
 
-    /** @var \EzSystems\EzRecommendationClient\Helper\ParameterHelper */
-    private $parameterHelper;
-
     /**
      * @param \eZ\Publish\API\Repository\SearchService $searchService
      * @param \EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface $authenticator
      * @param \EzSystems\EzRecommendationClient\Content\Content $content
-     * @param \EzSystems\EzRecommendationClient\Helper\ParameterHelper $parameterHelper
      */
     public function __construct(
         SearchServiceInterface $searchService,
         AuthenticatorInterface $authenticator,
-        Content $content,
-        ParameterHelper $parameterHelper
+        Content $content
     ) {
         $this->searchService = $searchService;
         $this->authenticator = $authenticator;
         $this->content = $content;
-        $this->parameterHelper = $parameterHelper;
     }
 
     /**
@@ -73,16 +66,15 @@ class ContentController extends BaseController
             throw new AuthenticationFailedException('Access denied: wrong credentials', Response::HTTP_UNAUTHORIZED);
         }
 
-        $options = $this->parameterHelper->parseParameters($request->query, ['lang', 'hidden']);
-        $lang = $options->get('lang');
+        $requestQuery = $request->query;
+        $lang = $requestQuery->get('lang');
 
         $contentItems = $this->searchService->findContent(
-            $this->getQuery($options, $idList),
+            $this->getQuery($requestQuery, $idList),
             (!empty($lang) ? ['languages' => [$lang]] : [])
         )->searchHits;
 
-        $contentOptions = $this->parameterHelper->parseParameters($request->query, ['lang', 'fields', 'image']);
-        $contentData = $this->content->prepareContent([$contentItems], $contentOptions);
+        $contentData = $this->content->prepareContent([$contentItems], $requestQuery);
 
         return new ContentData($contentData);
     }

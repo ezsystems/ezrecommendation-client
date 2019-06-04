@@ -21,7 +21,7 @@ class ExportAuthenticator implements FileAuthenticatorInterface
     private const PHP_AUTH_USER = 'PHP_AUTH_USER';
     private const PHP_AUTH_PW = 'PHP_AUTH_PW';
 
-    /** @var \EzSystems\EzRecommendationClient\Config\ExportCredentialsChecker */
+    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface */
     private $credentialsChecker;
 
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
@@ -31,7 +31,7 @@ class ExportAuthenticator implements FileAuthenticatorInterface
     private $fileSystem;
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Config\ExportCredentialsChecker $credentialsChecker
+     * @param \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface $credentialsChecker
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param \EzSystems\EzRecommendationClient\Helper\FileSystemHelper $fileSystem
      */
@@ -50,6 +50,7 @@ class ExportAuthenticator implements FileAuthenticatorInterface
      */
     public function authenticate(): bool
     {
+        /** @var \EzSystems\EzRecommendationClient\Value\Config\ExportCredentials $credentials */
         $credentials = $this->credentialsChecker->getCredentials();
 
         $server = $this->requestStack->getCurrentRequest()->server;
@@ -79,7 +80,7 @@ class ExportAuthenticator implements FileAuthenticatorInterface
         $user = $server->get(self::PHP_AUTH_USER);
         $pass = crypt($server->get(self::PHP_AUTH_PW), md5($server->get(self::PHP_AUTH_PW)));
 
-        if (strstr($filePath, '.')) {
+        if (false !== strpos($filePath, '.')) {
             return false;
         }
 

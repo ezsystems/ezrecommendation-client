@@ -11,6 +11,7 @@ namespace EzSystems\EzRecommendationClient\Helper;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess as CurrentSiteAccess;
+use EzSystems\EzRecommendationClient\Value\Parameters;
 use LogicException;
 
 /**
@@ -131,7 +132,7 @@ class SiteAccessHelper
         $siteAccesses = [];
 
         foreach ($this->siteAccessConfig as $siteAccessName => $config) {
-            if (!isset($config['recommendation']['customer_id']) || (int)$config['recommendation']['customer_id'] !== $mandatorId) {
+            if (!isset($config['authentication']['customer_id']) || (int) $config['authentication']['customer_id'] !== $mandatorId) {
                 continue;
             }
 
@@ -195,8 +196,8 @@ class SiteAccessHelper
             $siteAccess = null;
         }
 
-        $customerId = $this->configResolver->getParameter('recommendation.customer_id', 'ez_recommendation', $siteAccess);
-        $licenceKey = $this->configResolver->getParameter('recommendation.license_key', 'ez_recommendation', $siteAccess);
+        $customerId = $this->configResolver->getParameter('authentication.customer_id', Parameters::NAMESPACE, $siteAccess);
+        $licenceKey = $this->configResolver->getParameter('authentication.license_key', Parameters::NAMESPACE, $siteAccess);
 
         return [$customerId, $licenceKey];
     }
@@ -233,7 +234,7 @@ class SiteAccessHelper
     private function isMandatorIdConfigured(int $mandatorId): bool
     {
         return in_array($this->defaultSiteAccessName, $this->siteAccessConfig)
-            && $this->siteAccessConfig[$this->defaultSiteAccessName]['recommendation']['customer_id'] == $mandatorId;
+            && $this->siteAccessConfig[$this->defaultSiteAccessName]['authentication']['customer_id'] == $mandatorId;
     }
 
     /**

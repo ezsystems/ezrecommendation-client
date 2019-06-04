@@ -9,6 +9,6 @@ services:
 
     EzSystems\EzRecommendationClient\Service\SignalSlotService:
         arguments:
-            $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\RecommendationNotifierCredentialsChecker'
+            $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsChecker'
         tags:
-            - { name: monolog.logger, channel: ez_recommendation }
+            - { name: monolog.logger, channel: ezrecommendation }

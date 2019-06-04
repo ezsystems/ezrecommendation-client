@@ -9,15 +9,19 @@ services:
 
     EzSystems\EzRecommendationClient\Helper\FileSystemHelper:
         arguments:
-            $exportDocumentRoot: '%ez_recommendation.export.document_root%'
+            $exportDocumentRoot: '%ezrecommendation.default.export.document_root%'
 
     EzSystems\EzRecommendationClient\Helper\SiteAccessHelper:
         arguments:
-            $siteAccessConfig: '%ez_recommendation.siteaccess_config%'
+            $siteAccessConfig: '%ezrecommendation.siteaccess_config%'
             $defaultSiteAccessName: '%ezpublish.siteaccess.default%'
 
     EzSystems\EzRecommendationClient\Helper\ExportProcessRunnerHelper:
         arguments:
             $kernelEnvironment: '%kernel.environment%'
         tags:
-            - { name: monolog.logger, channel: ez_recommendation }
+            - { name: monolog.logger, channel: ezrecommendation }
+
+    EzSystems\EzRecommendationClient\Helper\ImageHelper:
+        arguments:
+            $imageVariationService: '@ezpublish.image_alias.imagine.alias_generator'

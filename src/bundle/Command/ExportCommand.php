@@ -82,7 +82,7 @@ class ExportCommand extends Command
                 'mandatorId',
                 null,
                 InputOption::VALUE_OPTIONAL,
-                'This value will be compared to every customer_id stored in ez_recommendation.system.SITEACCESS_NAME, and all matched siteAccesses will be used.',
+                'This value will be compared to every customer_id stored in ezrecommendation.system.SITEACCESS_NAME, and all matched siteAccesses will be used.',
                 '0'
             )
         ;

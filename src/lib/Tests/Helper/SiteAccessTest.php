@@ -164,12 +164,12 @@ class SiteAccessTest extends TestCase
 
         $siteAccessConfig = [
             'default' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 1,
                 ],
             ],
             'foo' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 123,
                 ],
             ],
@@ -210,17 +210,17 @@ class SiteAccessTest extends TestCase
 
         $siteAccessConfig = [
             'default' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 1,
                 ],
             ],
             'foo' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 2,
                 ],
             ],
             'bar' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 3,
                 ],
             ],
@@ -244,17 +244,17 @@ class SiteAccessTest extends TestCase
 
         $siteAccessConfig = [
             'default' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 1,
                 ],
             ],
             'foo' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 2,
                 ],
             ],
             'bar' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 3,
                 ],
             ],
@@ -278,17 +278,17 @@ class SiteAccessTest extends TestCase
 
         $siteAccessConfig = [
             'default' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 1,
                 ],
             ],
             'foo' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 2,
                 ],
             ],
             'bar' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 3,
                 ],
             ],
@@ -312,17 +312,17 @@ class SiteAccessTest extends TestCase
 
         $siteAccessConfig = [
             'default' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 3,
                 ],
             ],
             'foo' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 3,
                 ],
             ],
             'bar' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 3,
                 ],
             ],
@@ -346,17 +346,17 @@ class SiteAccessTest extends TestCase
 
         $siteAccessConfig = [
             'default' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 3,
                 ],
             ],
             'foo' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 3,
                 ],
             ],
             'bar' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 3,
                 ],
             ],
@@ -384,12 +384,12 @@ class SiteAccessTest extends TestCase
 
         $siteAccessConfig = [
             'default' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 3,
                 ],
             ],
             'foo' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 3,
                 ],
             ],
@@ -426,7 +426,7 @@ class SiteAccessTest extends TestCase
 
         $siteAccessConfig = [
             'foo' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 123,
                 ],
             ],
@@ -483,14 +483,14 @@ class SiteAccessTest extends TestCase
         $this->configResolver
             ->expects($this->at(0))
             ->method('getParameter')
-            ->with('recommendation.customer_id', 'ez_recommendation', null)
+            ->with('authentication.customer_id', 'ezrecommendation')
             ->willReturn('123')
         ;
 
         $this->configResolver
             ->expects($this->at(1))
             ->method('getParameter')
-            ->with('recommendation.license_key', 'ez_recommendation', null)
+            ->with('authentication.license_key', 'ezrecommendation')
             ->willReturn('licence-key')
         ;
 
@@ -513,14 +513,14 @@ class SiteAccessTest extends TestCase
         $this->configResolver
             ->expects($this->at(0))
             ->method('getParameter')
-            ->with('recommendation.customer_id', 'ez_recommendation', null)
+            ->with('authentication.customer_id', 'ezrecommendation', null)
             ->willReturn('123')
         ;
 
         $this->configResolver
             ->expects($this->at(1))
             ->method('getParameter')
-            ->with('recommendation.license_key', 'ez_recommendation', null)
+            ->with('authentication.license_key', 'ezrecommendation', null)
             ->willReturn('licence-key')
         ;
 
@@ -528,7 +528,7 @@ class SiteAccessTest extends TestCase
 
         $siteAccessConfig = [
             'default' => [
-                'recommendation' => [
+                'authentication' => [
                     'customer_id' => 123,
                 ],
             ],
@@ -551,14 +551,14 @@ class SiteAccessTest extends TestCase
         $this->configResolver
             ->expects($this->at(0))
             ->method('getParameter')
-            ->with('recommendation.customer_id', 'ez_recommendation', 'foo')
+            ->with('authentication.customer_id', 'ezrecommendation', 'foo')
             ->willReturn('123')
         ;
 
         $this->configResolver
             ->expects($this->at(1))
             ->method('getParameter')
-            ->with('recommendation.license_key', 'ez_recommendation', 'foo')
+            ->with('authentication.license_key', 'ezrecommendation', 'foo')
             ->willReturn('licence-key')
         ;
 
