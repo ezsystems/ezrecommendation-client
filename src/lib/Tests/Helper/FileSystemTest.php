@@ -262,7 +262,7 @@ class FileSystemTest extends TestCase
 
         $this->assertEquals(
             [
-                'login' => 'login',
+                'login' => 0001,
                 'password' => 'pass',
             ],
             $result
@@ -301,7 +301,7 @@ class FileSystemTest extends TestCase
     {
         return new ExportCredentials([
             'method' => $method,
-            'login' => 'login',
+            'login' => 0001,
             'password' => 'pass',
         ]);
     }

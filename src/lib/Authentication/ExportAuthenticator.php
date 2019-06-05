@@ -52,8 +52,9 @@ class ExportAuthenticator implements FileAuthenticatorInterface
     {
         /** @var \EzSystems\EzRecommendationClient\Value\Config\ExportCredentials $credentials */
         $credentials = $this->credentialsChecker->getCredentials();
-
         $server = $this->requestStack->getCurrentRequest()->server;
+
+//        dump($credentials, $server->get(self::PHP_AUTH_USER), $server->get(self::PHP_AUTH_PW)); exit;
 
         if ($credentials->getMethod() === 'none') {
             return true;
@@ -61,7 +62,7 @@ class ExportAuthenticator implements FileAuthenticatorInterface
 
         if (!empty($credentials->getLogin())
             && !empty($credentials->getPassword())
-            && $server->get(self::PHP_AUTH_USER) === $credentials->getLogin()
+            && (int) $server->get(self::PHP_AUTH_USER) === $credentials->getLogin()
             && $server->get(self::PHP_AUTH_PW) === $credentials->getPassword()
         ) {
             return true;

@@ -70,7 +70,7 @@ class RecommendationExtension extends AbstractExtension
      */
     public function getName(): string
     {
-        return 'ezrecommendation_extension';
+        return 'ez_recommendation_extension';
     }
 
     /**
@@ -81,8 +81,8 @@ class RecommendationExtension extends AbstractExtension
     public function getFunctions(): array
     {
         return [
-            new TwigFunction('ezrecommendation_enabled', [$this, 'isRecommendationsEnabled']),
-            new TwigFunction('ezrecommendation_track_user', [$this, 'trackUser'], [
+            new TwigFunction('ez_recommendation_enabled', [$this, 'isRecommendationsEnabled']),
+            new TwigFunction('ez_recommendation_track_user', [$this, 'trackUser'], [
                 'is_safe' => ['html'],
                 'needs_environment' => true,
             ]),
