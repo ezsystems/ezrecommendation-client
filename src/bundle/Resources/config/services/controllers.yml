@@ -1,0 +1,26 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: true
+
+    EzSystems\EzRecommendationClientBundle\Controller\:
+        resource: '../../../Controller/*'
+
+    EzSystems\EzRecommendationClientBundle\Controller\RecommendationController:
+        arguments:
+            $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsChecker'
+
+    EzSystems\EzRecommendationClientBundle\Controller\ContentController:
+        arguments:
+            $authenticator: '@EzSystems\EzRecommendationClient\Authentication\ExportAuthenticator'
+
+    EzSystems\EzRecommendationClientBundle\Controller\ContentTypeController:
+        arguments:
+            $authenticator: '@EzSystems\EzRecommendationClient\Authentication\ExportAuthenticator'
+
+    EzSystems\EzRecommendationClientBundle\Controller\ExportController:
+        arguments:
+            $authenticator: '@EzSystems\EzRecommendationClient\Authentication\ExportAuthenticator'
+        tags:
+            - { name: monolog.logger, channel: ezrecommendation }

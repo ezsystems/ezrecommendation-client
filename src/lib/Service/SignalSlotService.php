@@ -1,0 +1,355 @@
+<?php
+
+/**
+ * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @license For full copyright and license information view LICENSE file distributed with this source code.
+ */
+declare(strict_types=1);
+
+namespace EzSystems\EzRecommendationClient\Service;
+
+use eZ\Publish\API\Repository\Values\Content\Content;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
+use EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface;
+use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
+use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
+use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
+use eZ\Publish\API\Repository\Repository as RepositoryInterface;
+use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
+use EzSystems\EzRecommendationClient\Value\Notification;
+use EzSystems\EzRecommendationClient\Value\EventNotifierMetadata;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use EzSystems\EzRecommendationClient\Value\Parameters;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Log\LoggerInterface;
+
+class SignalSlotService implements SignalSlotServiceInterface
+{
+    private const ACTION_UPDATE = 'UPDATE';
+    private const ACTION_DELETE = 'DELETE';
+
+    /** @var \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface */
+    private $client;
+
+    /** @var \eZ\Publish\API\Repository\Repository */
+    private $repository;
+
+    /** @var \eZ\Publish\API\Repository\ContentService */
+    private $contentService;
+
+    /** @var \eZ\Publish\API\Repository\LocationService */
+    private $locationService;
+
+    /** @var \eZ\Publish\API\Repository\ContentTypeService */
+    private $contentTypeService;
+
+    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface */
+    private $credentialsChecker;
+
+    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
+    private $configResolver;
+
+    /** @var \Psr\Log\LoggerInterface */
+    private $logger;
+
+    /**
+     * @param \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface $client
+     * @param \eZ\Publish\API\Repository\Repository $repository
+     * @param \eZ\Publish\API\Repository\ContentService $contentService
+     * @param \eZ\Publish\API\Repository\LocationService $locationService
+     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
+     * @param \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface $credentialsChecker
+     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
+     * @param \Psr\Log\LoggerInterface $logger
+     */
+    public function __construct(
+        EzRecommendationClientInterface $client,
+        RepositoryInterface $repository,
+        ContentServiceInterface $contentService,
+        LocationServiceInterface $locationService,
+        ContentTypeServiceInterface $contentTypeService,
+        CredentialsCheckerInterface $credentialsChecker,
+        ConfigResolverInterface $configResolver,
+        LoggerInterface $logger
+    ) {
+        $this->client = $client;
+        $this->repository = $repository;
+        $this->contentService = $contentService;
+        $this->locationService = $locationService;
+        $this->contentTypeService = $contentTypeService;
+        $this->credentialsChecker = $credentialsChecker;
+        $this->configResolver = $configResolver;
+        $this->logger = $logger;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function updateContent(int $contentId, ?int $versionNo = null): void
+    {
+        $content = $this->getContent($contentId, null, $versionNo);
+        $this->processSending(__METHOD__, self::ACTION_UPDATE, $content, $versionNo);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function deleteContent(int $contentId): void
+    {
+        $content = $this->getContent($contentId);
+        $this->processSending(__METHOD__, self::ACTION_DELETE, $content);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hideContent(int $contentId): void
+    {
+        $content = $this->getContent($contentId);
+        $this->processSending(__METHOD__, self::ACTION_DELETE, $content);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function revealContent(int $contentId): void
+    {
+        $content = $this->getContent($contentId);
+        $this->processSending(__METHOD__, self::ACTION_UPDATE, $content);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hideLocation(int $locationId, bool $isChild = false): void
+    {
+        $location = $this->locationService->loadLocation($locationId);
+        $children = $this->locationService->loadLocationChildren($location)->locations;
+
+        foreach ($children as $child) {
+            $this->hideLocation($child->id, true);
+        }
+
+        $content = $this->getContent($location->contentId);
+
+        if (!$isChild && $this->isLocationsAreVisible($content->contentInfo)) {
+            return;
+        }
+
+        $this->processSending(__METHOD__, self::ACTION_DELETE, $content);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function unhideLocation(int $locationId): void
+    {
+        $content = $this->getContentWithChildrenForLocationId($locationId);
+        $this->processSending(__METHOD__, self::ACTION_UPDATE, $content);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function swapLocation(int $locationId): void
+    {
+        $content = $this->getContentWithChildrenForLocationId($locationId);
+        $this->processSending(__METHOD__, self::ACTION_UPDATE, $content);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    private function getContentWithChildrenForLocationId(int $locationId): ?Content
+    {
+        $location = $this->locationService->loadLocation($locationId);
+        $children = $this->locationService->loadLocationChildren($location)->locations;
+
+        foreach ($children as $child) {
+            $this->getContentWithChildrenForLocationId($child->id);
+        }
+
+        return $this->getContent($location->contentId);
+    }
+
+    /**
+     * @param int $contentId
+     * @param array|null $languages
+     * @param int|null $versionNo
+     *
+     * @return \eZ\Publish\API\Repository\Values\Content\Content|null
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     */
+    private function getContent(int $contentId, ?array $languages = null, ?int $versionNo = null): ?Content
+    {
+        try {
+            $content = $this->contentService->loadContent($contentId, $languages, $versionNo);
+
+            if ($this->isContentTypeExcluded($content)) {
+                return null;
+            }
+
+            return $content;
+        } catch (NotFoundException $exception) {
+            $this->logger->error(sprintf('Error while loading Content: %d, message: %s', $contentId, $exception->getMessage()));
+            // this is most likely a internal draft, or otherwise invalid, ignoring
+            return null;
+        }
+    }
+
+    /**
+     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     *
+     * @return bool
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     */
+    private function isLocationsAreVisible(ContentInfo $contentInfo): bool
+    {
+        // do not send the notification if one of the locations is still visible, to prevent deleting content
+        $contentLocations = $this->locationService->loadLocations($contentInfo);
+
+        foreach ($contentLocations as $contentLocation) {
+            if (!$contentLocation->hidden) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @param string $method
+     * @param string $action
+     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param int|null $versionNo
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     */
+    private function processSending(string $method, string $action, ?Content $content, ?int $versionNo = null): void
+    {
+        if ($content) {
+            $this->logger->debug(sprintf('RecommendationNotifier: Generating notification for %s(%s)', $method, $content->id));
+
+            $notificationEvents = $this->generateNotificationEvents($action, $content, $versionNo);
+            $clientCredentials = $this->credentialsChecker->getCredentials();
+            $notification = $this->getNotification($notificationEvents, $clientCredentials);
+
+            try {
+                $response = $this->client->notifier()->notify($notification);
+            } catch (RequestException $e) {
+                $this->logger->error(sprintf('RecommendationNotifier: notification error for %s: %s', $method, $e->getMessage()));
+            }
+        }
+    }
+
+    /**
+     * @param array $notificationEvents
+     * @param \EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials $clientCredentials
+     *
+     * @return \EzSystems\EzRecommendationClient\Value\Notification
+     */
+    private function getNotification(
+        array $notificationEvents,
+        EzRecommendationClientCredentials $clientCredentials
+    ): Notification {
+        $notification = new Notification();
+        $notification->events = $notificationEvents;
+        $notification->customerId = $clientCredentials->getCustomerId();
+        $notification->licenseKey = $clientCredentials->getLicenseKey();
+
+        return $notification;
+    }
+
+    /**
+     * @param string $action
+     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param int|null $versionNo
+     *
+     * @return array
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     */
+    private function generateNotificationEvents(string $action, Content $content, ?int $versionNo): array
+    {
+        $events = [];
+
+        foreach ($this->getLanguageCodes($content, $versionNo) as $lang) {
+            $event = new EventNotifierMetadata([
+                EventNotifierMetadata::ACTION => $action,
+                EventNotifierMetadata::FORMAT => 'EZ',
+                EventNotifierMetadata::URI => $this->getContentUri($content, $lang),
+                EventNotifierMetadata::ITEM_ID => $content->id,
+                EventNotifierMetadata::CONTENT_TYPE_ID => $content->contentInfo->contentTypeId,
+                EventNotifierMetadata::LANG => $lang ?? null,
+            ]);
+
+            $events[] = $event->getMetadataAttributes();
+        }
+
+        return $events;
+    }
+
+    /**
+     * Gets languageCodes based on $content.
+     *
+     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param int|null $versionNo
+     *
+     * @return string[]
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     */
+    private function getLanguageCodes(Content $content, ?int $versionNo): array
+    {
+        $version = $this->contentService->loadVersionInfo($content->contentInfo, $versionNo);
+
+        return $version->languageCodes;
+    }
+
+    /**
+     * Generates the REST URI of content $contentId.
+     *
+     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param string|null $lang
+     *
+     * @return string
+     */
+    private function getContentUri(Content $content, ?string $lang): string
+    {
+        return sprintf(
+            '%s/api/ezp/v2/ez_recommendation/v1/content/%s%s',
+            $this->configResolver->getParameter('host_uri', Parameters::NAMESPACE),
+            $content->id,
+            isset($lang) ? '?lang=' . $lang : ''
+        );
+    }
+
+    /**
+     * Checks if content is excluded from supported content types.
+     *
+     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     *
+     * @return bool
+     *
+     * @throws \Exception
+     */
+    private function isContentTypeExcluded(Content $content): bool
+    {
+        $contentType = $this->repository->sudo(function () use ($content) {
+            return $this->contentTypeService->loadContentType($content->contentInfo->contentTypeId);
+        });
+
+        return !in_array(
+            $contentType->identifier,
+            $this->configResolver->getParameter('included_content_types', Parameters::NAMESPACE)
+        );
+    }
+}

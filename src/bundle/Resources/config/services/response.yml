@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Response\:
+        resource: '../../../../src/lib/Response/*'
+
+    EzSystems\EzRecommendationClient\Response\HttpResponse:
+        tags:
+            - { name: ezrecommendation.rest.response_type, type: http }

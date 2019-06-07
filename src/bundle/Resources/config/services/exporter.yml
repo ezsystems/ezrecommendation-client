@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Exporter\:
+        resource: '../../../../src/lib/Exporter/*'
+
+    EzSystems\EzRecommendationClient\Exporter\Exporter:
+        arguments:
+            $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsChecker'
+            $outputGenerator: '@ezpublish_rest.output.generator.json'
+        tags:
+            - { name: monolog.logger, channel: ezrecommendation }

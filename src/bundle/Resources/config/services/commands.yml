@@ -1,0 +1,13 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClientBundle\Command\:
+        resource: '../../../../src/bundle/Command/*'
+
+    EzSystems\EzRecommendationClientBundle\Command\ExportCommand:
+        tags:
+            - { name: console.command, command: ezrecomendation:export:run }
+            - { name: monolog.logger, channel: ezrecommendation }
