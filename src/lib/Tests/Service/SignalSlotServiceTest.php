@@ -266,7 +266,7 @@ class SignalSlotServiceTest
             ->expects($this->at(1))
             ->method('loadVersionInfo')
             ->with(new ContentInfo(['id' => self::CONTENT_ID + 1, 'contentTypeId' => self::CONTENT_TYPE_ID]))
-            ->will($this->returnValue(new VersionInfo(['languageCodes' => ['eng-GB']])));
+            ->willReturn(new VersionInfo(['languageCodes' => ['eng-GB']]));
 
         $contentServiceMock
             ->expects($this->at(2))
@@ -285,7 +285,7 @@ class SignalSlotServiceTest
             ->expects($this->at(3))
             ->method('loadVersionInfo')
             ->with(new ContentInfo(['id' => self::CONTENT_ID + 2, 'contentTypeId' => self::CONTENT_TYPE_ID]))
-            ->will($this->returnValue(new VersionInfo(['languageCodes' => ['eng-GB']])));
+            ->willReturn(new VersionInfo(['languageCodes' => ['eng-GB']]));
 
         $contentServiceMock
             ->expects($this->at(4))
@@ -304,13 +304,13 @@ class SignalSlotServiceTest
             ->expects($this->at(5))
             ->method('loadVersionInfo')
             ->with(new ContentInfo(['id' => self::CONTENT_ID, 'contentTypeId' => self::CONTENT_TYPE_ID]))
-            ->will($this->returnValue(new VersionInfo(['languageCodes' => ['eng-GB']])));
+            ->willReturn(new VersionInfo(['languageCodes' => ['eng-GB']]));
 
         $repositoryServiceMock = $this->getRepositoryServiceMock();
         $repositoryServiceMock
             ->expects($this->any())
             ->method('sudo')
-            ->will($this->returnValue(new ContentType(['fieldDefinitions' => [], 'identifier' => self::CONTENT_TYPE_ID])));
+            ->willReturn(new ContentType(['fieldDefinitions' => [], 'identifier' => self::CONTENT_TYPE_ID]));
 
         /* Use Case */
         $notifier = new SignalSlotService(
@@ -466,7 +466,7 @@ class SignalSlotServiceTest
             ->expects($this->at(1))
             ->method('loadVersionInfo')
             ->with(new ContentInfo(['id' => self::CONTENT_ID + 1, 'contentTypeId' => self::CONTENT_TYPE_ID]))
-            ->will($this->returnValue(new VersionInfo(['languageCodes' => ['eng-GB']])));
+            ->willReturn(new VersionInfo(['languageCodes' => ['eng-GB']]));
 
         $contentServiceMock
             ->expects($this->at(2))
@@ -485,7 +485,7 @@ class SignalSlotServiceTest
             ->expects($this->at(3))
             ->method('loadVersionInfo')
             ->with(new ContentInfo(['id' => self::CONTENT_ID + 2, 'contentTypeId' => self::CONTENT_TYPE_ID]))
-            ->will($this->returnValue(new VersionInfo(['languageCodes' => ['eng-GB']])));
+            ->willReturn(new VersionInfo(['languageCodes' => ['eng-GB']]));
 
         $contentServiceMock
             ->expects($this->at(4))
@@ -504,13 +504,13 @@ class SignalSlotServiceTest
             ->expects($this->at(5))
             ->method('loadVersionInfo')
             ->with(new ContentInfo(['id' => self::CONTENT_ID, 'contentTypeId' => self::CONTENT_TYPE_ID]))
-            ->will($this->returnValue(new VersionInfo(['languageCodes' => ['eng-GB']])));
+            ->willReturn(new VersionInfo(['languageCodes' => ['eng-GB']]));
 
         $repositoryServiceMock = $this->getRepositoryServiceMock();
         $repositoryServiceMock
             ->expects($this->any())
             ->method('sudo')
-            ->will($this->returnValue(new ContentType(['fieldDefinitions' => [], 'identifier' => self::CONTENT_TYPE_ID])));
+            ->willReturn(new ContentType(['fieldDefinitions' => [], 'identifier' => self::CONTENT_TYPE_ID]));
 
         /* Use Case */
         $notifier = new SignalSlotService(
@@ -555,10 +555,10 @@ class SignalSlotServiceTest
         $repositoryServiceMock
             ->expects($this->once())
             ->method('sudo')
-            ->will($this->returnValue(new ContentType([
+            ->willReturn(new ContentType([
                 'fieldDefinitions' => [],
                 'identifier' => self::CONTENT_TYPE_ID,
-            ])));
+            ]));
 
         $contentServiceMock = $this->getContentServiceMock();
         $contentServiceMock
@@ -581,7 +581,7 @@ class SignalSlotServiceTest
                 'id' => self::CONTENT_ID,
                 'contentTypeId' => self::CONTENT_TYPE_ID,
             ]))
-            ->will($this->returnValue(new VersionInfo(['languageCodes' => ['eng-GB']])));
+            ->willReturn(new VersionInfo(['languageCodes' => ['eng-GB']]));
 
         return array($repositoryServiceMock, $contentServiceMock);
     }
@@ -688,7 +688,7 @@ class SignalSlotServiceTest
                         $action, $contentId, $contentTypeId, $serverUri, $customerId, $licenseKey
                     ))
                 )
-                ->will($this->returnValue(new \GuzzleHttp\Message\Response(202)));
+                ->willReturn(new \GuzzleHttp\Message\Response(202));
         } else {
             $this->clientMock
                 ->expects($this->at($expectAtIndex))
@@ -710,7 +710,7 @@ class SignalSlotServiceTest
                         $action, $contentId, $contentTypeId, $serverUri, $customerId, $licenseKey
                     ))
                 )
-                ->will($this->returnValue(new Response(200)));
+                ->willReturn(new Response(200));
         }
     }
 

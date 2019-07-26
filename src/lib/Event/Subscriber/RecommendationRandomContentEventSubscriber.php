@@ -20,9 +20,9 @@ use eZ\Publish\Core\MVC\Symfony\Routing\ChainRouter;
 use eZ\Publish\SPI\FieldType\Value;
 use EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent;
 use EzSystems\EzRecommendationClient\Helper\ImageHelper;
+use EzSystems\EzRecommendationClient\Request\BasicRecommendationRequest;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 use EzSystems\EzRecommendationClient\Value\RecommendationItem;
-use EzSystems\EzRecommendationClient\Value\RecommendationMetadata;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 
@@ -94,7 +94,7 @@ class RecommendationRandomContentEventSubscriber implements EventSubscriberInter
 
             $randomContent = $this->getRandomContent(
                 $this->getQuery($randomContentTypes),
-                (int) $params->get(RecommendationMetadata::LIMIT)
+                (int) $params->get(BasicRecommendationRequest::LIMIT_KEY)
             );
 
             $event->setRecommendationItems($this->getRandomRecommendationItems($randomContent));

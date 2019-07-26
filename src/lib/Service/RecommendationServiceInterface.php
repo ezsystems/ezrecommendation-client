@@ -8,18 +8,18 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Service;
 
+use EzSystems\EzRecommendationClient\SPI\RecommendationRequest;
 use EzSystems\EzRecommendationClient\Value\RecommendationItem;
 use Psr\Http\Message\ResponseInterface;
-use Symfony\Component\HttpFoundation\ParameterBag;
 
 interface RecommendationServiceInterface
 {
     /**
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $parameterBag
+     * @param \EzSystems\EzRecommendationClient\SPI\RecommendationRequest $request
      *
      * @return \Psr\Http\Message\ResponseInterface|null
      */
-    public function getRecommendations(ParameterBag $parameterBag): ?ResponseInterface;
+    public function getRecommendations(RecommendationRequest $request): ?ResponseInterface;
 
     /**
      * @param string $outputContentType

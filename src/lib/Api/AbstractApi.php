@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Api;
 
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
+use EzSystems\EzRecommendationClient\SPI\Request;
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
 
@@ -84,17 +85,17 @@ abstract class AbstractApi
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Api\ApiMetadata $metadata
+     * @param \EzSystems\EzRecommendationClient\SPI\Request $metadata
      * @param array $requiredAttributes
      *
      * @return array
      */
-    protected function getQueryStringParameters(ApiMetadata $metadata, array $requiredAttributes = []): array
+    protected function getQueryStringParameters(Request $request, array $requiredAttributes = []): array
     {
         if ($requiredAttributes) {
-            return array_intersect_key($metadata->getMetadataAttributes(), array_flip($requiredAttributes));
+            return array_intersect_key($request->getRequestAttributes(), array_flip($requiredAttributes));
         }
 
-        return $metadata->getMetadataAttributes();
+        return $request->getRequestAttributes();
     }
 }

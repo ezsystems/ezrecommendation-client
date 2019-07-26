@@ -8,11 +8,9 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\Config;
 
-use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\ConfigResolver;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsChecker;
 use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 

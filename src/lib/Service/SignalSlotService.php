@@ -17,9 +17,9 @@ use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
 use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
+use EzSystems\EzRecommendationClient\Request\EventNotifierRequest;
 use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
 use EzSystems\EzRecommendationClient\Value\Notification;
-use EzSystems\EzRecommendationClient\Value\EventNotifierMetadata;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 use GuzzleHttp\Exception\RequestException;
@@ -281,7 +281,7 @@ class SignalSlotService implements SignalSlotServiceInterface
         $events = [];
 
         foreach ($this->getLanguageCodes($content, $versionNo) as $lang) {
-            $event = new EventNotifierMetadata([
+            $event = new EventNotifierRequest([
                 EventNotifierMetadata::ACTION => $action,
                 EventNotifierMetadata::FORMAT => 'EZ',
                 EventNotifierMetadata::URI => $this->getContentUri($content, $lang),
@@ -290,7 +290,7 @@ class SignalSlotService implements SignalSlotServiceInterface
                 EventNotifierMetadata::LANG => $lang ?? null,
             ]);
 
-            $events[] = $event->getMetadataAttributes();
+            $events[] = $event->getRequestAttributes();
         }
 
         return $events;

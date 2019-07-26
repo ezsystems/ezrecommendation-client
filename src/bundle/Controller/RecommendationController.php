@@ -10,8 +10,8 @@ namespace EzSystems\EzRecommendationClientBundle\Controller;
 
 use EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface;
 use EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent;
+use EzSystems\EzRecommendationClient\Request\BasicRecommendationRequest;
 use EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface;
-use EzSystems\EzRecommendationClient\Value\RecommendationMetadata;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -81,7 +81,7 @@ class RecommendationController
         $response->setPrivate();
 
         if ($this->sendDeliveryFeedback) {
-            $this->recommendationService->sendDeliveryFeedback($request->get(RecommendationMetadata::OUTPUT_TYPE_ID));
+            $this->recommendationService->sendDeliveryFeedback($request->get(BasicRecommendationRequest::OUTPUT_TYPE_ID_KEY));
         }
 
         return $this->templateEngine->renderResponse($template, [
@@ -101,7 +101,7 @@ class RecommendationController
     }
 
     /**
-     * @param null|string $template
+     * @param string|null $template
      *
      * @return string
      */
