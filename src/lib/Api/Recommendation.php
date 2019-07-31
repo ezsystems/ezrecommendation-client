@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Api;
 
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
-use EzSystems\EzRecommendationClient\Value\RecommendationMetadata;
+use EzSystems\EzRecommendationClient\SPI\RecommendationRequest;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -28,19 +28,19 @@ class Recommendation extends AbstractApi
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Value\RecommendationMetadata $recommendationMetadata
+     * @param \EzSystems\EzRecommendationClient\SPI\RecommendationRequest $recommendationMetadata
      *
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getRecommendations(RecommendationMetadata $recommendationMetadata): ?ResponseInterface
+    public function getRecommendations(RecommendationRequest $request): ?ResponseInterface
     {
         $endPointUri = $this->buildEndPointUri([
                 $this->client->getCustomerId(),
                 $this->client->getUserIdentifier(),
-                $recommendationMetadata->scenario,
+                $request->scenario,
         ]);
 
-        $queryStringArray = $this->getQueryStringParameters($recommendationMetadata);
+        $queryStringArray = $this->getQueryStringParameters($request);
 
         return $this->client->sendRequest(Request::METHOD_GET, $endPointUri, [
             'query' => $this->buildQueryStringFromArray($queryStringArray),

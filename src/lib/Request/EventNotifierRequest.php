@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Value;
+namespace EzSystems\EzRecommendationClient\Request;
 
-use EzSystems\EzRecommendationClient\Api\ApiMetadata;
+use EzSystems\EzRecommendationClient\SPI\Request;
 
-class EventNotifierMetadata extends ApiMetadata
+class EventNotifierRequest extends Request
 {
     const ACTION = 'action';
     const FORMAT = 'format';
@@ -48,7 +48,7 @@ class EventNotifierMetadata extends ApiMetadata
     /**
      * {@inheritdoc}
      */
-    public function getMetadataAttributes(): array
+    public function getRequestAttributes(): array
     {
         return [
             'action' => $this->action,

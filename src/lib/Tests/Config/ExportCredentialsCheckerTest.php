@@ -11,7 +11,6 @@ namespace EzSystems\EzRecommendationClient\Tests\Config;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Config\ExportCredentialsChecker;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
-use EzSystems\EzRecommendationClient\Value\ExportMethod;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 

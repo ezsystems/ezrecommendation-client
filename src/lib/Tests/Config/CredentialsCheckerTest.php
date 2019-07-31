@@ -34,7 +34,7 @@ class CredentialsCheckerTest extends TestCase
             CredentialsChecker::class,
             [
                 $this->getMockBuilder(ConfigResolverInterface::class)->getMock(),
-                new NullLogger()
+                new NullLogger(),
             ]
         );
         $this->loggerMock = $this->getMockBuilder(LoggerInterface::class)->disableOriginalConstructor()->getMock();

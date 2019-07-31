@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Api;
+namespace EzSystems\EzRecommendationClient\SPI;
 
-abstract class ApiMetadata
+abstract class Request
 {
     /**
-     * @param \EzSystems\EzRecommendationClient\Api\ApiMetadata $instance
+     * @param \EzSystems\EzRecommendationClient\SPI\Request $instance
      * @param string[] $parameters
      */
     public function __construct(self $instance, array $parameters)
@@ -26,7 +26,7 @@ abstract class ApiMetadata
     /**
      * @return array
      */
-    abstract public function getMetadataAttributes(): array;
+    abstract public function getRequestAttributes(): array;
 
     /**
      * @param string[] $attributes

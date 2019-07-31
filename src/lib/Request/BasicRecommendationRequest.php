@@ -6,32 +6,22 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Value;
+namespace EzSystems\EzRecommendationClient\Request;
 
-use EzSystems\EzRecommendationClient\Api\ApiMetadata;
+use EzSystems\EzRecommendationClient\SPI\RecommendationRequest;
 
-final class RecommendationMetadata extends ApiMetadata
+final class BasicRecommendationRequest extends RecommendationRequest
 {
-    const SCENARIO = 'scenario';
-    const LIMIT = 'limit';
-    const CONTEXT_ITEMS = 'contextItems';
-    const CONTENT_TYPE = 'contentType';
-    const OUTPUT_TYPE_ID = 'outputTypeId';
-    const CATEGORY_PATH = 'categoryPath';
-    const LANGUAGE = 'language';
-    const ATTRIBUTES = 'attributes';
-    const FILTERS = 'filters';
-
-    /**
-     * @param array $parameters
-     */
-    public function __construct(array $parameters)
-    {
-        parent::__construct($this, $parameters);
-    }
-
-    /** @var string */
-    public $scenario;
+    const LIMIT_KEY = 'limit';
+    const CONTEXT_ITEMS_KEY = 'contextItems';
+    const CONTENT_TYPE_KEY = 'contentType';
+    const OUTPUT_TYPE_ID_KEY = 'outputTypeId';
+    const CATEGORY_PATH_KEY = 'categoryPath';
+    const LANGUAGE_KEY = 'language';
+    const ATTRIBUTES_KEY = 'attributes';
+    const FILTERS_KEY = 'filters';
+    const USE_CONTEXT_CATEGORY_PATH_KEY = 'usecontextcategorypath';
+    const RECOMMEND_CATEGORY_KEY = 'recommendCategory';
 
     /** @var int */
     public $limit;
@@ -57,10 +47,24 @@ final class RecommendationMetadata extends ApiMetadata
     /** @var array */
     public $filters;
 
+    /** @var bool */
+    public $usecontextcategorypath = false;
+
+    /** @var bool */
+    public $recommendCategory = false;
+
+    /**
+     * @param array $parameters
+     */
+    public function __construct(array $parameters)
+    {
+        parent::__construct($this, $parameters);
+    }
+
     /**
      * {@inheritdoc}
      */
-    public function getMetadataAttributes(): array
+    public function getRequestAttributes(): array
     {
         return [
             'numrecs' => $this->limit,
@@ -71,6 +75,8 @@ final class RecommendationMetadata extends ApiMetadata
             'lang' => $this->language,
             'attributes' => $this->getAdditionalAttributesToQueryString($this->attributes, 'attribute'),
             'filters' => $this->extractFilters(),
+            'usecontextcategorypath' => $this->usecontextcategorypath,
+            'recommendCategory' => $this->recommendCategory,
         ];
     }
 
@@ -82,7 +88,7 @@ final class RecommendationMetadata extends ApiMetadata
         $extractedFilters = [];
 
         foreach ($this->filters as $filterKey => $filterValue) {
-            $filter = is_array($filterValue) ? implode(',', $filterValue) : $filterValue;
+            $filter = \is_array($filterValue) ? implode(',', $filterValue) : $filterValue;
             $extractedFilters[] = [$filterKey => $filter];
         }
 

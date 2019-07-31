@@ -22,9 +22,9 @@ use EzSystems\EzRecommendationClient\Generator\ContentListElementGenerator;
 use EzSystems\EzRecommendationClient\Helper\FileSystemHelper;
 use EzSystems\EzRecommendationClient\Helper\SiteAccessHelper;
 use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
+use EzSystems\EzRecommendationClient\Request\ExportNotifierRequest;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use EzSystems\EzRecommendationClient\Value\ContentData;
-use EzSystems\EzRecommendationClient\Value\ExportNotifierMetadata;
 use EzSystems\EzRecommendationClient\Value\Notification;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -457,17 +457,17 @@ class Exporter implements ExporterInterface
 
         foreach ($urls as $contentTypeId => $languages) {
             foreach ($languages as $lang => $contentTypeInfo) {
-                $notification = new ExportNotifierMetadata([
-                    ExportNotifierMetadata::ACTION => 'FULL',
-                    ExportNotifierMetadata::FORMAT => 'EZ',
-                    ExportNotifierMetadata::CONTENT_TYPE_ID => $contentTypeId,
-                    ExportNotifierMetadata::CONTENT_TYPE_NAME => $contentTypeInfo['contentTypeName'],
-                    ExportNotifierMetadata::LANG => $lang,
-                    ExportNotifierMetadata::URI => $contentTypeInfo['urlList'],
-                    ExportNotifierMetadata::CREDENTIALS => $securedDirCredentials ?? null,
+                $notification = new ExportNotifierRequest([
+                    ExportNotifierRequest::ACTION => 'FULL',
+                    ExportNotifierRequest::FORMAT => 'EZ',
+                    ExportNotifierRequest::CONTENT_TYPE_ID => $contentTypeId,
+                    ExportNotifierRequest::CONTENT_TYPE_NAME => $contentTypeInfo['contentTypeName'],
+                    ExportNotifierRequest::LANG => $lang,
+                    ExportNotifierRequest::URI => $contentTypeInfo['urlList'],
+                    ExportNotifierRequest::CREDENTIALS => $securedDirCredentials ?? null,
                 ]);
 
-                $notifications[] = $notification->getMetadataAttributes();
+                $notifications[] = $notification->getRequestAttributes();
             }
         }
 
