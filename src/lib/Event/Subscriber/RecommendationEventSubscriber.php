@@ -11,7 +11,7 @@ namespace EzSystems\EzRecommendationClient\Event\Subscriber;
 use eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
-use EzSystems\EzRecommendationClient\Request\BasicRecommendationRequest;
+use EzSystems\EzRecommendationClient\Request\BasicRecommendationRequest as Request;
 use EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface;
 use EzSystems\EzRecommendationClient\SPI\RecommendationRequest;
 use Psr\Http\Message\ResponseInterface;
@@ -91,19 +91,29 @@ class RecommendationEventSubscriber implements EventSubscriberInterface
      */
     private function getRecommendationRequest(ParameterBag $parameterBag): RecommendationRequest
     {
-        $contextItems = (int) $parameterBag->get(BasicRecommendationRequest::CONTEXT_ITEMS_KEY, 0);
+        $contextItems = (int) $parameterBag->get(Request::CONTEXT_ITEMS_KEY, 0);
 
-        return new BasicRecommendationRequest([
+        return new Request([
             RecommendationRequest::SCENARIO => $parameterBag->get(RecommendationRequest::SCENARIO, ''),
-            BasicRecommendationRequest::LIMIT_KEY => $parameterBag->get(BasicRecommendationRequest::LIMIT_KEY, 3),
-            BasicRecommendationRequest::CONTEXT_ITEMS_KEY => $contextItems,
-            BasicRecommendationRequest::CONTENT_TYPE_KEY => $this->contentHelper->getContentTypeId($this->contentHelper->getContentIdentifier($contextItems)),
-            BasicRecommendationRequest::OUTPUT_TYPE_ID_KEY => $this->contentHelper->getContentTypeId($parameterBag->get(BasicRecommendationRequest::OUTPUT_TYPE_ID_KEY, '')),
-            BasicRecommendationRequest::CATEGORY_PATH_KEY => $this->contentHelper->getLocationPathString($contextItems),
-            BasicRecommendationRequest::LANGUAGE_KEY => $parameterBag->get($this->localeConverter->convertToEz(self::LOCALE_REQUEST_KEY), self::DEFAULT_LOCALE),
-            BasicRecommendationRequest::ATTRIBUTES_KEY => $parameterBag->get(BasicRecommendationRequest::ATTRIBUTES_KEY, []),
-            BasicRecommendationRequest::FILTERS_KEY => $parameterBag->get(BasicRecommendationRequest::FILTERS_KEY, []),
+            Request::LIMIT_KEY => $parameterBag->get(Request::LIMIT_KEY, 3),
+            Request::CONTEXT_ITEMS_KEY => $contextItems,
+            Request::CONTENT_TYPE_KEY => $this->contentHelper->getContentTypeId($this->contentHelper->getContentIdentifier($contextItems)),
+            Request::OUTPUT_TYPE_ID_KEY => $this->contentHelper->getContentTypeId($parameterBag->get(Request::OUTPUT_TYPE_ID_KEY, '')),
+            Request::CATEGORY_PATH_KEY => $this->contentHelper->getLocationPathString($contextItems),
+            Request::LANGUAGE_KEY => $this->getRequestLanguage($parameterBag->get(self::LOCALE_REQUEST_KEY)),
+            Request::ATTRIBUTES_KEY => $parameterBag->get(Request::ATTRIBUTES_KEY, []),
+            Request::FILTERS_KEY => $parameterBag->get(Request::FILTERS_KEY, []),
         ]);
+    }
+
+    /**
+     * @param string|null $locale
+     *
+     * @return string
+     */
+    private function getRequestLanguage(?string $locale): string
+    {
+        return $this->localeConverter->convertToEz($locale) ?? self::DEFAULT_LOCALE;
     }
 
     /**

@@ -11,9 +11,9 @@
     ],
     "require": {
         "ezsystems/ezpublish-kernel": "~7.5.1",
-	    "ezsystems/doctrine-dbal-schema": "~0.1.1",
-	    "guzzlehttp/guzzle": "~6.0",
-	    "symfony/symfony": "^3.4.17"
+        "ezsystems/doctrine-dbal-schema": "~0.1.1",
+        "guzzlehttp/guzzle": "~6.0",
+        "symfony/symfony": "^3.4.17"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.0",
