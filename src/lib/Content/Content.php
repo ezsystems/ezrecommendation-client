@@ -14,6 +14,7 @@ use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType as ApiContentType;
 use eZ\Publish\API\Repository\Values\Content\Content as ApiContent;
 use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
+use eZ\Publish\Core\Helper\TranslationHelper;
 use EzSystems\EzRecommendationClient\Field\Value;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\NullOutput;
@@ -38,6 +39,9 @@ class Content
     /** @var \EzSystems\EzRecommendationClient\Field\Value */
     protected $value;
 
+    /** @var \eZ\Publish\Core\Helper\TranslationHelper */
+    private $translationHelper;
+
     /** @var int $defaultAuthorId */
     private $defaultAuthorId;
 
@@ -47,6 +51,7 @@ class Content
      * @param \eZ\Publish\API\Repository\LocationService $locationService
      * @param \Symfony\Component\Routing\RouterInterface $routingGenerator
      * @param \EzSystems\EzRecommendationClient\Field\Value $value
+     * @param \eZ\Publish\Core\Helper\TranslationHelper $translationHelper
      * @param int $defaultAuthorId
      */
     public function __construct(
@@ -55,6 +60,7 @@ class Content
         LocationServiceInterface $locationService,
         RouterInterface $routingGenerator,
         Value $value,
+        TranslationHelper $translationHelper,
         int $defaultAuthorId
     ) {
         $this->contentService = $contentService;
@@ -62,6 +68,7 @@ class Content
         $this->locationService = $locationService;
         $this->generator = $routingGenerator;
         $this->value = $value;
+        $this->translationHelper = $translationHelper;
         $this->defaultAuthorId = $defaultAuthorId;
     }
 
@@ -95,6 +102,7 @@ class Content
                 $location = $this->locationService->loadLocation($contentValue->contentInfo->mainLocationId);
                 $language = $options->get('lang', $location->contentInfo->mainLanguageCode);
                 $this->value->setFieldDefinitionsList($contentType);
+                $uriParams = ['siteaccess' => $this->translationHelper->getTranslationSiteAccess($language)];
 
                 $content[$contentTypeId][$contentValue->id] = [
                     'contentId' => $contentValue->id,
@@ -103,7 +111,7 @@ class Content
                     'language' => $language,
                     'publishedDate' => $contentValue->contentInfo->publishedDate->format('c'),
                     'author' => $this->getAuthor($contentValue, $contentType),
-                    'uri' => $this->generator->generate($location, [], false),
+                    'uri' => $this->generator->generate($location, $uriParams, false),
                     'mainLocation' => [
                         'href' => '/api/ezp/v2/content/locations' . $location->pathString,
                     ],
