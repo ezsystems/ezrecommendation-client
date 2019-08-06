@@ -14,7 +14,7 @@ abstract class Request
      * @param \EzSystems\EzRecommendationClient\SPI\Request $instance
      * @param string[] $parameters
      */
-    public function __construct(self $instance, array $parameters)
+    public function __construct(self $instance, array $parameters = [])
     {
         foreach ($parameters as $parameterKey => $parameterValue) {
             if (property_exists($instance, $parameterKey)) {

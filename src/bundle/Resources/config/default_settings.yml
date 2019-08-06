@@ -30,6 +30,7 @@ parameters:
     ezrecommendation.api.event_tracking.endpoint: 'https://event.yoochoose.net'
     ezrecommendation.api.event_tracking.script_url: 'cdn.yoochoose.net/yct.js'
     ezrecommendation.api.notifier.endpoint: '%ezrecommendation.api.admin.endpoint%'
+    ezrecommendation.api.user.endpoint: 'https://import.yoochoose.net'
 
     ezrecommendation.field.relations: []
     ezrecommendation.field.identifiers: []
