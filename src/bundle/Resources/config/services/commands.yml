@@ -9,5 +9,10 @@ services:
 
     EzSystems\EzRecommendationClientBundle\Command\ExportCommand:
         tags:
-            - { name: console.command, command: ezrecomendation:export:run }
+            - { name: console.command, command: ezrecommendation:export:run }
+            - { name: monolog.logger, channel: ezrecommendation }
+
+    EzSystems\EzRecommendationClientBundle\Command\UserAttributesUpdateCommand:
+        tags:
+            - { name: console.command, command: ezrecommendation:user:update }
             - { name: monolog.logger, channel: ezrecommendation }

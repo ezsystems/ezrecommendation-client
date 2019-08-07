@@ -18,6 +18,7 @@ use Psr\Http\Message\UriInterface;
  * @method \EzSystems\EzRecommendationClient\Api\Recommendation recommendation()
  * @method \EzSystems\EzRecommendationClient\Api\EventTracking eventTracking()
  * @method \EzSystems\EzRecommendationClient\Api\Notifier notifier()
+ * @method \EzSystems\EzRecommendationClient\Api\User user()
  */
 interface EzRecommendationClientInterface
 {

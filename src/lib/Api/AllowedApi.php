@@ -19,6 +19,7 @@ class AllowedApi
             Recommendation::API_NAME => Recommendation::class,
             EventTracking::API_NAME => EventTracking::class,
             Notifier::API_NAME => Notifier::class,
+            User::API_NAME => User::class,
         ];
     }
 }
