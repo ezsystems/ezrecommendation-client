@@ -20,3 +20,5 @@ services:
     EzSystems\EzRecommendationClient\Event\Subscriber\RecommendationEventSubscriber: ~
 
     EzSystems\EzRecommendationClient\Event\Subscriber\RecommendationRandomContentEventSubscriber: ~
+
+    EzSystems\EzRecommendationClient\Event\Subscriber\UserCollectionGeneratorEventSubscriber: ~
