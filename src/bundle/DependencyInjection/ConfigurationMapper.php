@@ -54,6 +54,10 @@ class ConfigurationMapper implements HookableConfigurationMapperInterface
         if (isset($scopeSettings['export']['authentication']['password'])) {
             $contextualizer->setContextualParameter('export.authentication.password', $currentScope, $scopeSettings['export']['authentication']['password']);
         }
+
+        if (isset($scopeSettings['user_api']['default_source'])) {
+            $contextualizer->setContextualParameter('user_api.default_source', $currentScope, $scopeSettings['user_api']['default_source']);
+        }
     }
 
     /**

@@ -64,13 +64,13 @@ class UserAttributesUpdateCommand extends Command
         ]);
 
         if (!$request) {
-            $output->writeln('<fg=red>Request object is empty');
+            $output->writeln('<fg=red>Request object is empty</>');
             return;
         } elseif (!$request->source) {
-            $output->writeln('<fg=red>Property source is not defined');
+            $output->writeln('<fg=red>Property source is not defined</>');
             return;
         } elseif (!$request->xmlBody) {
-            $output->writeln('<fg=red>Property xmlBody is not defined');
+            $output->writeln('<fg=red>Property xmlBody is not defined</>');
             return;
         }
 

@@ -28,7 +28,7 @@ class Recommendation extends AbstractApi
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\SPI\RecommendationRequest $recommendationMetadata
+     * @param \EzSystems\EzRecommendationClient\SPI\RecommendationRequest $request
      *
      * @return \Psr\Http\Message\ResponseInterface
      */

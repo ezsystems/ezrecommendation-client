@@ -18,11 +18,11 @@ class UserAPIEvent extends Event
 
     const UPDATE = 'recommendation.update_user';
     const FETCH = 'recommendation.fetch_user';
-    
+
     /**
-     * @return \EzSystems\EzRecommendationClient\SPI\UserAPIRequest
+     * @return \EzSystems\EzRecommendationClient\SPI\UserAPIRequest|null
      */
-    public function getUserAPIRequest(): UserAPIRequest
+    public function getUserAPIRequest(): ?UserAPIRequest
     {
         return $this->request;
     }

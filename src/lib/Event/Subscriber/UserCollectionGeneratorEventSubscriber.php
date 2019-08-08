@@ -40,7 +40,7 @@ final class UserCollectionGeneratorEventSubscriber implements EventSubscriberInt
     public static function getSubscribedEvents(): array
     {
         return [
-            UserAPIEvent::UPDATE => ['onRecommendationUpdateUserCollection', 255],
+            UserAPIEvent::UPDATE => ['onRecommendationUpdateUserCollection', 128],
         ];
     }
 
