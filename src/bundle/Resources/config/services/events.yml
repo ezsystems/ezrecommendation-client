@@ -22,3 +22,5 @@ services:
     EzSystems\EzRecommendationClient\Event\Subscriber\RecommendationRandomContentEventSubscriber: ~
 
     EzSystems\EzRecommendationClient\Event\Subscriber\UserCollectionGeneratorEventSubscriber: ~
+
+    EzSystems\EzRecommendationClient\Event\Subscriber\UserApiRequestDefaultSourceEventSubscriber: ~

@@ -10,6 +10,7 @@ namespace EzSystems\EzRecommendationClient\Event\Subscriber;
 
 use EzSystems\EzRecommendationClient\Event\GenerateUserCollectionDataEvent;
 use EzSystems\EzRecommendationClient\Event\UserAPIEvent;
+use EzSystems\EzRecommendationClient\Request\UserMetadataRequest;
 use EzSystems\EzRecommendationClient\Value\Output\UserCollection;
 use EzSystems\EzRecommendationClientBundle\Serializer\Normalizer\AttributeNormalizer;
 use EzSystems\EzRecommendationClientBundle\Serializer\Normalizer\UserCollectionNormalizer;
@@ -58,6 +59,11 @@ final class UserCollectionGeneratorEventSubscriber implements EventSubscriberInt
         }
 
         $userApiRequest = $userAPIEvent->getUserAPIRequest();
+
+        if ($event->hasUserCollectionName()) {
+            $userApiRequest->source = $event->getUserCollectionName();
+        }
+
         $userApiRequest->xmlBody = $this->generateXml($userCollection);
     }
 

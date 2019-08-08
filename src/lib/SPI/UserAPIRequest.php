@@ -8,13 +8,11 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\SPI;
 
-use EzSystems\EzRecommendationClient\Value\User;
-
 abstract class UserAPIRequest extends Request
 {
     /** @var string */
-    public $source;
+    public $source = '';
 
     /** @var string */
-    public $xmlBody;
+    public $xmlBody = '';
 }
