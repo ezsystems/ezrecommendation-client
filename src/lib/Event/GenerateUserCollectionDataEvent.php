@@ -12,12 +12,15 @@ use EzSystems\EzRecommendationClient\Value\Output\UserCollection;
 use Symfony\Component\EventDispatcher\Event;
 use Webmozart\Assert\Assert;
 
-class GenerateUserCollectionDataEvent extends Event
+final class GenerateUserCollectionDataEvent extends Event
 {
     const NAME = 'recommendation.user_collection_data';
 
     /** @var \EzSystems\EzRecommendationClient\Value\Output\UserCollection */
     private $userCollection;
+
+    /** @var string */
+    private $userCollectionName = '';
 
     /**
      * @param \EzSystems\EzRecommendationClient\Value\Output\UserCollection $userCollection
@@ -34,5 +37,29 @@ class GenerateUserCollectionDataEvent extends Event
     public function getUserCollection(): UserCollection
     {
         return $this->userCollection;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserCollectionName(): string
+    {
+        return $this->userCollectionName;
+    }
+
+    /**
+     * @param string $userCollectionName
+     */
+    public function setUserCollectionName(string $userCollectionName): void
+    {
+        $this->userCollectionName = $userCollectionName;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasUserCollectionName(): bool
+    {
+        return strlen($this->userCollectionName) > 0;
     }
 }
