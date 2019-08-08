@@ -32,24 +32,6 @@ class User extends AbstractApi
      *
      * @return \Psr\Http\Message\ResponseInterface|null
      */
-    public function fetchUserAttributes(UserAPIRequest $request): ?ResponseInterface
-    {
-        $endPointUri = $this->buildEndPointUri([
-            $this->client->getCustomerId(),
-            $request->source,
-        ]);
-
-        return $this->client->sendRequest(Request::METHOD_GET, $endPointUri, [
-            'query' => $this->buildQueryStringFromArray($request->getRequestAttributes()),
-            'headers' => $this->getHeaders(),
-        ]);
-    }
-
-    /**
-     * @param \EzSystems\EzRecommendationClient\SPI\UserAPIRequest $request
-     *
-     * @return \Psr\Http\Message\ResponseInterface|null
-     */
     public function updateUserAttributes(UserAPIRequest $request): ?ResponseInterface
     {
         $endPointUri = $this->buildEndPointUri([
