@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Request;
 
-use EzSystems\EzRecommendationClient\SPI\Request;
 use EzSystems\EzRecommendationClient\SPI\UserAPIRequest;
 
 final class UserMetadataRequest extends UserAPIRequest

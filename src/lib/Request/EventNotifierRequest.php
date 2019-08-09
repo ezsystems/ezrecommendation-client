@@ -12,12 +12,12 @@ use EzSystems\EzRecommendationClient\SPI\Request;
 
 class EventNotifierRequest extends Request
 {
-    const ACTION = 'action';
-    const FORMAT = 'format';
-    const URI = 'uri';
-    const ITEM_ID = 'itemId';
-    const CONTENT_TYPE_ID = 'contentTypeId';
-    const LANG = 'lang';
+    const ACTION_KEY = 'action';
+    const FORMAT_KEY = 'format';
+    const URI_KEY = 'uri';
+    const ITEM_ID_KEY = 'itemId';
+    const CONTENT_TYPE_ID_KEY = 'contentTypeId';
+    const LANG_KEY = 'lang';
 
     /** @var string */
     public $action;
