@@ -85,7 +85,7 @@ abstract class AbstractApi
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\SPI\Request $metadata
+     * @param \EzSystems\EzRecommendationClient\SPI\Request $request
      * @param array $requiredAttributes
      *
      * @return array

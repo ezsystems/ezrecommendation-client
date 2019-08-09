@@ -16,18 +16,10 @@ abstract class CredentialsChecker implements CredentialsCheckerInterface
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
-    /** @var \Psr\Log\LoggerInterface */
-    private $logger;
-
     /**
      * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
-     * @param \Psr\Log\LoggerInterface $logger
      */
-    public function __construct(
-        ConfigResolverInterface $configResolver,
-        LoggerInterface $logger
-    ) {
-        $this->logger = $logger;
+    public function __construct(ConfigResolverInterface $configResolver) {
         $this->configResolver = $configResolver;
     }
 
@@ -41,20 +33,12 @@ abstract class CredentialsChecker implements CredentialsCheckerInterface
      */
     public function hasCredentials(): bool
     {
-        $exportCredentials = $this->getRequiredCredentials();
+        $credentials = $this->getRequiredCredentials();
 
-        $missingCredentials = [];
-
-        foreach ($exportCredentials as $credential) {
-            if (empty($credential)) {
-                $missingCredentials[] = $credential;
+        foreach ($credentials as $credentialKey => $credentialValue) {
+            if (empty($credentialValue)) {
+                return false;
             }
-        }
-
-        if ($missingCredentials) {
-            $this->logger->warning('Following required credentials are missing: ' . implode(', ', $missingCredentials));
-
-            return false;
         }
 
         return true;

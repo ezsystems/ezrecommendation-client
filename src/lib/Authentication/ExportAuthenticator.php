@@ -54,8 +54,6 @@ class ExportAuthenticator implements FileAuthenticatorInterface
         $credentials = $this->credentialsChecker->getCredentials();
         $server = $this->requestStack->getCurrentRequest()->server;
 
-//        dump($credentials, $server->get(self::PHP_AUTH_USER), $server->get(self::PHP_AUTH_PW)); exit;
-
         if ($credentials->getMethod() === 'none') {
             return true;
         }

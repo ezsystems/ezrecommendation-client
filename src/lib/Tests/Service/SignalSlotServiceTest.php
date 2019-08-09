@@ -16,9 +16,9 @@ use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface;
+use EzSystems\EzRecommendationClient\Request\EventNotifierRequest;
 use EzSystems\EzRecommendationClient\Service\SignalSlotService;
-use EzSystems\EzRecommendationClient\Value\Config\RecommendationNotifierCredentials;
-use EzSystems\EzRecommendationClient\Value\EventNotifierMetadata;
+use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
 use GuzzleHttp\Psr7\Response;
 use Psr\Log\NullLogger;
 
@@ -38,14 +38,14 @@ class SignalSlotServiceTest
     /** @var \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $credentialsCheckerMock;
 
-    /** @var \EzSystems\EzRecommendationClient\Value\Config\RecommendationNotifierCredentials|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials|\PHPUnit\Framework\MockObject\MockObject */
     private $credentialsMock;
 
     protected function setUp()
     {
         $this->clientMock = $this->getMockBuilder(EzRecommendationClientInterface::class)->getMock();
         $this->credentialsCheckerMock = $this->getMockBuilder(CredentialsCheckerInterface::class)->getMock();
-        $this->credentialsMock = $this->getMockBuilder(RecommendationNotifierCredentials::class)->disableOriginalConstructor()->getMock();
+        $this->credentialsMock = $this->getMockBuilder(EzRecommendationClientCredentials::class)->disableOriginalConstructor()->getMock();
         $this->getCredentials();
     }
 
@@ -605,12 +605,12 @@ class SignalSlotServiceTest
                 'transaction' => null,
                 'events' => [
                     [
-                        EventNotifierMetadata::ACTION => $action,
-                        EventNotifierMetadata::FORMAT => 'EZ',
-                        EventNotifierMetadata::URI => sprintf('%s/api/ezp/v2/ez_recommendation/v1/content/%s?lang=%s', $serverUri, $contentId, 'eng-GB'),
-                        EventNotifierMetadata::ITEM_ID => $contentId,
-                        EventNotifierMetadata::CONTENT_TYPE_ID => $contentTypeId,
-                        EventNotifierMetadata::LANG => 'eng-GB',
+                        EventNotifierRequest::ACTION_KEY => $action,
+                        EventNotifierRequest::FORMAT_KEY => 'EZ',
+                        EventNotifierRequest::URI_KEY => sprintf('%s/api/ezp/v2/ez_recommendation/v1/content/%s?lang=%s', $serverUri, $contentId, 'eng-GB'),
+                        EventNotifierRequest::ITEM_ID_KEY => $contentId,
+                        EventNotifierRequest::CONTENT_TYPE_ID_KEY => $contentTypeId,
+                        EventNotifierRequest::LANG_KEY => 'eng-GB',
                     ],
                 ],
             ],
