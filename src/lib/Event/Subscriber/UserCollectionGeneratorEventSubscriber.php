@@ -10,7 +10,6 @@ namespace EzSystems\EzRecommendationClient\Event\Subscriber;
 
 use EzSystems\EzRecommendationClient\Event\GenerateUserCollectionDataEvent;
 use EzSystems\EzRecommendationClient\Event\UserAPIEvent;
-use EzSystems\EzRecommendationClient\Request\UserMetadataRequest;
 use EzSystems\EzRecommendationClient\Value\Output\UserCollection;
 use EzSystems\EzRecommendationClientBundle\Serializer\Normalizer\AttributeNormalizer;
 use EzSystems\EzRecommendationClientBundle\Serializer\Normalizer\UserCollectionNormalizer;

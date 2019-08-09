@@ -26,7 +26,7 @@ use EzSystems\EzRecommendationClient\Value\RecommendationItem;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 
-class RecommendationRandomContentEventSubscriber implements EventSubscriberInterface
+final class RecommendationRandomContentEventSubscriber implements EventSubscriberInterface
 {
     /** @var \eZ\Publish\API\Repository\SearchService */
     private $searchService;

@@ -20,7 +20,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Response;
 
-class RecommendationEventSubscriber implements EventSubscriberInterface
+final class RecommendationEventSubscriber implements EventSubscriberInterface
 {
     private const LOCALE_REQUEST_KEY = '_locale';
     private const DEFAULT_LOCALE = 'eng-GB';
@@ -67,6 +67,9 @@ class RecommendationEventSubscriber implements EventSubscriberInterface
 
     /**
      * @param \EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent $event
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function onRecommendationResponse(RecommendationResponseEvent $event): void
     {

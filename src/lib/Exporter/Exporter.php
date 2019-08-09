@@ -458,13 +458,13 @@ class Exporter implements ExporterInterface
         foreach ($urls as $contentTypeId => $languages) {
             foreach ($languages as $lang => $contentTypeInfo) {
                 $notification = new ExportNotifierRequest([
-                    ExportNotifierRequest::ACTION => 'FULL',
-                    ExportNotifierRequest::FORMAT => 'EZ',
-                    ExportNotifierRequest::CONTENT_TYPE_ID => $contentTypeId,
-                    ExportNotifierRequest::CONTENT_TYPE_NAME => $contentTypeInfo['contentTypeName'],
-                    ExportNotifierRequest::LANG => $lang,
-                    ExportNotifierRequest::URI => $contentTypeInfo['urlList'],
-                    ExportNotifierRequest::CREDENTIALS => $securedDirCredentials ?? null,
+                    ExportNotifierRequest::ACTION_KEY => 'FULL',
+                    ExportNotifierRequest::FORMAT_KEY => 'EZ',
+                    ExportNotifierRequest::CONTENT_TYPE_ID_KEY => $contentTypeId,
+                    ExportNotifierRequest::CONTENT_TYPE_NAME_KEY => $contentTypeInfo['contentTypeName'],
+                    ExportNotifierRequest::LANG_KEY => $lang,
+                    ExportNotifierRequest::URI_KEY => $contentTypeInfo['urlList'],
+                    ExportNotifierRequest::CREDENTIALS_KEY => $securedDirCredentials ?? null,
                 ]);
 
                 $notifications[] = $notification->getRequestAttributes();

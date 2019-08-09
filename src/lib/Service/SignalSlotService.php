@@ -282,12 +282,12 @@ class SignalSlotService implements SignalSlotServiceInterface
 
         foreach ($this->getLanguageCodes($content, $versionNo) as $lang) {
             $event = new EventNotifierRequest([
-                EventNotifierMetadata::ACTION => $action,
-                EventNotifierMetadata::FORMAT => 'EZ',
-                EventNotifierMetadata::URI => $this->getContentUri($content, $lang),
-                EventNotifierMetadata::ITEM_ID => $content->id,
-                EventNotifierMetadata::CONTENT_TYPE_ID => $content->contentInfo->contentTypeId,
-                EventNotifierMetadata::LANG => $lang ?? null,
+                EventNotifierRequest::ACTION_KEY => $action,
+                EventNotifierRequest::FORMAT_KEY => 'EZ',
+                EventNotifierRequest::URI_KEY => $this->getContentUri($content, $lang),
+                EventNotifierRequest::ITEM_ID_KEY => $content->id,
+                EventNotifierRequest::CONTENT_TYPE_ID_KEY => $content->contentInfo->contentTypeId,
+                EventNotifierRequest::LANG_KEY => $lang ?? null,
             ]);
 
             $events[] = $event->getRequestAttributes();

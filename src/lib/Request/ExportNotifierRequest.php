@@ -12,13 +12,13 @@ use EzSystems\EzRecommendationClient\SPI\Request;
 
 class ExportNotifierRequest extends Request
 {
-    const ACTION = 'action';
-    const FORMAT = 'format';
-    const CONTENT_TYPE_ID = 'contentTypeId';
-    const CONTENT_TYPE_NAME = 'contentTypeName';
-    const LANG = 'lang';
-    const URI = 'uri';
-    const CREDENTIALS = 'credentials';
+    const ACTION_KEY = 'action';
+    const FORMAT_KEY = 'format';
+    const CONTENT_TYPE_ID_KEY = 'contentTypeId';
+    const CONTENT_TYPE_NAME_KEY = 'contentTypeName';
+    const LANG_KEY = 'lang';
+    const URI_KEY = 'uri';
+    const CREDENTIALS_KEY = 'credentials';
 
     /** @var string */
     public $action;
