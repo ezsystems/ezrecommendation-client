@@ -237,7 +237,13 @@ class SignalSlotService implements SignalSlotServiceInterface
             $this->logger->debug(sprintf('RecommendationNotifier: Generating notification for %s(%s)', $method, $content->id));
 
             $notificationEvents = $this->generateNotificationEvents($action, $content, $versionNo);
+            /** @var EzRecommendationClientCredentials $clientCredentials */
             $clientCredentials = $this->credentialsChecker->getCredentials();
+
+            if (!$clientCredentials) {
+                return;
+            }
+
             $notification = $this->getNotification($notificationEvents, $clientCredentials);
 
             try {
