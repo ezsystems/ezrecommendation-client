@@ -223,6 +223,7 @@ class Exporter implements ExporterInterface
         foreach ($options['contentTypeIds'] as $id) {
             $contentTypeId = (int) $id;
             $contentTypeCurrentName = null;
+            $contentType = $this->contentTypeService->loadContentType($contentTypeId);
 
             foreach ($languages as $lang) {
                 $options['lang'] = $lang;
@@ -232,12 +233,6 @@ class Exporter implements ExporterInterface
                 $info = sprintf('Fetching %s items of contentTypeId %s (language: %s)', $count, $contentTypeId, $lang);
                 $output->writeln($info);
                 $this->logger->info($info);
-
-                $contentTypeName = $this->contentTypeService->loadContentType($contentTypeId)->getName($lang);
-
-                if ($contentTypeName !== null) {
-                    $contentTypeCurrentName = $contentTypeName;
-                }
 
                 for ($i = 1; $i <= ceil($count / $options['pageSize']); ++$i) {
                     $filename = sprintf('%d_%s_%d', $contentTypeId, $lang, $i);
@@ -287,7 +282,7 @@ class Exporter implements ExporterInterface
                     $this->logger->info($info);
 
                     $urls[$contentTypeId][$lang]['urlList'][] = $url;
-                    $urls[$contentTypeId][$lang]['contentTypeName'] = $contentTypeCurrentName;
+                    $urls[$contentTypeId][$lang]['contentTypeName'] = $contentType->getName($lang) ?? $contentType->getName($contentType->mainLanguageCode);
                 }
             }
         }
