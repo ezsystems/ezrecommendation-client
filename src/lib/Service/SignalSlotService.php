@@ -133,7 +133,11 @@ class SignalSlotService implements SignalSlotServiceInterface
         }
 
         $content = $this->getContent($location->contentId);
-
+        
+        if (!isset($content)) {
+            return;
+        }
+        
         if (!$isChild && $this->isLocationsAreVisible($content->contentInfo)) {
             return;
         }
