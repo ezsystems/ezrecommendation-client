@@ -134,7 +134,7 @@ class SignalSlotService implements SignalSlotServiceInterface
 
         $content = $this->getContent($location->contentId);
         
-        if (!isset($content)) {
+        if (!$content instanceof Content) {
             return;
         }
         
