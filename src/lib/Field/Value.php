@@ -18,7 +18,7 @@ use EzSystems\EzRecommendationClient\Mapper\RelationMapper;
 use Psr\Log\LoggerInterface;
 use Exception;
 
-class Value
+final class Value
 {
     /** @var \eZ\Publish\API\Repository\ContentService */
     private $contentService;
@@ -267,7 +267,7 @@ class Value
             ));
 
             $fieldType = $this->fieldDefIdentifiers[$field->fieldDefIdentifier];
-
+            
             return $this->typeValue->$fieldType($field, $content, $language, $imageFieldIdentifier, $options);
         } catch (Exception $e) {
             $this->logger->warning(sprintf(

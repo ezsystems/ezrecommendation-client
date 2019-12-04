@@ -15,7 +15,7 @@ use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
-use EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface;
+use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
 use EzSystems\EzRecommendationClient\Request\EventNotifierRequest;
 use EzSystems\EzRecommendationClient\Service\SignalSlotService;
 use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
@@ -35,8 +35,8 @@ class SignalSlotServiceTest
     /** @var EzRecommendationClientInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $clientMock;
 
-    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private $credentialsCheckerMock;
+    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
+    private $credentialsResolverMock;
 
     /** @var \EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials|\PHPUnit\Framework\MockObject\MockObject */
     private $credentialsMock;
@@ -44,7 +44,7 @@ class SignalSlotServiceTest
     protected function setUp()
     {
         $this->clientMock = $this->getMockBuilder(EzRecommendationClientInterface::class)->getMock();
-        $this->credentialsCheckerMock = $this->getMockBuilder(CredentialsCheckerInterface::class)->getMock();
+        $this->credentialsResolverMock = $this->getMockBuilder(CredentialsResolverInterface::class)->getMock();
         $this->credentialsMock = $this->getMockBuilder(EzRecommendationClientCredentials::class)->disableOriginalConstructor()->getMock();
         $this->getCredentials();
     }
@@ -66,7 +66,7 @@ class SignalSlotServiceTest
             $contentServiceMock,
             $this->getLocationServiceMock(),
             $this->getContentTypeServiceMock(),
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             new NullLogger()
         );
         $notifier->setIncludedContentTypes([self::CONTENT_TYPE_ID]);
@@ -90,7 +90,7 @@ class SignalSlotServiceTest
             $contentServiceMock,
             $this->getLocationServiceMock(),
             $this->getContentTypeServiceMock(),
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             new NullLogger()
         );
         $notifier->setIncludedContentTypes([self::CONTENT_TYPE_ID]);
@@ -145,7 +145,7 @@ class SignalSlotServiceTest
             $contentServiceMock,
             $locationServiceMock,
             $this->getContentTypeServiceMock(),
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             new NullLogger()
         );
         $notifier->setIncludedContentTypes([self::CONTENT_TYPE_ID]);
@@ -319,7 +319,7 @@ class SignalSlotServiceTest
             $contentServiceMock,
             $locationServiceMock,
             $this->getContentTypeServiceMock(),
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             new NullLogger()
         );
         $notifier->setIncludedContentTypes([self::CONTENT_TYPE_ID]);
@@ -358,7 +358,7 @@ class SignalSlotServiceTest
             $contentServiceMock,
             $locationServiceMock,
             $this->getContentTypeServiceMock(),
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             new NullLogger()
         );
         $notifier->setIncludedContentTypes([self::CONTENT_TYPE_ID]);
@@ -519,7 +519,7 @@ class SignalSlotServiceTest
             $contentServiceMock,
             $locationServiceMock,
             $this->getContentTypeServiceMock(),
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             new NullLogger()
         );
         $notifier->setIncludedContentTypes([self::CONTENT_TYPE_ID]);
@@ -528,7 +528,7 @@ class SignalSlotServiceTest
 
     private function getCredentials(): void
     {
-        $this->credentialsCheckerMock
+        $this->credentialsResolverMock
             ->expects($this->any())
             ->method('getCredentials')
             ->willReturn($this->credentialsMock);

@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Generator;
 
-use eZ\Publish\Core\REST\Common\Output\Generator;
+use EzSystems\EzPlatformRest\Output\Generator;
 
 class ContentListElementGenerator
 {
     /**
-     * @param \eZ\Publish\Core\REST\Common\Output\Generator $generator
+     * @param \EzSystems\EzPlatformRest\Output\Generator $generator
      * @param array $contentList
      *
-     * @return \eZ\Publish\Core\REST\Common\Output\Generator
+     * @return \EzSystems\EzPlatformRest\Output\Generator
      */
     public function generateElement(Generator $generator, array $contentList = []): Generator
     {

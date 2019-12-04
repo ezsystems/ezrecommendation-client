@@ -8,20 +8,16 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Value;
 
-class Notification
+use EzSystems\EzRecommendationClient\SPI\Notification;
+
+class ExportNotification extends Notification
 {
-    /** @var string|null */
-    public $transaction;
-
-    /** @var array */
-    public $events;
-
-    /** @var int */
-    public $customerId;
+    public const TRANSACTION_KEY = 'transaction';
+    public const END_POINT_URI_KEY = 'webHook';
 
     /** @var string */
-    public $licenseKey;
+    public $transaction;
 
-    /** @var string|null */
+    /** @var string */
     public $endPointUri;
 }

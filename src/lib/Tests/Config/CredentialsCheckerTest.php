@@ -9,15 +9,15 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Config;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzRecommendationClient\Config\CredentialsChecker;
+use EzSystems\EzRecommendationClient\Config\CredentialsResolver;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
-class CredentialsCheckerTest extends TestCase
+class CredentialsResolverTest extends TestCase
 {
-    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsChecker|\PHPUnit\Framework\MockObject\MockObject */
-    private $credentialsCheckerMock;
+    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolver|\PHPUnit\Framework\MockObject\MockObject */
+    private $credentialsResolverMock;
 
     /** @var \Psr\Log\NullLogger|\PHPUnit\Framework\MockObject\MockObject */
     private $loggerMock;
@@ -30,8 +30,8 @@ class CredentialsCheckerTest extends TestCase
 
     protected function setUp()
     {
-        $this->credentialsCheckerMock = $this->getMockForAbstractClass(
-            CredentialsChecker::class,
+        $this->credentialsResolverMock = $this->getMockForAbstractClass(
+            CredentialsResolver::class,
             [
                 $this->getMockBuilder(ConfigResolverInterface::class)->getMock(),
                 new NullLogger(),
@@ -48,9 +48,9 @@ class CredentialsCheckerTest extends TestCase
         ];
     }
 
-    public function testCreateCredentialsCheckerInstance()
+    public function testCreateCredentialsResolverInstance()
     {
-        $this->assertInstanceOf(CredentialsChecker::class, $this->credentialsCheckerMock);
+        $this->assertInstanceOf(CredentialsResolver::class, $this->credentialsResolverMock);
     }
 
     /**
@@ -58,12 +58,12 @@ class CredentialsCheckerTest extends TestCase
      */
     public function testShouldReturnTrueWhenRequiredCredentialsAreSet()
     {
-        $this->credentialsCheckerMock
+        $this->credentialsResolverMock
             ->expects($this->any())
             ->method('getRequiredCredentials')
             ->willReturn($this->credentials);
 
-        $this->assertTrue($this->credentialsCheckerMock->hasCredentials());
+        $this->assertTrue($this->credentialsResolverMock->hasCredentials());
     }
 
     /**
@@ -71,11 +71,11 @@ class CredentialsCheckerTest extends TestCase
      */
     public function testReturnFalseWhenOneOfRequiredCredentialsAreMissing()
     {
-        $this->credentialsCheckerMock
+        $this->credentialsResolverMock
             ->expects($this->any())
             ->method('getRequiredCredentials')
             ->willReturn($this->invalidCredentials);
 
-        $this->assertFalse($this->credentialsCheckerMock->hasCredentials());
+        $this->assertFalse($this->credentialsResolverMock->hasCredentials());
     }
 }

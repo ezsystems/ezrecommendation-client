@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Config;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsChecker;
+use EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver;
 use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 
-class EzRecommendationClientCredentialsCheckerTest extends TestCase
+class EzRecommendationClientCredentialsResolverTest extends TestCase
 {
     /** @var \PHPUnit\Framework\MockObject\MockObject|eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
@@ -26,9 +26,9 @@ class EzRecommendationClientCredentialsCheckerTest extends TestCase
         parent::setUp();
     }
 
-    public function testCreateEzRecommendationClientCredentialsCheckerInstance()
+    public function testCreateEzRecommendationClientCredentialsResolverInstance()
     {
-        $this->assertInstanceOf(EzRecommendationClientCredentialsChecker::class, new EzRecommendationClientCredentialsChecker(
+        $this->assertInstanceOf(EzRecommendationClientCredentialsResolver::class, new EzRecommendationClientCredentialsResolver(
             $this->configResolver,
             new NullLogger()
         ));
@@ -51,12 +51,12 @@ class EzRecommendationClientCredentialsCheckerTest extends TestCase
             ->with('authentication.license_key', 'ezrecommendation')
             ->willReturn('12345-12345-12345-12345');
 
-        $credentialsChecker = new EzRecommendationClientCredentialsChecker(
+        $credentialsResolver = new EzRecommendationClientCredentialsResolver(
             $this->configResolver,
             new NullLogger()
         );
 
-        $this->assertInstanceOf(EzRecommendationClientCredentials::class, $credentialsChecker->getCredentials());
+        $this->assertInstanceOf(EzRecommendationClientCredentials::class, $credentialsResolver->getCredentials());
     }
 
     /**
@@ -64,11 +64,11 @@ class EzRecommendationClientCredentialsCheckerTest extends TestCase
      */
     public function testReturnNullWhenCredentialsAreNotSet()
     {
-        $credentialsChecker = new EzRecommendationClientCredentialsChecker(
+        $credentialsResolver = new EzRecommendationClientCredentialsResolver(
             $this->configResolver,
             new NullLogger()
         );
 
-        $this->assertNull($credentialsChecker->getCredentials());
+        $this->assertNull($credentialsResolver->getCredentials());
     }
 }

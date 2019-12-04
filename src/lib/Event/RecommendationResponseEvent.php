@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 
 class RecommendationResponseEvent extends Event
 {
-    const NAME = 'recommendation.response';
+    public const NAME = 'recommendation.response';
 
     /** @var \Psr\Http\Message\ResponseInterface|null */
     private $parameterBag;

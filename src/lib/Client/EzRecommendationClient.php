@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Client;
 
 use EzSystems\EzRecommendationClient\Api\AbstractApi;
-use EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface;
+use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
 use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\HandlerStack;
@@ -34,8 +34,8 @@ class EzRecommendationClient implements EzRecommendationClientInterface
     /** @var \GuzzleHttp\ClientInterface */
     private $client;
 
-    /** @var \EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsChecker */
-    private $credentialsChecker;
+    /** @var \EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver */
+    private $credentialsResolver;
 
     /** @var \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory */
     private $eZRecommendationClientApiFactory;
@@ -48,22 +48,22 @@ class EzRecommendationClient implements EzRecommendationClientInterface
 
     /**
      * @param \GuzzleHttp\ClientInterface $client
-     * @param \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface $credentialsChecker
+     * @param \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface $credentialsResolver
      * @param \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory $apiFactory
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
         ClientInterface $client,
-        CredentialsCheckerInterface $credentialsChecker,
+        CredentialsResolverInterface $credentialsResolver,
         EzRecommendationClientApiFactory $apiFactory,
         LoggerInterface $logger
     ) {
         $this->client = $client;
-        $this->credentialsChecker = $credentialsChecker;
+        $this->credentialsResolver = $credentialsResolver;
         $this->eZRecommendationClientApiFactory = $apiFactory;
         $this->logger = $logger;
 
-        if ($this->credentialsChecker->hasCredentials()) {
+        if ($this->credentialsResolver->hasCredentials()) {
             $this->setClientCredentials();
         }
     }
@@ -214,11 +214,11 @@ class EzRecommendationClient implements EzRecommendationClientInterface
     }
 
     /**
-     * Sets client credentials from CredentialsChecker.
+     * Sets client credentials from CredentialsResolver.
      */
     private function setClientCredentials(): void
     {
-        $credentials = $this->credentialsChecker->getCredentials();
+        $credentials = $this->credentialsResolver->getCredentials();
 
         $this
             ->setCustomerId($credentials->getCustomerId())

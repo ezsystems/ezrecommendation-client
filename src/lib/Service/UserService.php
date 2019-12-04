@@ -41,6 +41,6 @@ class UserService implements UserServiceInterface
             $userIdentifier = $this->sessionHelper->getAnonymousSessionId(Session::RECOMMENDATION_SESSION_KEY);
         }
 
-        return (string) $userIdentifier;
+        return (string)$userIdentifier;
     }
 }

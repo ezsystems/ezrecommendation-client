@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Authentication;
 
-use eZ\Publish\Core\REST\Common\Exceptions\NotFoundException;
-use EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface;
+use EzSystems\EzPlatformRest\Exceptions\NotFoundException;
+use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
 use EzSystems\EzRecommendationClient\Helper\FileSystemHelper;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -21,8 +21,8 @@ class ExportAuthenticator implements FileAuthenticatorInterface
     private const PHP_AUTH_USER = 'PHP_AUTH_USER';
     private const PHP_AUTH_PW = 'PHP_AUTH_PW';
 
-    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface */
-    private $credentialsChecker;
+    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface */
+    private $credentialsResolver;
 
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
     private $requestStack;
@@ -31,16 +31,16 @@ class ExportAuthenticator implements FileAuthenticatorInterface
     private $fileSystem;
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface $credentialsChecker
+     * @param \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface $credentialsResolver
      * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param \EzSystems\EzRecommendationClient\Helper\FileSystemHelper $fileSystem
      */
     public function __construct(
-        CredentialsCheckerInterface $credentialsChecker,
+        CredentialsResolverInterface $credentialsResolver,
         RequestStack $requestStack,
         FileSystemHelper $fileSystem
     ) {
-        $this->credentialsChecker = $credentialsChecker;
+        $this->credentialsResolver = $credentialsResolver;
         $this->requestStack = $requestStack;
         $this->fileSystem = $fileSystem;
     }
@@ -51,7 +51,7 @@ class ExportAuthenticator implements FileAuthenticatorInterface
     public function authenticate(): bool
     {
         /** @var \EzSystems\EzRecommendationClient\Value\Config\ExportCredentials $credentials */
-        $credentials = $this->credentialsChecker->getCredentials();
+        $credentials = $this->credentialsResolver->getCredentials();
         $server = $this->requestStack->getCurrentRequest()->server;
 
         if ($credentials->getMethod() === 'none') {

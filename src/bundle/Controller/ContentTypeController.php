@@ -12,8 +12,8 @@ use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\REST\Server\Controller;
-use eZ\Publish\Core\REST\Server\Exceptions\AuthenticationFailedException;
+use EzSystems\EzPlatformRest\Server\Controller as RestController;
+use EzSystems\EzPlatformRest\Server\Exceptions\AuthenticationFailedException;
 use EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface;
 use EzSystems\EzRecommendationClient\Content\Content;
 use EzSystems\EzRecommendationClient\Helper\SiteAccessHelper;
@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ContentTypeController extends Controller
+class ContentTypeController extends RestController
 {
     private const PAGE_SIZE = 10;
 

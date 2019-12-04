@@ -6,9 +6,7 @@ services:
     EzSystems\EzRecommendationClientBundle\Templating\:
         resource: '../../../Templating/*'
 
-    EzSystems\EzRecommendationClientBundle\Templating\Twig\RecommendationExtension:
+    EzSystems\EzRecommendationClientBundle\Templating\Twig\Functions\Recommendation:
         public: true
         arguments:
-            $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsChecker'
-        tags:
-            - { name: twig.extension }
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'

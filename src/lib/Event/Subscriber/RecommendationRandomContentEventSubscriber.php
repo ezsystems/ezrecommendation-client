@@ -13,10 +13,9 @@ use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use eZ\Publish\Core\FieldType\RichText\Value as RichTextValue;
+use EzSystems\EzPlatformRichText\eZ\FieldType\RichText\Value as RichTextValue;
 use eZ\Publish\Core\FieldType\TextLine\Value as TextLineValue;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\Routing\ChainRouter;
 use eZ\Publish\SPI\FieldType\Value;
 use EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent;
 use EzSystems\EzRecommendationClient\Helper\ImageHelper;
@@ -25,6 +24,7 @@ use EzSystems\EzRecommendationClient\Value\Parameters;
 use EzSystems\EzRecommendationClient\Value\RecommendationItem;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use Symfony\Component\Routing\RouterInterface;
 
 final class RecommendationRandomContentEventSubscriber implements EventSubscriberInterface
 {
@@ -37,7 +37,7 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\Routing\ChainRouter */
+    /** @var \Symfony\Component\Routing\RouterInterface */
     private $router;
 
     /** @var \EzSystems\EzRecommendationClient\Helper\ImageHelper */
@@ -47,20 +47,20 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
      * @param \eZ\Publish\API\Repository\ContentService $searchService
      * @param \eZ\Publish\API\Repository\SearchService $contentService
      * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
-     * @param \eZ\Publish\Core\MVC\Symfony\Routing\ChainRouter $chainRouter
+     * @param \Symfony\Component\Routing\RouterInterface $router
      * @param \EzSystems\EzRecommendationClient\Helper\ImageHelper $imageHelper
      */
     public function __construct(
         SearchServiceInterface $searchService,
         ContentServiceInterface $contentService,
         ConfigResolverInterface $configResolver,
-        ChainRouter $chainRouter,
+        RouterInterface $router,
         ImageHelper $imageHelper
     ) {
         $this->searchService = $searchService;
         $this->contentService = $contentService;
         $this->configResolver = $configResolver;
-        $this->router = $chainRouter;
+        $this->router = $router;
         $this->imageHelper = $imageHelper;
     }
 

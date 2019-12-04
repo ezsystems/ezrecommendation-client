@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Api;
 
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
-use EzSystems\EzRecommendationClient\Value\Notification;
+use EzSystems\EzRecommendationClient\SPI\Notification;
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +27,7 @@ class Notifier extends AbstractApi
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Value\Notification $notification
+     * @param \EzSystems\EzRecommendationClient\SPI\Notification $notification
      *
      * @return \Psr\Http\Message\ResponseInterface|null
      */

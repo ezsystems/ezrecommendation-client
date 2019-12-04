@@ -11,8 +11,12 @@
     ],
     "require": {
         "ezsystems/ezpublish-kernel": "^8.0@dev",
+        "ezsystems/ezplatform-rest": "^1.0@dev",
+        "ezsystems/ezplatform-richtext": "^2.0@dev",
+        "ezsystems/repository-forms": "^3.0@dev",
         "ezsystems/doctrine-dbal-schema": "^1.0@dev",
         "symfony/framework-bundle": "^4.3",
+        "symfony/twig-bundle": "^4.3",
         "guzzlehttp/guzzle": "~6.0",
         "webmozart/assert": "^1.0"
     },

@@ -9,4 +9,4 @@ services:
 
     EzSystems\EzRecommendationClient\Authentication\ExportAuthenticator:
         arguments:
-            $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsChecker'
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'

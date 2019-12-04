@@ -14,10 +14,10 @@ use PHPUnit\Framework\TestCase;
 
 class SiteAccessTest extends TestCase
 {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

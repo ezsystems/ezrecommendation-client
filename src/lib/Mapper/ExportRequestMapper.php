@@ -38,7 +38,6 @@ class ExportRequestMapper
         $exportRequest->page = (int) $query->get('page', 1);
         $exportRequest->documentRoot = $request->server->get('DOCUMENT_ROOT');
         $exportRequest->host = $request->getSchemeAndHttpHost();
-        $exportRequest->mandatorId = (int) $query->get('mandatorId', 0);
         $exportRequest->contentTypeIdList = ParamsConverterHelper::getIdListFromString($request->get('idList'));
 
         return $exportRequest;
@@ -104,19 +103,7 @@ class ExportRequestMapper
             $webHook
         ) === 1 ? $webHook : null;
     }
-
-    /**
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $parameterBag
-     *
-     * @return string|null
-     */
-    private function getTransaction(ParameterBag $parameterBag): ?string
-    {
-        $transaction = $parameterBag->get('transaction');
-
-        return $transaction && preg_match('/^[0-9]+$/', $transaction) === 1 ? (new \DateTime())->format('YmdHisv') : null;
-    }
-
+    
     /**
      * @param \Symfony\Component\HttpFoundation\ParameterBag $parameterBag
      *

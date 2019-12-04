@@ -7,9 +7,9 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Value;
 
-use eZ\Publish\Core\REST\Common\Output\ValueObjectVisitor;
-use eZ\Publish\Core\REST\Common\Output\Generator;
-use eZ\Publish\Core\REST\Common\Output\Visitor;
+use EzSystems\EzPlatformRest\Output\Generator;
+use EzSystems\EzPlatformRest\Output\ValueObjectVisitor;
+use EzSystems\EzPlatformRest\Output\Visitor;
 use EzSystems\EzRecommendationClient\Exception\ResponseClassNotImplementedException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -30,11 +30,9 @@ class ContentDataVisitor extends ValueObjectVisitor
     }
 
     /**
-     * @param \eZ\Publish\Core\REST\Common\Output\Visitor $visitor
-     * @param \eZ\Publish\Core\REST\Common\Output\Generator $generator
+     * @param \EzSystems\EzPlatformRest\Output\Visitor $visitor
+     * @param \EzSystems\EzPlatformRest\Output\Generator $generator
      * @param mixed $data
-     *
-     * @return mixed
      *
      * @throws \EzSystems\EzRecommendationClient\Exception\ResponseClassNotImplementedException
      */

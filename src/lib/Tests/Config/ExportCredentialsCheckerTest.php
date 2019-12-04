@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Config;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzRecommendationClient\Config\ExportCredentialsChecker;
+use EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\NullLogger;
 
-class ExportCredentialsCheckerTest extends TestCase
+class ExportCredentialsResolverTest extends TestCase
 {
     /** @var \PHPUnit\Framework\MockObject\MockObject|eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
@@ -26,9 +26,9 @@ class ExportCredentialsCheckerTest extends TestCase
         parent::setUp();
     }
 
-    public function testCreateExportCredentialsCheckerInstance()
+    public function testCreateExportCredentialsResolverInstance()
     {
-        $this->assertInstanceOf(ExportCredentialsChecker::class, new ExportCredentialsChecker(
+        $this->assertInstanceOf(ExportCredentialsResolver::class, new ExportCredentialsResolver(
             $this->configResolver,
             new NullLogger()
         ));
@@ -39,12 +39,12 @@ class ExportCredentialsCheckerTest extends TestCase
      */
     public function testGetCredentialsForAuthenticationMethodUser()
     {
-        $credentialsChecker = new ExportCredentialsChecker(
+        $credentialsResolver = new ExportCredentialsResolver(
             $this->configResolver,
             new NullLogger()
         );
 
-        $this->assertInstanceOf(ExportCredentials::class, $credentialsChecker->getCredentials());
+        $this->assertInstanceOf(ExportCredentials::class, $credentialsResolver->getCredentials());
     }
 
     /**
@@ -58,11 +58,11 @@ class ExportCredentialsCheckerTest extends TestCase
             ->with('export.authentication.method', 'ezrecommendation')
             ->willReturn('user');
 
-        $credentialsChecker = new ExportCredentialsChecker(
+        $credentialsResolver = new ExportCredentialsResolver(
             $this->configResolver,
             new NullLogger()
         );
 
-        $this->assertNull($credentialsChecker->getCredentials());
+        $this->assertNull($credentialsResolver->getCredentials());
     }
 }

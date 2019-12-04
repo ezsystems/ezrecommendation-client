@@ -8,16 +8,9 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Value;
 
-class ExportRequest extends ExportParameters
-{
-    /** @var string */
-    public $documentRoot;
+use EzSystems\EzRecommendationClient\SPI\Notification;
 
-    /**
-     * @return array
-     */
-    public function getExportRequestParameters(): array
-    {
-        return get_object_vars($this);
-    }
+class EventNotification extends Notification
+{
+
 }

@@ -9,7 +9,7 @@ namespace EzSystems\EzRecommendationClient\Config;
 
 use EzSystems\EzRecommendationClient\Value\Config\Credentials;
 
-interface CredentialsCheckerInterface
+interface CredentialsResolverInterface
 {
     /**
      * Returns object with credentials data.

@@ -8,8 +8,13 @@ services:
         resource: '../../../Controller/*'
 
     EzSystems\EzRecommendationClientBundle\Controller\RecommendationController:
+        public: true
         arguments:
-            $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsChecker'
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'
+
+    ez_recommendation:
+        alias: EzSystems\EzRecommendationClientBundle\Controller\RecommendationController
+        public: true
 
     EzSystems\EzRecommendationClientBundle\Controller\ContentController:
         arguments:

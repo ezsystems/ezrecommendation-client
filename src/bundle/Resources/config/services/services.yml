@@ -7,8 +7,12 @@ services:
     EzSystems\EzRecommendationClient\Service\:
         resource: '../../../../src/lib/Service/*'
 
-    EzSystems\EzRecommendationClient\Service\SignalSlotService:
+    EzSystems\EzRecommendationClient\Service\ExportService:
         arguments:
-            $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsChecker'
-        tags:
-            - { name: monolog.logger, channel: ezrecommendation }
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'
+            $notificationService: '@EzSystems\EzRecommendationClient\Service\ExportNotificationService'
+
+    EzSystems\EzRecommendationClient\Service\ContentExportService:
+        arguments:
+            $defaultAuthorId: '%ezrecommendation.default.author_id%'
+            $translationHelper: '@ezpublish.translation_helper'

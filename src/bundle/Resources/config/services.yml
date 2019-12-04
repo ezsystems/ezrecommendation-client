@@ -3,7 +3,6 @@ imports:
     - { resource: services/authenticators.yml }
     - { resource: services/client.yml }
     - { resource: services/commands.yml }
-    - { resource: services/content.yml }
     - { resource: services/controllers.yml }
     - { resource: services/converters.yml }
     - { resource: services/credentials_checker.yml }
@@ -11,11 +10,11 @@ imports:
     - { resource: services/exporter.yml }
     - { resource: services/factory.yml }
     - { resource: services/fields.yml }
+    - { resource: services/file.yaml }
     - { resource: services/generators.yml }
     - { resource: services/helpers.yml }
     - { resource: services/mappers.yml }
     - { resource: services/response.yml }
     - { resource: services/services.yml }
-    - { resource: services/slots.yml }
     - { resource: services/twig.yml }
     - { resource: services/values.yml }

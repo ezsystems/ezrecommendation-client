@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Authentication;
 
 use EzSystems\EzRecommendationClient\Authentication\ExportAuthenticator;
-use EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface;
+use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
 use EzSystems\EzRecommendationClient\Helper\FileSystemHelper;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use PHPUnit\Framework\TestCase;
@@ -24,14 +24,14 @@ class ExportAuthenticatorTest extends TestCase
     /** @var \PHPUnit_Framework_MockObject_MockObject|\EzSystems\EzRecommendationClient\Helper\FileSystemHelper */
     private $fileSystem;
 
-    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface|\PHPUnit_Framework_MockObject_MockObject */
-    private $credentialsCheckerMock;
+    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
+    private $credentialsResolverMock;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->credentialsCheckerMock = $this->getMockBuilder(CredentialsCheckerInterface::class)->getMock();
+        $this->credentialsResolverMock = $this->getMockBuilder(CredentialsResolverInterface::class)->getMock();
         $this->requestStack = $this->getMockBuilder('Symfony\Component\HttpFoundation\RequestStack')->getMock();
         $this->fileSystem = $this->getMockBuilder('EzSystems\EzRecommendationClient\Helper\FileSystemHelper')->disableOriginalConstructor()->getMock();
     }
@@ -51,12 +51,12 @@ class ExportAuthenticatorTest extends TestCase
             ->willReturn($return);
 
         $exportAuthenticator = new ExportAuthenticator(
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             $this->requestStack,
             $this->fileSystem
         );
 
-        $this->credentialsCheckerMock
+        $this->credentialsResolverMock
             ->expects($this->any())
             ->method('getCredentials')
             ->willReturn($this->getExportCredentials('none'));
@@ -80,12 +80,12 @@ class ExportAuthenticatorTest extends TestCase
         ;
 
         $exportAuthenticator = new ExportAuthenticator(
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             $this->requestStack,
             $this->fileSystem
         );
 
-        $this->credentialsCheckerMock
+        $this->credentialsResolverMock
             ->expects($this->any())
             ->method('getCredentials')
             ->willReturn($this->getExportCredentials('user'));
@@ -109,12 +109,12 @@ class ExportAuthenticatorTest extends TestCase
         ;
 
         $exportAuthenticator = new ExportAuthenticator(
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             $this->requestStack,
             $this->fileSystem
         );
 
-        $this->credentialsCheckerMock
+        $this->credentialsResolverMock
             ->expects($this->any())
             ->method('getCredentials')
             ->willReturn($this->getExportCredentials('user'));
@@ -145,7 +145,7 @@ class ExportAuthenticatorTest extends TestCase
         ;
 
         $exportAuthenticator = new ExportAuthenticator(
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             $this->requestStack,
             $this->fileSystem
         );
@@ -176,7 +176,7 @@ class ExportAuthenticatorTest extends TestCase
         ;
 
         $exportAuthenticator = new ExportAuthenticator(
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             $this->requestStack,
             $this->fileSystem
         );
@@ -206,7 +206,7 @@ class ExportAuthenticatorTest extends TestCase
         ;
 
         $exportAuthenticator = new ExportAuthenticator(
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             $this->requestStack,
             $this->fileSystem
         );
@@ -230,7 +230,7 @@ class ExportAuthenticatorTest extends TestCase
         ;
 
         $exportAuthenticator = new ExportAuthenticator(
-            $this->credentialsCheckerMock,
+            $this->credentialsResolverMock,
             $this->requestStack,
             new FileSystemHelper(
                 new BaseFilesystem(),

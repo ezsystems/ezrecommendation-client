@@ -11,15 +11,14 @@ namespace EzSystems\EzRecommendationClient\Helper;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess as CurrentSiteAccess;
-use EzSystems\EzRecommendationClient\Value\Parameters;
-use LogicException;
+
 
 /**
  * Provides utility to manipulate siteAccess.
  */
 class SiteAccessHelper
 {
-    const SYSTEM_DEFAULT_SITEACCESS_NAME = 'default';
+    const SYSTEM_DEFAULT_SITE_ACCESS_NAME = 'default';
 
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
@@ -43,7 +42,7 @@ class SiteAccessHelper
         ConfigResolverInterface $configResolver,
         CurrentSiteAccess $siteAccess,
         array $siteAccessConfig,
-        string $defaultSiteAccessName = self::SYSTEM_DEFAULT_SITEACCESS_NAME
+        string $defaultSiteAccessName = self::SYSTEM_DEFAULT_SITE_ACCESS_NAME
     ) {
         $this->configResolver = $configResolver;
         $this->siteAccess = $siteAccess;
@@ -80,7 +79,6 @@ class SiteAccessHelper
 
         foreach ($siteAccesses as $siteAccess) {
             $rootLocationId = $this->getRootLocationBySiteAccessName($siteAccess);
-
             $rootLocations[$rootLocationId] = $rootLocationId;
         }
 
@@ -88,51 +86,43 @@ class SiteAccessHelper
     }
 
     /**
-     * Returns languages based on mandatorId or siteaccess.
+     * Returns languages based on customerId or siteaccess.
      *
-     * @param int|null $mandatorId
+     * @param int $customerId
      * @param string|null $siteAccess
      *
      * @return array
      *
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
-    public function getLanguages(?int $mandatorId, ?string $siteAccess): array
+    public function getLanguages(int $customerId, ?string $siteAccess): array
     {
-        if ($mandatorId) {
-            $languages = $this->getMainLanguagesBySiteAccesses(
-                $this->getSiteAccessesByMandatorId($mandatorId)
+        if (!$siteAccess) {
+            return $this->getLanguagesBySiteAccesses(
+                $this->getSiteAccessesByCustomerId($customerId)
             );
-        } elseif ($siteAccess) {
-            $languages = $this->configResolver->getParameter('languages', '', $siteAccess);
         } else {
-            $languages = $this->configResolver->getParameter('languages');
+            return $this->getLanguageList($siteAccess);
         }
-
-        if (empty($languages)) {
-            throw new LogicException(sprintf('No languages found using SiteAccessHelper or mandatorId'));
-        }
-
-        return $languages;
     }
 
     /**
-     * @param int|null $mandatorId
+     * @param int|null $customerId
      *
      * @return array
      *
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
-    public function getSiteAccessesByMandatorId(?int $mandatorId): array
+    public function getSiteAccessesByCustomerId(?int $customerId): array
     {
-        if ($mandatorId === null) {
+        if ($customerId === null) {
             return [$this->siteAccess->name];
         }
 
         $siteAccesses = [];
 
         foreach ($this->siteAccessConfig as $siteAccessName => $config) {
-            if (!isset($config['authentication']['customer_id']) || (int) $config['authentication']['customer_id'] !== $mandatorId) {
+            if (!isset($config['authentication']['customer_id']) || (int)$config['authentication']['customer_id'] !== $customerId) {
                 continue;
             }
 
@@ -140,7 +130,7 @@ class SiteAccessHelper
 
             if ($this->isDefaultSiteAccessChanged()
                 && $this->isSiteAccessSameAsSystemDefault($siteAccessName)
-                && $this->isMandatorIdConfigured($mandatorId)
+                && $this->isCustomerIdConfigured($customerId)
             ) {
                 // default siteAccess name is changed and configuration should be adjusted
                 $siteAccesses[$this->defaultSiteAccessName] = $this->defaultSiteAccessName;
@@ -148,26 +138,26 @@ class SiteAccessHelper
         }
 
         if (empty($siteAccesses)) {
-            throw new NotFoundException('configuration for eZ Recommendation', "mandatorId: {$mandatorId}");
+            throw new NotFoundException('configuration for eZ Recommendation', "customerId: {$customerId}");
         }
 
         return array_values($siteAccesses);
     }
 
     /**
-     * Returns siteAccesses based on mandatorId, requested siteAccess or default SiteAccessHelper.
+     * Returns siteAccesses based on customerId, requested siteAccess or default SiteAccessHelper.
      *
-     * @param int|null $mandatorId
+     * @param int|null $customerId
      * @param string|null $siteAccess
      *
      * @return array
      *
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
-    public function getSiteAccesses(?int $mandatorId, ?string $siteAccess): array
+    public function getSiteAccesses(?int $customerId, ?string $siteAccess): array
     {
-        if ($mandatorId) {
-            $siteAccesses = $this->getSiteaccessesByMandatorId($mandatorId);
+        if ($customerId) {
+            $siteAccesses = $this->getSiteaccessesByCustomerId($customerId);
         } elseif ($siteAccess) {
             $siteAccesses = [$siteAccess];
         } else {
@@ -177,29 +167,54 @@ class SiteAccessHelper
         return $siteAccesses;
     }
 
-    /**
-     * Returns Recommendation Service credentials based on current siteAccess or mandatorId.
-     *
-     * @param int|null $mandatorId
-     * @param string|null $siteAccess
-     *
-     * @return array
-     *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
-     */
-    public function getRecommendationServiceCredentials(?int $mandatorId, ?string $siteAccess): array
+    public function getLanguagesBySiteAccesses(array $siteAccesses): array
     {
-        $siteAccesses = $this->getSiteAccesses($mandatorId, $siteAccess);
-        $siteAccess = end($siteAccesses);
-
-        if ($siteAccess === self::SYSTEM_DEFAULT_SITEACCESS_NAME) {
-            $siteAccess = null;
+        if (count($siteAccesses) === 1 && $this->isSiteAccessSameAsSystemDefault(current($siteAccesses))) {
+            return $this->getLanguageList();
         }
 
-        $customerId = $this->configResolver->getParameter('authentication.customer_id', Parameters::NAMESPACE, $siteAccess);
-        $licenceKey = $this->configResolver->getParameter('authentication.license_key', Parameters::NAMESPACE, $siteAccess);
+        return $this->getMainLanguagesBySiteAccesses($siteAccesses);
+    }
 
-        return [$customerId, $licenceKey];
+    /**
+     * Checks if customerId is configured with default siteAccess.
+     *
+     * @param int $customerId
+     *
+     * @return bool
+     */
+    private function isCustomerIdConfigured(int $customerId): bool
+    {
+        return in_array($this->defaultSiteAccessName, $this->siteAccessConfig)
+            && $this->siteAccessConfig[$this->defaultSiteAccessName]['authentication']['customer_id'] == $customerId;
+    }
+
+    /**
+     * Returns main languages from siteAccess list.
+     */
+    private function getMainLanguagesBySiteAccesses(array $siteAccesses): array
+    {
+        $languages = [];
+
+        foreach ($siteAccesses as $siteAccess) {
+            $language = current($this->getLanguageList(
+                !$this->isSiteAccessSameAsSystemDefault($siteAccess) ? $siteAccess : null)
+            );
+
+            if ($language) {
+                $languages[$language] = $language;
+            }
+        }
+
+        return array_keys($languages);
+    }
+
+    /**
+     * Gets LanguageList for given siteAccess using ConfigResolver
+     */
+    private function getLanguageList(?string $siteAccess = null): array
+    {
+        return $this->configResolver->getParameter('languages', null, $siteAccess);
     }
 
     /**
@@ -209,7 +224,7 @@ class SiteAccessHelper
      */
     private function isDefaultSiteAccessChanged(): bool
     {
-        return $this->defaultSiteAccessName !== self::SYSTEM_DEFAULT_SITEACCESS_NAME;
+        return $this->defaultSiteAccessName !== self::SYSTEM_DEFAULT_SITE_ACCESS_NAME;
     }
 
     /**
@@ -221,46 +236,6 @@ class SiteAccessHelper
      */
     private function isSiteAccessSameAsSystemDefault(string $siteAccessName): bool
     {
-        return $siteAccessName === self::SYSTEM_DEFAULT_SITEACCESS_NAME;
-    }
-
-    /**
-     * Checks if mandatorId is configured with default siteAccess.
-     *
-     * @param int $mandatorId
-     *
-     * @return bool
-     */
-    private function isMandatorIdConfigured(int $mandatorId): bool
-    {
-        return in_array($this->defaultSiteAccessName, $this->siteAccessConfig)
-            && $this->siteAccessConfig[$this->defaultSiteAccessName]['authentication']['customer_id'] == $mandatorId;
-    }
-
-    /**
-     * Returns main languages from siteAccess list.
-     *
-     * @param array string[] $siteAccesses
-     *
-     * @return array
-     */
-    private function getMainLanguagesBySiteAccesses(array $siteAccesses): array
-    {
-        $languages = [];
-
-        foreach ($siteAccesses as $siteAccess) {
-            $languageList = $this->configResolver->getParameter(
-                'languages',
-                '',
-                $siteAccess !== 'default' ? $siteAccess : null
-            );
-            $mainLanguage = reset($languageList);
-
-            if ($mainLanguage) {
-                $languages[$mainLanguage] = $mainLanguage;
-            }
-        }
-
-        return array_keys($languages);
+        return $siteAccessName === self::SYSTEM_DEFAULT_SITE_ACCESS_NAME;
     }
 }

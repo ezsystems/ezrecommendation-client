@@ -11,7 +11,7 @@ namespace EzSystems\EzRecommendationClient\Config;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use Psr\Log\LoggerInterface;
 
-abstract class CredentialsChecker implements CredentialsCheckerInterface
+abstract class CredentialsResolver implements CredentialsResolverInterface
 {
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     protected $configResolver;

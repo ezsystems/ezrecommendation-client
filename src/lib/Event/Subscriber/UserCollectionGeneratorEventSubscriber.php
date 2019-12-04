@@ -14,21 +14,18 @@ use EzSystems\EzRecommendationClient\Value\Output\UserCollection;
 use EzSystems\EzRecommendationClientBundle\Serializer\Normalizer\AttributeNormalizer;
 use EzSystems\EzRecommendationClientBundle\Serializer\Normalizer\UserCollectionNormalizer;
 use EzSystems\EzRecommendationClientBundle\Serializer\Normalizer\UserNormalizer;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class UserCollectionGeneratorEventSubscriber implements EventSubscriberInterface
 {
     /** @var \Symfony\Component\EventDispatcher\EventDispatcher */
     private $eventDispatcher;
 
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcher $eventDispatcher
-     */
-    public function __construct(EventDispatcher $eventDispatcher)
+    public function __construct(EventDispatcherInterface $eventDispatcher)
     {
         $this->eventDispatcher = $eventDispatcher;
     }

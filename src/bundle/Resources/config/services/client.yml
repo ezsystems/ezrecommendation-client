@@ -9,6 +9,8 @@ services:
 
     GuzzleHttp\Client: ~
 
+    GuzzleHttp\ClientInterface: '@GuzzleHttp\Client'
+
     EzSystems\EzRecommendationClient\Client\EzRecommendationClient:
         arguments:
-            $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsChecker'
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'

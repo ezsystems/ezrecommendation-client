@@ -10,7 +10,8 @@ namespace EzSystems\EzRecommendationClient\Event\Subscriber;
 
 use eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent;
-use EzSystems\EzRecommendationClient\Helper\ContentHelper;
+use EzSystems\EzRecommendationClient\Helper\ContentTypeHelper;
+use EzSystems\EzRecommendationClient\Helper\LocationHelper;
 use EzSystems\EzRecommendationClient\Request\BasicRecommendationRequest as Request;
 use EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface;
 use EzSystems\EzRecommendationClient\SPI\RecommendationRequest;
@@ -34,25 +35,24 @@ final class RecommendationEventSubscriber implements EventSubscriberInterface
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /** @var \EzSystems\EzRecommendationClient\Helper\ContentHelper */
-    private $contentHelper;
+    /** @var \EzSystems\EzRecommendationClient\Helper\ContentTypeHelper */
+    private $contentTypeHelper;
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface $recommendationService
-     * @param \eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface $localeConverter
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param \EzSystems\EzRecommendationClient\Helper\ContentHelper $contentHelper
-     */
+    /** @var \EzSystems\EzRecommendationClient\Helper\LocationHelper */
+    private $locationHelper;
+
     public function __construct(
         RecommendationServiceInterface $recommendationService,
         LocaleConverterInterface $localeConverter,
         LoggerInterface $logger,
-        ContentHelper $contentHelper
+        ContentTypeHelper $contentTypeHelper,
+        LocationHelper $locationHelper
     ) {
         $this->recommendationService = $recommendationService;
-        $this->contentHelper = $contentHelper;
         $this->localeConverter = $localeConverter;
         $this->logger = $logger;
+        $this->contentTypeHelper = $contentTypeHelper;
+        $this->locationHelper = $locationHelper;
     }
 
     /**
@@ -100,9 +100,9 @@ final class RecommendationEventSubscriber implements EventSubscriberInterface
             RecommendationRequest::SCENARIO => $parameterBag->get(RecommendationRequest::SCENARIO, ''),
             Request::LIMIT_KEY => $parameterBag->get(Request::LIMIT_KEY, 3),
             Request::CONTEXT_ITEMS_KEY => $contextItems,
-            Request::CONTENT_TYPE_KEY => $this->contentHelper->getContentTypeId($this->contentHelper->getContentIdentifier($contextItems)),
-            Request::OUTPUT_TYPE_ID_KEY => $this->contentHelper->getContentTypeId($parameterBag->get(Request::OUTPUT_TYPE_ID_KEY, '')),
-            Request::CATEGORY_PATH_KEY => $this->contentHelper->getLocationPathString($contextItems),
+            Request::CONTENT_TYPE_KEY => $this->contentTypeHelper->getContentTypeId($this->contentTypeHelper->getContentTypeIdentifier($contextItems)),
+            Request::OUTPUT_TYPE_ID_KEY => $this->contentTypeHelper->getContentTypeId($parameterBag->get(Request::OUTPUT_TYPE_ID_KEY, '')),
+            Request::CATEGORY_PATH_KEY => $this->locationHelper->getLocationPathString($contextItems),
             Request::LANGUAGE_KEY => $this->getRequestLanguage($parameterBag->get(self::LOCALE_REQUEST_KEY)),
             Request::ATTRIBUTES_KEY => $parameterBag->get(Request::ATTRIBUTES_KEY, []),
             Request::FILTERS_KEY => $parameterBag->get(Request::FILTERS_KEY, []),

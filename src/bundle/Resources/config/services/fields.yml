@@ -15,4 +15,4 @@ services:
 
     EzSystems\EzRecommendationClient\Field\TypeValue:
         arguments:
-            $richHtml5Converter: '@ezpublish.fieldType.ezrichtext.converter.output.xhtml5'
+            $richHtml5Converter: '@ezrichtext.converter.output.xhtml5'

@@ -13,7 +13,7 @@ use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use EzSystems\EzRecommendationClient\Value\ExportMethod;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 
-class ExportCredentialsChecker extends CredentialsChecker
+class ExportCredentialsResolver extends CredentialsResolver
 {
     /** @var string */
     private $method;
