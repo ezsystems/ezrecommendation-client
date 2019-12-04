@@ -7,10 +7,6 @@ services:
     EzSystems\EzRecommendationClient\Helper\:
         resource: '../../../../src/lib/Helper/*'
 
-    EzSystems\EzRecommendationClient\Helper\FileSystemHelper:
-        arguments:
-            $exportDocumentRoot: '%ezrecommendation.default.export.document_root%'
-
     EzSystems\EzRecommendationClient\Helper\SiteAccessHelper:
         arguments:
             $siteAccessConfig: '%ezrecommendation.siteaccess_config%'

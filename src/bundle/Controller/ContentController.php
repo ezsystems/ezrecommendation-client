@@ -14,7 +14,9 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use EzSystems\EzPlatformRest\Server\Controller as RestController;
 use EzSystems\EzPlatformRest\Server\Exceptions\AuthenticationFailedException;
 use EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface;
-use EzSystems\EzRecommendationClient\Content\Content;
+use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
+use EzSystems\EzRecommendationClient\Service\ContentServiceInterface;
+use EzSystems\EzRecommendationClient\Value\Content;
 use EzSystems\EzRecommendationClient\Value\ContentData;
 use EzSystems\EzRecommendationClient\Value\IdList;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -30,22 +32,17 @@ class ContentController extends RestController
     /** @var \EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface */
     private $authenticator;
 
-    /** @var \EzSystems\EzRecommendationClient\Content\Content */
-    private $content;
+    /** @var \EzSystems\EzRecommendationClient\Service\ContentServiceInterface */
+    private $contentService;
 
-    /**
-     * @param \eZ\Publish\API\Repository\SearchService $searchService
-     * @param \EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface $authenticator
-     * @param \EzSystems\EzRecommendationClient\Content\Content $content
-     */
     public function __construct(
         SearchServiceInterface $searchService,
         AuthenticatorInterface $authenticator,
-        Content $content
+        ContentServiceInterface $contentService
     ) {
         $this->searchService = $searchService;
         $this->authenticator = $authenticator;
-        $this->content = $content;
+        $this->contentService = $contentService;
     }
 
     /**
@@ -69,14 +66,18 @@ class ContentController extends RestController
         }
 
         $requestQuery = $request->query;
-        $lang = $requestQuery->get('lang');
+
+        $content = new Content();
+        $content->lang = $requestQuery->get('lang');
+        $content->fields = $requestQuery->get('fields')
+            ? ParamsConverterHelper::getArrayFromString($requestQuery->get('fields'))
+            : null;
 
         $contentItems = $this->searchService->findContent(
             $this->getQuery($requestQuery, $idList),
-            (!empty($lang) ? ['languages' => [$lang]] : [])
+            (!empty($content->lang) ? ['languages' => [$content->lang]] : [])
         )->searchHits;
-
-        $contentData = $this->content->prepareContent([$contentItems], $requestQuery);
+        $contentData = $this->contentService->prepareContent([$contentItems], $content);
 
         return new ContentData($contentData);
     }

@@ -16,7 +16,7 @@ use eZ\Publish\Core\MVC\Symfony\SiteAccess as CurrentSiteAccess;
 /**
  * Provides utility to manipulate siteAccess.
  */
-class SiteAccessHelper
+final class SiteAccessHelper
 {
     const SYSTEM_DEFAULT_SITE_ACCESS_NAME = 'default';
 

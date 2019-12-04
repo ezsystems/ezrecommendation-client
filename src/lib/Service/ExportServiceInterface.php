@@ -6,19 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Exporter;
+namespace EzSystems\EzRecommendationClient\Service;
 
 use EzSystems\EzRecommendationClient\Value\ExportParameters;
 use Symfony\Component\Console\Output\OutputInterface;
 
-interface ExporterInterface
+interface ExportServiceInterface
 {
     /**
      * @param \EzSystems\EzRecommendationClient\Value\ExportParameters $parameters
-     * @param string $chunkDir
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return array
      */
-    public function run(ExportParameters $parameters, string $chunkDir, OutputInterface $output): array;
+    public function process(ExportParameters $parameters, OutputInterface $output): void;
 }

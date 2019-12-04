@@ -6,17 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Helper;
+namespace EzSystems\EzRecommendationClient\File;
 
-use eZ\Publish\Core\REST\Common\Exceptions\NotFoundException;
+use EzSystems\EzRecommendationClient\Exception\FileNotFoundException;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use EzSystems\EzRecommendationClient\Value\ExportMethod;
 use Symfony\Component\Filesystem\Filesystem as BaseFilesystem;
 
-/**
- * Provides utility to manipulate the file system for export purposes.
- */
-class FileSystemHelper
+final class FileManager implements FileManagerInterface
 {
     /** @var \Symfony\Component\Filesystem\Filesystem */
     private $filesystem;
@@ -24,10 +21,6 @@ class FileSystemHelper
     /** @var string */
     private $exportDocumentRoot;
 
-    /**
-     * @param \Symfony\Component\Filesystem\Filesystem $filesystem
-     * @param string $exportDocumentRoot
-     */
     public function __construct(
         BaseFilesystem $filesystem,
         string $exportDocumentRoot
@@ -37,30 +30,21 @@ class FileSystemHelper
     }
 
     /**
-     * Load the content from file.
-     *
-     * @param string $file
-     *
-     * @return string
-     *
-     * @throws NotFoundException when file not found.
+     * @throws \EzSystems\EzRecommendationClient\Exception\FileNotFoundException
      */
     public function load(string $file): string
     {
         $dir = $this->getDir();
 
         if (!$this->filesystem->exists($dir . $file)) {
-            throw new NotFoundException('File not found.');
+            throw new FileNotFoundException(sprintf('File: %s not found.', $file));
         }
 
         return file_get_contents($dir . $file);
     }
 
     /**
-     * Saves the content to file.
-     *
-     * @param string $file
-     * @param string $content
+     * @inheritDoc
      */
     public function save(string $file, string $content): void
     {
@@ -68,9 +52,7 @@ class FileSystemHelper
     }
 
     /**
-     * Returns directory for export files or default directory if not exists.
-     *
-     * @return string
+     * @inheritDoc
      */
     public function getDir(): string
     {
@@ -78,9 +60,7 @@ class FileSystemHelper
     }
 
     /**
-     * Generates directory for export files.
-     *
-     * @return string
+     * @inheritDoc
      */
     public function createChunkDir(): string
     {
@@ -95,7 +75,7 @@ class FileSystemHelper
     }
 
     /**
-     * Locks directory by creating lock file.
+     * @inheritDoc
      */
     public function lock(): void
     {
@@ -105,7 +85,7 @@ class FileSystemHelper
     }
 
     /**
-     * Unlock directory by deleting lock file.
+     * @inheritDoc
      */
     public function unlock(): void
     {
@@ -117,9 +97,7 @@ class FileSystemHelper
     }
 
     /**
-     * Checks if directory is locked.
-     *
-     * @return bool
+     * @inheritDoc
      */
     public function isLocked(): bool
     {
@@ -129,12 +107,7 @@ class FileSystemHelper
     }
 
     /**
-     * Securing the directory regarding the authentication method.
-     *
-     * @param string $chunkDir
-     * @param array $credentials
-     *
-     * @return array
+     * @inheritDoc
      */
     public function secureDir(string $chunkDir, ExportCredentials $credentials): array
     {

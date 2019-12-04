@@ -10,7 +10,6 @@ namespace EzSystems\EzRecommendationClient\Helper;
 
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
-use Symfony\Component\Process\ProcessBuilder;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -42,23 +41,19 @@ class ExportProcessRunnerHelper
     /**
      * @param array $parameters
      */
-    public function run(array $parameters): void
+    public function run(array $parameters): Process
     {
         $documentRoot = $parameters['documentRoot'];
         unset($parameters['documentRoot']);
 
-        $builder = new ProcessBuilder([
-            $documentRoot . '/../bin/console',
-            'ezrecomendation:export:run',
-            '--env=' . $this->kernelEnvironment,
-        ]);
-        $builder->setWorkingDirectory($documentRoot . '../');
-        $builder->setTimeout(null);
-        $builder->setPrefix([
+        $command = [
             $this->getPhpPath(),
             '-d',
             'memory_limit=-1',
-        ]);
+            $documentRoot . '/../bin/console',
+            'ezrecommendation:export:run',
+            '--env=' . $this->kernelEnvironment,
+        ];
 
         foreach ($parameters as $key => $option) {
             if (empty($option)) {
@@ -69,21 +64,19 @@ class ExportProcessRunnerHelper
                 $option = implode(',', $option);
             }
 
-            $builder->add(sprintf('--%s=%s', $key, $option));
+            $command[] = sprintf('--%s=%s', $key, $option);
         }
 
-        $command = $builder->getProcess()->getCommandLine();
-        $output = sprintf(
-            ' > %s 2>&1 & echo $! > %s',
-            $documentRoot . '/var/export/.log',
-            $documentRoot . '/var/export/.pid'
-        );
+        $process = new Process($command);
 
-        $this->logger->info(sprintf('Running command: %s', $command . $output));
+        $this->logger->info(sprintf('Running command: %s', $process->getCommandLine()));
 
-        $process = new Process($command . $output);
-        $process->disableOutput();
-        $process->run();
+        $process
+            ->setTimeout(null)
+            ->run()
+        ;
+
+        return $process;
     }
 
     /**

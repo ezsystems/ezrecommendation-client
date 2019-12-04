@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Authentication;
 
-use EzSystems\EzPlatformRest\Exceptions\NotFoundException;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
-use EzSystems\EzRecommendationClient\Helper\FileSystemHelper;
+use EzSystems\EzRecommendationClient\Exception\FileNotFoundException;
+use EzSystems\EzRecommendationClient\File\FileManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Authenticator for export feature, mainly used for basic auth based authentication.
  */
-class ExportAuthenticator implements FileAuthenticatorInterface
+final class ExportAuthenticator implements FileAuthenticatorInterface
 {
     private const PHP_AUTH_USER = 'PHP_AUTH_USER';
     private const PHP_AUTH_PW = 'PHP_AUTH_PW';
@@ -27,22 +27,17 @@ class ExportAuthenticator implements FileAuthenticatorInterface
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
     private $requestStack;
 
-    /** @var \EzSystems\EzRecommendationClient\Helper\FileSystemHelper */
-    private $fileSystem;
+    /** @var \EzSystems\EzRecommendationClient\File\FileManagerInterface */
+    private $fileManager;
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface $credentialsResolver
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \EzSystems\EzRecommendationClient\Helper\FileSystemHelper $fileSystem
-     */
     public function __construct(
         CredentialsResolverInterface $credentialsResolver,
         RequestStack $requestStack,
-        FileSystemHelper $fileSystem
+        FileManagerInterface $fileManager
     ) {
         $this->credentialsResolver = $credentialsResolver;
         $this->requestStack = $requestStack;
-        $this->fileSystem = $fileSystem;
+        $this->fileManager = $fileManager;
     }
 
     /**
@@ -71,6 +66,8 @@ class ExportAuthenticator implements FileAuthenticatorInterface
 
     /**
      * {@inheritdoc}
+     *
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
     public function authenticateByFile(string $filePath): bool
     {
@@ -87,11 +84,11 @@ class ExportAuthenticator implements FileAuthenticatorInterface
         $passFile = substr($filePath, 0, $length) . '/.htpasswd';
 
         try {
-            $fileContent = $this->fileSystem->load($passFile);
+            $fileContent = $this->fileManager->load($passFile);
             list($auth['user'], $auth['pass']) = explode(':', trim($fileContent));
 
             return $user == $auth['user'] && $pass == $auth['pass'];
-        } catch (NotFoundException $e) {
+        } catch (FileNotFoundException $e) {
             return false;
         }
     }

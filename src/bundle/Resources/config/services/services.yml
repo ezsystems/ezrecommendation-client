@@ -12,7 +12,7 @@ services:
             $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'
             $notificationService: '@EzSystems\EzRecommendationClient\Service\ExportNotificationService'
 
-    EzSystems\EzRecommendationClient\Service\ContentExportService:
+    EzSystems\EzRecommendationClient\Service\ContentService:
         arguments:
             $defaultAuthorId: '%ezrecommendation.default.author_id%'
             $translationHelper: '@ezpublish.translation_helper'

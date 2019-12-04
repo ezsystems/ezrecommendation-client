@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Value;
 
-use eZ\Publish\API\Repository\Values\ValueObject;
+use EzSystems\EzRecommendationClient\SPI\Content;
 use Symfony\Component\Validator\Constraints as Assert;
 
-class ExportParameters extends ValueObject
+class ExportParameters extends Content
 {
     /**
      * @var int
@@ -84,16 +84,6 @@ class ExportParameters extends ValueObject
     public $image;
 
     /**
-     * @var string[]
-     *
-     * @Assert\NotBlank(allowNull = true)
-     * @Assert\All({
-     *      @Assert\NotBlank
-     * })
-     */
-    public $fields;
-
-    /**
      * @var int
      *
      * @Assert\Positive
@@ -108,13 +98,6 @@ class ExportParameters extends ValueObject
     public $page;
 
     /**
-     * @var string|null
-     *
-     * @Assert\NotBlank(allowNull = true)
-     */
-    public $lang;
-
-    /**
      * @var string[]
      *
      * @Assert\NotBlank
@@ -123,9 +106,4 @@ class ExportParameters extends ValueObject
      * })
      */
     public $languages;
-
-    public function getProperties($dynamicProperties = []): array
-    {
-        return get_object_vars($this);
-    }
 }

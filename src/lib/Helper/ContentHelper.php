@@ -100,8 +100,9 @@ final class ContentHelper
      * @param int $contentId
      * @param array|null $languages
      * @param int|null $versionNo
-     * 
+     *
      * @return \eZ\Publish\API\Repository\Values\Content\Content|null
+     *
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function getContent(int $contentId, ?array $languages = null, ?int $versionNo = null): ?Content
