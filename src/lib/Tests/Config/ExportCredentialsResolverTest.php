@@ -19,7 +19,7 @@ class ExportCredentialsResolverTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject|eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->configResolver = $this->getMockBuilder(ConfigResolverInterface::class)->getMock();
 

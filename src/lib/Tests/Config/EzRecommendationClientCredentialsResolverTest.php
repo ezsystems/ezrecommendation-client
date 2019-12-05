@@ -16,10 +16,10 @@ use Psr\Log\NullLogger;
 
 class EzRecommendationClientCredentialsResolverTest extends TestCase
 {
-    /** @var \PHPUnit\Framework\MockObject\MockObject|eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->configResolver = $this->getMockBuilder(ConfigResolverInterface::class)->getMock();
 
@@ -30,7 +30,6 @@ class EzRecommendationClientCredentialsResolverTest extends TestCase
     {
         $this->assertInstanceOf(EzRecommendationClientCredentialsResolver::class, new EzRecommendationClientCredentialsResolver(
             $this->configResolver,
-            new NullLogger()
         ));
     }
 
@@ -53,7 +52,6 @@ class EzRecommendationClientCredentialsResolverTest extends TestCase
 
         $credentialsResolver = new EzRecommendationClientCredentialsResolver(
             $this->configResolver,
-            new NullLogger()
         );
 
         $this->assertInstanceOf(EzRecommendationClientCredentials::class, $credentialsResolver->getCredentials());
@@ -66,7 +64,6 @@ class EzRecommendationClientCredentialsResolverTest extends TestCase
     {
         $credentialsResolver = new EzRecommendationClientCredentialsResolver(
             $this->configResolver,
-            new NullLogger()
         );
 
         $this->assertNull($credentialsResolver->getCredentials());

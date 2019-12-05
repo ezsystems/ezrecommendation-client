@@ -12,7 +12,7 @@ use eZ\Publish\Core\MVC\Symfony\SiteAccess as CurrentSiteAccess;
 use EzSystems\EzRecommendationClient\Helper\SiteAccessHelper;
 use PHPUnit\Framework\TestCase;
 
-class SiteAccessTest extends TestCase
+class SiteAccessHelperTest extends TestCase
 {
     /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
@@ -109,7 +109,7 @@ class SiteAccessTest extends TestCase
     {
         $this->configResolver
             ->expects($this->once())
-            ->method('getParameter')
+            ->method('getLanguages')
             ->with($this->equalTo('languages'))
             ->willReturn(['eng-GB', 'fre-FR'])
         ;
@@ -123,7 +123,7 @@ class SiteAccessTest extends TestCase
             'default'
         );
 
-        $result = $siteAccessMock->getLanguages(null, null);
+        $result = $siteAccessMock->getLanguages(1111, null);
 
         $this->assertEquals(['eng-GB', 'fre-FR'], $result);
     }
@@ -146,12 +146,12 @@ class SiteAccessTest extends TestCase
             'default'
         );
 
-        $result = $siteAccessMock->getLanguages(null, 'foo');
+        $result = $siteAccessMock->getLanguages(1542, 'foo');
 
         $this->assertEquals(['eng-GB', 'fre-FR'], $result);
     }
 
-    public function testGetLanguagesByMandatorId()
+    public function testGetLanguagesByCustomerId()
     {
         $this->configResolver
             ->expects($this->once())
@@ -188,7 +188,7 @@ class SiteAccessTest extends TestCase
         $this->assertEquals(['eng-GB'], $result);
     }
 
-    public function testGetSiteAccessesByMandatorIdWithoutMandatorId()
+    public function testgetSiteAccessesByCustomerIdWithoutCustomerId()
     {
         $siteAccess = new CurrentSiteAccess('foo', 'test');
 
@@ -199,12 +199,12 @@ class SiteAccessTest extends TestCase
             'default'
         );
 
-        $result = $siteAccessMock->getSiteAccessesByMandatorId(null);
+        $result = $siteAccessMock->getSiteAccessesByCustomerId(null);
 
         $this->assertEquals(['foo'], $result);
     }
 
-    public function testGetSiteAccessesByMandatorId()
+    public function testgetSiteAccessesByCustomerId()
     {
         $siteAccess = new CurrentSiteAccess('foo', 'test');
 
@@ -233,12 +233,12 @@ class SiteAccessTest extends TestCase
             'default'
         );
 
-        $result = $siteAccessMock->getSiteAccessesByMandatorId(1);
+        $result = $siteAccessMock->getSiteAccessesByCustomerId(1);
 
         $this->assertEquals(['default'], $result);
     }
 
-    public function testGetSiteAccessesByMandatorIdWithChangedDefaultSiteAccess()
+    public function testgetSiteAccessesByCustomerIdWithChangedDefaultSiteAccess()
     {
         $siteAccess = new CurrentSiteAccess('foo', 'test');
 
@@ -267,12 +267,12 @@ class SiteAccessTest extends TestCase
             'foo'
         );
 
-        $result = $siteAccessMock->getSiteAccessesByMandatorId(1);
+        $result = $siteAccessMock->getSiteAccessesByCustomerId(1);
 
         $this->assertEquals(['default'], $result);
     }
 
-    public function testGetSiteAccessesByMandatorIdWithChangedDefaultSiteAccessDifferentMandatorId()
+    public function testgetSiteAccessesByCustomerIdWithChangedDefaultSiteAccessDifferentCustomerId()
     {
         $siteAccess = new CurrentSiteAccess('foo', 'test');
 
@@ -301,12 +301,12 @@ class SiteAccessTest extends TestCase
             'foo'
         );
 
-        $result = $siteAccessMock->getSiteAccessesByMandatorId(2);
+        $result = $siteAccessMock->getSiteAccessesByCustomerId(2);
 
         $this->assertEquals(['foo'], $result);
     }
 
-    public function testGetSiteAccessesByMandatorIdWithMultipleConfig()
+    public function testgetSiteAccessesByCustomerIdWithMultipleConfig()
     {
         $siteAccess = new CurrentSiteAccess('foo', 'test');
 
@@ -335,12 +335,12 @@ class SiteAccessTest extends TestCase
             'default'
         );
 
-        $result = $siteAccessMock->getSiteAccessesByMandatorId(3);
+        $result = $siteAccessMock->getSiteAccessesByCustomerId(3);
 
         $this->assertEquals(['default', 'foo', 'bar'], $result);
     }
 
-    public function testGetSiteAccessesByMandatorIdWithChangedDefaultSiteAccessAndMultipleConfig()
+    public function testgetSiteAccessesByCustomerIdWithChangedDefaultSiteAccessAndMultipleConfig()
     {
         $siteAccess = new CurrentSiteAccess('foo', 'test');
 
@@ -369,16 +369,16 @@ class SiteAccessTest extends TestCase
             'foo'
         );
 
-        $result = $siteAccessMock->getSiteAccessesByMandatorId(3);
+        $result = $siteAccessMock->getSiteAccessesByCustomerId(3);
 
         $this->assertEquals(['default', 'foo', 'bar'], $result);
     }
 
     /**
      * @expectedException \eZ\Publish\Core\Base\Exceptions\NotFoundException
-     * @expectedExceptionMessage Could not find 'configuration for eZ Recommendation' with identifier 'mandatorId: 1007'
+     * @expectedExceptionMessage Could not find 'configuration for eZ Recommendation' with identifier 'customerId: 1007'
      */
-    public function testGetSiteAccessesByMandatorIdWithWrongMandatorId()
+    public function testGetSiteAccessesByCustomerIdWithWrongCustomerId()
     {
         $siteAccess = new CurrentSiteAccess('foo', 'test');
 
@@ -401,7 +401,7 @@ class SiteAccessTest extends TestCase
             $siteAccessConfig
         );
 
-        $result = $siteAccessMock->getSiteAccessesByMandatorId(1007);
+        $result = $siteAccessMock->getSiteAccessesByCustomerId(1007);
     }
 
     public function testGetSiteAccesses()
@@ -420,7 +420,7 @@ class SiteAccessTest extends TestCase
         $this->assertEquals(['default'], $result);
     }
 
-    public function testGetSiteAccessesWithMandatorId()
+    public function testGetSiteAccessesWithCustomerId()
     {
         $siteAccess = new CurrentSiteAccess('default', 'test');
 
@@ -462,9 +462,9 @@ class SiteAccessTest extends TestCase
 
     /**
      * @expectedException \eZ\Publish\Core\Base\Exceptions\NotFoundException
-     * @expectedExceptionMessage Could not find 'configuration for eZ Recommendation' with identifier 'mandatorId: 123'
+     * @expectedExceptionMessage Could not find 'configuration for eZ Recommendation' with identifier 'customerId: 123'
      */
-    public function testGetSiteAccessesWithWrongMandatorId()
+    public function testGetSiteAccessesWithWrongCustomerId()
     {
         $siteAccess = new CurrentSiteAccess('default', 'test');
 
@@ -476,103 +476,5 @@ class SiteAccessTest extends TestCase
         );
 
         $result = $siteAccessMock->getSiteAccesses(123, null);
-    }
-
-    public function testGetRecommendationServiceCredentials()
-    {
-        $this->configResolver
-            ->expects($this->at(0))
-            ->method('getParameter')
-            ->with('authentication.customer_id', 'ezrecommendation')
-            ->willReturn('123')
-        ;
-
-        $this->configResolver
-            ->expects($this->at(1))
-            ->method('getParameter')
-            ->with('authentication.license_key', 'ezrecommendation')
-            ->willReturn('licence-key')
-        ;
-
-        $siteAccess = new CurrentSiteAccess('default', 'test');
-
-        $siteAccessMock = new SiteAccessHelper(
-            $this->configResolver,
-            $siteAccess,
-            [],
-            'default'
-        );
-
-        $result = $siteAccessMock->getRecommendationServiceCredentials(null, null);
-
-        $this->assertEquals(['123', 'licence-key'], $result);
-    }
-
-    public function testGetRecommendationServiceCredentialsWithMandatorId()
-    {
-        $this->configResolver
-            ->expects($this->at(0))
-            ->method('getParameter')
-            ->with('authentication.customer_id', 'ezrecommendation', null)
-            ->willReturn('123')
-        ;
-
-        $this->configResolver
-            ->expects($this->at(1))
-            ->method('getParameter')
-            ->with('authentication.license_key', 'ezrecommendation', null)
-            ->willReturn('licence-key')
-        ;
-
-        $siteAccess = new CurrentSiteAccess('default', 'test');
-
-        $siteAccessConfig = [
-            'default' => [
-                'authentication' => [
-                    'customer_id' => 123,
-                ],
-            ],
-        ];
-
-        $siteAccessMock = new SiteAccessHelper(
-            $this->configResolver,
-            $siteAccess,
-            $siteAccessConfig,
-            'default'
-        );
-
-        $result = $siteAccessMock->getRecommendationServiceCredentials(123, null);
-
-        $this->assertEquals(['123', 'licence-key'], $result);
-    }
-
-    public function testGetRecommendationServiceCredentialsWithSiteAccess()
-    {
-        $this->configResolver
-            ->expects($this->at(0))
-            ->method('getParameter')
-            ->with('authentication.customer_id', 'ezrecommendation', 'foo')
-            ->willReturn('123')
-        ;
-
-        $this->configResolver
-            ->expects($this->at(1))
-            ->method('getParameter')
-            ->with('authentication.license_key', 'ezrecommendation', 'foo')
-            ->willReturn('licence-key')
-        ;
-
-        $siteAccess = new CurrentSiteAccess('default', 'test');
-
-        $siteAccessMock = new SiteAccessHelper(
-            $this->configResolver,
-            $siteAccess,
-            [],
-            'default'
-        );
-
-        $result = $siteAccessMock->getRecommendationServiceCredentials(null, 'foo');
-
-        $this->assertEquals(['123', 'licence-key'], $result);
     }
 }

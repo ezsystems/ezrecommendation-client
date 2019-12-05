@@ -8,17 +8,18 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\Helper;
 
+use EzSystems\EzRecommendationClient\File\FileManager;
 use EzSystems\EzRecommendationClient\Helper\FileSystemHelper;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
 
-class FileSystemTest extends TestCase
+class FileManagerTest extends TestCase
 {
     /** @var \Symfony\Component\Filesystem\Filesystem|\PHPUnit\Framework\MockObject\MockObject */
     private $baseFileSystemHelper;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -34,19 +35,19 @@ class FileSystemTest extends TestCase
             ->willReturn(true)
         ;
 
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $result = $FileSystemHelper->load('testfile.txt');
+        $result = $FileManager->load('testfile.txt');
 
-        $this->assertContains('testfile.txt content', $result);
+        $this->assertStringContainsString('testfile.txt content', $result);
     }
 
     /**
-     * @expectedException \eZ\Publish\Core\REST\Common\Exceptions\NotFoundException
-     * @expectedExceptionMessage File not found.
+     * @expectedException  \EzSystems\EzRecommendationClient\Exception\FileNotFoundException
+     * @expectedExceptionMessage File: unexisting_file.txt not found.
      */
     public function testLoadUnexistingFile()
     {
@@ -57,12 +58,12 @@ class FileSystemTest extends TestCase
             ->willReturn(false)
         ;
 
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $result = $FileSystemHelper->load('unexisting_file.txt');
+        $result = $FileManager->load('unexisting_file.txt');
     }
 
     public function testSave()
@@ -74,24 +75,24 @@ class FileSystemTest extends TestCase
             ->willReturn(true)
         ;
 
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $FileSystemHelper->save('testfile.txt', 'test');
+        $FileManager->save('testfile.txt', 'test');
     }
 
     public function testGetDir()
     {
         $dir = 'directory/';
 
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             $dir
         );
 
-        $result = $FileSystemHelper->getDir();
+        $result = $FileManager->getDir();
 
         $this->assertEquals($dir, $result);
     }
@@ -105,12 +106,12 @@ class FileSystemTest extends TestCase
             ->willReturn(true)
         ;
 
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $result = $FileSystemHelper->createChunkDir();
+        $result = $FileManager->createChunkDir();
 
         $this->assertTrue(strlen($result) > 5);
     }
@@ -131,12 +132,12 @@ class FileSystemTest extends TestCase
             ->willReturn(true)
         ;
 
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $result = $FileSystemHelper->createChunkDir();
+        $result = $FileManager->createChunkDir();
 
         $this->assertTrue(strlen($result) > 5);
     }
@@ -150,12 +151,12 @@ class FileSystemTest extends TestCase
             ->willReturn(true)
         ;
 
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $FileSystemHelper->lock();
+        $FileManager->lock();
     }
 
     public function testUnlock()
@@ -174,12 +175,12 @@ class FileSystemTest extends TestCase
             ->willReturn(true)
         ;
 
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $result = $FileSystemHelper->unlock();
+        $result = $FileManager->unlock();
     }
 
     public function testUnlockWithoutLockedFile()
@@ -191,12 +192,12 @@ class FileSystemTest extends TestCase
             ->willReturn(false)
         ;
 
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $result = $FileSystemHelper->unlock();
+        $result = $FileManager->unlock();
     }
 
     public function testiIsLockedWithLockedFile()
@@ -208,12 +209,12 @@ class FileSystemTest extends TestCase
             ->willReturn(true)
         ;
 
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $this->assertTrue($FileSystemHelper->isLocked());
+        $this->assertTrue($FileManager->isLocked());
     }
 
     public function testiIsLockedWithoutLockedFile()
@@ -225,22 +226,22 @@ class FileSystemTest extends TestCase
             ->willReturn(false)
         ;
 
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $this->assertFalse($FileSystemHelper->isLocked());
+        $this->assertFalse($FileManager->isLocked());
     }
 
     public function testSecureDirWithMethodNone()
     {
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $result = $FileSystemHelper->secureDir(
+        $result = $FileManager->secureDir(
             'dir',
             $this->getExportCredentials('none')
         );
@@ -250,12 +251,12 @@ class FileSystemTest extends TestCase
 
     public function testSecureDirWithMethodUser()
     {
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $result = $FileSystemHelper->secureDir(
+        $result = $FileManager->secureDir(
             'dir',
             $this->getExportCredentials('user')
         );
@@ -278,12 +279,12 @@ class FileSystemTest extends TestCase
             ->willReturn(true)
         ;
 
-        $FileSystemHelper = new FileSystemHelper(
+        $FileManager = new FileManager(
             $this->baseFileSystemHelper,
             __DIR__ . '/../fixtures/'
         );
 
-        $result = $FileSystemHelper->secureDir(
+        $result = $FileManager->secureDir(
             'dir',
             $this->getExportCredentials()
         );

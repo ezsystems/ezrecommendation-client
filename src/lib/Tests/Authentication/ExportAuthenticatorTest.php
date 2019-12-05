@@ -10,30 +10,32 @@ namespace EzSystems\EzRecommendationClient\Tests\Authentication;
 
 use EzSystems\EzRecommendationClient\Authentication\ExportAuthenticator;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
-use EzSystems\EzRecommendationClient\Helper\FileSystemHelper;
+use EzSystems\EzRecommendationClient\File\FileManager;
+use EzSystems\EzRecommendationClient\File\FileManagerInterface;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Filesystem\Filesystem as BaseFileSystem;
+use Symfony\Component\Filesystem\Filesystem as BaseFilesystem;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ExportAuthenticatorTest extends TestCase
 {
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\Symfony\Component\HttpFoundation\RequestStack */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\Symfony\Component\HttpFoundation\RequestStack */
     private $requestStack;
 
-    /** @var \PHPUnit_Framework_MockObject_MockObject|\EzSystems\EzRecommendationClient\Helper\FileSystemHelper */
-    private $fileSystem;
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\EzSystems\EzRecommendationClient\File\FileManagerInterface */
+    private $fileManager;
 
-    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface|\PHPUnit_Framework_MockObject_MockObject */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface */
     private $credentialsResolverMock;
 
-    public function setUp()
+    public function setUp() : void
     {
         parent::setUp();
 
         $this->credentialsResolverMock = $this->getMockBuilder(CredentialsResolverInterface::class)->getMock();
-        $this->requestStack = $this->getMockBuilder('Symfony\Component\HttpFoundation\RequestStack')->getMock();
-        $this->fileSystem = $this->getMockBuilder('EzSystems\EzRecommendationClient\Helper\FileSystemHelper')->disableOriginalConstructor()->getMock();
+        $this->requestStack = $this->getMockBuilder(RequestStack::class)->getMock();
+        $this->fileManager = $this->getMockBuilder(FileManagerInterface::class)->disableOriginalConstructor()->getMock();
     }
 
     public function testAuthenticateWithMethodNone()
@@ -53,7 +55,7 @@ class ExportAuthenticatorTest extends TestCase
         $exportAuthenticator = new ExportAuthenticator(
             $this->credentialsResolverMock,
             $this->requestStack,
-            $this->fileSystem
+            $this->fileManager
         );
 
         $this->credentialsResolverMock
@@ -82,7 +84,7 @@ class ExportAuthenticatorTest extends TestCase
         $exportAuthenticator = new ExportAuthenticator(
             $this->credentialsResolverMock,
             $this->requestStack,
-            $this->fileSystem
+            $this->fileManager
         );
 
         $this->credentialsResolverMock
@@ -111,7 +113,7 @@ class ExportAuthenticatorTest extends TestCase
         $exportAuthenticator = new ExportAuthenticator(
             $this->credentialsResolverMock,
             $this->requestStack,
-            $this->fileSystem
+            $this->fileManager
         );
 
         $this->credentialsResolverMock
@@ -122,6 +124,9 @@ class ExportAuthenticatorTest extends TestCase
         $this->assertFalse($exportAuthenticator->authenticate());
     }
 
+    /**
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     */
     public function testAuthenticateByFile()
     {
         $return = new \stdClass();
@@ -137,7 +142,7 @@ class ExportAuthenticatorTest extends TestCase
             ->willReturn($return)
         ;
 
-        $this->fileSystem
+        $this->fileManager
             ->expects($this->once())
             ->method('load')
             ->withAnyParameters()
@@ -147,12 +152,15 @@ class ExportAuthenticatorTest extends TestCase
         $exportAuthenticator = new ExportAuthenticator(
             $this->credentialsResolverMock,
             $this->requestStack,
-            $this->fileSystem
+            $this->fileManager
         );
 
         $this->assertTrue($exportAuthenticator->authenticateByFile('file'));
     }
 
+    /**
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     */
     public function testAuthenticateByFileWithWrongCredenrials()
     {
         $return = new \stdClass();
@@ -168,7 +176,7 @@ class ExportAuthenticatorTest extends TestCase
             ->willReturn($return)
         ;
 
-        $this->fileSystem
+        $this->fileManager
             ->expects($this->once())
             ->method('load')
             ->withAnyParameters()
@@ -178,12 +186,15 @@ class ExportAuthenticatorTest extends TestCase
         $exportAuthenticator = new ExportAuthenticator(
             $this->credentialsResolverMock,
             $this->requestStack,
-            $this->fileSystem
+            $this->fileManager
         );
 
         $this->assertFalse($exportAuthenticator->authenticateByFile('file'));
     }
 
+    /**
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     */
     public function testAuthenticateByFileWithWrongFile()
     {
         $return = new \stdClass();
@@ -199,7 +210,7 @@ class ExportAuthenticatorTest extends TestCase
             ->willReturn($return)
         ;
 
-        $this->fileSystem
+        $this->fileManager
             ->expects($this->never())
             ->method('load')
             ->withAnyParameters()
@@ -208,12 +219,15 @@ class ExportAuthenticatorTest extends TestCase
         $exportAuthenticator = new ExportAuthenticator(
             $this->credentialsResolverMock,
             $this->requestStack,
-            $this->fileSystem
+            $this->fileManager
         );
 
         $this->assertFalse($exportAuthenticator->authenticateByFile('../file'));
     }
 
+    /**
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     */
     public function testAuthenticateByFileWithRealFile()
     {
         $return = new \stdClass();
@@ -232,7 +246,7 @@ class ExportAuthenticatorTest extends TestCase
         $exportAuthenticator = new ExportAuthenticator(
             $this->credentialsResolverMock,
             $this->requestStack,
-            new FileSystemHelper(
+            new FileManager(
                 new BaseFilesystem(),
                 __DIR__ . '/../fixtures/directory/'
             )

@@ -11,7 +11,7 @@ namespace EzSystems\EzRecommendationClient\Tests\Helper;
 use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
 use PHPUnit\Framework\TestCase;
 
-class TextTest extends TestCase
+class ParamsConverterHelperTest extends TestCase
 {
     /**
      * @dataProvider stringLists
@@ -21,7 +21,7 @@ class TextTest extends TestCase
         $result = ParamsConverterHelper::getIdListFromString($input);
 
         $this->assertEquals($expected, $result);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 
     public function stringLists()
@@ -70,6 +70,6 @@ class TextTest extends TestCase
         $result = ParamsConverterHelper::getArrayFromString($input);
 
         $this->assertEquals($expected, $result);
-        $this->assertInternalType('array', $result);
+        $this->assertIsArray($result);
     }
 }

@@ -28,7 +28,7 @@ class CredentialsResolverTest extends TestCase
     /** @var array */
     private $invalidCredentials;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->credentialsResolverMock = $this->getMockForAbstractClass(
             CredentialsResolver::class,
