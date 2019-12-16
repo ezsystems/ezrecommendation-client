@@ -12,6 +12,7 @@ use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
 use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\Values\Content\Content;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 
@@ -68,16 +69,16 @@ final class ContentTypeHelper
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * 
+     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
+     *
      * @return bool
      *
      * @throws \Exception
      */
-    public function isContentTypeExcluded(Content $content): bool
+    public function isContentTypeExcluded(ContentInfo $contentInfo): bool
     {
-        $contentType = $this->repository->sudo(function () use ($content) {
-            return $this->contentTypeService->loadContentType($content->contentInfo->contentTypeId);
+        $contentType = $this->repository->sudo(function () use ($contentInfo) {
+            return $this->contentTypeService->loadContentType($contentInfo->contentTypeId);
         });
 
         return !in_array(

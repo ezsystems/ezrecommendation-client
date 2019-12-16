@@ -12,5 +12,6 @@ use EzSystems\EzRecommendationClient\SPI\Notification;
 
 class EventNotification extends Notification
 {
-
+    public const ACTION_UPDATE = 'UPDATE';
+    public const ACTION_DELETE = 'DELETE';
 }

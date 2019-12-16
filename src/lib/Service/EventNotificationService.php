@@ -9,9 +9,11 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Service;
 
 use eZ\Publish\API\Repository\Values\Content\Content;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
+use EzSystems\EzRecommendationClient\Helper\ContentTypeHelper;
 use EzSystems\EzRecommendationClient\Request\EventNotifierRequest;
 use EzSystems\EzRecommendationClient\SPI\Notification;
 use EzSystems\EzRecommendationClient\Value\EventNotification;
@@ -28,32 +30,37 @@ final class EventNotificationService extends NotificationService
     /** @var \EzSystems\EzRecommendationClient\Helper\ContentHelper  */
     private $contentHelper;
 
+    /** @var \EzSystems\EzRecommendationClient\Helper\ContentTypeHelper */
+    private $contentTypeHelper;
+
     public function __construct(
         EzRecommendationClientInterface $client,
         LoggerInterface $logger,
         CredentialsResolverInterface $clientCredentials,
-        ContentHelper $contentHelper
+        ContentHelper $contentHelper,
+        ContentTypeHelper $contentTypeHelper
     ) {
         parent::__construct($client, $logger);
 
         $this->clientCredentials = $clientCredentials;
         $this->contentHelper = $contentHelper;
+        $this->contentTypeHelper = $contentTypeHelper;
     }
 
     /**
      * @param string $method
      * @param string $action
-     * @param \eZ\Publish\API\Repository\Values\Content\Content|null $content
-     * @param int|null $versionNo
+     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
      *
+     * @throws \Exception
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    public function sendNotification(string $method, string $action, ?Content $content, ?int $versionNo = null): void
+    public function sendNotification(string $method, string $action, ContentInfo $contentInfo): void
     {
         $credentials = $this->clientCredentials->getCredentials();
 
-        if (!$credentials || !$content) {
+        if (!$credentials || $this->contentTypeHelper->isContentTypeExcluded($contentInfo)) {
             return;
         }
 
@@ -61,7 +68,7 @@ final class EventNotificationService extends NotificationService
         $this->configureOptions($resolver);
 
         $notificationOptions = $resolver->resolve([
-            'events' => $this->generateNotificationEvents($action, $content, $versionNo),
+            'events' => $this->generateNotificationEvents($action, $contentInfo),
             'licenseKey' => $credentials->getLicenseKey(),
             'customerId' => $credentials->getCustomerId(),
         ]);
@@ -86,22 +93,25 @@ final class EventNotificationService extends NotificationService
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param string $action
+     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $content
+     *
+     * @return array
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    private function generateNotificationEvents(string $action, Content $content, ?int $versionNo): array
+    private function generateNotificationEvents(string $action, ContentInfo $contentInfo): array
     {
         $events = [];
 
-        foreach ($this->contentHelper->getLanguageCodes($content, $versionNo) as $lang) {
+        foreach ($this->contentHelper->getLanguageCodes($contentInfo) as $lang) {
             $event = new EventNotifierRequest([
                 EventNotifierRequest::ACTION_KEY => $action,
                 EventNotifierRequest::FORMAT_KEY => 'EZ',
-                EventNotifierRequest::URI_KEY => $this->contentHelper->getContentUri($content, $lang),
-                EventNotifierRequest::ITEM_ID_KEY => $content->id,
-                EventNotifierRequest::CONTENT_TYPE_ID_KEY => $content->contentInfo->contentTypeId,
+                EventNotifierRequest::URI_KEY => $this->contentHelper->getContentUri($contentInfo, $lang),
+                EventNotifierRequest::ITEM_ID_KEY => $contentInfo->id,
+                EventNotifierRequest::CONTENT_TYPE_ID_KEY => $contentInfo->contentTypeId,
                 EventNotifierRequest::LANG_KEY => $lang ?? null,
             ]);
 

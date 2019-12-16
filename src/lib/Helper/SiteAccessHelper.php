@@ -12,7 +12,6 @@ use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess as CurrentSiteAccess;
 
-
 /**
  * Provides utility to manipulate siteAccess.
  */
@@ -167,6 +166,9 @@ final class SiteAccessHelper
         return $siteAccesses;
     }
 
+    /**
+     * Returns languages from siteAccess list.
+     */
     public function getLanguagesBySiteAccesses(array $siteAccesses): array
     {
         if (count($siteAccesses) === 1 && $this->isSiteAccessSameAsSystemDefault(current($siteAccesses))) {
@@ -177,22 +179,9 @@ final class SiteAccessHelper
     }
 
     /**
-     * Checks if customerId is configured with default siteAccess.
-     *
-     * @param int $customerId
-     *
-     * @return bool
-     */
-    private function isCustomerIdConfigured(int $customerId): bool
-    {
-        return in_array($this->defaultSiteAccessName, $this->siteAccessConfig)
-            && $this->siteAccessConfig[$this->defaultSiteAccessName]['authentication']['customer_id'] == $customerId;
-    }
-
-    /**
      * Returns main languages from siteAccess list.
      */
-    private function getMainLanguagesBySiteAccesses(array $siteAccesses): array
+    public function getMainLanguagesBySiteAccesses(array $siteAccesses): array
     {
         $languages = [];
 
@@ -212,7 +201,7 @@ final class SiteAccessHelper
     /**
      * Gets LanguageList for given siteAccess using ConfigResolver
      */
-    private function getLanguageList(?string $siteAccess = null): array
+    public function getLanguageList(?string $siteAccess = null): array
     {
         return $this->configResolver->getParameter('languages', null, $siteAccess);
     }
@@ -222,7 +211,7 @@ final class SiteAccessHelper
      *
      * @return bool
      */
-    private function isDefaultSiteAccessChanged(): bool
+    public function isDefaultSiteAccessChanged(): bool
     {
         return $this->defaultSiteAccessName !== self::SYSTEM_DEFAULT_SITE_ACCESS_NAME;
     }
@@ -234,8 +223,21 @@ final class SiteAccessHelper
      *
      * @return bool
      */
-    private function isSiteAccessSameAsSystemDefault(string $siteAccessName): bool
+    public function isSiteAccessSameAsSystemDefault(string $siteAccessName): bool
     {
         return $siteAccessName === self::SYSTEM_DEFAULT_SITE_ACCESS_NAME;
+    }
+
+    /**
+     * Checks if customerId is configured with default siteAccess.
+     *
+     * @param int $customerId
+     *
+     * @return bool
+     */
+    private function isCustomerIdConfigured(int $customerId): bool
+    {
+        return in_array($this->defaultSiteAccessName, $this->siteAccessConfig)
+            && $this->siteAccessConfig[$this->defaultSiteAccessName]['authentication']['customer_id'] == $customerId;
     }
 }

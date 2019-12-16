@@ -20,6 +20,10 @@ final class ExportNotificationService extends NotificationService
     private const NOTIFICATION_ACTION_NAME = 'export';
 
     /**
+     * @param \EzSystems\EzRecommendationClient\Value\ExportParameters $parameters
+     * @param array $urls
+     * @param array $securedDirCredentials
+     *
      * @return \Psr\Http\Message\ResponseInterface|null
      */
     public function sendNotification(ExportParameters $parameters, array $urls, array $securedDirCredentials): ?ResponseInterface

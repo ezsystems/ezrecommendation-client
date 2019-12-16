@@ -57,7 +57,7 @@ abstract class NotificationService
                 Notification::CUSTOMER_ID_KEY => null,
                 Notification::LICENSE_KEY => null,
             ])
-            ->setAllowedTypes('events', '[]')
+            ->setAllowedTypes('events', 'array[]')
             ->setAllowedTypes('licenseKey', 'string')
             ->setAllowedTypes('customerId', 'int');
     }

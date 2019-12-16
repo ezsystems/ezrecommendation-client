@@ -13,6 +13,7 @@ use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Content;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
@@ -63,17 +64,17 @@ final class ContentHelper
     /**
      * Gets languageCodes based on $content.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
      * @param int|null $versionNo
      *
-     * @return string[]
+     * @return array
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    public function getLanguageCodes(Content $content, ?int $versionNo): array
+    public function getLanguageCodes(ContentInfo $contentInfo, ?int $versionNo = null): array
     {
-        $version = $this->contentService->loadVersionInfo($content->contentInfo, $versionNo);
+        $version = $this->contentService->loadVersionInfo($contentInfo, $versionNo);
 
         return $version->languageCodes;
     }
@@ -81,17 +82,17 @@ final class ContentHelper
     /**
      * Generates the REST URI of content $contentId.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
+     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
      * @param string|null $lang
      *
      * @return string
      */
-    public function getContentUri(Content $content, ?string $lang): string
+    public function getContentUri(ContentInfo $contentInfo, ?string $lang = null): string
     {
         return sprintf(
             '%s/api/ezp/v2/ez_recommendation/v1/content/%s%s',
             $this->configResolver->getParameter('host_uri', Parameters::NAMESPACE),
-            $content->id,
+            $contentInfo->id,
             isset($lang) ? '?lang=' . $lang : ''
         );
     }
@@ -108,13 +109,7 @@ final class ContentHelper
     public function getContent(int $contentId, ?array $languages = null, ?int $versionNo = null): ?Content
     {
         try {
-            $content = $this->contentService->loadContent($contentId, $languages, $versionNo);
-
-            if ($this->contentTypeHelper->isContentTypeExcluded($content)) {
-                return null;
-            }
-
-            return $content;
+            return $this->contentService->loadContent($contentId, $languages, $versionNo);
         } catch (NotFoundException $exception) {
             $this->logger->error(sprintf('Error while loading Content: %d, message: %s', $contentId, $exception->getMessage()));
             // this is most likely a internal draft, or otherwise invalid, ignoring
@@ -123,22 +118,20 @@ final class ContentHelper
     }
 
     /**
-     * @return \eZ\Publish\API\Repository\Values\Content\Content|null
+     * @param int $contentId
+     * @param array|null $languages
+     * @param int|null $versionNo
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @return \eZ\Publish\API\Repository\Values\Content\Content|null
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    public function getContentWithChildrenForLocationId(int $locationId): ?Content
+    public function getIncludedContent(int $contentId, ?array $languages = null, ?int $versionNo = null): ?Content
     {
-        $location = $this->locationService->loadLocation($locationId);
-        $children = $this->locationService->loadLocationChildren($location)->locations;
+        $content = $this->getContent($contentId, $languages, $versionNo);
 
-        foreach ($children as $child) {
-            $this->getContentWithChildrenForLocationId($child->id);
-        }
-
-        return $this->getContent($location->contentId);
+        return !$this->contentTypeHelper->isContentTypeExcluded($content->contentInfo) ? $content : null;
     }
+
     /**
      * Returns total amount of content based on ContentType ids.
      *
@@ -219,7 +212,7 @@ final class ContentHelper
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    private function generateSubtreeCriteria(?int $customerId, ?string $siteAccess): Criterion\LogicalOr
+    private function generateSubtreeCriteria(?int $customerId, ?string $siteAccess = null): Criterion\LogicalOr
     {
         $siteAccesses = $this->siteAccessHelper->getSiteAccesses($customerId, $siteAccess);
 

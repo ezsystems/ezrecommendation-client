@@ -14,13 +14,10 @@ use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class Notifier extends AbstractApi
+final class Notifier extends AbstractApi
 {
     const API_NAME = 'notifier';
 
-    /**
-     * {@inheritdoc}
-     */
     public function __construct(EzRecommendationClientInterface $client, string $endPointUri)
     {
         parent::__construct($client, $endPointUri . '/api/%s/items');
@@ -43,11 +40,13 @@ class Notifier extends AbstractApi
         ];
 
         $body = json_encode([
-            'transaction' => $notification->transaction,
+            'transaction' => $notification->transaction ?? null,
             'events' => $notification->events,
         ]);
 
-        $uri = $notification->endPointUri ? new Uri($notification->endPointUri) : $this->buildEndPointUri([$notification->customerId]);
+        $uri = isset($notification->endPointUri)
+            ? new Uri($notification->endPointUri)
+            : $this->buildEndPointUri([$notification->customerId]);
 
         return $this->client->sendRequest(Request::METHOD_POST, $uri, [
             'body' => $body,

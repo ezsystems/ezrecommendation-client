@@ -16,3 +16,7 @@ services:
         arguments:
             $defaultAuthorId: '%ezrecommendation.default.author_id%'
             $translationHelper: '@ezpublish.translation_helper'
+
+    EzSystems\EzRecommendationClient\Service\EventNotificationService:
+        arguments:
+            $clientCredentials: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'
