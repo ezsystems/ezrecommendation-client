@@ -17,10 +17,4 @@ services:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
             - { name: monolog.logger, channel: ezrecommendation }
 
-    EzSystems\EzRecommendationClient\Event\Subscriber\RecommendationEventSubscriber: ~
-
-    EzSystems\EzRecommendationClient\Event\Subscriber\RecommendationRandomContentEventSubscriber: ~
-
-    EzSystems\EzRecommendationClient\Event\Subscriber\UserCollectionGeneratorEventSubscriber: ~
-
-    EzSystems\EzRecommendationClient\Event\Subscriber\UserApiRequestDefaultSourceEventSubscriber: ~
+    EzSystems\EzRecommendationClient\Service\NotificationService: '@EzSystems\EzRecommendationClient\Service\EventNotificationService'
