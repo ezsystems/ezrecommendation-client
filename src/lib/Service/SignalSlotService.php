@@ -133,12 +133,11 @@ class SignalSlotService implements SignalSlotServiceInterface
         }
 
         $content = $this->getContent($location->contentId);
-        
-        if (!$content instanceof Content) {
-            return;
-        }
-        
-        if (!$isChild && $this->isLocationsAreVisible($content->contentInfo)) {
+
+        if (!$content instanceof Content
+            && !$isChild
+            && $this->areLocationsVisible($content->contentInfo)
+        ) {
             return;
         }
 
@@ -150,8 +149,7 @@ class SignalSlotService implements SignalSlotServiceInterface
      */
     public function unhideLocation(int $locationId): void
     {
-        $content = $this->getContentWithChildrenForLocationId($locationId);
-        $this->processSending(__METHOD__, self::ACTION_UPDATE, $content);
+        $this->updateLocationWithChildren($locationId, __METHOD__, self::ACTION_UPDATE);
     }
 
     /**
@@ -159,23 +157,33 @@ class SignalSlotService implements SignalSlotServiceInterface
      */
     public function swapLocation(int $locationId): void
     {
-        $content = $this->getContentWithChildrenForLocationId($locationId);
-        $this->processSending(__METHOD__, self::ACTION_UPDATE, $content);
+        $this->updateLocationWithChildren($locationId, __METHOD__, self::ACTION_UPDATE);
     }
 
     /**
-     * {@inheritdoc}
+     * @param int $locationId
+     * @param string $method
+     * @param string $action
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    private function getContentWithChildrenForLocationId(int $locationId): ?Content
+    private function updateLocationWithChildren(int $locationId, string $method, string $action): void
     {
         $location = $this->locationService->loadLocation($locationId);
         $children = $this->locationService->loadLocationChildren($location)->locations;
 
         foreach ($children as $child) {
-            $this->getContentWithChildrenForLocationId($child->id);
+            $this->updateLocationWithChildren($child->id, $method, $action);
         }
 
-        return $this->getContent($location->contentId);
+        $content = $this->getContent($location->contentId);
+
+        if (!$content instanceof Content) {
+            return;
+        }
+
+        $this->processSending($method, $action, $content);
     }
 
     /**
@@ -211,7 +219,7 @@ class SignalSlotService implements SignalSlotServiceInterface
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      */
-    private function isLocationsAreVisible(ContentInfo $contentInfo): bool
+    private function areLocationsVisible(ContentInfo $contentInfo): bool
     {
         // do not send the notification if one of the locations is still visible, to prevent deleting content
         $contentLocations = $this->locationService->loadLocations($contentInfo);
