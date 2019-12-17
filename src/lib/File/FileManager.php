@@ -32,7 +32,7 @@ final class FileManager implements FileManagerInterface
     /**
      * @throws \EzSystems\EzRecommendationClient\Exception\FileNotFoundException
      */
-    public function load(string $file): string
+    public function load(string $file): ?string
     {
         $dir = $this->getDir();
 

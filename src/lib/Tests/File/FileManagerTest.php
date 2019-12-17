@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Helper;
 
 use EzSystems\EzRecommendationClient\File\FileManager;
-use EzSystems\EzRecommendationClient\Helper\FileSystemHelper;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Filesystem\Filesystem;
@@ -63,7 +62,7 @@ class FileManagerTest extends TestCase
             __DIR__ . '/../fixtures/'
         );
 
-        $result = $FileManager->load('unexisting_file.txt');
+        $FileManager->load('unexisting_file.txt');
     }
 
     public function testSave()
@@ -180,7 +179,7 @@ class FileManagerTest extends TestCase
             __DIR__ . '/../fixtures/'
         );
 
-        $result = $FileManager->unlock();
+        $FileManager->unlock();
     }
 
     public function testUnlockWithoutLockedFile()
@@ -197,7 +196,7 @@ class FileManagerTest extends TestCase
             __DIR__ . '/../fixtures/'
         );
 
-        $result = $FileManager->unlock();
+        $FileManager->unlock();
     }
 
     public function testiIsLockedWithLockedFile()

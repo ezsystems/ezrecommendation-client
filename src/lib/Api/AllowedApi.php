@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Api;
 
-class AllowedApi
+final class AllowedApi
 {
     /**
      * @return array

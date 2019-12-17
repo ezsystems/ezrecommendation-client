@@ -11,7 +11,7 @@ namespace EzSystems\EzRecommendationClient\Helper;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
-class SessionHelper
+final class SessionHelper
 {
     /** @var \Symfony\Component\HttpFoundation\RequestStack */
     private $requestStack;

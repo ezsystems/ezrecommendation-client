@@ -119,10 +119,6 @@ final class Exporter implements ExporterInterface
     /**
      * @param \EzSystems\EzRecommendationClient\Value\ExportParameters $parameters
      * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     private function generateFileForContentType(
         int $contentTypeId,

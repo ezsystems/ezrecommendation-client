@@ -24,7 +24,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ContentController extends RestController
+final class ContentController extends RestController
 {
     /** @var \eZ\Publish\Core\Repository\SearchService */
     private $searchService;
@@ -56,8 +56,6 @@ class ContentController extends RestController
      * @return \EzSystems\EzRecommendationClient\Value\ContentData
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function getContentAction(IdList $idList, Request $request): ContentData
     {

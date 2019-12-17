@@ -10,7 +10,7 @@ namespace EzSystems\EzRecommendationClient\Generator;
 
 use EzSystems\EzPlatformRest\Output\Generator;
 
-class ContentListElementGenerator
+final class ContentListElementGenerator
 {
     /**
      * @param \EzSystems\EzPlatformRest\Output\Generator $generator

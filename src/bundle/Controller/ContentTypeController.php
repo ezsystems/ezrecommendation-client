@@ -25,7 +25,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ContentTypeController extends RestController
+final class ContentTypeController extends RestController
 {
     private const PAGE_SIZE = 10;
 

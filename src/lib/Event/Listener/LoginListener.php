@@ -22,7 +22,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Sends notification to Recommendation servers when user is logged in.
  */
-class LoginListener
+final class LoginListener
 {
     /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface */
     private $authorizationChecker;
@@ -95,6 +95,7 @@ class LoginListener
         }
 
         try {
+            /** @var \Psr\Http\Message\ResponseInterface $response */
             $response = $this->client->getHttpClient()->get($notificationUri);
 
             if (isset($this->logger)) {

@@ -13,7 +13,7 @@ use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\SPI\Variation\VariationHandler as ImageVariationServiceInterface;
 
-class ImageHelper
+final class ImageHelper
 {
     /** @var \eZ\Publish\SPI\Variation\VariationHandler */
     private $imageVariationService;

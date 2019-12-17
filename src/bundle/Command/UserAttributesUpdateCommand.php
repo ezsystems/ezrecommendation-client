@@ -9,15 +9,14 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClientBundle\Command;
 
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
-use EzSystems\EzRecommendationClient\Event\UserAPIEvent;
-use EzSystems\EzRecommendationClient\SPI\UserAPIRequest;
+use EzSystems\EzRecommendationClient\Event\UpdateUserAPIEvent;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserAttributesUpdateCommand extends Command
+final class UserAttributesUpdateCommand extends Command
 {
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     private $eventDispatcher;
@@ -53,8 +52,8 @@ class UserAttributesUpdateCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $event = new UserAPIEvent();
-        $this->eventDispatcher->dispatch(UserAPIEvent::UPDATE, $event);
+        $event = new UpdateUserAPIEvent();
+        $this->eventDispatcher->dispatch($event);
 
         $request = $event->getUserAPIRequest();
 

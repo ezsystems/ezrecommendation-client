@@ -115,7 +115,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     /**
      * @param \eZ\Publish\API\Repository\Events\Location\SwapLocationEvent $event
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -181,7 +180,7 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
 
         if (!$content instanceof Content
             && !$isChild
-            && $this->locationHelper->isLocationsAreVisible($content->contentInfo)
+            && $this->locationHelper->areLocationsVisible($content->contentInfo)
         ) {
             return;
         }

@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Authentication;
 
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
-use EzSystems\EzRecommendationClient\Exception\FileNotFoundException;
 use EzSystems\EzRecommendationClient\File\FileManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -66,8 +65,6 @@ final class ExportAuthenticator implements FileAuthenticatorInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
     public function authenticateByFile(string $filePath): bool
     {
@@ -83,13 +80,10 @@ final class ExportAuthenticator implements FileAuthenticatorInterface
         $length = strrpos($filePath, '/') ?: 0;
         $passFile = substr($filePath, 0, $length) . '/.htpasswd';
 
-        try {
-            $fileContent = $this->fileManager->load($passFile);
-            list($auth['user'], $auth['pass']) = explode(':', trim($fileContent));
+        $fileContent = $this->fileManager->load($passFile);
 
-            return $user == $auth['user'] && $pass == $auth['pass'];
-        } catch (FileNotFoundException $e) {
-            return false;
-        }
+        list($auth['user'], $auth['pass']) = explode(':', trim($fileContent));
+
+        return $user == $auth['user'] && $pass == $auth['pass'];
     }
 }

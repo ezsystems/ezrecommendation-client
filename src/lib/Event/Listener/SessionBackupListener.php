@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Event\Listener;
 
 use EzSystems\EzRecommendationClient\Value\Session;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Event\RequestEvent;
 
 /**
  * Creates backup of sessionId in case of sessionId change.
  */
-class SessionBackupListener
+final class SessionBackupListener
 {
     /**
      * Creates a backup of current sessionId in case of sessionId change,
@@ -23,9 +23,9 @@ class SessionBackupListener
      * in this case the new sessionId will be set. This issue can be treated
      * as a later improvement as it's not required by Recommendation to work correctly.
      *
-     * @param \Symfony\Component\HttpKernel\Event\GetResponseEvent $event
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(RequestEvent $event)
     {
         $session = $event->getRequest()->getSession();
 

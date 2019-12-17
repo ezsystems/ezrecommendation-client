@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Mapper;
 
-class RelationMapper
+final class RelationMapper
 {
     /** @var array $fieldMapping */
     private $fieldMappings;

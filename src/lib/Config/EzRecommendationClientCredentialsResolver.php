@@ -12,7 +12,7 @@ use EzSystems\EzRecommendationClient\Value\Config\Credentials;
 use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 
-class EzRecommendationClientCredentialsResolver extends CredentialsResolver
+final class EzRecommendationClientCredentialsResolver extends CredentialsResolver
 {
     /**
      * {@inheritdoc}

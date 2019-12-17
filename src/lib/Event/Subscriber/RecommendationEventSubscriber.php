@@ -61,7 +61,7 @@ final class RecommendationEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            RecommendationResponseEvent::NAME => ['onRecommendationResponse', 10],
+            RecommendationResponseEvent::class => ['onRecommendationResponse', 10],
         ];
     }
 

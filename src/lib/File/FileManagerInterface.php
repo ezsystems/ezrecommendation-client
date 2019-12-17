@@ -19,7 +19,7 @@ interface FileManagerInterface
      *
      * @return string
      */
-    public function load(string $file): string;
+    public function load(string $file): ?string;
 
     /**
      * Saves the content to file.

@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Field;
 
-use eZ\Publish\Core\MVC\Exception\SourceImageNotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
 use EzSystems\EzPlatformRichText\eZ\RichText\Converter as RichTextConverterInterface;
@@ -16,7 +15,7 @@ use EzSystems\EzPlatformRichTextBundle\eZ\RichText\Converter\Html5 as XmlHtml5;
 use EzSystems\EzRecommendationClient\Helper\ImageHelper;
 use LogicException;
 
-class TypeValue
+final class TypeValue
 {
     /** @var \EzSystems\EzRecommendationClient\Helper\ImageHelper */
     private $imageHelper;
@@ -54,6 +53,8 @@ class TypeValue
 
     /**
      * @param \eZ\Publish\API\Repository\Values\Content\Field $field
+     *
+     * @return string
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      */
@@ -97,11 +98,7 @@ class TypeValue
             return '';
         }
 
-        try {
-            return $this->imageHelper->getImageUrl($field, $content, $options);
-        } catch (SourceImageNotFoundException $exception) {
-            return '';
-        }
+        return $this->imageHelper->getImageUrl($field, $content, $options) ?? '';
     }
 
     /**
@@ -121,11 +118,7 @@ class TypeValue
             return '';
         }
 
-        try {
-            return $this->imageHelper->getImageUrl($field, $content, $options);
-        } catch (SourceImageNotFoundException $exception) {
-            return '';
-        }
+        return $this->imageHelper->getImageUrl($field, $content, $options) ?? '';
     }
 
     /**

@@ -475,6 +475,6 @@ class SiteAccessHelperTest extends TestCase
             'foo'
         );
 
-        $result = $siteAccessMock->getSiteAccesses(123, null);
+        $siteAccessMock->getSiteAccesses(123, null);
     }
 }

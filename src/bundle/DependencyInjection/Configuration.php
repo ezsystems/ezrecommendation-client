@@ -17,8 +17,8 @@ class Configuration extends SiteAccessConfiguration
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('ezrecommendation');
+        $treeBuilder = new TreeBuilder('ezrecommendation');
+        $rootNode = $treeBuilder->getRootNode();
 
         $systemNode = $this->generateScopeBaseNode($rootNode);
         $systemNode

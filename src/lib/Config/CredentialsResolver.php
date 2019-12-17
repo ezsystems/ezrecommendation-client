@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Config;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use Psr\Log\LoggerInterface;
 
 abstract class CredentialsResolver implements CredentialsResolverInterface
 {

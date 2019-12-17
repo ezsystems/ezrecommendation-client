@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInte
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ExportRequestParamConverter implements ParamConverterInterface
+final class ExportRequestParamConverter implements ParamConverterInterface
 {
     /** @var \EzSystems\EzRecommendationClient\Mapper\ExportRequestMapper */
     private $exportRequestMapper;

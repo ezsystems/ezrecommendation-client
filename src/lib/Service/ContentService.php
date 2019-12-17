@@ -215,7 +215,6 @@ final class ContentService implements ContentServiceInterface
      * @return string
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     private function getAuthor(APIContent $contentValue, APIContentType $contentType): string
     {

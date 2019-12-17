@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment as TwigEnvironment;
 use Twig\Extension\RuntimeExtensionInterface;
 
-class UserTracking extends AbstractFunction implements RuntimeExtensionInterface
+final class UserTracking extends AbstractFunction implements RuntimeExtensionInterface
 {
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;

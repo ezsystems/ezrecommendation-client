@@ -19,7 +19,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Psr\Log\LoggerInterface;
 
-class EzRecommendationClient implements EzRecommendationClientInterface
+final class EzRecommendationClient implements EzRecommendationClientInterface
 {
     private const DEBUG_MESSAGE = 'ClientDebug: ';
     private const ERROR_MESSAGE = 'ClientError: ';

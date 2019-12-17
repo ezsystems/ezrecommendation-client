@@ -12,7 +12,7 @@ use EzSystems\EzRecommendationClient\Helper\SessionHelper;
 use EzSystems\EzRecommendationClient\Helper\UserHelper;
 use EzSystems\EzRecommendationClient\Value\Session;
 
-class UserService implements UserServiceInterface
+final class UserService implements UserServiceInterface
 {
     /** @var \EzSystems\EzRecommendationClient\Helper\UserHelper */
     private $userHelper;

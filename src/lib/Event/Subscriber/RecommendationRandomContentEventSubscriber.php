@@ -70,7 +70,7 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
     public static function getSubscribedEvents(): array
     {
         return [
-            RecommendationResponseEvent::NAME => ['onRecommendationResponse', -10],
+            RecommendationResponseEvent::class => ['onRecommendationResponse', -10],
         ];
     }
 
@@ -197,11 +197,7 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
      */
     private function getImage(Content $content): ?string
     {
-        try {
-            return $this->imageHelper->getImageUrl($content->getField('image'), $content, []);
-        } catch (NotFoundException $exception) {
-            return null;
-        }
+        return $this->imageHelper->getImageUrl($content->getField('image'), $content, []);
     }
 
     /**

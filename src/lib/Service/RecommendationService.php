@@ -37,9 +37,6 @@ class RecommendationService implements RecommendationServiceInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function getRecommendations(RecommendationRequest $request): ?ResponseInterface
     {

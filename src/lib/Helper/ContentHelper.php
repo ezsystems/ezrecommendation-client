@@ -135,7 +135,14 @@ final class ContentHelper
     /**
      * Returns total amount of content based on ContentType ids.
      *
+     * @param int $contentTypeId
+     * @param array $options
+     *
+     * @return int|null
+     *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
+     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function countContentItemsByContentTypeId(int $contentTypeId, array $options): ?int
     {

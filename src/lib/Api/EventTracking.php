@@ -11,7 +11,7 @@ namespace EzSystems\EzRecommendationClient\Api;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class EventTracking extends AbstractApi
+final class EventTracking extends AbstractApi
 {
     const API_NAME = 'eventTracking';
 

@@ -16,7 +16,7 @@ use EzSystems\EzRecommendationClient\Exception\BadApiCallException;
 use EzSystems\EzRecommendationClient\Exception\InvalidArgumentException;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 
-class EzRecommendationClientApiFactory extends AbstractEzRecommendationClientApiFactory
+final class EzRecommendationClientApiFactory extends AbstractEzRecommendationClientApiFactory
 {
     /** @var array */
     private $allowedApi;

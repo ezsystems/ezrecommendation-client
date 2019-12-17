@@ -10,7 +10,7 @@ namespace EzSystems\EzRecommendationClient\Response;
 
 use EzSystems\EzPlatformRest\Output\Generator;
 
-class HttpResponse extends Response
+final class HttpResponse extends Response
 {
     /**
      * {@inheritdoc}

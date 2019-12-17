@@ -8,17 +8,15 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Event;
 
-use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Contracts\EventDispatcher\Event;
 
-class RecommendationResponseEvent extends Event
+final class RecommendationResponseEvent extends Event
 {
-    public const NAME = 'recommendation.response';
-
     /** @var \Psr\Http\Message\ResponseInterface|null */
     private $parameterBag;
 
-    /** @var RecommendationItem[] */
+    /** @var \EzSystems\EzRecommendationClient\Value\RecommendationItem[] */
     private $recommendationItems;
 
     /**
@@ -46,7 +44,7 @@ class RecommendationResponseEvent extends Event
     }
 
     /**
-     * @return RecommendationItem[]|null
+     * @return \EzSystems\EzRecommendationClient\Value\RecommendationItem[]|null
      */
     public function getRecommendationItems(): ?array
     {

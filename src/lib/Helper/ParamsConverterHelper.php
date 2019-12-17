@@ -13,7 +13,7 @@ use InvalidArgumentException;
 /**
  * Provides utility to manipulate strings.
  */
-class ParamsConverterHelper
+final class ParamsConverterHelper
 {
     /**
      * Preparing array of integers based on comma separated integers in string or single integer in string.

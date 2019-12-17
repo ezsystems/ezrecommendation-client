@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Event\Subscriber;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzRecommendationClient\Event\UserAPIEvent;
+use EzSystems\EzRecommendationClient\Event\UpdateUserAPIEvent;
 use EzSystems\EzRecommendationClient\Request\UserMetadataRequest;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -33,14 +33,14 @@ final class UserApiRequestDefaultSourceEventSubscriber implements EventSubscribe
     public static function getSubscribedEvents(): array
     {
         return [
-            UserAPIEvent::UPDATE => ['onRecommendationUpdateUser', 255],
+            UpdateUserAPIEvent::class => ['onRecommendationUpdateUser', 255],
         ];
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Event\UserAPIEvent $userAPIEvent
+     * @param \EzSystems\EzRecommendationClient\Event\UpdateUserAPIEvent $userAPIEvent
      */
-    public function onRecommendationUpdateUser(UserAPIEvent $userAPIEvent): void
+    public function onRecommendationUpdateUser(UpdateUserAPIEvent $userAPIEvent): void
     {
         if ($userAPIEvent->getUserAPIRequest()) {
             return;

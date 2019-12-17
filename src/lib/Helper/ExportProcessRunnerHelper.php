@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Runs export command as separate process.
  */
-class ExportProcessRunnerHelper
+final class ExportProcessRunnerHelper
 {
     /** @var \Psr\Log\LoggerInterface */
     private $logger;

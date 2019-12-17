@@ -13,7 +13,7 @@ use EzSystems\EzRecommendationClientBundle\Templating\Twig\Functions\UserTrackin
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class RecommendationExtension extends AbstractExtension
+final class RecommendationExtension extends AbstractExtension
 {
     
     /**

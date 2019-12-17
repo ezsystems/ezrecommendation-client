@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Value\Output;
 
-use EzSystems\EzRecommendationClient\Value\Output\Attribute;
 use Webmozart\Assert\Assert;
 
 class User

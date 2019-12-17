@@ -12,7 +12,6 @@ use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver;
 use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
 use PHPUnit\Framework\TestCase;
-use Psr\Log\NullLogger;
 
 class EzRecommendationClientCredentialsResolverTest extends TestCase
 {

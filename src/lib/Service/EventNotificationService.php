@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Service;
 
-use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
@@ -17,8 +16,6 @@ use EzSystems\EzRecommendationClient\Helper\ContentTypeHelper;
 use EzSystems\EzRecommendationClient\Request\EventNotifierRequest;
 use EzSystems\EzRecommendationClient\SPI\Notification;
 use EzSystems\EzRecommendationClient\Value\EventNotification;
-use GuzzleHttp\Exception\RequestException;
-use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

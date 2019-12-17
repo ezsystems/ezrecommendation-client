@@ -13,7 +13,7 @@ use EzSystems\EzRecommendationClient\Value\ExportRequest;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 
-class ExportRequestMapper
+final class ExportRequestMapper
 {
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -30,15 +30,15 @@ class ExportRequestMapper
         $exportRequest->path = $this->getPath($query);
         $exportRequest->hidden = $this->getVisibility($query);
         $exportRequest->image = $this->getImage($query);
-        $exportRequest->siteAccess = $this->getSiteAccess($query);
+        $exportRequest->siteaccess = $this->getSiteAccess($query);
         $exportRequest->webHook = $this->getWebHook($query);
-        $exportRequest->transaction = $this->getTransaction($query);
         $exportRequest->fields = $this->getFields($query);
         $exportRequest->pageSize = (int) $query->get('pageSize', null);
         $exportRequest->page = (int) $query->get('page', 1);
         $exportRequest->documentRoot = $request->server->get('DOCUMENT_ROOT');
         $exportRequest->host = $request->getSchemeAndHttpHost();
         $exportRequest->contentTypeIdList = ParamsConverterHelper::getIdListFromString($request->get('idList'));
+        $exportRequest->languages = $this->getLang($query);
 
         return $exportRequest;
     }

@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Event\Subscriber;
 
 use EzSystems\EzRecommendationClient\Event\GenerateUserCollectionDataEvent;
-use EzSystems\EzRecommendationClient\Event\UserAPIEvent;
+use EzSystems\EzRecommendationClient\Event\UpdateUserAPIEvent;
 use EzSystems\EzRecommendationClient\Value\Output\UserCollection;
 use EzSystems\EzRecommendationClientBundle\Serializer\Normalizer\AttributeNormalizer;
 use EzSystems\EzRecommendationClientBundle\Serializer\Normalizer\UserCollectionNormalizer;
@@ -36,17 +36,17 @@ final class UserCollectionGeneratorEventSubscriber implements EventSubscriberInt
     public static function getSubscribedEvents(): array
     {
         return [
-            UserAPIEvent::UPDATE => ['onRecommendationUpdateUserCollection', 128],
+            UpdateUserAPIEvent::class => ['onRecommendationUpdateUserCollection', 128],
         ];
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Event\UserAPIEvent $userAPIEvent
+     * @param \EzSystems\EzRecommendationClient\Event\UpdateUserAPIEvent $userAPIEvent
      */
-    public function onRecommendationUpdateUserCollection(UserAPIEvent $userAPIEvent): void
+    public function onRecommendationUpdateUserCollection(UpdateUserAPIEvent $userAPIEvent): void
     {
         $event = new GenerateUserCollectionDataEvent();
-        $this->eventDispatcher->dispatch(GenerateUserCollectionDataEvent::NAME, $event);
+        $this->eventDispatcher->dispatch($event);
 
         $userCollection = $event->getUserCollection();
 

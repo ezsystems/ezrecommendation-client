@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\Controller;
 
+use EzSystems\EzPlatformRest\Server\Controller;
 use EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface;
 use EzSystems\EzRecommendationClient\Exception\ExportInProgressException;
 use EzSystems\EzRecommendationClient\File\FileManagerInterface;
@@ -15,7 +16,6 @@ use EzSystems\EzRecommendationClient\Helper\ExportProcessRunnerHelper;
 use EzSystems\EzRecommendationClient\Value\ExportRequest;
 use Psr\Log\LoggerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -51,7 +51,6 @@ final class ExportController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
     public function downloadAction(string $filePath): Response
     {

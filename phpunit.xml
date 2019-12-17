@@ -27,4 +27,8 @@
             </exclude>
         </whitelist>
     </filter>
+
+    <extensions>
+        <extension class="EzSystems\EzRecommendationClient\PHPUnit\BypassFinalHook"/>
+    </extensions>
 </phpunit>

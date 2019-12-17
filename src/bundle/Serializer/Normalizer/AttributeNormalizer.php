@@ -11,7 +11,7 @@ namespace EzSystems\EzRecommendationClientBundle\Serializer\Normalizer;
 use EzSystems\EzRecommendationClient\Value\Output\Attribute;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class AttributeNormalizer implements NormalizerInterface
+final class AttributeNormalizer implements NormalizerInterface
 {
     const ATTR_NAME = 'attribute';
 

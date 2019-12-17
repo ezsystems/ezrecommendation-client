@@ -11,7 +11,7 @@ namespace EzSystems\EzRecommendationClientBundle\Templating\Twig\Functions;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
 use Twig\Extension\RuntimeExtensionInterface;
 
-class Recommendation implements RuntimeExtensionInterface
+final class Recommendation implements RuntimeExtensionInterface
 {
     /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface */
     private $credentialsResolver;

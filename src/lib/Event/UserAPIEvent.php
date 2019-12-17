@@ -9,15 +9,12 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Event;
 
 use EzSystems\EzRecommendationClient\SPI\UserAPIRequest;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 
-class UserAPIEvent extends Event
+abstract class UserAPIEvent extends Event
 {
     /** @var \EzSystems\EzRecommendationClient\SPI\UserAPIRequest */
     private $request;
-
-    const UPDATE = 'recommendation.update_user';
-    const FETCH = 'recommendation.fetch_user';
 
     /**
      * @return \EzSystems\EzRecommendationClient\SPI\UserAPIRequest|null

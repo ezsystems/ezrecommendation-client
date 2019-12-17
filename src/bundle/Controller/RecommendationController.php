@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment as TwigEnvironment;
 
-class RecommendationController extends AbstractController
+final class RecommendationController extends AbstractController
 {
     private const DEFAULT_TEMPLATE = '@EzRecommendationClient/recommendations.html.twig';
 
@@ -70,7 +70,7 @@ class RecommendationController extends AbstractController
         }
 
         $event = new RecommendationResponseEvent($request->attributes);
-        $this->eventDispatcher->dispatch($event, RecommendationResponseEvent::NAME);
+        $this->eventDispatcher->dispatch($event);
 
         if (!$event->getRecommendationItems()) {
             return new Response();

@@ -35,7 +35,7 @@ final class LocationHelper
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      */
-    public function isLocationsAreVisible(ContentInfo $contentInfo): bool
+    public function areLocationsVisible(ContentInfo $contentInfo): bool
     {
         $contentLocations = $this->locationService->loadLocations($contentInfo);
 

@@ -15,7 +15,7 @@ use Throwable;
  */
 class BadApiCallException extends \BadFunctionCallException
 {
-    public function __construct($name, ?Throwable $previous)
+    public function __construct($name, ?Throwable $previous = null)
     {
         $message = sprintf('Given API class %s is not callable', $name);
 

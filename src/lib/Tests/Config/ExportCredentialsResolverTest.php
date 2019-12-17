@@ -12,11 +12,10 @@ use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use PHPUnit\Framework\TestCase;
-use Psr\Log\NullLogger;
 
 class ExportCredentialsResolverTest extends TestCase
 {
-    /** @var \PHPUnit\Framework\MockObject\MockObject|eZ\Publish\Core\MVC\ConfigResolverInterface */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
     protected function setUp(): void
@@ -29,8 +28,7 @@ class ExportCredentialsResolverTest extends TestCase
     public function testCreateExportCredentialsResolverInstance()
     {
         $this->assertInstanceOf(ExportCredentialsResolver::class, new ExportCredentialsResolver(
-            $this->configResolver,
-            new NullLogger()
+            $this->configResolver
         ));
     }
 
@@ -40,8 +38,7 @@ class ExportCredentialsResolverTest extends TestCase
     public function testGetCredentialsForAuthenticationMethodUser()
     {
         $credentialsResolver = new ExportCredentialsResolver(
-            $this->configResolver,
-            new NullLogger()
+            $this->configResolver
         );
 
         $this->assertInstanceOf(ExportCredentials::class, $credentialsResolver->getCredentials());
@@ -60,7 +57,6 @@ class ExportCredentialsResolverTest extends TestCase
 
         $credentialsResolver = new ExportCredentialsResolver(
             $this->configResolver,
-            new NullLogger()
         );
 
         $this->assertNull($credentialsResolver->getCredentials());

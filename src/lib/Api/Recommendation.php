@@ -13,7 +13,7 @@ use EzSystems\EzRecommendationClient\SPI\RecommendationRequest;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class Recommendation extends AbstractApi
+final class Recommendation extends AbstractApi
 {
     const API_NAME = 'recommendation';
 

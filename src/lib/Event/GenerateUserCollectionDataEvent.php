@@ -9,13 +9,11 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Event;
 
 use EzSystems\EzRecommendationClient\Value\Output\UserCollection;
-use Symfony\Component\EventDispatcher\Event;
+use Symfony\Contracts\EventDispatcher\Event;
 use Webmozart\Assert\Assert;
 
 final class GenerateUserCollectionDataEvent extends Event
 {
-    const NAME = 'recommendation.user_collection_data';
-
     /** @var \EzSystems\EzRecommendationClient\Value\Output\UserCollection */
     private $userCollection;
 
