@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Helper;
+namespace EzSystems\EzRecommendationClient\Tests\Unit\Helper;
 
 use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
 use PHPUnit\Framework\TestCase;
@@ -33,21 +33,19 @@ class ParamsConverterHelperTest extends TestCase
         ];
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage String should be a list of Integers
-     */
     public function testGetIdListFromStringWithoutSeparator()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('String should be a list of Integers');
+
         ParamsConverterHelper::getIdListFromString('1abcd');
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     * @expectedExceptionMessage String should be a list of Integers
-     */
     public function testGetIdListFromStringWitInvalidArgument()
     {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('String should be a list of Integers');
+
         ParamsConverterHelper::getIdListFromString('123,abc,456');
     }
 

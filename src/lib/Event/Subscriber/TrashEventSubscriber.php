@@ -55,7 +55,9 @@ final class TrashEventSubscriber extends AbstractRepositoryEventSubscriber imple
     public function onTrash(TrashEvent $event): void
     {
         $this->notificationService->sendNotification(
-            __METHOD__, EventNotification::ACTION_DELETE, $event->getLocation()->getContentInfo()
+            __METHOD__,
+            EventNotification::ACTION_DELETE,
+            $event->getLocation()->getContentInfo()
         );
 
         $this->updateRelations(
@@ -69,7 +71,7 @@ final class TrashEventSubscriber extends AbstractRepositoryEventSubscriber imple
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    private function getRelations(ContentInfo $contentInfo): array
+    public function getRelations(ContentInfo $contentInfo): array
     {
         return $this->contentService
             ->loadReverseRelations($contentInfo);
@@ -81,7 +83,7 @@ final class TrashEventSubscriber extends AbstractRepositoryEventSubscriber imple
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    private function updateRelations(array $relations): void
+    public function updateRelations(array $relations): void
     {
         foreach ($relations as $relation) {
             $this->notificationService->sendNotification(

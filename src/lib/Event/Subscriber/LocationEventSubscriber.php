@@ -167,7 +167,7 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
      */
     private function hideLocation(Location $location, bool $isChild = false): void
     {
-        $children = $this->locationService->loadLocationChildren($location);
+        $children = $this->locationService->loadLocationChildren($location)->locations;
 
         /** @var \eZ\Publish\API\Repository\Values\Content\Location $child */
         foreach ($children as $child) {
@@ -200,7 +200,7 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
      */
     private function updateLocationWithChildren(Location $location, string $method, string $action): void
     {
-        $children = $this->locationService->loadLocationChildren($location);
+        $children = $this->locationService->loadLocationChildren($location)->locations;
 
         /** @var \eZ\Publish\API\Repository\Values\Content\Location $child */
         foreach ($children as $child) {

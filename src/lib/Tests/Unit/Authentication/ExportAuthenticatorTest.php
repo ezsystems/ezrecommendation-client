@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Authentication;
+namespace EzSystems\EzRecommendationClient\Tests\Unit\Authentication;
 
 use EzSystems\EzRecommendationClient\Authentication\ExportAuthenticator;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
@@ -59,7 +59,7 @@ class ExportAuthenticatorTest extends TestCase
         );
 
         $this->credentialsResolverMock
-            ->expects($this->any())
+            ->expects($this->atLeastOnce())
             ->method('getCredentials')
             ->willReturn($this->getExportCredentials('none'));
 
@@ -88,7 +88,7 @@ class ExportAuthenticatorTest extends TestCase
         );
 
         $this->credentialsResolverMock
-            ->expects($this->any())
+            ->expects($this->atLeastOnce())
             ->method('getCredentials')
             ->willReturn($this->getExportCredentials('user'));
 
@@ -117,7 +117,7 @@ class ExportAuthenticatorTest extends TestCase
         );
 
         $this->credentialsResolverMock
-            ->expects($this->any())
+            ->expects($this->atLeastOnce())
             ->method('getCredentials')
             ->willReturn($this->getExportCredentials('user'));
 

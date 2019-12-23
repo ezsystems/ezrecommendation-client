@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Config;
+namespace EzSystems\EzRecommendationClient\Tests\Unit\Config;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver;

@@ -6,8 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Helper;
+namespace EzSystems\EzRecommendationClient\Tests\Unit\File;
 
+use EzSystems\EzRecommendationClient\Exception\FileNotFoundException;
 use EzSystems\EzRecommendationClient\File\FileManager;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use PHPUnit\Framework\TestCase;
@@ -44,10 +45,6 @@ class FileManagerTest extends TestCase
         $this->assertStringContainsString('testfile.txt content', $result);
     }
 
-    /**
-     * @expectedException  \EzSystems\EzRecommendationClient\Exception\FileNotFoundException
-     * @expectedExceptionMessage File: unexisting_file.txt not found.
-     */
     public function testLoadUnexistingFile()
     {
         $this->baseFileSystemHelper
@@ -62,6 +59,8 @@ class FileManagerTest extends TestCase
             __DIR__ . '/../fixtures/'
         );
 
+        $this->expectException(FileNotFoundException::class);
+        $this->expectExceptionMessage('File: unexisting_file.txt not found.');
         $FileManager->load('unexisting_file.txt');
     }
 

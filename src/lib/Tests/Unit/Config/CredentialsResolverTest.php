@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Config;
+namespace EzSystems\EzRecommendationClient\Tests\Unit\Config;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolver;
@@ -59,7 +59,7 @@ class CredentialsResolverTest extends TestCase
     public function testShouldReturnTrueWhenRequiredCredentialsAreSet()
     {
         $this->credentialsResolverMock
-            ->expects($this->any())
+            ->expects($this->atLeastOnce())
             ->method('getRequiredCredentials')
             ->willReturn($this->credentials);
 
@@ -72,7 +72,7 @@ class CredentialsResolverTest extends TestCase
     public function testReturnFalseWhenOneOfRequiredCredentialsAreMissing()
     {
         $this->credentialsResolverMock
-            ->expects($this->any())
+            ->expects($this->atLeastOnce())
             ->method('getRequiredCredentials')
             ->willReturn($this->invalidCredentials);
 
