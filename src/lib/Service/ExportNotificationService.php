@@ -43,7 +43,7 @@ final class ExportNotificationService extends NotificationService
     /**
      * @inheritDoc
      */
-    protected function createNotification(array $options): Notification
+    public function createNotification(array $options): Notification
     {
         $notification = new ExportNotification();
         $notification->events = $options['events'];

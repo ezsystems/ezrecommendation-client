@@ -10,8 +10,10 @@ namespace EzSystems\EzRecommendationClient\Client;
 
 use EzSystems\EzRecommendationClient\Api\AbstractApi;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
+use EzSystems\EzRecommendationClient\Exception\BadApiCallException;
 use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use Psr\Http\Message\RequestInterface;
@@ -150,7 +152,7 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
             }
 
             return $response;
-        } catch (\Exception $exception) {
+        } catch (GuzzleException $exception) {
             $this->logger->error(
                 sprintf(
                     self::ERROR_MESSAGE . 'Error while sending data: %s %s %s %s',
@@ -162,13 +164,23 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
     }
 
     /**
+     * Checks if client has set Recommendation credentials.
+     *
+     * @return bool
+     */
+    public function hasCredentials(): bool
+    {
+        return !empty($this->getCustomerId()) && !empty($this->getLicenseKey());
+    }
+
+    /**
      * @param \Psr\Http\Message\UriInterface $uri
      *
      * @return string
      */
     public function getAbsoluteUri(UriInterface $uri): string
     {
-        return $uri->getScheme() . '://' . $uri->getHost() . $uri->getPath() . '?' . $uri->getQuery();
+        return $uri->getScheme() . '://' . $uri->getHost() . $uri->getPath() . $uri->getQuery() ?? '?' . $uri->getQuery();
     }
 
     /**
@@ -208,7 +220,7 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
     {
         try {
             return $this->eZRecommendationClientApiFactory->buildApi($name, $this);
-        } catch (\Exception $exception) {
+        } catch (BadApiCallException $exception) {
             $this->logger->error(self::ERROR_MESSAGE . $exception->getMessage());
         }
     }
@@ -223,16 +235,6 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
         $this
             ->setCustomerId($credentials->getCustomerId())
             ->setLicenseKey($credentials->getLicenseKey());
-    }
-
-    /**
-     * Checks if client has set Recommendation credentials.
-     *
-     * @return bool
-     */
-    private function hasCredentials(): bool
-    {
-        return !empty($this->getCustomerId()) && !empty($this->getLicenseKey());
     }
 
     /**

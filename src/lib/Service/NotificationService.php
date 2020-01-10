@@ -42,7 +42,7 @@ abstract class NotificationService
      *
      * @return \EzSystems\EzRecommendationClient\SPI\Notification
      */
-    abstract protected function createNotification(array $options): Notification;
+    abstract public function createNotification(array $options): Notification;
 
     /**
      * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver

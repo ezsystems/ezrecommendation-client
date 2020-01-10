@@ -94,7 +94,7 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
      */
     public function onHideLocation(HideLocationEvent $event): void
     {
-        $this->hideLocation($event->getLocation()->id);
+        $this->hideLocation($event->getLocation());
     }
 
     /**
@@ -136,7 +136,7 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     public function onUnhideLocation(UnhideLocationEvent $event): void
     {
         $this->updateLocationWithChildren(
-            $event->getLocation()->id,
+            $event->getLocation(),
             __METHOD__,
             EventNotification::ACTION_UPDATE
         );

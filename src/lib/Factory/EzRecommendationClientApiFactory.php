@@ -18,18 +18,15 @@ use EzSystems\EzRecommendationClient\Value\Parameters;
 
 final class EzRecommendationClientApiFactory extends AbstractEzRecommendationClientApiFactory
 {
-    /** @var array */
+    /** @var \EzSystems\EzRecommendationClient\Api\AllowedApi $allowedApi */
     private $allowedApi;
 
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Api\AllowedApi $allowedApi
-     */
     public function __construct(AllowedApi $allowedApi, ConfigResolverInterface $configResolver)
     {
-        $this->allowedApi = $allowedApi->getAllowedApi();
+        $this->allowedApi = $allowedApi;
         $this->configResolver = $configResolver;
     }
 
@@ -41,11 +38,11 @@ final class EzRecommendationClientApiFactory extends AbstractEzRecommendationCli
      */
     public function buildApi(string $name, EzRecommendationClientInterface $client): AbstractApi
     {
-        if (!array_key_exists($name, $this->allowedApi)) {
+        if (!array_key_exists($name, $this->allowedApi->getAllowedApi())) {
             throw new InvalidArgumentException(sprintf('Given api key: %s is not found in allowedApi array', $name));
         }
 
-        $api = $this->allowedApi[$name];
+        $api = $this->allowedApi->getAllowedApi()[$name];
 
         if (!class_exists($api)) {
             throw new BadApiCallException($api);

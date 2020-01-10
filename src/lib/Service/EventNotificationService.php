@@ -79,7 +79,7 @@ final class EventNotificationService extends NotificationService
     /**
      * @inheritDoc
      */
-    protected function createNotification(array $options): Notification
+    public function createNotification(array $options): Notification
     {
         $notification = new EventNotification();
         $notification->events = $options['events'];
