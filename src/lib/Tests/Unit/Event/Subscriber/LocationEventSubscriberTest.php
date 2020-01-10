@@ -18,7 +18,9 @@ use eZ\Publish\API\Repository\Events\Location\UnhideLocationEvent;
 use eZ\Publish\API\Repository\Events\Location\UpdateLocationEvent;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\LocationList;
+use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\Location;
+use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use EzSystems\EzRecommendationClient\Event\Subscriber\LocationEventSubscriber;
 use EzSystems\EzRecommendationClient\Tests\Common\Event\Subscriber\AbstractRepositoryEventSubscriberTest;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -27,8 +29,22 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
 {
     private const CONTENT_ID = 1;
 
+    private const CONTENT_TYPE_ID = 2;
+
     /** @var \EzSystems\EzRecommendationClient\Event\Subscriber\LocationEventSubscriber */
     private $locationEventSubscriber;
+
+    /** @var \eZ\Publish\Core\Repository\Values\Content\Location */
+    private $location1;
+
+    /** @var \eZ\Publish\Core\Repository\Values\Content\Location */
+    private $location2;
+
+    /** @var \eZ\Publish\API\Repository\Values\Content\LocationList */
+    private $emptyLocationChildren;
+
+    /** @var \eZ\Publish\API\Repository\Values\Content\LocationList */
+    private $locationChildren;
 
     public function setUp(): void
     {
@@ -41,6 +57,27 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             $this->locationHelperMock,
             $this->contentHelperMock
         );
+        $this->location1 = new Location([
+            'id' => 20,
+            'path' => ['1', '5', '20'],
+            'contentInfo' => new ContentInfo(['id' => self::CONTENT_ID + 1]),
+        ]);
+        $this->location2 = new Location([
+            'id' => 30,
+            'path' => ['1', '5', '30'],
+            'contentInfo' => new ContentInfo(['id' => self::CONTENT_ID + 2]),
+        ]);
+        $this->emptyLocationChildren = new LocationList([
+            'totalCount' => 0,
+            'locations' => []
+        ]);
+        $this->locationChildren = new LocationList([
+            'totalCount' => 2,
+            'locations' => [
+                $this->location1,
+                $this->location2,
+            ]
+        ]);
     }
 
     public function testCreateInstanceOfLocationEventSubscriber()
@@ -78,8 +115,8 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
         $this->locationServiceMock
             ->expects($this->atLeastOnce())
             ->method('loadLocationChildren')
-            ->with($this->location)
-            ->willReturn($this->getLocationChildren());
+            ->with($this->equalTo($this->location))
+            ->willReturn($this->locationChildren);
 
         $this->locationEventSubscriber->onCopySubtree($event);
     }
@@ -106,11 +143,8 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
         $this->locationServiceMock
             ->expects($this->atLeastOnce())
             ->method('loadLocationChildren')
-            ->with($this->location)
-            ->willReturn(new LocationList([
-                'totalCount' => 0,
-                'locations' => []
-            ]));
+            ->with($this->equalTo($this->location))
+            ->willReturn($this->emptyLocationChildren);
 
         $this->locationServiceMock
             ->expects($this->atLeastOnce())
@@ -119,68 +153,32 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
 
         $this->locationEventSubscriber->onDeleteLocation($event);
     }
-//
-//    public function testCallOnDeleteLocationMethodWithChildren()
-//    {
-//        $event = $this->createMock(DeleteLocationEvent::class);
-//        $event
-//            ->expects($this->once())
-//            ->method('getLocation')
-//            ->willReturn($this->location);
-//
-//        $this->locationServiceMock
-//            ->expects($this->at(0))
-//            ->method('loadLocationChildren')
-//            ->withAnyParameters()
-//            ->willReturn($this->getLocationChildren());
-//
-//        $this->locationServiceMock
-//            ->expects($this->at(0))
-//            ->method('loadLocation')
-//            ->willReturn($this->location);
-//
-//        $this->locationServiceMock
-//            ->expects($this->at(1))
-//            ->method('loadLocationChildren')
-//            ->withAnyParameters()
-//            ->willReturn($this->getEmptyLocationChildren());
-//
-//        $this->locationServiceMock
-//            ->expects($this->at(1))
-//            ->method('loadLocation')
-//            ->willReturn(new Location([
-//                'id' => 20,
-//                'path' => ['1', '5', '20'],
-//                'contentInfo' => new ContentInfo(['id' => self::CONTENT_ID + 1]),
-//            ]));
-//
-//        $this->locationServiceMock
-//            ->expects($this->at(2))
-//            ->method('loadLocationChildren')
-//            ->withAnyParameters()
-//            ->willReturn($this->getEmptyLocationChildren());
-//
-//        $this->locationServiceMock
-//            ->expects($this->at(2))
-//            ->method('loadLocation')
-//            ->willReturn(new Location([
-//                'id' => 30,
-//                'path' => ['1', '5', '30'],
-//                'contentInfo' => new ContentInfo(['id' => self::CONTENT_ID + 2]),
-//            ]));
-//
-//        $this->locationEventSubscriber->onDeleteLocation($event);
-//    }
 
-    public function testCallOnUpdateLocationMethod()
+    public function testCallOnHideLocationMethod()
     {
-        $event = $this->createMock(UpdateLocationEvent::class);
+        $event = $this->createMock(HideLocationEvent::class);
         $event
             ->expects($this->once())
             ->method('getLocation')
             ->willReturn($this->location);
 
-        $this->locationEventSubscriber->onUpdateLocation($event);
+        $this->locationServiceMock
+            ->expects($this->atLeastOnce())
+            ->method('loadLocationChildren')
+            ->with($this->equalTo($this->location))
+            ->willReturn($this->emptyLocationChildren);
+
+        $this->locationServiceMock
+            ->expects($this->atLeastOnce())
+            ->method('loadLocation')
+            ->willReturn($this->location);
+
+        $this->contentHelperMock
+            ->expects($this->atLeastOnce())
+            ->method('getIncludedContent')
+            ->willReturn($this->content);
+
+        $this->locationEventSubscriber->onHideLocation($event);
     }
 
     public function testCallOnMoveSubtreeMethod()
@@ -194,37 +192,178 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
         $this->locationServiceMock
             ->expects($this->atLeastOnce())
             ->method('loadLocationChildren')
-            ->with($this->location)
-            ->willReturn($this->getLocationChildren());
+            ->with($this->equalTo($this->location))
+            ->willReturn($this->locationChildren);
 
         $this->locationEventSubscriber->onMoveSubtree($event);
     }
 
-    private function getLocationChildren(): LocationList
+    public function testCallOnSwapLocationMethod()
     {
-        return new LocationList([
-            'totalCount' => 2,
-            'locations' => [
-                new Location([
-                    'id' => 20,
-                    'path' => ['1', '5', '20'],
-                    'contentInfo' => new ContentInfo(['id' => self::CONTENT_ID + 1]),
-                ]),
-                new Location([
-                    'id' => 30,
-                    'path' => ['1', '5', '30'],
-                    'contentInfo' => new ContentInfo(['id' => self::CONTENT_ID + 2]),
-                ]),
-            ]
+        $swappedLocation = new Location([
+            'id' => 120,
+            'path' => ['1', '5', '120'],
+            'contentInfo' => new ContentInfo(['id' => self::CONTENT_ID + 120]),
         ]);
+
+        $event = $this->createMock(SwapLocationEvent::class);
+        $event
+            ->expects($this->once())
+            ->method('getLocation1')
+            ->willReturn($this->location);
+        $event
+            ->expects($this->once())
+            ->method('getLocation2')
+            ->willReturn($swappedLocation);
+
+        $this->locationServiceMock
+            ->expects($this->at(0))
+            ->method('loadLocationChildren')
+            ->with($this->equalTo($this->location))
+            ->willReturn($this->emptyLocationChildren);
+
+        $this->locationServiceMock
+            ->expects($this->at(1))
+            ->method('loadLocation')
+            ->willReturn($this->location);
+
+        $this->locationServiceMock
+            ->expects($this->at(2))
+            ->method('loadLocationChildren')
+            ->with($this->equalTo($swappedLocation))
+            ->willReturn($this->emptyLocationChildren);
+
+        $this->locationServiceMock
+            ->expects($this->at(3))
+            ->method('loadLocation')
+            ->willReturn($swappedLocation);
+
+        $this->locationEventSubscriber->onSwapLocation($event);
     }
 
-
-    private function getEmptyLocationChildren(): LocationList
+    public function testCallOnUnhideLocationMethod()
     {
-        return new LocationList([
-            'totalCount' => 0,
-            'locations' => []
-        ]);
+        $event = $this->createMock(UnhideLocationEvent::class);
+        $event
+            ->expects($this->once())
+            ->method('getLocation')
+            ->willReturn($this->location);
+
+        $this->locationServiceMock
+            ->expects($this->atLeastOnce())
+            ->method('loadLocationChildren')
+            ->with($this->equalTo($this->location))
+            ->willReturn($this->emptyLocationChildren);
+
+        $this->locationServiceMock
+            ->expects($this->atLeastOnce())
+            ->method('loadLocation')
+            ->willReturn($this->location);
+
+        $this->locationEventSubscriber->onUnhideLocation($event);
+    }
+
+    public function testCallOnUpdateLocationMethod()
+    {
+        $event = $this->createMock(UpdateLocationEvent::class);
+        $event
+            ->expects($this->once())
+            ->method('getLocation')
+            ->willReturn($this->location);
+
+        $this->locationEventSubscriber->onUpdateLocation($event);
+    }
+
+    /**
+     * @dataProvider updateLocationWithChildrenDataProvider
+     */
+    public function testUpdateSingleLocationWithChildren(string $event, string $method)
+    {
+        $eventMock = $this->createMock($event);
+        $eventMock
+            ->expects($this->once())
+            ->method('getLocation')
+            ->willReturn($this->location);
+
+        $this->locationServiceMock
+            ->expects($this->at(0))
+            ->method('loadLocationChildren')
+            ->with($this->equalTo($this->location))
+            ->willReturn($this->locationChildren);
+
+        $this->locationServiceMock
+            ->expects($this->at(1))
+            ->method('loadLocationChildren')
+            ->with($this->equalTo($this->location1))
+            ->willReturn($this->emptyLocationChildren);
+
+        $this->locationServiceMock
+            ->expects($this->at(2))
+            ->method('loadLocation')
+            ->with($this->equalTo($this->location1->id))
+            ->willReturn($this->location1);
+
+        $this->locationServiceMock
+            ->expects($this->at(3))
+            ->method('loadLocationChildren')
+            ->with($this->equalTo($this->location2))
+            ->willReturn($this->emptyLocationChildren);
+
+        $this->locationServiceMock
+            ->expects($this->at(4))
+            ->method('loadLocation')
+            ->with($this->equalTo($this->location2->id))
+            ->willReturn($this->location2);
+
+        $this->locationServiceMock
+            ->expects($this->at(5))
+            ->method('loadLocation')
+            ->with($this->equalTo($this->location->id))
+            ->willReturn($this->location);
+
+        $this->contentHelperMock
+            ->expects($this->at(0))
+            ->method('getIncludedContent')
+            ->with($this->equalTo(self::CONTENT_ID + 1))
+            ->willReturn(new Content([
+                'versionInfo' => new VersionInfo([
+                    'contentInfo' => new ContentInfo([
+                        'id' => self::CONTENT_ID + 1,
+                        'contentTypeId' => self::CONTENT_TYPE_ID,
+                    ]),
+                ]),
+                'internalFields' => [],
+            ]));
+
+        $this->contentHelperMock
+            ->expects($this->at(1))
+            ->method('getIncludedContent')
+            ->with($this->equalTo(3))
+            ->willReturn(new Content([
+                'versionInfo' => new VersionInfo([
+                    'contentInfo' => new ContentInfo([
+                        'id' => self::CONTENT_ID + 2,
+                        'contentTypeId' => self::CONTENT_TYPE_ID,
+                    ]),
+                ]),
+                'internalFields' => [],
+            ]));
+
+        $this->contentHelperMock
+            ->expects($this->at(2))
+            ->method('getIncludedContent')
+            ->with($this->equalTo(self::CONTENT_ID))
+            ->willReturn($this->content);
+
+        $this->locationEventSubscriber->$method($eventMock);
+    }
+
+    public function updateLocationWithChildrenDataProvider(): array
+    {
+        return [
+            [DeleteLocationEvent::class, 'onDeleteLocation'],
+            [HideLocationEvent::class, 'onHideLocation'],
+            [UnhideLocationEvent::class, 'onUnhideLocation'],
+        ];
     }
 }

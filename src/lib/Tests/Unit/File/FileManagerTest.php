@@ -198,7 +198,7 @@ class FileManagerTest extends TestCase
         $FileManager->unlock();
     }
 
-    public function testiIsLockedWithLockedFile()
+    public function testIsLockedWithLockedFile()
     {
         $this->baseFileSystemHelper
             ->expects($this->once())
@@ -215,7 +215,7 @@ class FileManagerTest extends TestCase
         $this->assertTrue($FileManager->isLocked());
     }
 
-    public function testiIsLockedWithoutLockedFile()
+    public function testIsLockedWithoutLockedFile()
     {
         $this->baseFileSystemHelper
             ->expects($this->once())
