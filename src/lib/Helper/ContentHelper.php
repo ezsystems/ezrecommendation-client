@@ -64,11 +64,6 @@ final class ContentHelper
     /**
      * Gets languageCodes based on $content.
      *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param int|null $versionNo
-     *
-     * @return array
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -81,11 +76,6 @@ final class ContentHelper
 
     /**
      * Generates the REST URI of content $contentId.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     * @param string|null $lang
-     *
-     * @return string
      */
     public function getContentUri(ContentInfo $contentInfo, ?string $lang = null): string
     {
@@ -98,12 +88,6 @@ final class ContentHelper
     }
 
     /**
-     * @param int $contentId
-     * @param array|null $languages
-     * @param int|null $versionNo
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content|null
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function getContent(int $contentId, ?array $languages = null, ?int $versionNo = null): ?Content
@@ -118,11 +102,6 @@ final class ContentHelper
     }
 
     /**
-     * @param int $contentId
-     * @param array|null $languages
-     * @param int|null $versionNo
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\Content|null
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function getIncludedContent(int $contentId, ?array $languages = null, ?int $versionNo = null): ?Content
@@ -134,11 +113,6 @@ final class ContentHelper
 
     /**
      * Returns total amount of content based on ContentType ids.
-     *
-     * @param int $contentTypeId
-     * @param array $options
-     *
-     * @return int|null
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
@@ -156,11 +130,6 @@ final class ContentHelper
     }
 
     /**
-     * @param int $contentTypeId
-     * @param array $options
-     *
-     * @return array
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -178,11 +147,6 @@ final class ContentHelper
     }
 
     /**
-     * @param int $contentTypeId
-     * @param array $options
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -210,11 +174,6 @@ final class ContentHelper
 
     /**
      * Generates Criterions based on mandatoryId or requested siteAccess.
-     *
-     * @param int|null $customerId
-     * @param string|null $siteAccess
-     *
-     * @return Criterion\LogicalOr
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException

@@ -19,9 +19,6 @@ final class UserApiRequestDefaultSourceEventSubscriber implements EventSubscribe
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /**
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
-     */
     public function __construct(ConfigResolverInterface $configResolver)
     {
         $this->configResolver = $configResolver;
@@ -37,9 +34,6 @@ final class UserApiRequestDefaultSourceEventSubscriber implements EventSubscribe
         ];
     }
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Event\UpdateUserAPIEvent $userAPIEvent
-     */
     public function onRecommendationUpdateUser(UpdateUserAPIEvent $userAPIEvent): void
     {
         if ($userAPIEvent->getUserAPIRequest()) {
@@ -47,7 +41,7 @@ final class UserApiRequestDefaultSourceEventSubscriber implements EventSubscribe
         }
 
         $userAPIEvent->setUserAPIRequest(new UserMetadataRequest([
-            'source' => $this->configResolver->getParameter('user_api.default_source', Parameters::NAMESPACE)
+            'source' => $this->configResolver->getParameter('user_api.default_source', Parameters::NAMESPACE),
         ]));
     }
 }

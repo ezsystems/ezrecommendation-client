@@ -56,9 +56,6 @@ final class ExportFileGenerator
         $this->logger->info(sprintf('Generating file: %s', $filePath));
     }
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Value\ContentData $data
-     */
     private function generateFileContent(ContentData $data): void
     {
         $contents = [];

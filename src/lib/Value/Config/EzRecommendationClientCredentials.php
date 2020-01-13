@@ -16,26 +16,17 @@ final class EzRecommendationClientCredentials extends Credentials
     /** @var string */
     private $licenseKey;
 
-    /**
-     * @param array $credentials
-     */
     public function __construct(array $credentials)
     {
         $this->customerId = $credentials['customerId'] ?? null;
         $this->licenseKey = $credentials['licenseKey'] ?? null;
     }
 
-    /**
-     * @return int
-     */
     public function getCustomerId(): int
     {
         return $this->customerId;
     }
 
-    /**
-     * @return string
-     */
     public function getLicenseKey(): string
     {
         return $this->licenseKey;

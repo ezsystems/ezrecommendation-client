@@ -66,8 +66,6 @@ final class RecommendationEventSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -85,10 +83,6 @@ final class RecommendationEventSubscriber implements EventSubscriberInterface
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $parameterBag
-     *
-     * @return \EzSystems\EzRecommendationClient\SPI\RecommendationRequest
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -109,21 +103,11 @@ final class RecommendationEventSubscriber implements EventSubscriberInterface
         ]);
     }
 
-    /**
-     * @param string|null $locale
-     *
-     * @return string
-     */
     private function getRequestLanguage(?string $locale): string
     {
         return $this->localeConverter->convertToEz($locale) ?? self::DEFAULT_LOCALE;
     }
 
-    /**
-     * @param \Psr\Http\Message\ResponseInterface $response
-     *
-     * @return array
-     */
     private function extractRecommendationItems(ResponseInterface $response): array
     {
         if ($response->getStatusCode() !== Response::HTTP_OK) {

@@ -29,7 +29,7 @@ class EzRecommendationClientTest extends TestCase
     /** @var \GuzzleHttp\ClientInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $guzzleClientMock;
 
-    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface|\PHPUnit\Framework\MockObject\MockObject  */
+    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $credentialsResolverMock;
 
     /** @var \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory|\PHPUnit\Framework\MockObject\MockObject */

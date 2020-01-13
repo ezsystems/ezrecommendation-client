@@ -22,8 +22,6 @@ final class SessionBackupListener
      * Be aware that session is automatically destroyed when user logs off,
      * in this case the new sessionId will be set. This issue can be treated
      * as a later improvement as it's not required by Recommendation to work correctly.
-     *
-     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
     public function onKernelRequest(RequestEvent $event)
     {

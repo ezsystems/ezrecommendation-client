@@ -65,7 +65,7 @@ final class UserTracking extends AbstractFunction implements RuntimeExtensionInt
         $includedContentTypes = $this->configResolver->getParameter('included_content_types', Parameters::NAMESPACE);
         $customerId = $this->configResolver->getParameter('authentication.customer_id', Parameters::NAMESPACE);
 
-        if (!in_array($this->contentTypeHelper->getContentTypeIdentifier($contentId), $includedContentTypes)) {
+        if (!\in_array($this->contentTypeHelper->getContentTypeIdentifier($contentId), $includedContentTypes)) {
             return '';
         }
 

@@ -14,8 +14,5 @@ namespace EzSystems\EzRecommendationClient\Authentication;
  */
 interface AuthenticatorInterface
 {
-    /**
-     * @return bool
-     */
     public function authenticate(): bool;
 }

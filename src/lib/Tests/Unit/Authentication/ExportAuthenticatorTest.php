@@ -29,7 +29,7 @@ class ExportAuthenticatorTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject|\EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface */
     private $credentialsResolverMock;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -255,11 +255,6 @@ class ExportAuthenticatorTest extends TestCase
         $this->assertTrue($exportAuthenticator->authenticateByFile('export_directory/the_file'));
     }
 
-    /**
-     * @param string $method
-     *
-     * @return \EzSystems\EzRecommendationClient\Value\Config\ExportCredentials
-     */
     private function getExportCredentials(string $method = 'basic'): ExportCredentials
     {
         return new ExportCredentials([

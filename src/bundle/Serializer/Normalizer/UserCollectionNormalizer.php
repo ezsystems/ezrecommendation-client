@@ -20,7 +20,7 @@ final class UserCollectionNormalizer implements NormalizerInterface, NormalizerA
     private $owningNormalizer;
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function normalize($object, $format = null, array $context = []): array
     {
@@ -28,7 +28,7 @@ final class UserCollectionNormalizer implements NormalizerInterface, NormalizerA
     }
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function supportsNormalization($data, $format = null): bool
     {
@@ -36,7 +36,7 @@ final class UserCollectionNormalizer implements NormalizerInterface, NormalizerA
     }
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function setNormalizer(NormalizerInterface $normalizer): void
     {
@@ -45,10 +45,6 @@ final class UserCollectionNormalizer implements NormalizerInterface, NormalizerA
 
     /**
      * Normalizes UserCollection.
-     *
-     * @param \EzSystems\EzRecommendationClient\Value\Output\UserCollection $object
-     *
-     * @return array
      *
      * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
      */

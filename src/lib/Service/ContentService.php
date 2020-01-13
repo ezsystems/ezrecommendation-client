@@ -72,7 +72,7 @@ final class ContentService implements ContentServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
@@ -86,7 +86,7 @@ final class ContentService implements ContentServiceInterface
             'Preparing content for contentTypeId: %s, language: %s, amount: %s, chunk: #%s',
             $contentTypeId,
             $parameters->lang,
-            count($contentItems),
+            \count($contentItems),
             $parameters->page
         ));
 
@@ -98,7 +98,7 @@ final class ContentService implements ContentServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
@@ -117,7 +117,7 @@ final class ContentService implements ContentServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -128,7 +128,7 @@ final class ContentService implements ContentServiceInterface
         $output = $output ?? new NullOutput();
 
         foreach ($data as $contentTypeId => $items) {
-            $progress = new ProgressBar($output, count($items));
+            $progress = new ProgressBar($output, \count($items));
             $progress->start();
 
             /** @var \eZ\Publish\Core\Repository\Values\Content\Content $contentValue */
@@ -146,7 +146,7 @@ final class ContentService implements ContentServiceInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -179,13 +179,6 @@ final class ContentService implements ContentServiceInterface
     }
 
     /**
-     * @param \eZ\Publish\Core\Repository\Values\Content\Content $content
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
-     * @param \EzSystems\EzRecommendationClient\SPI\Content $options
-     * @param string $language
-     *
-     * @return array
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -208,11 +201,6 @@ final class ContentService implements ContentServiceInterface
 
     /**
      * Returns author of the content.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $contentValue
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return string
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      */
@@ -237,15 +225,10 @@ final class ContentService implements ContentServiceInterface
 
     /**
      * Checks if fields are given, if not - returns all of them.
-     *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
-     * @param array|null $fields
-     *
-     * @return array
      */
     private function prepareFields(APIContentType $contentType, ?array $fields = null): array
     {
-        if ($fields && count($fields) > 0 ) {
+        if ($fields && \count($fields) > 0) {
             return $fields;
         }
 

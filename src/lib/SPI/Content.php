@@ -8,8 +8,8 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\SPI;
 
-use Symfony\Component\Validator\Constraints as Assert;
 use eZ\Publish\API\Repository\Values\ValueObject;
+use Symfony\Component\Validator\Constraints as Assert;
 
 abstract class Content extends ValueObject
 {

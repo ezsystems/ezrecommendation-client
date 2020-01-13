@@ -23,9 +23,6 @@ final class EventTracking extends AbstractApi
         parent::__construct($client, $recommendationEndPoint . '/api/%d/rendered/%s/%d/');
     }
 
-    /**
-     * @param string $outputContentTypeId
-     */
     public function sendNotificationPing(string $outputContentTypeId): void
     {
         $endPointUri = $this->buildEndPointUri([

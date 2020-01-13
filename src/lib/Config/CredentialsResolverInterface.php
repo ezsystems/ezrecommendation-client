@@ -13,13 +13,8 @@ interface CredentialsResolverInterface
 {
     /**
      * Returns object with credentials data.
-     *
-     * @return \EzSystems\EzRecommendationClient\Value\Config\Credentials|null
      */
     public function getCredentials(): ?Credentials;
 
-    /**
-     * @return bool
-     */
     public function hasCredentials(): bool;
 }

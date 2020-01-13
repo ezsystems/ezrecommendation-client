@@ -48,12 +48,7 @@ final class ContentController extends RestController
     /**
      * Prepares content for ContentData class.
      *
-     * @param \EzSystems\EzRecommendationClient\Value\IdList $idList
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @ParamConverter("list_converter")
-     *
-     * @return \EzSystems\EzRecommendationClient\Value\ContentData
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      */
@@ -82,9 +77,6 @@ final class ContentController extends RestController
 
     /**
      * @param \Symfony\Component\HttpFoundation\ParameterBag ParameterBag $parameterBag
-     * @param \EzSystems\EzRecommendationClient\Value\IdList $idList
-     *
-     * @return Query
      */
     private function getQuery(ParameterBag $parameterBag, IdList $idList): Query
     {

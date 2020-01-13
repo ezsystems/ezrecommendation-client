@@ -10,9 +10,6 @@ namespace EzSystems\EzRecommendationClient\Api;
 
 final class AllowedApi
 {
-    /**
-     * @return array
-     */
     public function getAllowedApi(): array
     {
         return [

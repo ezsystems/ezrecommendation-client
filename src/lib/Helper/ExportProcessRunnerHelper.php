@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Helper;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Process\Process;
-use Psr\Log\LoggerInterface;
 
 /**
  * Runs export command as separate process.
@@ -26,10 +26,6 @@ final class ExportProcessRunnerHelper
     /** @var string */
     private $kernelEnvironment;
 
-    /**
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param string $kernelEnvironment
-     */
     public function __construct(
         LoggerInterface $logger,
         string $kernelEnvironment
@@ -38,9 +34,6 @@ final class ExportProcessRunnerHelper
         $this->kernelEnvironment = $kernelEnvironment;
     }
 
-    /**
-     * @param array $parameters
-     */
     public function run(array $parameters): Process
     {
         $documentRoot = $parameters['documentRoot'];
@@ -60,7 +53,7 @@ final class ExportProcessRunnerHelper
                 continue;
             }
 
-            if (is_array($option)) {
+            if (\is_array($option)) {
                 $option = implode(',', $option);
             }
 
@@ -79,9 +72,6 @@ final class ExportProcessRunnerHelper
         return $process;
     }
 
-    /**
-     * @return string
-     */
     private function getPhpPath(): string
     {
         if ($this->phpPath) {
@@ -91,9 +81,7 @@ final class ExportProcessRunnerHelper
         $phpFinder = new PhpExecutableFinder();
         $this->phpPath = $phpFinder->find();
         if (!$this->phpPath) {
-            throw new \RuntimeException(
-                'The php executable could not be found, it\'s needed for executing parable sub processes, so add it to your PATH environment variable and try again'
-            );
+            throw new \RuntimeException('The php executable could not be found, it\'s needed for executing parable sub processes, so add it to your PATH environment variable and try again');
         }
 
         return $this->phpPath;

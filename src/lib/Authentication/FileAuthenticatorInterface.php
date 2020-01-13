@@ -9,10 +9,5 @@ namespace EzSystems\EzRecommendationClient\Authentication;
 
 interface FileAuthenticatorInterface extends AuthenticatorInterface
 {
-    /**
-     * @param string $filePath
-     *
-     * @return bool
-     */
     public function authenticateByFile(string $filePath): bool;
 }

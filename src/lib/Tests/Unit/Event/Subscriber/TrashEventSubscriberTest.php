@@ -115,7 +115,7 @@ class TrashEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
     {
         return array_map(function (ContentInfo $contentInfo) {
             return new Relation([
-                'destinationContentInfo' => $contentInfo
+                'destinationContentInfo' => $contentInfo,
             ]);
         }, $this->getReverseRelations());
     }
@@ -153,7 +153,7 @@ class TrashEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
                     'path' => ['1', '5', '30'],
                     'contentInfo' => new ContentInfo(['id' => self::CONTENT_ID + 2]),
                 ]),
-            ]
+            ],
         ]);
     }
 }

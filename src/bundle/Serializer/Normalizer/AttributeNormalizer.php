@@ -16,7 +16,7 @@ final class AttributeNormalizer implements NormalizerInterface
     const ATTR_NAME = 'attribute';
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function normalize($object, $format = null, array $context = []): array
     {
@@ -29,7 +29,7 @@ final class AttributeNormalizer implements NormalizerInterface
     }
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function supportsNormalization($data, $format = null): bool
     {

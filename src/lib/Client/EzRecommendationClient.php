@@ -48,12 +48,6 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /**
-     * @param \GuzzleHttp\ClientInterface $client
-     * @param \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface $credentialsResolver
-     * @param \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory $apiFactory
-     * @param \Psr\Log\LoggerInterface $logger
-     */
     public function __construct(
         ClientInterface $client,
         CredentialsResolverInterface $credentialsResolver,
@@ -165,29 +159,17 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
 
     /**
      * Checks if client has set Recommendation credentials.
-     *
-     * @return bool
      */
     public function hasCredentials(): bool
     {
         return !empty($this->getCustomerId()) && !empty($this->getLicenseKey());
     }
 
-    /**
-     * @param \Psr\Http\Message\UriInterface $uri
-     *
-     * @return string
-     */
     public function getAbsoluteUri(UriInterface $uri): string
     {
         return $uri->getScheme() . '://' . $uri->getHost() . $uri->getPath() . $uri->getQuery() ?? '?' . $uri->getQuery();
     }
 
-    /**
-     * @param array $headers
-     *
-     * @return string
-     */
     public function getHeadersAsString(array $headers): string
     {
         $headersAsString = '';
@@ -237,11 +219,6 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
             ->setLicenseKey($credentials->getLicenseKey());
     }
 
-    /**
-     * @param array $transaction
-     *
-     * @return string
-     */
     private function getRequestLogMessage(array $transaction): string
     {
         $message = '';

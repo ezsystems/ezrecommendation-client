@@ -16,7 +16,6 @@ ez_recommendation.export.download:
         _controller: EzRecommendationClientBundle:Export:download
     requirements:
         filePath: '[a-zA-Z0-9\_\-\/]+'
-    methods: [POST]
 
 ez_recommendation.export.export:
     path: /ez_recommendation/v1/runExport/{idList}

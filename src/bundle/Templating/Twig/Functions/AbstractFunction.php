@@ -15,7 +15,8 @@ abstract class AbstractFunction
     /** @var \Twig\Environment */
     protected $twig;
 
-    public function __construct(TwigEnvironment $twig) {
+    public function __construct(TwigEnvironment $twig)
+    {
         $this->twig = $twig;
     }
 }

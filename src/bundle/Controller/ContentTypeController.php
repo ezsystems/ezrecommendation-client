@@ -61,12 +61,7 @@ final class ContentTypeController extends RestController
     /**
      * Prepares content for ContentData class.
      *
-     * @param \EzSystems\EzRecommendationClient\Value\IdList $idList
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @ParamConverter("list_converter")
-     *
-     * @return \EzSystems\EzRecommendationClient\Value\ContentData
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
@@ -85,11 +80,6 @@ final class ContentTypeController extends RestController
 
     /**
      * Returns paged content based on ContentType ids.
-     *
-     * @param array $contentTypeIds
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return array
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
@@ -116,11 +106,6 @@ final class ContentTypeController extends RestController
     }
 
     /**
-     * @param int $contentTypeId
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $parameterBag
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */

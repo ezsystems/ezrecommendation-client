@@ -22,7 +22,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class ContentEventSubscriber extends AbstractCoreEventSubscriber implements EventSubscriberInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents(): array
     {
@@ -39,8 +39,6 @@ final class ContentEventSubscriber extends AbstractCoreEventSubscriber implement
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Content\CreateContentEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -54,8 +52,6 @@ final class ContentEventSubscriber extends AbstractCoreEventSubscriber implement
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Content\UpdateContentEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -69,8 +65,6 @@ final class ContentEventSubscriber extends AbstractCoreEventSubscriber implement
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Content\DeleteContentEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -84,8 +78,6 @@ final class ContentEventSubscriber extends AbstractCoreEventSubscriber implement
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Content\HideContentEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -99,8 +91,6 @@ final class ContentEventSubscriber extends AbstractCoreEventSubscriber implement
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Content\RevealContentEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -114,8 +104,6 @@ final class ContentEventSubscriber extends AbstractCoreEventSubscriber implement
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Content\UpdateContentMetadataEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -129,8 +117,6 @@ final class ContentEventSubscriber extends AbstractCoreEventSubscriber implement
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Content\CopyContentEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -146,8 +132,6 @@ final class ContentEventSubscriber extends AbstractCoreEventSubscriber implement
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Content\PublishVersionEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */

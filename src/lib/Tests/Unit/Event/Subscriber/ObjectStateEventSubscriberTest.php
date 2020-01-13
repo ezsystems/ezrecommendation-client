@@ -38,7 +38,7 @@ class ObjectStateEventSubscriberTest extends AbstractCoreEventSubscriberTest
     public function subscribedEventsDataProvider(): array
     {
         return [
-            [SetContentStateEvent::class]
+            [SetContentStateEvent::class],
         ];
     }
 

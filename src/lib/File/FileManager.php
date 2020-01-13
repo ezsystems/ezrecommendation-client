@@ -44,7 +44,7 @@ final class FileManager implements FileManagerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function save(string $file, string $content): void
     {
@@ -52,7 +52,7 @@ final class FileManager implements FileManagerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function getDir(): string
     {
@@ -60,7 +60,7 @@ final class FileManager implements FileManagerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function createChunkDir(): string
     {
@@ -75,7 +75,7 @@ final class FileManager implements FileManagerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function lock(): void
     {
@@ -85,7 +85,7 @@ final class FileManager implements FileManagerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function unlock(): void
     {
@@ -97,7 +97,7 @@ final class FileManager implements FileManagerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function isLocked(): bool
     {
@@ -107,7 +107,7 @@ final class FileManager implements FileManagerInterface
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function secureDir(string $chunkDir, ExportCredentials $credentials): array
     {

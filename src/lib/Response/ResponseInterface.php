@@ -13,10 +13,7 @@ use EzSystems\EzPlatformRest\Output\Generator;
 interface ResponseInterface
 {
     /**
-     * @param \EzSystems\EzPlatformRest\Output\Generator $generator
      * @param $data
-     * 
-     * @return \EzSystems\EzPlatformRest\Output\Generator
      */
     public function render(Generator $generator, $data): Generator;
 }

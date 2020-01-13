@@ -14,21 +14,11 @@ use Psr\Http\Message\ResponseInterface;
 
 interface RecommendationServiceInterface
 {
-    /**
-     * @param \EzSystems\EzRecommendationClient\SPI\RecommendationRequest $request
-     *
-     * @return \Psr\Http\Message\ResponseInterface|null
-     */
     public function getRecommendations(RecommendationRequest $request): ?ResponseInterface;
 
-    /**
-     * @param string $outputContentType
-     */
     public function sendDeliveryFeedback(string $outputContentType): void;
 
     /**
-     * @param array $recommendationItems
-     *
      * @return RecommendationItem[]
      */
     public function getRecommendationItems(array $recommendationItems): array;

@@ -38,7 +38,7 @@ final class EzRecommendationClientApiFactory extends AbstractEzRecommendationCli
      */
     public function buildApi(string $name, EzRecommendationClientInterface $client): AbstractApi
     {
-        if (!array_key_exists($name, $this->allowedApi->getAllowedApi())) {
+        if (!\array_key_exists($name, $this->allowedApi->getAllowedApi())) {
             throw new InvalidArgumentException(sprintf('Given api key: %s is not found in allowedApi array', $name));
         }
 
@@ -53,11 +53,6 @@ final class EzRecommendationClientApiFactory extends AbstractEzRecommendationCli
         return new $api($client, $endPoint);
     }
 
-    /**
-     * @param string $apiName
-     *
-     * @return string
-     */
     private function getApiEndPoint(string $apiName): string
     {
         $parameterName = $this->getApiEndPointParameterName($apiName);
@@ -65,11 +60,6 @@ final class EzRecommendationClientApiFactory extends AbstractEzRecommendationCli
         return $this->configResolver->getParameter($parameterName . '.endpoint', Parameters::NAMESPACE, Parameters::API_SCOPE);
     }
 
-    /**
-     * @param string $apiName
-     *
-     * @return string
-     */
     private function getApiEndPointParameterName(string $apiName): string
     {
         return ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $apiName)), '_');

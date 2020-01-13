@@ -22,7 +22,6 @@ class RecommendationService implements RecommendationServiceInterface
     private $userService;
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface $client
      * @param \EzSystems\EzRecommendationClient\Service\UserServiceInterface $userService
      */
     public function __construct(

@@ -31,12 +31,6 @@ final class SiteAccessHelper
     /** @var string */
     private $defaultSiteAccessName;
 
-    /**
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
-     * @param \eZ\Publish\Core\MVC\Symfony\SiteAccess $siteAccess
-     * @param array $siteAccessConfig
-     * @param string $defaultSiteAccessName
-     */
     public function __construct(
         ConfigResolverInterface $configResolver,
         CurrentSiteAccess $siteAccess,
@@ -51,10 +45,6 @@ final class SiteAccessHelper
 
     /**
      * Returns rootLocation by siteAccess name or by default siteAccess.
-     *
-     * @param string|null $siteAccessName
-     *
-     * @return int
      */
     public function getRootLocationBySiteAccessName(?string $siteAccessName): int
     {
@@ -69,8 +59,6 @@ final class SiteAccessHelper
      * Returns list of rootLocations from siteAccess list.
      *
      * @param string[] $siteAccesses
-     *
-     * @return array
      */
     public function getRootLocationsBySiteAccesses(array $siteAccesses): array
     {
@@ -87,11 +75,6 @@ final class SiteAccessHelper
     /**
      * Returns languages based on customerId or siteaccess.
      *
-     * @param int $customerId
-     * @param string|null $siteAccess
-     *
-     * @return array
-     *
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
     public function getLanguages(int $customerId, ?string $siteAccess): array
@@ -106,10 +89,6 @@ final class SiteAccessHelper
     }
 
     /**
-     * @param int|null $customerId
-     *
-     * @return array
-     *
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
     public function getSiteAccessesByCustomerId(?int $customerId): array
@@ -146,11 +125,6 @@ final class SiteAccessHelper
     /**
      * Returns siteAccesses based on customerId, requested siteAccess or default SiteAccessHelper.
      *
-     * @param int|null $customerId
-     * @param string|null $siteAccess
-     *
-     * @return array
-     *
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
     public function getSiteAccesses(?int $customerId, ?string $siteAccess): array
@@ -171,7 +145,7 @@ final class SiteAccessHelper
      */
     public function getLanguagesBySiteAccesses(array $siteAccesses): array
     {
-        if (count($siteAccesses) === 1 && $this->isSiteAccessSameAsSystemDefault(current($siteAccesses))) {
+        if (\count($siteAccesses) === 1 && $this->isSiteAccessSameAsSystemDefault(current($siteAccesses))) {
             return $this->getLanguageList();
         }
 
@@ -199,7 +173,7 @@ final class SiteAccessHelper
     }
 
     /**
-     * Gets LanguageList for given siteAccess using ConfigResolver
+     * Gets LanguageList for given siteAccess using ConfigResolver.
      */
     public function getLanguageList(?string $siteAccess = null): array
     {
@@ -208,8 +182,6 @@ final class SiteAccessHelper
 
     /**
      * Checks if default siteAccess is changed.
-     *
-     * @return bool
      */
     public function isDefaultSiteAccessChanged(): bool
     {
@@ -218,10 +190,6 @@ final class SiteAccessHelper
 
     /**
      * Checks if siteAccessName is the same as system default siteAccess name.
-     *
-     * @param string $siteAccessName
-     *
-     * @return bool
      */
     public function isSiteAccessSameAsSystemDefault(string $siteAccessName): bool
     {
@@ -230,14 +198,10 @@ final class SiteAccessHelper
 
     /**
      * Checks if customerId is configured with default siteAccess.
-     *
-     * @param int $customerId
-     *
-     * @return bool
      */
     private function isCustomerIdConfigured(int $customerId): bool
     {
-        return in_array($this->defaultSiteAccessName, $this->siteAccessConfig)
+        return \in_array($this->defaultSiteAccessName, $this->siteAccessConfig)
             && $this->siteAccessConfig[$this->defaultSiteAccessName]['authentication']['customer_id'] == $customerId;
     }
 }

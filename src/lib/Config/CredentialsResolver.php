@@ -15,16 +15,11 @@ abstract class CredentialsResolver implements CredentialsResolverInterface
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     protected $configResolver;
 
-    /**
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
-     */
-    public function __construct(ConfigResolverInterface $configResolver) {
+    public function __construct(ConfigResolverInterface $configResolver)
+    {
         $this->configResolver = $configResolver;
     }
 
-    /**
-     * @return array
-     */
     abstract protected function getRequiredCredentials(): array;
 
     /**

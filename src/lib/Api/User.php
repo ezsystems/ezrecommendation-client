@@ -27,11 +27,6 @@ final class User extends AbstractApi
         parent::__construct($client, $endPointUri . '/api/%d/%s/user');
     }
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\SPI\UserAPIRequest $request
-     *
-     * @return \Psr\Http\Message\ResponseInterface|null
-     */
     public function updateUserAttributes(UserAPIRequest $request): ?ResponseInterface
     {
         $endPointUri = $this->buildEndPointUri([
@@ -45,14 +40,11 @@ final class User extends AbstractApi
         ]);
     }
 
-    /**
-     * @return array
-     */
     private function getHeaders(): array
     {
         return [
             'Content-Type' => 'text/xml',
-            'Authorization' => 'Basic ' . base64_encode($this->client->getCustomerId() . ':' . $this->client->getLicenseKey())
+            'Authorization' => 'Basic ' . base64_encode($this->client->getCustomerId() . ':' . $this->client->getLicenseKey()),
         ];
     }
 }

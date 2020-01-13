@@ -13,9 +13,5 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 interface ExportServiceInterface
 {
-    /**
-     * @param \EzSystems\EzRecommendationClient\Value\ExportParameters $parameters
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
     public function process(ExportParameters $parameters, OutputInterface $output): void;
 }

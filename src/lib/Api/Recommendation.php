@@ -28,8 +28,6 @@ final class Recommendation extends AbstractApi
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\SPI\RecommendationRequest $request
-     *
      * @return \Psr\Http\Message\ResponseInterface
      */
     public function getRecommendations(RecommendationRequest $request): ?ResponseInterface

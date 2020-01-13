@@ -12,12 +12,6 @@ use EzSystems\EzPlatformRest\Output\Generator;
 
 final class ContentListElementGenerator
 {
-    /**
-     * @param \EzSystems\EzPlatformRest\Output\Generator $generator
-     * @param array $contentList
-     *
-     * @return \EzSystems\EzPlatformRest\Output\Generator
-     */
     public function generateElement(Generator $generator, array $contentList = []): Generator
     {
         $generator->startObjectElement('contentList');

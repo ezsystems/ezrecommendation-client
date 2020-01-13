@@ -12,5 +12,4 @@ use EzSystems\EzRecommendationClient\SPI\Content as ContentOptions;
 
 class Content extends ContentOptions
 {
-
 }

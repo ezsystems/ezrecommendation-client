@@ -24,7 +24,7 @@ final class ExportService implements ExportServiceInterface
 
     /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
     private $validator;
-    
+
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
@@ -62,7 +62,7 @@ final class ExportService implements ExportServiceInterface
     {
         $errors = $this->validator->validate($parameters);
 
-        if (count($errors) > 0) {
+        if (\count($errors) > 0) {
             $errors = (string)$errors;
 
             $output->write($errors);
@@ -75,9 +75,6 @@ final class ExportService implements ExportServiceInterface
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Value\ExportParameters $parameters
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
      * @throws \Exception
      */
     private function runExport(ExportParameters $parameters, OutputInterface $output): void
@@ -96,7 +93,6 @@ final class ExportService implements ExportServiceInterface
 
             $this->logger->info(sprintf('eZ Recommendation Response: %s', $response->getBody()));
             $output->writeln('Done');
-
         } catch (\Exception $e) {
             $this->logger->error(sprintf('Error while generating export: %s', $e->getMessage()));
             $this->fileManager->unlock();
@@ -104,10 +100,8 @@ final class ExportService implements ExportServiceInterface
             throw $e;
         }
     }
-    
+
     /**
-     * @param string $chunkDir
-     *
      * @return string[]
      */
     private function getSecuredDirCredentials(string $chunkDir): array

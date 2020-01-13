@@ -7,8 +7,8 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\Configuration as SiteAccessConfiguration;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class Configuration extends SiteAccessConfiguration
 {

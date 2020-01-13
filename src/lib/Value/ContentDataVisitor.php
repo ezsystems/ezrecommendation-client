@@ -30,8 +30,6 @@ class ContentDataVisitor extends ValueObjectVisitor
     }
 
     /**
-     * @param \EzSystems\EzPlatformRest\Output\Visitor $visitor
-     * @param \EzSystems\EzPlatformRest\Output\Generator $generator
      * @param mixed $data
      *
      * @throws \EzSystems\EzRecommendationClient\Exception\ResponseClassNotImplementedException

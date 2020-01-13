@@ -16,16 +16,13 @@ final class UserMetadataRequest extends UserAPIRequest
     public $allSources = false;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function __construct(array $parameters = [])
     {
         parent::__construct($this, $parameters);
     }
 
-    /**
-     * @return array
-     */
     public function getRequestAttributes(): array
     {
         return [

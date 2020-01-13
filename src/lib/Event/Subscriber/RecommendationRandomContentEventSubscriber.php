@@ -13,17 +13,17 @@ use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
-use EzSystems\EzPlatformRichText\eZ\FieldType\RichText\Value as RichTextValue;
+use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\FieldType\TextLine\Value as TextLineValue;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\SPI\FieldType\Value;
+use EzSystems\EzPlatformRichText\eZ\FieldType\RichText\Value as RichTextValue;
 use EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent;
 use EzSystems\EzRecommendationClient\Helper\ImageHelper;
 use EzSystems\EzRecommendationClient\Request\BasicRecommendationRequest;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 use EzSystems\EzRecommendationClient\Value\RecommendationItem;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use Symfony\Component\Routing\RouterInterface;
 
 final class RecommendationRandomContentEventSubscriber implements EventSubscriberInterface
@@ -46,9 +46,6 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
     /**
      * @param \eZ\Publish\API\Repository\ContentService $searchService
      * @param \eZ\Publish\API\Repository\SearchService $contentService
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
-     * @param \Symfony\Component\Routing\RouterInterface $router
-     * @param \EzSystems\EzRecommendationClient\Helper\ImageHelper $imageHelper
      */
     public function __construct(
         SearchServiceInterface $searchService,
@@ -75,8 +72,6 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent $event
-     *
      * @throws NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -102,11 +97,6 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\LocationQuery $query
-     * @param int $limit
-     *
-     * @return array
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -123,7 +113,7 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
                 $item->valueObject->contentInfo
             );
 
-            if (count($items) === $limit) {
+            if (\count($items) === $limit) {
                 break;
             }
         }
@@ -132,8 +122,6 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
     }
 
     /**
-     * @param array $randomContent
-     *
      * @return RecommendationItem[]
      */
     private function getRandomRecommendationItems(array $randomContent): array
@@ -157,10 +145,6 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
 
     /**
      * Returns LocationQuery object based on given arguments.
-     *
-     * @param array $selectedContentTypes
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\LocationQuery
      */
     private function getQuery(array $selectedContentTypes): LocationQuery
     {
@@ -174,11 +158,6 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
         return $query;
     }
 
-    /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     *
-     * @return string
-     */
     private function getIntro(Content $content): string
     {
         $value = $this->getFieldValue($content, 'intro');
@@ -190,20 +169,12 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
         }
     }
 
-    /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     *
-     * @return string|null
-     */
     private function getImage(Content $content): ?string
     {
         return $this->imageHelper->getImageUrl($content->getField('image'), $content, []);
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param string $fieldName
-     *
      * @return
      */
     private function getFieldValue(Content $content, string $fieldName): Value

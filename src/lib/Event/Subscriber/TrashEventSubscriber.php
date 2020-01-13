@@ -17,19 +17,17 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class TrashEventSubscriber extends AbstractRepositoryEventSubscriber implements EventSubscriberInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents(): array
     {
         return [
             RecoverEvent::class => ['onRecover', parent::EVENT_PRIORITY],
-            TrashEvent::class => ['onTrash', parent::EVENT_PRIORITY]
+            TrashEvent::class => ['onTrash', parent::EVENT_PRIORITY],
         ];
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Trash\RecoverEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -47,8 +45,6 @@ final class TrashEventSubscriber extends AbstractRepositoryEventSubscriber imple
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Trash\TrashEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -66,7 +62,6 @@ final class TrashEventSubscriber extends AbstractRepositoryEventSubscriber imple
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
      * @return \eZ\Publish\API\Repository\Values\Content\Relation[]
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException

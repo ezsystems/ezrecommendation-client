@@ -16,17 +16,11 @@ abstract class UserAPIEvent extends Event
     /** @var \EzSystems\EzRecommendationClient\SPI\UserAPIRequest */
     private $request;
 
-    /**
-     * @return \EzSystems\EzRecommendationClient\SPI\UserAPIRequest|null
-     */
     public function getUserAPIRequest(): ?UserAPIRequest
     {
         return $this->request;
     }
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\SPI\UserAPIRequest $request
-     */
     public function setUserAPIRequest(UserAPIRequest $request): void
     {
         $this->request = $request;

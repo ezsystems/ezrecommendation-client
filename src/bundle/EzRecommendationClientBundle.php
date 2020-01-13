@@ -26,9 +26,6 @@ class EzRecommendationClientBundle extends Bundle
         return $this->extension ?? new EzRecommendationClientExtension();
     }
 
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
-     */
     public function build(ContainerBuilder $container)
     {
         parent::build($container);

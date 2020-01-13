@@ -41,8 +41,6 @@ final class TypeValue
      *
      * @param string $fieldName
      * @param mixed $args
-     *
-     * @return string
      */
     public function __call($fieldName, $args): string
     {
@@ -52,10 +50,6 @@ final class TypeValue
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     *
-     * @return string
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      */
     public function ezxmltext(Field $field): string
@@ -71,10 +65,6 @@ final class TypeValue
 
     /**
      * Method for parsing ezrichtext field.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     *
-     * @return string
      */
     public function ezrichtext(Field $field): string
     {
@@ -83,14 +73,6 @@ final class TypeValue
 
     /**
      * Method for parsing ezimage field.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param string $language
-     * @param string $imageFieldIdentifier
-     * @param array $options
-     *
-     * @return string
      */
     public function ezimage(Field $field, Content $content, string $language, string $imageFieldIdentifier, array $options = []): string
     {
@@ -103,14 +85,6 @@ final class TypeValue
 
     /**
      * Method for parsing ezimageasset field.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param string $language
-     * @param string $imageFieldIdentifier
-     * @param array $options
-     *
-     * @return string
      */
     public function ezimageasset(Field $field, Content $content, string $language, string $imageFieldIdentifier, array $options = []): string
     {
@@ -124,14 +98,6 @@ final class TypeValue
     /**
      * Method for parsing ezobjectrelation field.
      * For now related fields refer to images.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param string $language
-     * @param string $imageFieldIdentifier
-     * @param array $options
-     *
-     * @return string
      */
     public function ezobjectrelation(Field $field, Content $content, string $language, string $imageFieldIdentifier, array $options = []): string
     {

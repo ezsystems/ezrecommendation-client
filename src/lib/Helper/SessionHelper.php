@@ -19,10 +19,6 @@ final class SessionHelper
     /** @var \Symfony\Component\HttpFoundation\Session\SessionInterface */
     private $session;
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session
-     */
     public function __construct(
         RequestStack $requestStack,
         SessionInterface $session
@@ -31,11 +27,6 @@ final class SessionHelper
         $this->session = $session;
     }
 
-    /**
-     * @param string $sessionKey
-     *
-     * @return string
-     */
     public function getAnonymousSessionId(string $sessionKey): string
     {
         if (!$this->session->isStarted()) {

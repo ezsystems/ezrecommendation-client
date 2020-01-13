@@ -24,7 +24,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber implements EventSubscriberInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents(): array
     {
@@ -41,8 +41,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Location\CopySubtreeEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -56,8 +54,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Location\CreateLocationEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -71,8 +67,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Location\DeleteLocationEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -86,8 +80,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Location\HideLocationEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -98,8 +90,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Location\MoveSubtreeEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -113,8 +103,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Location\SwapLocationEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -127,8 +115,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Location\UnhideLocationEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -143,8 +129,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\Location\UpdateLocationEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -158,9 +142,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param bool $isChild
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -191,10 +172,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param string $method
-     * @param string $action
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */

@@ -20,44 +20,29 @@ final class GenerateUserCollectionDataEvent extends Event
     /** @var string */
     private $userCollectionName = '';
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Value\Output\UserCollection $userCollection
-     */
     public function setUserCollection(UserCollection $userCollection): void
     {
         Assert::isInstanceOf($userCollection, UserCollection::class);
         $this->userCollection = $userCollection;
     }
 
-    /**
-     * @return \EzSystems\EzRecommendationClient\Value\Output\UserCollection
-     */
     public function getUserCollection(): UserCollection
     {
         return $this->userCollection;
     }
 
-    /**
-     * @return string
-     */
     public function getUserCollectionName(): string
     {
         return $this->userCollectionName;
     }
 
-    /**
-     * @param string $userCollectionName
-     */
     public function setUserCollectionName(string $userCollectionName): void
     {
         $this->userCollectionName = $userCollectionName;
     }
 
-    /**
-     * @return bool
-     */
     public function hasUserCollectionName(): bool
     {
-        return strlen($this->userCollectionName) > 0;
+        return \strlen($this->userCollectionName) > 0;
     }
 }

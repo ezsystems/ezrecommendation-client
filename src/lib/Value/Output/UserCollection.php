@@ -32,11 +32,8 @@ class UserCollection
         return $this->users;
     }
 
-    /**
-     * @return bool
-     */
     public function isEmpty(): bool
     {
-        return 0 === count($this->users);
+        return 0 === \count($this->users);
     }
 }

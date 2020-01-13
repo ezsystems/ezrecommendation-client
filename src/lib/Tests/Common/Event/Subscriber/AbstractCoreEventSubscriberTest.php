@@ -44,8 +44,8 @@ abstract class AbstractCoreEventSubscriberTest extends TestCase
         ]);
         $this->content = new Content([
             'versionInfo' => new VersionInfo([
-                'contentInfo' => $this->contentInfo
-            ])
+                'contentInfo' => $this->contentInfo,
+            ]),
         ]);
     }
 
@@ -57,9 +57,6 @@ abstract class AbstractCoreEventSubscriberTest extends TestCase
         $this->assertArrayHasKey($event, $this->getEventSubscriber()::getSubscribedEvents());
     }
 
-    /**
-     * @return \Symfony\Component\EventDispatcher\EventSubscriberInterface
-     */
     abstract public function getEventSubscriber(): EventSubscriberInterface;
 
     abstract public function subscribedEventsDataProvider(): array;

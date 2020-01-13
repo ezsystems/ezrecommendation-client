@@ -88,9 +88,6 @@ final class ExportCommand extends Command
     }
 
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
      * @return int|void|null
      *
      * @throws \Exception
@@ -134,8 +131,6 @@ final class ExportCommand extends Command
     }
 
     /**
-     * @return \EzSystems\EzRecommendationClient\Value\ExportParameters
-     *
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
     private function getExportParameters(InputInterface $input): ExportParameters
@@ -158,10 +153,6 @@ final class ExportCommand extends Command
 
     /**
      * Returns languages list.
-     *
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     *
-     * @return array
      *
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */

@@ -81,7 +81,7 @@ class EzRecommendationClientApiFactoryTest extends TestCase
             ->willReturn([
                 'endpoint1' => APIEndPointClassTest::class,
                 'endpoint2' => APIEndPointClassTest::class,
-                'endpoint3' =>  APIEndPointClassTest::class,
+                'endpoint3' => APIEndPointClassTest::class,
                 'endpoint4' => APIEndPointClassTest::class,
             ]);
 

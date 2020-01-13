@@ -19,13 +19,6 @@ final class ExportNotificationService extends NotificationService
 {
     private const NOTIFICATION_ACTION_NAME = 'export';
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Value\ExportParameters $parameters
-     * @param array $urls
-     * @param array $securedDirCredentials
-     *
-     * @return \Psr\Http\Message\ResponseInterface|null
-     */
     public function sendNotification(ExportParameters $parameters, array $urls, array $securedDirCredentials): ?ResponseInterface
     {
         $options = $parameters->getProperties();
@@ -41,7 +34,7 @@ final class ExportNotificationService extends NotificationService
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function createNotification(array $options): Notification
     {
@@ -56,7 +49,7 @@ final class ExportNotificationService extends NotificationService
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     protected function configureOptions(OptionsResolver $resolver): void
     {
@@ -75,12 +68,6 @@ final class ExportNotificationService extends NotificationService
             ->setAllowedTypes('webHook', 'string');
     }
 
-    /**
-     * @param array $urls
-     * @param array $securedDirCredentials
-     *
-     * @return array
-     */
     private function getNotificationEvents(array $urls, array $securedDirCredentials): array
     {
         $notifications = [];

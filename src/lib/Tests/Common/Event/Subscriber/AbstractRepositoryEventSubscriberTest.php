@@ -30,7 +30,7 @@ abstract class AbstractRepositoryEventSubscriberTest extends AbstractCoreEventSu
     public function setUp(): void
     {
         parent::setUp();
-        
+
         $this->contentServiceMock = $this->createMock(ContentService::class);
         $this->locationServiceMock = $this->createMock(LocationService::class);
         $this->locationHelperMock = $this->createMock(LocationHelper::class);

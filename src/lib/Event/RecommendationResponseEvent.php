@@ -19,25 +19,16 @@ final class RecommendationResponseEvent extends Event
     /** @var \EzSystems\EzRecommendationClient\Value\RecommendationItem[] */
     private $recommendationItems;
 
-    /**
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $parameterBag
-     */
     public function __construct(ParameterBag $parameterBag)
     {
         $this->parameterBag = $parameterBag;
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\ParameterBag
-     */
     public function getParameterBag(): ParameterBag
     {
         return $this->parameterBag;
     }
 
-    /**
-     * @param array $recommendationItems
-     */
     public function setRecommendationItems(array $recommendationItems)
     {
         $this->recommendationItems = $recommendationItems;

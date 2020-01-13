@@ -13,9 +13,6 @@ final class RelationMapper
     /** @var array $fieldMapping */
     private $fieldMappings;
 
-    /**
-     * @param array $fieldMappings
-     */
     public function __construct(array $fieldMappings)
     {
         $this->fieldMappings = $fieldMappings;
@@ -23,9 +20,6 @@ final class RelationMapper
 
     /**
      * Get related mapping for specified content and field.
-     *
-     * @param string $contentTypeIdentifier
-     * @param string $fieldIdentifier
      *
      * @return array|null mixed Returns mathing mapping array or null if no matching mapping found
      */

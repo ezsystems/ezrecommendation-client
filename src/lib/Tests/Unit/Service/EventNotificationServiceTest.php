@@ -26,7 +26,7 @@ class EventNotificationServiceTest extends NotificationServiceTest
     /** @var \EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver|\PHPUnit\Framework\MockObject\MockObject */
     private $credentialsResolverMock;
 
-    /** @var \EzSystems\EzRecommendationClient\Helper\ContentHelper|\PHPUnit\Framework\MockObject\MockObject  */
+    /** @var \EzSystems\EzRecommendationClient\Helper\ContentHelper|\PHPUnit\Framework\MockObject\MockObject */
     private $contentHelperMock;
 
     /** @var \EzSystems\EzRecommendationClient\Helper\ContentTypeHelper|\PHPUnit\Framework\MockObject\MockObject */
@@ -67,7 +67,7 @@ class EventNotificationServiceTest extends NotificationServiceTest
             ->expects($this->once())
             ->method('getCredentials')
             ->willReturn(new EzRecommendationClientCredentials([
-                'customerId' => 12345 ,
+                'customerId' => 12345,
                 'licenseKey' => '12345-12345-12345-12345',
             ]));
         $this->clientMock

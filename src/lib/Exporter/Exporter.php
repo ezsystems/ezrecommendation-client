@@ -22,7 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class Exporter implements ExporterInterface
 {
     private const API_ENDPOINT_URL = '%s/api/ezp/v2/ez_recommendation/v1/exportDownload/%s';
-    
+
     /** @var \EzSystems\EzRecommendationClient\File\ExportFileGenerator */
     private $exportFileGenerator;
 
@@ -53,7 +53,7 @@ final class Exporter implements ExporterInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
@@ -63,7 +63,7 @@ final class Exporter implements ExporterInterface
     {
         $urls = [];
 
-        $output->writeln(sprintf('Exporting %s content types', count($parameters->contentTypeIdList)));
+        $output->writeln(sprintf('Exporting %s content types', \count($parameters->contentTypeIdList)));
 
         foreach ($parameters->contentTypeIdList as $id) {
             $contentTypeId = (int)$id;
@@ -74,9 +74,6 @@ final class Exporter implements ExporterInterface
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Value\ExportParameters $parameters
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -104,7 +101,7 @@ final class Exporter implements ExporterInterface
                 $parameters->page = $i;
 
                 $this->generateFileForContentType($contentTypeId, $chunkPath, $parameters, $output);
-                
+
                 $contents[$lang] = $this->generateUrlList(
                     $contentTypeId,
                     $parameters->lang,
@@ -116,15 +113,12 @@ final class Exporter implements ExporterInterface
         return $contents;
     }
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Value\ExportParameters $parameters
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     */
     private function generateFileForContentType(
         int $contentTypeId,
         string $chunkPath,
         ExportParameters $parameters,
-        OutputInterface $output): void {
+        OutputInterface $output): void
+    {
         $content = $this->contentService->fetchContent($contentTypeId, $parameters, $output);
 
         $output->writeln(sprintf(
@@ -139,12 +133,6 @@ final class Exporter implements ExporterInterface
         unset($content);
     }
 
-    /**
-     * @param string $host
-     * @param string $chunkPath
-     *
-     * @return string
-     */
     private function generateUrl(string $host, string $chunkPath, OutputInterface $output): string
     {
         $url = sprintf(
@@ -168,7 +156,7 @@ final class Exporter implements ExporterInterface
 
         return [
             'urlList' => [$url],
-            'contentTypeName' => $contentType->getName($lang) ?? $contentType->getName($contentType->mainLanguageCode)
+            'contentTypeName' => $contentType->getName($lang) ?? $contentType->getName($contentType->mainLanguageCode),
         ];
     }
 }

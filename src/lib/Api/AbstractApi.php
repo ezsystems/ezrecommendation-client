@@ -21,19 +21,12 @@ abstract class AbstractApi
     /** @var \GuzzleHttp\Psr7\Uri */
     protected $endPointUri;
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface $client
-     * @param string $endPointUri
-     */
     public function __construct(EzRecommendationClientInterface $client, string $endPointUri)
     {
         $this->client = $client;
         $this->endPointUri = $endPointUri;
     }
 
-    /**
-     * @return \Psr\Http\Message\UriInterface
-     */
     protected function getEndPointUri(): UriInterface
     {
         return new Uri($this->endPointUri);
@@ -41,9 +34,6 @@ abstract class AbstractApi
 
     /**
      * @param string $rawEndPointUri
-     * @param array $endPointParameters
-     *
-     * @return \Psr\Http\Message\UriInterface
      */
     protected function buildEndPointUri(array $endPointParameters, ?string $rawEndPointUri = null): UriInterface
     {
@@ -58,21 +48,16 @@ abstract class AbstractApi
         return new Uri(vsprintf($this->endPointUri, $endPointParameters));
     }
 
-    /**
-     * @param array $parameters
-     *
-     * @return string
-     */
     protected function buildQueryStringFromArray(array $parameters): string
     {
         $queryString = '';
 
         foreach ($parameters as $parameterKey => $parameterValue) {
-            if (is_array($parameterValue)) {
+            if (\is_array($parameterValue)) {
                 $queryString .= $this->buildQueryStringFromArray($parameterValue);
             }
 
-            if (is_string($parameterValue) || is_numeric($parameterValue)) {
+            if (\is_string($parameterValue) || is_numeric($parameterValue)) {
                 $queryString .= $parameterKey . '=' . (string) $parameterValue;
             }
 
@@ -84,12 +69,6 @@ abstract class AbstractApi
         return $queryString;
     }
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\SPI\Request $request
-     * @param array $requiredAttributes
-     *
-     * @return array
-     */
     protected function getQueryStringParameters(Request $request, array $requiredAttributes = []): array
     {
         if ($requiredAttributes) {

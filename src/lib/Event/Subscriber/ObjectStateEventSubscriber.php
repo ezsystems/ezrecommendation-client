@@ -15,18 +15,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 final class ObjectStateEventSubscriber extends AbstractCoreEventSubscriber implements EventSubscriberInterface
 {
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public static function getSubscribedEvents(): array
     {
         return [
-            SetContentStateEvent::class => ['onSetContentState', parent::EVENT_PRIORITY]
+            SetContentStateEvent::class => ['onSetContentState', parent::EVENT_PRIORITY],
         ];
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Events\ObjectState\SetContentStateEvent $event
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */

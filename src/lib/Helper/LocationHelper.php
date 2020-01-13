@@ -29,10 +29,6 @@ final class LocationHelper
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     *
-     * @return bool
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      */
     public function areLocationsVisible(ContentInfo $contentInfo): bool

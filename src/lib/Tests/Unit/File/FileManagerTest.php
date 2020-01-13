@@ -111,7 +111,7 @@ class FileManagerTest extends TestCase
 
         $result = $FileManager->createChunkDir();
 
-        $this->assertTrue(strlen($result) > 5);
+        $this->assertTrue(\strlen($result) > 5);
     }
 
     public function testCreateChunkDirWithUnexistingDir()
@@ -137,7 +137,7 @@ class FileManagerTest extends TestCase
 
         $result = $FileManager->createChunkDir();
 
-        $this->assertTrue(strlen($result) > 5);
+        $this->assertTrue(\strlen($result) > 5);
     }
 
     public function testLock()
@@ -288,14 +288,9 @@ class FileManagerTest extends TestCase
         );
 
         $this->assertEquals('yc', $result['login']);
-        $this->assertTrue(strlen($result['password']) > 5);
+        $this->assertTrue(\strlen($result['password']) > 5);
     }
 
-    /**
-     * @param string $method
-     *
-     * @return \EzSystems\EzRecommendationClient\Value\Config\ExportCredentials
-     */
     private function getExportCredentials(string $method = 'basic'): ExportCredentials
     {
         return new ExportCredentials([

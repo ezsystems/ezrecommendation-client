@@ -20,8 +20,6 @@ final class ParamsConverterHelper
      *
      * @param string $string list of integers separated by comma character
      *
-     * @return array
-     *
      * @throws InvalidArgumentException If incorrect $list value is given
      */
     public static function getIdListFromString(string $string): array
@@ -44,10 +42,6 @@ final class ParamsConverterHelper
 
     /**
      * Returns list of elements as array from comma separated string.
-     *
-     * @param string $string
-     *
-     * @return array
      */
     public static function getArrayFromString(string $string): array
     {

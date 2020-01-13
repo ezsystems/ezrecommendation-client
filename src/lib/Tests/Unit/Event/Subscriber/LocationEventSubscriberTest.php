@@ -69,14 +69,14 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
         ]);
         $this->emptyLocationChildren = new LocationList([
             'totalCount' => 0,
-            'locations' => []
+            'locations' => [],
         ]);
         $this->locationChildren = new LocationList([
             'totalCount' => 2,
             'locations' => [
                 $this->location1,
                 $this->location2,
-            ]
+            ],
         ]);
     }
 

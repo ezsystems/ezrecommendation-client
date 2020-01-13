@@ -46,10 +46,6 @@ final class ExportController extends Controller
     }
 
     /**
-     * @param string $filePath
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Symfony\Component\HttpFoundation\File\Exception\AccessDeniedException
      */
     public function downloadAction(string $filePath): Response
@@ -72,11 +68,7 @@ final class ExportController extends Controller
     }
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Value\ExportRequest $request
-     *
      * @ParamConverter("export_request_converter")
-     *
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
      *
      * @throws \EzSystems\EzRecommendationClient\Exception\ExportInProgressException
      */

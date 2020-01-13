@@ -15,11 +15,8 @@ use Twig\TwigFunction;
 
 final class RecommendationExtension extends AbstractExtension
 {
-    
     /**
      * Returns the name of the extension.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -28,8 +25,6 @@ final class RecommendationExtension extends AbstractExtension
 
     /**
      * Returns a list of functions to add to the existing list.
-     *
-     * @return array
      */
     public function getFunctions(): array
     {

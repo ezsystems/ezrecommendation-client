@@ -22,9 +22,6 @@ final class ExportRequestParamConverter implements ParamConverterInterface
     /** @var \EzSystems\EzRecommendationClient\Mapper\ExportRequestMapper */
     private $exportRequestMapper;
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Mapper\ExportRequestMapper $exportRequestMapper
-     */
     public function __construct(ExportRequestMapper $exportRequestMapper)
     {
         $this->exportRequestMapper = $exportRequestMapper;

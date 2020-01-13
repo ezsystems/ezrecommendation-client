@@ -15,9 +15,6 @@ abstract class Response implements ResponseInterface
     /** @var \EzSystems\EzRecommendationClient\Generator\ContentListElementGenerator */
     public $contentListElementGenerator;
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Generator\ContentListElementGenerator $contentListElementGenerator
-     */
     public function __construct(ContentListElementGenerator $contentListElementGenerator)
     {
         $this->contentListElementGenerator = $contentListElementGenerator;

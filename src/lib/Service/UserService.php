@@ -20,10 +20,6 @@ final class UserService implements UserServiceInterface
     /** @var \EzSystems\EzRecommendationClient\Helper\SessionHelper */
     private $sessionHelper;
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Helper\UserHelper $userHelper
-     * @param \EzSystems\EzRecommendationClient\Helper\SessionHelper $sessionHelper
-     */
     public function __construct(UserHelper $userHelper, SessionHelper $sessionHelper)
     {
         $this->userHelper = $userHelper;

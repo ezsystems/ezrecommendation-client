@@ -24,10 +24,6 @@ final class UserAttributesUpdateCommand extends Command
     /** @var \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface */
     private $client;
 
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface $client
-     */
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         EzRecommendationClientInterface $client
@@ -39,7 +35,7 @@ final class UserAttributesUpdateCommand extends Command
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure(): void
     {
@@ -48,7 +44,7 @@ final class UserAttributesUpdateCommand extends Command
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
@@ -59,17 +55,20 @@ final class UserAttributesUpdateCommand extends Command
 
         $output->writeln([
             'Updating user attributes',
-            ''
+            '',
         ]);
 
         if (!$request) {
             $output->writeln('<fg=red>Request object is empty</>');
+
             return;
         } elseif (!$request->source) {
             $output->writeln('<fg=red>Property source is not defined</>');
+
             return;
         } elseif (!$request->xmlBody) {
             $output->writeln('<fg=red>Property xmlBody is not defined</>');
+
             return;
         }
 

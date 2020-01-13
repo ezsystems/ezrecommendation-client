@@ -41,9 +41,6 @@ class ExportNotifierRequest extends Request
     /** @var array */
     public $credentials;
 
-    /**
-     * @param array $parameters
-     */
     public function __construct(array $parameters)
     {
         parent::__construct($this, $parameters);

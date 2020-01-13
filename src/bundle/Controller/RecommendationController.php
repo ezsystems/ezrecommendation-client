@@ -12,14 +12,15 @@ use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
 use EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent;
 use EzSystems\EzRecommendationClient\Request\BasicRecommendationRequest;
 use EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface;
+use Psr\Container\ContainerInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment as TwigEnvironment;
+use Twig\Environment;
 
-final class RecommendationController extends AbstractController
+class RecommendationController extends AbstractController
 {
     private const DEFAULT_TEMPLATE = '@EzRecommendationClient/recommendations.html.twig';
 
@@ -38,29 +39,21 @@ final class RecommendationController extends AbstractController
     /** @var \Twig\Environment */
     protected $twig;
 
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface $recommendationService
-     * @param \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface $credentialsResolver
-     * @param \Twig\Environment $twig
-     */
     public function __construct(
+        ContainerInterface $container,
         EventDispatcherInterface $eventDispatcher,
         RecommendationServiceInterface $recommendationService,
-        CredentialsResolverInterface $credentialsResolver,
-        TwigEnvironment $twig
+        CredentialsResolverInterface $credentialsResolver
     ) {
+        $this->setContainer($container);
+
         $this->eventDispatcher = $eventDispatcher;
         $this->recommendationService = $recommendationService;
         $this->credentialsResolver = $credentialsResolver;
-        $this->twig = $twig;
+        $this->twig = $this->getTwig();
     }
 
     /**
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @throws \Twig\Error\Error
      */
     public function showRecommendationsAction(Request $request): Response
@@ -93,19 +86,16 @@ final class RecommendationController extends AbstractController
         );
     }
 
-    /**
-     * @param bool $value
-     */
     public function sendDeliveryFeedback(bool $value): void
     {
         $this->sendDeliveryFeedback = $value;
     }
 
-    /**
-     * @param string|null $template
-     *
-     * @return string
-     */
+    private function getTwig(): Environment
+    {
+        return $this->container->get('twig');
+    }
+
     private function getTemplate(?string $template): string
     {
         return $this->twig->getLoader()->exists($template) ? $template : self::DEFAULT_TEMPLATE;

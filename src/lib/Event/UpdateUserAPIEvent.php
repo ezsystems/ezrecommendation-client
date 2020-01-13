@@ -10,5 +10,4 @@ namespace EzSystems\EzRecommendationClient\Event;
 
 final class UpdateUserAPIEvent extends UserAPIEvent
 {
-
 }

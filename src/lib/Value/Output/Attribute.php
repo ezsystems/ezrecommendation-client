@@ -10,7 +10,8 @@ namespace EzSystems\EzRecommendationClient\Value\Output;
 
 use Webmozart\Assert\Assert;
 
-class Attribute {
+class Attribute
+{
     const TYPE_NUMERIC = 'NUMERIC';
     const TYPE_NOMINAL = 'NOMINAL';
     const TYPE_TEXT = 'TEXT';
@@ -36,11 +37,6 @@ class Attribute {
     /** @var string */
     private $type;
 
-    /**
-     * @param string $name
-     * @param string $value
-     * @param string $type
-     */
     public function __construct(string $name, string $value, string $type = self::DEFAULT_TYPE)
     {
         Assert::notNull($name);
@@ -51,25 +47,16 @@ class Attribute {
         $this->type = $type;
     }
 
-    /**
-     * @return string
-     */
     public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getValue(): string
     {
         return $this->value;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;

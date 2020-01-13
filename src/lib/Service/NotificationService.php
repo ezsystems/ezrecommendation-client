@@ -37,16 +37,8 @@ abstract class NotificationService
         $this->logger = $logger;
     }
 
-    /**
-     * @param array $options
-     *
-     * @return \EzSystems\EzRecommendationClient\SPI\Notification
-     */
     abstract public function createNotification(array $options): Notification;
 
-    /**
-     * @param \Symfony\Component\OptionsResolver\OptionsResolver $resolver
-     */
     protected function configureOptions(OptionsResolver $resolver): void
     {
         $resolver
@@ -62,16 +54,10 @@ abstract class NotificationService
             ->setAllowedTypes('customerId', 'int');
     }
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\SPI\Notification $notification
-     *
-     * @return \Psr\Http\Message\ResponseInterface|null
-     */
     protected function send(Notification $notification, string $action): ?ResponseInterface
     {
         try {
             return $this->client->notifier()->notify($notification);
-
         } catch (RequestException $e) {
             $this->logger->error(sprintf('RecommendationNotifier: notification error for %s: %s', $action, $e->getMessage()));
         }

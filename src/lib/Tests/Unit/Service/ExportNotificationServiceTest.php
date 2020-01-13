@@ -41,29 +41,29 @@ class ExportNotificationServiceTest extends NotificationServiceTest
             1 => [
                 'eng-EN' => [
                     'contentTypeName' => 'article',
-                    'urlList' => ['uri1', 'uri2', 'uri3']
+                    'urlList' => ['uri1', 'uri2', 'uri3'],
                 ],
                 'fre-FR' => [
                     'contentTypeName' => 'article',
-                    'urlList' => ['uri1', 'uri2', 'uri3']
+                    'urlList' => ['uri1', 'uri2', 'uri3'],
                 ],
                 'ger-DE' => [
                     'contentTypeName' => 'article',
-                    'urlList' => ['uri1', 'uri2', 'uri3']
+                    'urlList' => ['uri1', 'uri2', 'uri3'],
                 ],
             ],
             2 => [
                 'eng-EN' => [
                     'contentTypeName' => 'blog_post',
-                    'urlList' => ['uri1', 'uri2', 'uri3']
+                    'urlList' => ['uri1', 'uri2', 'uri3'],
                 ],
                 'fre-FR' => [
                     'contentTypeName' => 'blog_post',
-                    'urlList' => ['uri1', 'uri2', 'uri3']
+                    'urlList' => ['uri1', 'uri2', 'uri3'],
                 ],
                 'ger-DE' => [
                     'contentTypeName' => 'blog_post',
-                    'urlList' => ['uri1', 'uri2', 'uri3']
+                    'urlList' => ['uri1', 'uri2', 'uri3'],
                 ],
             ],
         ];

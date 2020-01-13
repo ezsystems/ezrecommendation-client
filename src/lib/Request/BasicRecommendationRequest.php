@@ -53,9 +53,6 @@ final class BasicRecommendationRequest extends RecommendationRequest
     /** @var bool */
     public $recommendCategory = false;
 
-    /**
-     * @param array $parameters
-     */
     public function __construct(array $parameters)
     {
         parent::__construct($this, $parameters);
@@ -80,9 +77,6 @@ final class BasicRecommendationRequest extends RecommendationRequest
         ];
     }
 
-    /**
-     * @return array
-     */
     private function extractFilters(): array
     {
         $extractedFilters = [];

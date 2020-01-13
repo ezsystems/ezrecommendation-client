@@ -40,9 +40,6 @@ final class UserCollectionGeneratorEventSubscriber implements EventSubscriberInt
         ];
     }
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Event\UpdateUserAPIEvent $userAPIEvent
-     */
     public function onRecommendationUpdateUserCollection(UpdateUserAPIEvent $userAPIEvent): void
     {
         $event = new GenerateUserCollectionDataEvent();
@@ -65,10 +62,6 @@ final class UserCollectionGeneratorEventSubscriber implements EventSubscriberInt
 
     /**
      * Generates xml string based on UserCollection object.
-     *
-     * @param \EzSystems\EzRecommendationClient\Value\Output\UserCollection $userCollection
-     *
-     * @return string
      */
     private function generateXml(UserCollection $userCollection): string
     {

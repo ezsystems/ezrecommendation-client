@@ -13,11 +13,5 @@ use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 
 abstract class AbstractEzRecommendationClientApiFactory
 {
-    /**
-     * @param string $name
-     * @param \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface $client
-     *
-     * @return \EzSystems\EzRecommendationClient\Api\AbstractApi
-     */
     abstract public function buildApi(string $name, EzRecommendationClientInterface $client): AbstractApi;
 }

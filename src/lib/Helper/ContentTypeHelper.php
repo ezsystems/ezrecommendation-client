@@ -68,10 +68,6 @@ final class ContentTypeHelper
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     *
-     * @return bool
-     *
      * @throws \Exception
      */
     public function isContentTypeExcluded(ContentInfo $contentInfo): bool
@@ -80,7 +76,7 @@ final class ContentTypeHelper
             return $this->contentTypeService->loadContentType($contentInfo->contentTypeId);
         });
 
-        return !in_array(
+        return !\in_array(
             $contentType->identifier,
             $this->configResolver->getParameter('included_content_types', Parameters::NAMESPACE)
         );

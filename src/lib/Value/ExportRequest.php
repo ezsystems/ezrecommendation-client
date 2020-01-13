@@ -13,9 +13,6 @@ class ExportRequest extends ExportParameters
     /** @var string */
     public $documentRoot;
 
-    /**
-     * @return array
-     */
     public function getExportRequestParameters(): array
     {
         return get_object_vars($this);

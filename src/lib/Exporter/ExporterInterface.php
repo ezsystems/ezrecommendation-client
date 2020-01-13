@@ -13,12 +13,5 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 interface ExporterInterface
 {
-    /**
-     * @param \EzSystems\EzRecommendationClient\Value\ExportParameters $parameters
-     * @param string $chunkDir
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return array
-     */
     public function run(ExportParameters $parameters, string $chunkDir, OutputInterface $output): array;
 }

@@ -29,7 +29,7 @@ abstract class NotificationServiceTest extends TestCase
         $this->loggerMock = $this->createMock(LoggerInterface::class);
         $this->basicNotificationOptions = [
             'events' => ['event1', 'event2', 'event3'],
-            'customerId' => 12345 ,
+            'customerId' => 12345,
             'licenseKey' => '12345-12345-12345-12345',
         ];
     }

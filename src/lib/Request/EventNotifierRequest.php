@@ -37,9 +37,6 @@ class EventNotifierRequest extends Request
     /** @var string|null */
     public $lang;
 
-    /**
-     * @param array $parameters
-     */
     public function __construct(array $parameters)
     {
         parent::__construct($this, $parameters);

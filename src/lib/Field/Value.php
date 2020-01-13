@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Field;
 
+use Exception;
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\ContentTypeService;
 use eZ\Publish\API\Repository\Values\Content\Content;
@@ -16,7 +17,6 @@ use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use EzSystems\EzRecommendationClient\Exception\InvalidRelationException;
 use EzSystems\EzRecommendationClient\Mapper\RelationMapper;
 use Psr\Log\LoggerInterface;
-use Exception;
 
 final class Value
 {
@@ -42,12 +42,7 @@ final class Value
     private $logger;
 
     /**
-     * @param \eZ\Publish\API\Repository\ContentService $contentService
-     * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
      * @param \EzSystems\EzRecommendationClient\Field\TypeValue $typeValue
-     * @param \EzSystems\EzRecommendationClient\Mapper\RelationMapper $relationMapper
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param array $parameters
      */
     public function __construct(
         ContentService $contentService,
@@ -67,13 +62,6 @@ final class Value
 
     /**
      * Returns parsed field value.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param string $field
-     * @param string $language
-     * @param array $options
-     *
-     * @return string
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -100,19 +88,7 @@ final class Value
                     $relatedContentType = $this->contentTypeService->loadContentType($relatedContent->contentInfo->contentTypeId);
 
                     if ($relatedContentType->identifier != $mapping['content']) {
-                        throw new InvalidRelationException(
-                            sprintf(
-                                "Invalid relation: field '%s:%s' (object: %s, field: %s) has improper relation to object '%s' (object: %s) but '%s:%s' expected.",
-                                $contentType->identifier,
-                                $field,
-                                $content->id,
-                                $fieldObj->id,
-                                $relatedContentType->identifier,
-                                $relatedContentId,
-                                $mapping['content'],
-                                $mapping['field']
-                            )
-                        );
+                        throw new InvalidRelationException(sprintf("Invalid relation: field '%s:%s' (object: %s, field: %s) has improper relation to object '%s' (object: %s) but '%s:%s' expected.", $contentType->identifier, $field, $content->id, $fieldObj->id, $relatedContentType->identifier, $relatedContentId, $mapping['content'], $mapping['field']));
                     }
                     $relatedField = $content->getField($mapping['field'], $language);
                     $value = $relatedField ? $this->getParsedFieldValue($relatedField, $relatedContent, $language, $imageFieldIdentifier, $options) : '';
@@ -143,11 +119,6 @@ final class Value
      *             blog_post: authors
      *         image:
      *             blog_post: thumbnail
-     *
-     * @param string $fieldName
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
-     *
-     * @return string
      */
     public function getConfiguredFieldIdentifier(string $fieldName, ContentType $contentType): string
     {
@@ -166,8 +137,6 @@ final class Value
 
     /**
      * Prepares an array with field type identifiers.
-     *
-     * @param \eZ\Publish\API\Repository\Values\ContentType\ContentType $contentType
      */
     public function setFieldDefinitionsList(ContentType $contentType): void
     {
@@ -180,10 +149,6 @@ final class Value
      * Return identifier of a field of ezimage type.
      *
      * @param $contentId
-     * @param string $language
-     * @param bool $related
-     *
-     * @return string
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -196,9 +161,9 @@ final class Value
         $fieldDefinitions = $this->getFieldDefinitionList();
         $fieldNames = array_flip($fieldDefinitions);
 
-        if (in_array('ezimage', $fieldDefinitions)) {
+        if (\in_array('ezimage', $fieldDefinitions)) {
             return $fieldNames['ezimage'];
-        } elseif (in_array('ezobjectrelation', $fieldDefinitions) && !$related) {
+        } elseif (\in_array('ezobjectrelation', $fieldDefinitions) && !$related) {
             $field = $content->getFieldValue($fieldNames['ezobjectrelation'], $language);
 
             if (!empty($field->destinationContentId)) {
@@ -211,18 +176,12 @@ final class Value
 
     /**
      * Checks if content has image relation field, returns its ID if true.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param string $field
-     * @param string $language
-     *
-     * @return int|null
      */
     private function getRelation(Content $content, string $field, string $language): ?int
     {
         $fieldDefinitions = $this->getFieldDefinitionList();
         $fieldNames = array_flip($fieldDefinitions);
-        $isRelation = (in_array('ezobjectrelation', $fieldDefinitions) && $field == $fieldNames['ezobjectrelation']);
+        $isRelation = (\in_array('ezobjectrelation', $fieldDefinitions) && $field == $fieldNames['ezobjectrelation']);
 
         if ($isRelation && $field == $fieldNames['ezobjectrelation']) {
             $fieldValue = $content->getFieldValue($fieldNames['ezobjectrelation'], $language);
@@ -237,8 +196,6 @@ final class Value
 
     /**
      * Returns field definitions.
-     *
-     * @return array
      */
     private function getFieldDefinitionList(): array
     {
@@ -247,14 +204,6 @@ final class Value
 
     /**
      * Returns parsed field value.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param string $language
-     * @param string $imageFieldIdentifier
-     * @param array $options
-     *
-     * @return string
      */
     private function getParsedFieldValue(Field $field, Content $content, string $language, string $imageFieldIdentifier, array $options = []): string
     {
@@ -267,7 +216,7 @@ final class Value
             ));
 
             $fieldType = $this->fieldDefIdentifiers[$field->fieldDefIdentifier];
-            
+
             return $this->typeValue->$fieldType($field, $content, $language, $imageFieldIdentifier, $options);
         } catch (Exception $e) {
             $this->logger->warning(sprintf(

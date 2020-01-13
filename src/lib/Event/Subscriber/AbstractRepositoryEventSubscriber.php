@@ -10,7 +10,6 @@ namespace EzSystems\EzRecommendationClient\Event\Subscriber;
 
 use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
-
 use eZ\Publish\API\Repository\Values\Content\Location;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
 use EzSystems\EzRecommendationClient\Helper\LocationHelper;
@@ -45,10 +44,6 @@ abstract class AbstractRepositoryEventSubscriber extends AbstractCoreEventSubscr
     }
 
     /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Location $location
-     * @param string $method
-     * @param string $action
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */

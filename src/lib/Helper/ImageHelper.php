@@ -33,19 +33,12 @@ final class ImageHelper
         $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param array|null $options
-     *
-     * @return string
-     */
     public function getImageUrl(Field $field, Content $content, ?array $options = null): string
     {
         $variations = $this->configResolver->getParameter('image_variations');
         $variation = 'original';
 
-        if ((!empty($options['image'])) && in_array($options['image'], array_keys($variations))) {
+        if ((!empty($options['image'])) && \in_array($options['image'], array_keys($variations))) {
             $variation = $options['image'];
         }
 

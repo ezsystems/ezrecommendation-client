@@ -24,7 +24,7 @@ final class EventNotificationService extends NotificationService
     /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface */
     private $clientCredentials;
 
-    /** @var \EzSystems\EzRecommendationClient\Helper\ContentHelper  */
+    /** @var \EzSystems\EzRecommendationClient\Helper\ContentHelper */
     private $contentHelper;
 
     /** @var \EzSystems\EzRecommendationClient\Helper\ContentTypeHelper */
@@ -45,10 +45,6 @@ final class EventNotificationService extends NotificationService
     }
 
     /**
-     * @param string $method
-     * @param string $action
-     * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $contentInfo
-     *
      * @throws \Exception
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -77,7 +73,7 @@ final class EventNotificationService extends NotificationService
     }
 
     /**
-     * @inheritDoc
+     * {@inheritdoc}
      */
     public function createNotification(array $options): Notification
     {
@@ -90,10 +86,7 @@ final class EventNotificationService extends NotificationService
     }
 
     /**
-     * @param string $action
      * @param \eZ\Publish\API\Repository\Values\Content\ContentInfo $content
-     *
-     * @return array
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException

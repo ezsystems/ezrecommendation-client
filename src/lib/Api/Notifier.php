@@ -23,11 +23,6 @@ final class Notifier extends AbstractApi
         parent::__construct($client, $endPointUri . '/api/%s/items');
     }
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\SPI\Notification $notification
-     *
-     * @return \Psr\Http\Message\ResponseInterface|null
-     */
     public function notify(Notification $notification): ?ResponseInterface
     {
         $this->client
