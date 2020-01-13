@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Api;
+namespace EzSystems\EzRecommendationClient\API;
 
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\SPI\UserAPIRequest;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final class User extends AbstractApi
+final class User extends AbstractAPI
 {
     const API_NAME = 'user';
 

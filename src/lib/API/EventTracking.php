@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Api;
+namespace EzSystems\EzRecommendationClient\API;
 
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final class EventTracking extends AbstractApi
+final class EventTracking extends AbstractAPI
 {
     const API_NAME = 'eventTracking';
 

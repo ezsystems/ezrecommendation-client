@@ -9,24 +9,24 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Factory;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzRecommendationClient\Api\AbstractApi;
-use EzSystems\EzRecommendationClient\Api\AllowedApi;
+use EzSystems\EzRecommendationClient\API\AbstractAPI;
+use EzSystems\EzRecommendationClient\API\AllowedAPI;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
-use EzSystems\EzRecommendationClient\Exception\BadApiCallException;
+use EzSystems\EzRecommendationClient\Exception\BadAPICallException;
 use EzSystems\EzRecommendationClient\Exception\InvalidArgumentException;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 
-final class EzRecommendationClientApiFactory extends AbstractEzRecommendationClientApiFactory
+final class EzRecommendationClientAPIFactory extends AbstractEzRecommendationClientAPIFactory
 {
-    /** @var \EzSystems\EzRecommendationClient\Api\AllowedApi $allowedApi */
-    private $allowedApi;
+    /** @var \EzSystems\EzRecommendationClient\API\AllowedAPI $allowedAPI */
+    private $allowedAPI;
 
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    public function __construct(AllowedApi $allowedApi, ConfigResolverInterface $configResolver)
+    public function __construct(AllowedAPI $allowedApi, ConfigResolverInterface $configResolver)
     {
-        $this->allowedApi = $allowedApi;
+        $this->allowedAPI = $allowedApi;
         $this->configResolver = $configResolver;
     }
 
@@ -34,18 +34,18 @@ final class EzRecommendationClientApiFactory extends AbstractEzRecommendationCli
      * {@inheritdoc}
      *
      * @throws \EzSystems\EzRecommendationClient\Exception\InvalidArgumentException
-     * @throws \EzSystems\EzRecommendationClient\Exception\BadApiCallException
+     * @throws \EzSystems\EzRecommendationClient\Exception\BadAPICallException
      */
-    public function buildApi(string $name, EzRecommendationClientInterface $client): AbstractApi
+    public function buildAPI(string $name, EzRecommendationClientInterface $client): AbstractAPI
     {
-        if (!\array_key_exists($name, $this->allowedApi->getAllowedApi())) {
+        if (!\array_key_exists($name, $this->allowedAPI->getAllowedAPI())) {
             throw new InvalidArgumentException(sprintf('Given api key: %s is not found in allowedApi array', $name));
         }
 
-        $api = $this->allowedApi->getAllowedApi()[$name];
+        $api = $this->allowedAPI->getAllowedAPI()[$name];
 
         if (!class_exists($api)) {
-            throw new BadApiCallException($api);
+            throw new BadAPICallException($api);
         }
 
         $endPoint = $this->getApiEndPoint($name);

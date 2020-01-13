@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\Common\API;
 
-use EzSystems\EzRecommendationClient\Api\AbstractApi;
+use EzSystems\EzRecommendationClient\API\AbstractAPI;
 
-class APIEndPointClassTest extends AbstractApi
+class APIEndPointClassTest extends AbstractAPI
 {
     const API_NAME = 'api-test';
 }

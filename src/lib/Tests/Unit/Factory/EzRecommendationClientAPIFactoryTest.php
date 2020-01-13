@@ -9,25 +9,25 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Unit\Factory;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use EzSystems\EzRecommendationClient\Api\AllowedApi;
+use EzSystems\EzRecommendationClient\API\AllowedAPI;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
-use EzSystems\EzRecommendationClient\Exception\BadApiCallException;
+use EzSystems\EzRecommendationClient\Exception\BadAPICallException;
 use EzSystems\EzRecommendationClient\Exception\InvalidArgumentException;
-use EzSystems\EzRecommendationClient\Factory\AbstractEzRecommendationClientApiFactory;
-use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory;
+use EzSystems\EzRecommendationClient\Factory\AbstractEzRecommendationClientAPIFactory;
+use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory;
 use EzSystems\EzRecommendationClient\Tests\Common\API\APIEndPointClassTest;
 use PHPUnit\Framework\TestCase;
 
-class EzRecommendationClientApiFactoryTest extends TestCase
+class EzRecommendationClientAPIFactoryTest extends TestCase
 {
-    /** @var \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory */
+    /** @var \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory */
     private $apiFactory;
 
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $configResolverMock;
 
-    /** @var \EzSystems\EzRecommendationClient\Api\AllowedApi|\PHPUnit\Framework\MockObject\MockObject */
-    private $allowedApi;
+    /** @var \EzSystems\EzRecommendationClient\API\AllowedAPI|\PHPUnit\Framework\MockObject\MockObject */
+    private $allowedAPI;
 
     /** @var \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $clientMock;
@@ -36,9 +36,9 @@ class EzRecommendationClientApiFactoryTest extends TestCase
     {
         $this->clientMock = $this->createMock(EzRecommendationClientInterface::class);
         $this->configResolverMock = $this->createMock(ConfigResolverInterface::class);
-        $this->allowedApi = $this->createMock(AllowedApi::class);
-        $this->apiFactory = new EzRecommendationClientApiFactory(
-            $this->allowedApi,
+        $this->allowedAPI = $this->createMock(AllowedAPI::class);
+        $this->apiFactory = new EzRecommendationClientAPIFactory(
+            $this->allowedAPI,
             $this->configResolverMock
         );
     }
@@ -46,7 +46,7 @@ class EzRecommendationClientApiFactoryTest extends TestCase
     public function testCreateEzRecommendationClientApiFactoryInstance()
     {
         $this->assertInstanceOf(
-            AbstractEzRecommendationClientApiFactory::class,
+            AbstractEzRecommendationClientAPIFactory::class,
             $this->apiFactory
         );
     }
@@ -54,20 +54,20 @@ class EzRecommendationClientApiFactoryTest extends TestCase
     public function testThrowExceptionWhenInvalidAPIKeyIsGiven()
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->apiFactory->buildApi('invalid-api-key', $this->clientMock);
+        $this->apiFactory->buildAPI('invalid-api-key', $this->clientMock);
     }
 
     public function testThrowExceptionWhenAPIClassDoesNotExists()
     {
-        $this->expectException(BadApiCallException::class);
-        $this->allowedApi
+        $this->expectException(BadAPICallException::class);
+        $this->allowedAPI
             ->expects($this->atLeastOnce())
             ->method('getAllowedApi')
             ->willReturn([
                 'api-name' => 'invalid-api-class',
             ]);
 
-        $this->apiFactory->buildApi('api-name', $this->clientMock);
+        $this->apiFactory->buildAPI('api-name', $this->clientMock);
     }
 
     /**
@@ -75,7 +75,7 @@ class EzRecommendationClientApiFactoryTest extends TestCase
      */
     public function testReturnAPIClass(string $apiName)
     {
-        $this->allowedApi
+        $this->allowedAPI
             ->expects($this->atLeastOnce())
             ->method('getAllowedApi')
             ->willReturn([
@@ -90,7 +90,7 @@ class EzRecommendationClientApiFactoryTest extends TestCase
             ->method('getParameter')
             ->willReturn('api.endpoint.uri');
 
-        $this->apiFactory->buildApi($apiName, $this->clientMock);
+        $this->apiFactory->buildAPI($apiName, $this->clientMock);
     }
 
     public function apiDataProvider(): array

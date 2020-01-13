@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Api;
+namespace EzSystems\EzRecommendationClient\API;
 
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\SPI\Request;
 use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\UriInterface;
 
-abstract class AbstractApi
+abstract class AbstractAPI
 {
     /** @var \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface */
     protected $client;

@@ -14,7 +14,7 @@ use EzSystems\EzRecommendationClient\Request\UserMetadataRequest;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-final class UserApiRequestDefaultSourceEventSubscriber implements EventSubscriberInterface
+final class UserAPIRequestDefaultSourceEventSubscriber implements EventSubscriberInterface
 {
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;

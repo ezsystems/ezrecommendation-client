@@ -36,9 +36,6 @@ class RecommendationController extends AbstractController
     /** @var bool */
     private $sendDeliveryFeedback = true;
 
-    /** @var \Twig\Environment */
-    protected $twig;
-
     public function __construct(
         ContainerInterface $container,
         EventDispatcherInterface $eventDispatcher,
@@ -50,7 +47,6 @@ class RecommendationController extends AbstractController
         $this->eventDispatcher = $eventDispatcher;
         $this->recommendationService = $recommendationService;
         $this->credentialsResolver = $credentialsResolver;
-        $this->twig = $this->getTwig();
     }
 
     /**
@@ -79,7 +75,7 @@ class RecommendationController extends AbstractController
         }
 
         return $response->setContent(
-            $this->twig->render($template, [
+            $this->getTwig()->render($template, [
             'recommendations' => $event->getRecommendationItems(),
             'templateId' => Uuid::uuid4()->toString(),
             ])
@@ -91,13 +87,13 @@ class RecommendationController extends AbstractController
         $this->sendDeliveryFeedback = $value;
     }
 
-    private function getTwig(): Environment
+    protected function getTwig(): Environment
     {
         return $this->container->get('twig');
     }
 
     private function getTemplate(?string $template): string
     {
-        return $this->twig->getLoader()->exists($template) ? $template : self::DEFAULT_TEMPLATE;
+        return $this->getTwig()->getLoader()->exists($template) ? $template : self::DEFAULT_TEMPLATE;
     }
 }

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Api;
+namespace EzSystems\EzRecommendationClient\API;
 
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\SPI\Notification;
@@ -14,7 +14,7 @@ use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-final class Notifier extends AbstractApi
+final class Notifier extends AbstractAPI
 {
     const API_NAME = 'notifier';
 

@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Client;
 
-use EzSystems\EzRecommendationClient\Api\AbstractApi;
+use EzSystems\EzRecommendationClient\API\AbstractAPI;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
-use EzSystems\EzRecommendationClient\Exception\BadApiCallException;
-use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory;
+use EzSystems\EzRecommendationClient\Exception\BadAPICallException;
+use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
@@ -39,7 +39,7 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
     /** @var \EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver */
     private $credentialsResolver;
 
-    /** @var \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory */
+    /** @var \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory */
     private $eZRecommendationClientApiFactory;
 
     /** @var int|string */
@@ -51,7 +51,7 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
     public function __construct(
         ClientInterface $client,
         CredentialsResolverInterface $credentialsResolver,
-        EzRecommendationClientApiFactory $apiFactory,
+        EzRecommendationClientAPIFactory $apiFactory,
         LoggerInterface $logger
     ) {
         $this->client = $client;
@@ -198,11 +198,11 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
     /**
      * {@inheritdoc}
      */
-    public function __call(string $name, array $arguments): AbstractApi
+    public function __call(string $name, array $arguments): AbstractAPI
     {
         try {
-            return $this->eZRecommendationClientApiFactory->buildApi($name, $this);
-        } catch (BadApiCallException $exception) {
+            return $this->eZRecommendationClientApiFactory->buildAPI($name, $this);
+        } catch (BadAPICallException $exception) {
             $this->logger->error(self::ERROR_MESSAGE . $exception->getMessage());
         }
     }

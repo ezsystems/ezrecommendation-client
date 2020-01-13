@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\Unit\Service;
 
-use EzSystems\EzRecommendationClient\Api\Notifier;
+use EzSystems\EzRecommendationClient\API\Notifier;
 use EzSystems\EzRecommendationClient\Service\ExportNotificationService;
 use EzSystems\EzRecommendationClient\Tests\Common\Service\NotificationServiceTest;
 use EzSystems\EzRecommendationClient\Value\ExportNotification;

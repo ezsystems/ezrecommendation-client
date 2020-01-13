@@ -11,9 +11,9 @@ namespace EzSystems\EzRecommendationClient\Exception;
 use Throwable;
 
 /**
- * Generates BadApiCallException.
+ * Generates BadAPICallException.
  */
-class BadApiCallException extends \BadFunctionCallException
+class BadAPICallException extends \BadFunctionCallException
 {
     public function __construct($name, ?Throwable $previous = null)
     {

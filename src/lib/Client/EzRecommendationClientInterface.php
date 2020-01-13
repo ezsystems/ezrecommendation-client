@@ -8,16 +8,16 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Client;
 
-use EzSystems\EzRecommendationClient\Api\AbstractApi;
+use EzSystems\EzRecommendationClient\API\AbstractAPI;
 use GuzzleHttp\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 
 /**
- * @method \EzSystems\EzRecommendationClient\Api\Recommendation recommendation()
- * @method \EzSystems\EzRecommendationClient\Api\EventTracking eventTracking()
- * @method \EzSystems\EzRecommendationClient\Api\Notifier notifier()
- * @method \EzSystems\EzRecommendationClient\Api\User user()
+ * @method \EzSystems\EzRecommendationClient\API\Recommendation recommendation()
+ * @method \EzSystems\EzRecommendationClient\API\EventTracking eventTracking()
+ * @method \EzSystems\EzRecommendationClient\API\Notifier notifier()
+ * @method \EzSystems\EzRecommendationClient\API\User user()
  */
 interface EzRecommendationClientInterface
 {
@@ -46,5 +46,5 @@ interface EzRecommendationClientInterface
 
     public function getHttpClient(): ClientInterface;
 
-    public function __call(string $name, array $arguments): AbstractApi;
+    public function __call(string $name, array $arguments): AbstractAPI;
 }

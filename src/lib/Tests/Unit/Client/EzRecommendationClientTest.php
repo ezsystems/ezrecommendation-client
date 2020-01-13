@@ -8,11 +8,11 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\Unit\Client;
 
-use EzSystems\EzRecommendationClient\Api\AbstractApi;
+use EzSystems\EzRecommendationClient\API\AbstractAPI;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClient;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
-use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory;
+use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory;
 use EzSystems\EzRecommendationClient\Tests\Common\API\APIEndPointClassTest;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
@@ -32,7 +32,7 @@ class EzRecommendationClientTest extends TestCase
     /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $credentialsResolverMock;
 
-    /** @var \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory|\PHPUnit\Framework\MockObject\MockObject */
     private $apiFactoryMock;
 
     /** @var \PHPUnit\Framework\MockObject\MockObject|\Psr\Log\LoggerInterface */
@@ -42,7 +42,7 @@ class EzRecommendationClientTest extends TestCase
     {
         $this->guzzleClientMock = $this->createMock(ClientInterface::class);
         $this->credentialsResolverMock = $this->createMock(CredentialsResolverInterface::class);
-        $this->apiFactoryMock = $this->createMock(EzRecommendationClientApiFactory::class);
+        $this->apiFactoryMock = $this->createMock(EzRecommendationClientAPIFactory::class);
         $this->loggerMock = $this->createMock(LoggerInterface::class);
         $this->client = new EzRecommendationClient(
             $this->guzzleClientMock,
@@ -71,7 +71,7 @@ class EzRecommendationClientTest extends TestCase
             );
 
         $this->assertInstanceOf(
-            AbstractApi::class,
+            AbstractAPI::class,
             $this->client->__call('api-test', [])
         );
     }

@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Api;
+namespace EzSystems\EzRecommendationClient\API;
 
-final class AllowedApi
+final class AllowedAPI
 {
-    public function getAllowedApi(): array
+    public function getAllowedAPI(): array
     {
         return [
             Recommendation::API_NAME => Recommendation::class,

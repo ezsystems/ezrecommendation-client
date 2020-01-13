@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Unit\Service;
 
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use EzSystems\EzRecommendationClient\Api\Notifier;
+use EzSystems\EzRecommendationClient\API\Notifier;
 use EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
 use EzSystems\EzRecommendationClient\Helper\ContentTypeHelper;
