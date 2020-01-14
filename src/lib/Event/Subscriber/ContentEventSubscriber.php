@@ -32,7 +32,7 @@ final class ContentEventSubscriber extends AbstractCoreEventSubscriber implement
             DeleteContentEvent::class => ['onDeleteContent', parent::EVENT_PRIORITY],
             HideContentEvent::class => ['onHideContent', parent::EVENT_PRIORITY],
             RevealContentEvent::class => ['onRevealContent', parent::EVENT_PRIORITY],
-            UpdateContentMetadataEvent::class => ['onUpdateContent', parent::EVENT_PRIORITY],
+            UpdateContentMetadataEvent::class => ['onUpdateContentMetadata', parent::EVENT_PRIORITY],
             CopyContentEvent::class => ['onCopyContent', parent::EVENT_PRIORITY],
             PublishVersionEvent::class => ['onPublishVersion', parent::EVENT_PRIORITY],
         ];
