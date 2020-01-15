@@ -12,15 +12,13 @@ use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
 use EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent;
 use EzSystems\EzRecommendationClient\Request\BasicRecommendationRequest;
 use EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface;
-use Psr\Container\ContainerInterface;
 use Ramsey\Uuid\Uuid;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
-class RecommendationController extends AbstractController
+class RecommendationController
 {
     private const DEFAULT_TEMPLATE = '@EzRecommendationClient/recommendations.html.twig';
 
@@ -33,20 +31,22 @@ class RecommendationController extends AbstractController
     /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface */
     private $credentialsResolver;
 
+    /** @var \Twig\Environment */
+    private $twig;
+
     /** @var bool */
     private $sendDeliveryFeedback = true;
 
     public function __construct(
-        ContainerInterface $container,
         EventDispatcherInterface $eventDispatcher,
         RecommendationServiceInterface $recommendationService,
-        CredentialsResolverInterface $credentialsResolver
+        CredentialsResolverInterface $credentialsResolver,
+        Environment $twig
     ) {
-        $this->setContainer($container);
-
         $this->eventDispatcher = $eventDispatcher;
         $this->recommendationService = $recommendationService;
         $this->credentialsResolver = $credentialsResolver;
+        $this->twig = $twig;
     }
 
     /**
@@ -75,7 +75,7 @@ class RecommendationController extends AbstractController
         }
 
         return $response->setContent(
-            $this->getTwig()->render($template, [
+            $this->twig()->render($template, [
             'recommendations' => $event->getRecommendationItems(),
             'templateId' => Uuid::uuid4()->toString(),
             ])
@@ -87,13 +87,13 @@ class RecommendationController extends AbstractController
         $this->sendDeliveryFeedback = $value;
     }
 
-    protected function getTwig(): Environment
+    protected function twig(): Environment
     {
-        return $this->container->get('twig');
+        return $this->twig;
     }
 
     private function getTemplate(?string $template): string
     {
-        return $this->getTwig()->getLoader()->exists($template) ? $template : self::DEFAULT_TEMPLATE;
+        return $this->twig()->getLoader()->exists($template) ? $template : self::DEFAULT_TEMPLATE;
     }
 }

@@ -57,7 +57,7 @@ abstract class AbstractAPI
                 $queryString .= $this->buildQueryStringFromArray($parameterValue);
             }
 
-            if (\is_string($parameterValue) || is_numeric($parameterValue)) {
+            if (\is_string($parameterValue) || \is_numeric($parameterValue)) {
                 $queryString .= $parameterKey . '=' . (string) $parameterValue;
             }
 

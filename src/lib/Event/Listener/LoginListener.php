@@ -51,7 +51,7 @@ final class LoginListener
         EzRecommendationClientInterface $client,
         UserServiceInterface $userService,
         ConfigResolverInterface $configResolver,
-        ?LoggerInterface $logger
+        LoggerInterface $logger
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->session = $session;
@@ -82,21 +82,15 @@ final class LoginListener
             $this->getUser($event->getAuthenticationToken())
         );
 
-        if (isset($this->logger)) {
-            $this->logger->debug(sprintf('Send login event notification to Recommendation: %s', $notificationUri));
-        }
+        $this->logger->debug(sprintf('Send login event notification to Recommendation: %s', $notificationUri));
 
         try {
             /** @var \Psr\Http\Message\ResponseInterface $response */
             $response = $this->client->getHttpClient()->get($notificationUri);
 
-            if (isset($this->logger)) {
-                $this->logger->debug(sprintf('Got %s from Recommendation login event notification', $response->getStatusCode()));
-            }
+            $this->logger->debug(sprintf('Got %s from Recommendation login event notification', $response->getStatusCode()));
         } catch (RequestException $e) {
-            if (isset($this->logger)) {
-                $this->logger->error(sprintf('Recommendation login event notification error: %s', $e->getMessage()));
-            }
+            $this->logger->error(sprintf('Recommendation login event notification error: %s', $e->getMessage()));
         }
     }
 

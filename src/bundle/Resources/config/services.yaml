@@ -13,6 +13,7 @@ imports:
     - { resource: services/file.yaml }
     - { resource: services/generators.yaml }
     - { resource: services/helpers.yaml }
+    - { resource: services/http.yaml }
     - { resource: services/mappers.yaml }
     - { resource: services/response.yaml }
     - { resource: services/services.yaml }

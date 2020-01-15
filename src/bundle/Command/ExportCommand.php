@@ -10,6 +10,7 @@ namespace EzSystems\EzRecommendationClientBundle\Command;
 
 use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
 use EzSystems\EzRecommendationClient\Helper\SiteAccessHelper;
+use EzSystems\EzRecommendationClient\Http\HttpEnvironmentInterface;
 use EzSystems\EzRecommendationClient\Service\ExportServiceInterface;
 use EzSystems\EzRecommendationClient\Value\ExportParameters;
 use Psr\Log\LoggerInterface;
@@ -17,11 +18,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Generates and export content to Recommendation Server for a given command options.
@@ -31,14 +27,8 @@ final class ExportCommand extends Command
     /** @var \EzSystems\EzRecommendationClient\Service\ExportServiceInterface */
     private $exportService;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    private $requestStack;
-
-    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
-    private $tokenStorage;
-
-    /** @var \Symfony\Component\HttpFoundation\Session\SessionInterface */
-    private $session;
+    /** @var \EzSystems\EzRecommendationClient\Http\HttpEnvironmentInterface */
+    private $httpEnvironment;
 
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
@@ -48,18 +38,14 @@ final class ExportCommand extends Command
 
     public function __construct(
         ExportServiceInterface $exportService,
-        RequestStack $requestStack,
-        TokenStorageInterface $tokenStorage,
-        SessionInterface $session,
+        HttpEnvironmentInterface $httpEnvironment,
         LoggerInterface $logger,
         SiteAccessHelper $siteAccessHelper
     ) {
         parent::__construct();
 
         $this->exportService = $exportService;
-        $this->requestStack = $requestStack;
-        $this->tokenStorage = $tokenStorage;
-        $this->session = $session;
+        $this->httpEnvironment = $httpEnvironment;
         $this->logger = $logger;
         $this->siteAccessHelper = $siteAccessHelper;
     }
@@ -88,15 +74,13 @@ final class ExportCommand extends Command
     }
 
     /**
-     * @return int|void|null
-     *
      * @throws \Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         try {
             $input->validate();
-            $this->prepare();
+            $this->httpEnvironment->prepare();
 
             date_default_timezone_set('UTC');
 
@@ -108,26 +92,6 @@ final class ExportCommand extends Command
             $this->logger->error($e->getMessage());
             throw $e;
         }
-    }
-
-    /**
-     * Prepares Request and Token for CLI environment, required by RichTextConverter to render embeded content.
-     * Avoid 'The token storage contains no authentication token'
-     * and 'Rendering a fragment can only be done when handling a Request' exceptions.
-     */
-    private function prepare(): void
-    {
-        if (!$this->session->isStarted()) {
-            $this->session->start();
-        }
-
-        $request = Request::createFromGlobals();
-        $request->setSession($this->session);
-
-        $this->requestStack->push($request);
-        $this->tokenStorage->setToken(
-            new AnonymousToken('anonymous', 'anonymous', ['ROLE_ADMINISTRATOR'])
-        );
     }
 
     /**

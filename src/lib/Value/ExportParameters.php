@@ -92,7 +92,7 @@ class ExportParameters extends Content
 
     /**
      * @var int
-     *ExportRequestMapper
+     *
      * @Assert\Positive
      */
     public $page;
