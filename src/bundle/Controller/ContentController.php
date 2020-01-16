@@ -11,10 +11,12 @@ namespace EzSystems\EzRecommendationClientBundle\Controller;
 use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\REST\Server\Controller as BaseController;
-use eZ\Publish\Core\REST\Server\Exceptions\AuthenticationFailedException;
+use EzSystems\EzPlatformRest\Server\Controller as RestController;
+use EzSystems\EzPlatformRest\Server\Exceptions\AuthenticationFailedException;
 use EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface;
-use EzSystems\EzRecommendationClient\Content\Content;
+use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
+use EzSystems\EzRecommendationClient\Service\ContentServiceInterface;
+use EzSystems\EzRecommendationClient\Value\Content;
 use EzSystems\EzRecommendationClient\Value\ContentData;
 use EzSystems\EzRecommendationClient\Value\IdList;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -22,7 +24,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ContentController extends BaseController
+final class ContentController extends RestController
 {
     /** @var \eZ\Publish\Core\Repository\SearchService */
     private $searchService;
@@ -30,37 +32,25 @@ class ContentController extends BaseController
     /** @var \EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface */
     private $authenticator;
 
-    /** @var \EzSystems\EzRecommendationClient\Content\Content */
-    private $content;
+    /** @var \EzSystems\EzRecommendationClient\Service\ContentServiceInterface */
+    private $contentService;
 
-    /**
-     * @param \eZ\Publish\API\Repository\SearchService $searchService
-     * @param \EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface $authenticator
-     * @param \EzSystems\EzRecommendationClient\Content\Content $content
-     */
     public function __construct(
         SearchServiceInterface $searchService,
         AuthenticatorInterface $authenticator,
-        Content $content
+        ContentServiceInterface $contentService
     ) {
         $this->searchService = $searchService;
         $this->authenticator = $authenticator;
-        $this->content = $content;
+        $this->contentService = $contentService;
     }
 
     /**
      * Prepares content for ContentData class.
      *
-     * @param \EzSystems\EzRecommendationClient\Value\IdList $idList
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @ParamConverter("list_converter")
      *
-     * @return \EzSystems\EzRecommendationClient\Value\ContentData
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function getContentAction(IdList $idList, Request $request): ContentData
     {
@@ -69,23 +59,24 @@ class ContentController extends BaseController
         }
 
         $requestQuery = $request->query;
-        $lang = $requestQuery->get('lang');
+
+        $content = new Content();
+        $content->lang = $requestQuery->get('lang');
+        $content->fields = $requestQuery->get('fields')
+            ? ParamsConverterHelper::getArrayFromString($requestQuery->get('fields'))
+            : null;
 
         $contentItems = $this->searchService->findContent(
             $this->getQuery($requestQuery, $idList),
-            (!empty($lang) ? ['languages' => [$lang]] : [])
+            (!empty($content->lang) ? ['languages' => [$content->lang]] : [])
         )->searchHits;
-
-        $contentData = $this->content->prepareContent([$contentItems], $requestQuery);
+        $contentData = $this->contentService->prepareContent([$contentItems], $content);
 
         return new ContentData($contentData);
     }
 
     /**
      * @param \Symfony\Component\HttpFoundation\ParameterBag ParameterBag $parameterBag
-     * @param \EzSystems\EzRecommendationClient\Value\IdList $idList
-     *
-     * @return Query
      */
     private function getQuery(ParameterBag $parameterBag, IdList $idList): Query
     {

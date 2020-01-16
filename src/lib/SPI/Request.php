@@ -23,16 +23,10 @@ abstract class Request
         }
     }
 
-    /**
-     * @return array
-     */
     abstract public function getRequestAttributes(): array;
 
     /**
      * @param string[] $attributes
-     * @param string $queryStringKey
-     *
-     * @return array
      */
     protected function getAdditionalAttributesToQueryString(array $attributes, string $queryStringKey): array
     {

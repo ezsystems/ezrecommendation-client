@@ -22,7 +22,6 @@ class RecommendationService implements RecommendationServiceInterface
     private $userService;
 
     /**
-     * @param \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface $client
      * @param \EzSystems\EzRecommendationClient\Service\UserServiceInterface $userService
      */
     public function __construct(
@@ -37,9 +36,6 @@ class RecommendationService implements RecommendationServiceInterface
 
     /**
      * {@inheritdoc}
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function getRecommendations(RecommendationRequest $request): ?ResponseInterface
     {

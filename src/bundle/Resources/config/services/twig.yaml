@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    EzSystems\EzRecommendationClientBundle\Templating\:
+        resource: '../../../Templating/*'
+
+    EzSystems\EzRecommendationClientBundle\Templating\Twig\Functions\Recommendation:
+        public: true
+        arguments:
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'

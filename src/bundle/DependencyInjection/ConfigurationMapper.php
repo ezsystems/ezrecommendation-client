@@ -88,10 +88,6 @@ class ConfigurationMapper implements HookableConfigurationMapperInterface
         // Nothing to do here.
     }
 
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-     * @param array $settings
-     */
     private function setApiSettings(ContainerInterface $container, array $settings): void
     {
         if ($settings) {
@@ -106,10 +102,6 @@ class ConfigurationMapper implements HookableConfigurationMapperInterface
         }
     }
 
-    /**
-     * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
-     * @param array $settings
-     */
     private function setFieldSettings(ContainerInterface $container, array $settings)
     {
         if ($settings) {

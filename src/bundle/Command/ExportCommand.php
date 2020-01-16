@@ -8,53 +8,46 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\Command;
 
-use EzSystems\EzRecommendationClient\Exporter\ExporterInterface;
+use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
+use EzSystems\EzRecommendationClient\Helper\SiteAccessHelper;
+use EzSystems\EzRecommendationClient\Http\HttpEnvironmentInterface;
+use EzSystems\EzRecommendationClient\Service\ExportServiceInterface;
+use EzSystems\EzRecommendationClient\Value\ExportParameters;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Security\Core\Authentication\Token\AnonymousToken;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Generates and export content to Recommendation Server for a given command options.
  */
-class ExportCommand extends Command
+final class ExportCommand extends Command
 {
-    /** @var \EzSystems\EzRecommendationClient\Exporter\ExporterInterface */
-    private $exporter;
+    /** @var \EzSystems\EzRecommendationClient\Service\ExportServiceInterface */
+    private $exportService;
 
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    private $requestStack;
-
-    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
-    private $tokenStorage;
+    /** @var \EzSystems\EzRecommendationClient\Http\HttpEnvironmentInterface */
+    private $httpEnvironment;
 
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Exporter\ExporterInterface $exporter
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
-     * @param \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface $tokenStorage
-     * @param \Psr\Log\LoggerInterface $logger
-     */
+    /** @var \EzSystems\EzRecommendationClient\Helper\SiteAccessHelper */
+    private $siteAccessHelper;
+
     public function __construct(
-        ExporterInterface $exporter,
-        RequestStack $requestStack,
-        TokenStorageInterface $tokenStorage,
-        LoggerInterface $logger
+        ExportServiceInterface $exportService,
+        HttpEnvironmentInterface $httpEnvironment,
+        LoggerInterface $logger,
+        SiteAccessHelper $siteAccessHelper
     ) {
         parent::__construct();
 
-        $this->exporter = $exporter;
-        $this->requestStack = $requestStack;
-        $this->tokenStorage = $tokenStorage;
+        $this->exportService = $exportService;
+        $this->httpEnvironment = $httpEnvironment;
         $this->logger = $logger;
+        $this->siteAccessHelper = $siteAccessHelper;
     }
 
     /**
@@ -63,48 +56,38 @@ class ExportCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ezrecomendation:export:run')
+            ->setName('ezrecommendation:export:run')
             ->setDescription('Run export to files.')
             ->addOption('webHook', null, InputOption::VALUE_REQUIRED, 'Guzzle Client base_uri parameter, will be used to send recommendation data')
-            ->addOption('transaction', null, InputOption::VALUE_REQUIRED)
             ->addOption('host', null, InputOption::VALUE_REQUIRED, 'Host used in exportDownload url for notifier in export feature')
             ->addOption('customerId', null, InputOption::VALUE_OPTIONAL, 'Your eZ Recommendation customer ID')
             ->addOption('licenseKey', null, InputOption::VALUE_OPTIONAL, 'Your eZ Recommendation license key')
             ->addOption('lang', null, InputOption::VALUE_OPTIONAL, 'List of language codes, eg: eng-GB,fre-FR')
             ->addOption('pageSize', null, InputOption::VALUE_OPTIONAL, '', 500)
             ->addOption('page', null, InputOption::VALUE_OPTIONAL, '', 1)
-            ->addOption('path', null, InputOption::VALUE_OPTIONAL, 'A string of subtree path, eg: /1/2/', false)
+            ->addOption('path', null, InputOption::VALUE_OPTIONAL, 'A string of subtree path, eg: /1/2/')
             ->addOption('hidden', null, InputOption::VALUE_OPTIONAL, 'If set to 1 - Criterion Visibility: VISIBLE will be used', 0)
             ->addOption('image', null, InputOption::VALUE_OPTIONAL, 'Image_variations used for images')
             ->addOption('contentTypeIdList', null, InputOption::VALUE_REQUIRED, 'List of Content Types ID')
             ->addOption('fields', null, InputOption::VALUE_OPTIONAL, 'List of the fields, eg: title, description')
-            ->addOption(
-                'mandatorId',
-                null,
-                InputOption::VALUE_OPTIONAL,
-                'This value will be compared to every customer_id stored in ezrecommendation.system.SITEACCESS_NAME, and all matched siteAccesses will be used.',
-                '0'
-            )
         ;
     }
 
     /**
-     * @param \Symfony\Component\Console\Input\InputInterface $input
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return int|void|null
-     *
      * @throws \Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         try {
             $input->validate();
-            $this->prepare();
+            $this->httpEnvironment->prepare();
 
             date_default_timezone_set('UTC');
 
-            $this->exporter->runExport($input->getOptions(), $output);
+            $this->exportService->process(
+                $this->getExportParameters($input),
+                $output
+            );
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
             throw $e;
@@ -112,21 +95,37 @@ class ExportCommand extends Command
     }
 
     /**
-     * Prepares Request and Token for CLI environment, required by RichTextConverter to render embeded content.
-     * Avoid 'The token storage contains no authentication token'
-     * and 'Rendering a fragment can only be done when handling a Request' exceptions.
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
-    private function prepare()
+    private function getExportParameters(InputInterface $input): ExportParameters
     {
-        $session = new Session();
-        $session->start();
-
-        $request = Request::createFromGlobals();
-        $request->setSession($session);
-
-        $this->requestStack->push($request);
-        $this->tokenStorage->setToken(
-            new AnonymousToken('anonymous', 'anonymous', ['ROLE_ADMINISTRATOR'])
+        $commandOptions = array_diff_key(
+            $input->getOptions(),
+            $this->getApplication()->getDefinition()->getOptions()
         );
+        $commandOptions['siteaccess'] = $input->getOption('siteaccess');
+        $commandOptions['contentTypeIdList'] = ParamsConverterHelper::getIdListFromString(
+            $input->getOption('contentTypeIdList')
+        );
+        $commandOptions['languages'] = $this->getLanguages($input);
+        $commandOptions['fields'] = $input->getOption('fields')
+            ? ParamsConverterHelper::getArrayFromString($input->getOption('fields'))
+            : null;
+
+        return new ExportParameters($commandOptions);
+    }
+
+    /**
+     * Returns languages list.
+     *
+     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
+     */
+    private function getLanguages(InputInterface $input): array
+    {
+        if (!empty($input->getOption('lang'))) {
+            return ParamsConverterHelper::getArrayFromString($input->getOption('lang'));
+        }
+
+        return $this->siteAccessHelper->getLanguages((int)$input->getOption('customerId'), $input->getOption('siteaccess'));
     }
 }

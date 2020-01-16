@@ -8,22 +8,20 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\ParamConverter;
 
-use eZ\Publish\Core\REST\Server\Exceptions\BadRequestException;
+use EzSystems\EzPlatformRest\Server\Exceptions\BadRequestException;
 use EzSystems\EzRecommendationClient\Exception\InvalidArgumentException;
 use EzSystems\EzRecommendationClient\Mapper\ExportRequestMapper;
 use EzSystems\EzRecommendationClient\Value\ExportRequest;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
-class ExportRequestParamConverter implements ParamConverterInterface
+final class ExportRequestParamConverter implements ParamConverterInterface
 {
     /** @var \EzSystems\EzRecommendationClient\Mapper\ExportRequestMapper */
     private $exportRequestMapper;
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Mapper\ExportRequestMapper $exportRequestMapper
-     */
     public function __construct(ExportRequestMapper $exportRequestMapper)
     {
         $this->exportRequestMapper = $exportRequestMapper;

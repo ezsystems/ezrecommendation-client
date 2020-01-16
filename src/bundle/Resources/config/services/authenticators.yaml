@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Authentication\:
+        resource: '../../../../src/lib/Authentication/*'
+
+    EzSystems\EzRecommendationClient\Authentication\ExportAuthenticator:
+        arguments:
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'

@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Field\:
+        resource: '../../../../src/lib/Field/*'
+
+    EzSystems\EzRecommendationClient\Field\Value:
+        arguments:
+            $parameters: {fieldIdentifiers: "%ezrecommendation.field.identifiers%"}
+        tags:
+            - { name: monolog.logger, channel: ezrecommendation }
+
+    EzSystems\EzRecommendationClient\Field\TypeValue:
+        arguments:
+            $richHtml5Converter: '@ezrichtext.converter.output.xhtml5'

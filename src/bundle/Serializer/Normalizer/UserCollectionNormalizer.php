@@ -12,7 +12,7 @@ use EzSystems\EzRecommendationClient\Value\Output\UserCollection;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class UserCollectionNormalizer implements NormalizerInterface, NormalizerAwareInterface
+final class UserCollectionNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     const ATTR_NAME = 'user';
 
@@ -20,7 +20,7 @@ class UserCollectionNormalizer implements NormalizerInterface, NormalizerAwareIn
     private $owningNormalizer;
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function normalize($object, $format = null, array $context = []): array
     {
@@ -28,7 +28,7 @@ class UserCollectionNormalizer implements NormalizerInterface, NormalizerAwareIn
     }
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function supportsNormalization($data, $format = null): bool
     {
@@ -36,7 +36,7 @@ class UserCollectionNormalizer implements NormalizerInterface, NormalizerAwareIn
     }
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function setNormalizer(NormalizerInterface $normalizer): void
     {
@@ -46,9 +46,7 @@ class UserCollectionNormalizer implements NormalizerInterface, NormalizerAwareIn
     /**
      * Normalizes UserCollection.
      *
-     * @param \EzSystems\EzRecommendationClient\Value\Output\UserCollection $object
-     *
-     * @return array
+     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
      */
     private function getNormalizedUsers(UserCollection $object): array
     {

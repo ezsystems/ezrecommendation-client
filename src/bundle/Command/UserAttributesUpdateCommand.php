@@ -9,15 +9,14 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClientBundle\Command;
 
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
-use EzSystems\EzRecommendationClient\Event\UserAPIEvent;
-use EzSystems\EzRecommendationClient\SPI\UserAPIRequest;
+use EzSystems\EzRecommendationClient\Event\UpdateUserAPIEvent;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class UserAttributesUpdateCommand extends Command
+final class UserAttributesUpdateCommand extends Command
 {
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     private $eventDispatcher;
@@ -25,10 +24,6 @@ class UserAttributesUpdateCommand extends Command
     /** @var \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface */
     private $client;
 
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface $client
-     */
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         EzRecommendationClientInterface $client
@@ -40,7 +35,7 @@ class UserAttributesUpdateCommand extends Command
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure(): void
     {
@@ -49,28 +44,31 @@ class UserAttributesUpdateCommand extends Command
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
-        $event = new UserAPIEvent();
-        $this->eventDispatcher->dispatch(UserAPIEvent::UPDATE, $event);
+        $event = new UpdateUserAPIEvent();
+        $this->eventDispatcher->dispatch($event);
 
         $request = $event->getUserAPIRequest();
 
         $output->writeln([
             'Updating user attributes',
-            ''
+            '',
         ]);
 
         if (!$request) {
             $output->writeln('<fg=red>Request object is empty</>');
+
             return;
         } elseif (!$request->source) {
             $output->writeln('<fg=red>Property source is not defined</>');
+
             return;
         } elseif (!$request->xmlBody) {
             $output->writeln('<fg=red>Property xmlBody is not defined</>');
+
             return;
         }
 

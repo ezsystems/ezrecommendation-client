@@ -12,7 +12,7 @@ use EzSystems\EzRecommendationClient\Value\Output\User;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
+final class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
     const ATTR_NAME = 'user';
 
@@ -20,19 +20,19 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private $owningNormalizer;
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var $object \EzSystems\EzRecommendationClient\Value\Output\User */
         return [self::ATTR_NAME => [
             '@id' => $object->getUserId(),
-            'attributes' =>  $this->getNormalizedAttributes($object->getAttributes()),
+            'attributes' => $this->getNormalizedAttributes($object->getAttributes()),
         ]];
     }
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function supportsNormalization($data, $format = null): bool
     {
@@ -40,7 +40,7 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
     }
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function setNormalizer(NormalizerInterface $normalizer): void
     {
@@ -50,9 +50,7 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
     /**
      * Normalizes Attributes.
      *
-     * @param array $attributes
-     *
-     * @return array
+     * @throws \Symfony\Component\Serializer\Exception\ExceptionInterface
      */
     private function getNormalizedAttributes(array $attributes): array
     {

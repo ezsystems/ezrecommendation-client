@@ -1,0 +1,22 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Service\:
+        resource: '../../../../src/lib/Service/*'
+
+    EzSystems\EzRecommendationClient\Service\ExportService:
+        arguments:
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'
+            $notificationService: '@EzSystems\EzRecommendationClient\Service\ExportNotificationService'
+
+    EzSystems\EzRecommendationClient\Service\ContentService:
+        arguments:
+            $defaultAuthorId: '%ezrecommendation.default.author_id%'
+            $translationHelper: '@ezpublish.translation_helper'
+
+    EzSystems\EzRecommendationClient\Service\EventNotificationService:
+        arguments:
+            $clientCredentials: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'

@@ -13,7 +13,7 @@ use eZ\Publish\API\Repository\Values\Content\Field;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\SPI\Variation\VariationHandler as ImageVariationServiceInterface;
 
-class ImageHelper
+final class ImageHelper
 {
     /** @var \eZ\Publish\SPI\Variation\VariationHandler */
     private $imageVariationService;
@@ -33,19 +33,12 @@ class ImageHelper
         $this->configResolver = $configResolver;
     }
 
-    /**
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param array|null $options
-     *
-     * @return string
-     */
     public function getImageUrl(Field $field, Content $content, ?array $options = null): string
     {
         $variations = $this->configResolver->getParameter('image_variations');
         $variation = 'original';
 
-        if ((!empty($options['image'])) && in_array($options['image'], array_keys($variations))) {
+        if ((!empty($options['image'])) && \in_array($options['image'], array_keys($variations))) {
             $variation = $options['image'];
         }
 

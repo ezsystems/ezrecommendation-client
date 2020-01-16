@@ -9,26 +9,23 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Event\Subscriber;
 
 use EzSystems\EzRecommendationClient\Event\GenerateUserCollectionDataEvent;
-use EzSystems\EzRecommendationClient\Event\UserAPIEvent;
+use EzSystems\EzRecommendationClient\Event\UpdateUserAPIEvent;
 use EzSystems\EzRecommendationClient\Value\Output\UserCollection;
 use EzSystems\EzRecommendationClientBundle\Serializer\Normalizer\AttributeNormalizer;
 use EzSystems\EzRecommendationClientBundle\Serializer\Normalizer\UserCollectionNormalizer;
 use EzSystems\EzRecommendationClientBundle\Serializer\Normalizer\UserNormalizer;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
 use Symfony\Component\Serializer\Serializer;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 final class UserCollectionGeneratorEventSubscriber implements EventSubscriberInterface
 {
     /** @var \Symfony\Component\EventDispatcher\EventDispatcher */
     private $eventDispatcher;
 
-    /**
-     * @param \Symfony\Component\EventDispatcher\EventDispatcher $eventDispatcher
-     */
-    public function __construct(EventDispatcher $eventDispatcher)
+    public function __construct(EventDispatcherInterface $eventDispatcher)
     {
         $this->eventDispatcher = $eventDispatcher;
     }
@@ -39,17 +36,14 @@ final class UserCollectionGeneratorEventSubscriber implements EventSubscriberInt
     public static function getSubscribedEvents(): array
     {
         return [
-            UserAPIEvent::UPDATE => ['onRecommendationUpdateUserCollection', 128],
+            UpdateUserAPIEvent::class => ['onRecommendationUpdateUserCollection', 128],
         ];
     }
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Event\UserAPIEvent $userAPIEvent
-     */
-    public function onRecommendationUpdateUserCollection(UserAPIEvent $userAPIEvent): void
+    public function onRecommendationUpdateUserCollection(UpdateUserAPIEvent $userAPIEvent): void
     {
         $event = new GenerateUserCollectionDataEvent();
-        $this->eventDispatcher->dispatch(GenerateUserCollectionDataEvent::NAME, $event);
+        $this->eventDispatcher->dispatch($event);
 
         $userCollection = $event->getUserCollection();
 
@@ -68,10 +62,6 @@ final class UserCollectionGeneratorEventSubscriber implements EventSubscriberInt
 
     /**
      * Generates xml string based on UserCollection object.
-     *
-     * @param \EzSystems\EzRecommendationClient\Value\Output\UserCollection $userCollection
-     *
-     * @return string
      */
     private function generateXml(UserCollection $userCollection): string
     {

@@ -8,30 +8,24 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Field;
 
-use eZ\Publish\Core\FieldType\RichText\Converter as RichTextConverterInterface;
-use eZ\Publish\Core\MVC\Exception\SourceImageNotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
-use eZ\Publish\Core\FieldType\XmlText\Converter\Html5 as XmlHtml5;
+use EzSystems\EzPlatformRichText\eZ\RichText\Converter as RichTextConverterInterface;
+use EzSystems\EzPlatformRichTextBundle\eZ\RichText\Converter\Html5 as XmlHtml5;
 use EzSystems\EzRecommendationClient\Helper\ImageHelper;
 use LogicException;
 
-class TypeValue
+final class TypeValue
 {
     /** @var \EzSystems\EzRecommendationClient\Helper\ImageHelper */
     private $imageHelper;
 
-    /** @var \eZ\Publish\Core\FieldType\RichText\Converter */
+    /** @var \EzSystems\EzPlatformRichText\eZ\RichText\Converter */
     private $richHtml5Converter;
 
-    /** @var \eZ\Publish\Core\FieldType\XmlText\Converter\Html5 */
+    /** @var \EzSystems\EzPlatformRichTextBundle\eZ\RichText\Converter\Html5|null */
     private $xmlHtml5Converter;
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Helper\ImageHelper $imageHelper
-     * @param \eZ\Publish\Core\FieldType\RichText\Converter $richHtml5Converter
-     * @param \eZ\Publish\Core\FieldType\XmlText\Converter\Html5 $xmlHtml5Converter
-     */
     public function __construct(
         ImageHelper $imageHelper,
         RichTextConverterInterface $richHtml5Converter,
@@ -47,8 +41,6 @@ class TypeValue
      *
      * @param string $fieldName
      * @param mixed $args
-     *
-     * @return string
      */
     public function __call($fieldName, $args): string
     {
@@ -58,11 +50,7 @@ class TypeValue
     }
 
     /**
-     * Method for parsing ezxmltext field.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     *
-     * @return string
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      */
     public function ezxmltext(Field $field): string
     {
@@ -77,10 +65,6 @@ class TypeValue
 
     /**
      * Method for parsing ezrichtext field.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     *
-     * @return string
      */
     public function ezrichtext(Field $field): string
     {
@@ -89,14 +73,6 @@ class TypeValue
 
     /**
      * Method for parsing ezimage field.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param string $language
-     * @param string $imageFieldIdentifier
-     * @param array $options
-     *
-     * @return string
      */
     public function ezimage(Field $field, Content $content, string $language, string $imageFieldIdentifier, array $options = []): string
     {
@@ -104,23 +80,11 @@ class TypeValue
             return '';
         }
 
-        try {
-            return $this->imageHelper->getImageUrl($field, $content, $options);
-        } catch (SourceImageNotFoundException $exception) {
-            return '';
-        }
+        return $this->imageHelper->getImageUrl($field, $content, $options) ?? '';
     }
 
     /**
      * Method for parsing ezimageasset field.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param string $language
-     * @param string $imageFieldIdentifier
-     * @param array $options
-     *
-     * @return string
      */
     public function ezimageasset(Field $field, Content $content, string $language, string $imageFieldIdentifier, array $options = []): string
     {
@@ -128,24 +92,12 @@ class TypeValue
             return '';
         }
 
-        try {
-            return $this->imageHelper->getImageUrl($field, $content, $options);
-        } catch (SourceImageNotFoundException $exception) {
-            return '';
-        }
+        return $this->imageHelper->getImageUrl($field, $content, $options) ?? '';
     }
 
     /**
      * Method for parsing ezobjectrelation field.
      * For now related fields refer to images.
-     *
-     * @param \eZ\Publish\API\Repository\Values\Content\Field $field
-     * @param \eZ\Publish\API\Repository\Values\Content\Content $content
-     * @param string $language
-     * @param string $imageFieldIdentifier
-     * @param array $options
-     *
-     * @return string
      */
     public function ezobjectrelation(Field $field, Content $content, string $language, string $imageFieldIdentifier, array $options = []): string
     {

@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Client\:
+        resource: '../../../../src/lib/Client/*'
+
+    GuzzleHttp\Client: ~
+
+    GuzzleHttp\ClientInterface: '@GuzzleHttp\Client'
+
+    EzSystems\EzRecommendationClient\Client\EzRecommendationClient:
+        arguments:
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'

@@ -11,18 +11,18 @@ use eZ\Publish\API\Repository\UserService as UserServiceInterface;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Value\Parameters;
+use EzSystems\EzRecommendationClient\Value\Session as RecommendationSession;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
-use EzSystems\EzRecommendationClient\Value\Session as RecommendationSession;
-use GuzzleHttp\Exception\RequestException;
-use Psr\Log\LoggerInterface;
 
 /**
  * Sends notification to Recommendation servers when user is logged in.
  */
-class LoginListener
+final class LoginListener
 {
     /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface */
     private $authorizationChecker;
@@ -43,11 +43,6 @@ class LoginListener
     private $logger;
 
     /**
-     * @param \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $authorizationChecker
-     * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session
-     * @param \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface $client
-     * @param \eZ\Publish\API\Repository\UserService $userService
-     * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
      * @param \Psr\Log\LoggerInterface $logger
      */
     public function __construct(
@@ -56,7 +51,7 @@ class LoginListener
         EzRecommendationClientInterface $client,
         UserServiceInterface $userService,
         ConfigResolverInterface $configResolver,
-        ?LoggerInterface $logger
+        LoggerInterface $logger
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->session = $session;
@@ -66,9 +61,6 @@ class LoginListener
         $this->logger = $logger;
     }
 
-    /**
-     * @param \Symfony\Component\Security\Http\Event\InteractiveLoginEvent $event
-     */
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event): void
     {
         if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY') // user has just logged in
@@ -90,27 +82,20 @@ class LoginListener
             $this->getUser($event->getAuthenticationToken())
         );
 
-        if (isset($this->logger)) {
-            $this->logger->debug(sprintf('Send login event notification to Recommendation: %s', $notificationUri));
-        }
+        $this->logger->debug(sprintf('Send login event notification to Recommendation: %s', $notificationUri));
 
         try {
+            /** @var \Psr\Http\Message\ResponseInterface $response */
             $response = $this->client->getHttpClient()->get($notificationUri);
 
-            if (isset($this->logger)) {
-                $this->logger->debug(sprintf('Got %s from Recommendation login event notification', $response->getStatusCode()));
-            }
+            $this->logger->debug(sprintf('Got %s from Recommendation login event notification', $response->getStatusCode()));
         } catch (RequestException $e) {
-            if (isset($this->logger)) {
-                $this->logger->error(sprintf('Recommendation login event notification error: %s', $e->getMessage()));
-            }
+            $this->logger->error(sprintf('Recommendation login event notification error: %s', $e->getMessage()));
         }
     }
 
     /**
      * Returns notification API end-point.
-     *
-     * @return string
      */
     private function getNotificationEndpoint(): string
     {
@@ -122,16 +107,12 @@ class LoginListener
 
     /**
      * Returns current username or ApiUser id.
-     *
-     * @param \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $authenticationToken
-     *
-     * @return string
      */
     private function getUser(TokenInterface $authenticationToken): string
     {
         $user = $authenticationToken->getUser();
 
-        if (is_string($user)) {
+        if (\is_string($user)) {
             return $user;
         } elseif (method_exists($user, 'getAPIUser')) {
             return (string) $user->getAPIUser()->id;

@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Response;
 
-use eZ\Publish\Core\REST\Common\Output\Generator;
+use EzSystems\EzPlatformRest\Output\Generator;
 
-class HttpResponse extends Response
+final class HttpResponse extends Response
 {
     /**
      * {@inheritdoc}

@@ -7,8 +7,8 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\DependencyInjection;
 
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\Configuration as SiteAccessConfiguration;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class Configuration extends SiteAccessConfiguration
 {
@@ -17,8 +17,8 @@ class Configuration extends SiteAccessConfiguration
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('ezrecommendation');
+        $treeBuilder = new TreeBuilder('ezrecommendation');
+        $rootNode = $treeBuilder->getRootNode();
 
         $systemNode = $this->generateScopeBaseNode($rootNode);
         $systemNode

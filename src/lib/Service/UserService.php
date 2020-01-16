@@ -12,7 +12,7 @@ use EzSystems\EzRecommendationClient\Helper\SessionHelper;
 use EzSystems\EzRecommendationClient\Helper\UserHelper;
 use EzSystems\EzRecommendationClient\Value\Session;
 
-class UserService implements UserServiceInterface
+final class UserService implements UserServiceInterface
 {
     /** @var \EzSystems\EzRecommendationClient\Helper\UserHelper */
     private $userHelper;
@@ -20,10 +20,6 @@ class UserService implements UserServiceInterface
     /** @var \EzSystems\EzRecommendationClient\Helper\SessionHelper */
     private $sessionHelper;
 
-    /**
-     * @param \EzSystems\EzRecommendationClient\Helper\UserHelper $userHelper
-     * @param \EzSystems\EzRecommendationClient\Helper\SessionHelper $sessionHelper
-     */
     public function __construct(UserHelper $userHelper, SessionHelper $sessionHelper)
     {
         $this->userHelper = $userHelper;
@@ -41,6 +37,6 @@ class UserService implements UserServiceInterface
             $userIdentifier = $this->sessionHelper->getAnonymousSessionId(Session::RECOMMENDATION_SESSION_KEY);
         }
 
-        return (string) $userIdentifier;
+        return (string)$userIdentifier;
     }
 }

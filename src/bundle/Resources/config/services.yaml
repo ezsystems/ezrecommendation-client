@@ -1,0 +1,21 @@
+imports:
+    - { resource: services/api.yaml }
+    - { resource: services/authenticators.yaml }
+    - { resource: services/client.yaml }
+    - { resource: services/commands.yaml }
+    - { resource: services/controllers.yaml }
+    - { resource: services/converters.yaml }
+    - { resource: services/credentials_checker.yaml }
+    - { resource: services/events.yaml }
+    - { resource: services/exporter.yaml }
+    - { resource: services/factory.yaml }
+    - { resource: services/fields.yaml }
+    - { resource: services/file.yaml }
+    - { resource: services/generators.yaml }
+    - { resource: services/helpers.yaml }
+    - { resource: services/http.yaml }
+    - { resource: services/mappers.yaml }
+    - { resource: services/response.yaml }
+    - { resource: services/services.yaml }
+    - { resource: services/twig.yaml }
+    - { resource: services/values.yaml }

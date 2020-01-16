@@ -1,0 +1,23 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Helper\:
+        resource: '../../../../src/lib/Helper/*'
+
+    EzSystems\EzRecommendationClient\Helper\SiteAccessHelper:
+        arguments:
+            $siteAccessConfig: '%ezrecommendation.siteaccess_config%'
+            $defaultSiteAccessName: '%ezpublish.siteaccess.default%'
+
+    EzSystems\EzRecommendationClient\Helper\ExportProcessRunnerHelper:
+        arguments:
+            $kernelEnvironment: '%kernel.environment%'
+        tags:
+            - { name: monolog.logger, channel: ezrecommendation }
+
+    EzSystems\EzRecommendationClient\Helper\ImageHelper:
+        arguments:
+            $imageVariationService: '@ezpublish.image_alias.imagine.alias_generator'

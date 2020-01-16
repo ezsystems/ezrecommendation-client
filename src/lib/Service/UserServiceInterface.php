@@ -9,8 +9,5 @@ namespace EzSystems\EzRecommendationClient\Service;
 
 interface UserServiceInterface
 {
-    /**
-     * @return string
-     */
     public function getUserIdentifier(): string;
 }

@@ -8,10 +8,12 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Client;
 
-use EzSystems\EzRecommendationClient\Api\AbstractApi;
-use EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface;
-use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory;
+use EzSystems\EzRecommendationClient\API\AbstractAPI;
+use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
+use EzSystems\EzRecommendationClient\Exception\BadAPICallException;
+use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory;
 use GuzzleHttp\ClientInterface;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use Psr\Http\Message\RequestInterface;
@@ -19,7 +21,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Psr\Log\LoggerInterface;
 
-class EzRecommendationClient implements EzRecommendationClientInterface
+final class EzRecommendationClient implements EzRecommendationClientInterface
 {
     private const DEBUG_MESSAGE = 'ClientDebug: ';
     private const ERROR_MESSAGE = 'ClientError: ';
@@ -34,10 +36,10 @@ class EzRecommendationClient implements EzRecommendationClientInterface
     /** @var \GuzzleHttp\ClientInterface */
     private $client;
 
-    /** @var \EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsChecker */
-    private $credentialsChecker;
+    /** @var \EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver */
+    private $credentialsResolver;
 
-    /** @var \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory */
+    /** @var \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory */
     private $eZRecommendationClientApiFactory;
 
     /** @var int|string */
@@ -46,24 +48,18 @@ class EzRecommendationClient implements EzRecommendationClientInterface
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /**
-     * @param \GuzzleHttp\ClientInterface $client
-     * @param \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface $credentialsChecker
-     * @param \EzSystems\EzRecommendationClient\Factory\EzRecommendationClientApiFactory $apiFactory
-     * @param \Psr\Log\LoggerInterface $logger
-     */
     public function __construct(
         ClientInterface $client,
-        CredentialsCheckerInterface $credentialsChecker,
-        EzRecommendationClientApiFactory $apiFactory,
+        CredentialsResolverInterface $credentialsResolver,
+        EzRecommendationClientAPIFactory $apiFactory,
         LoggerInterface $logger
     ) {
         $this->client = $client;
-        $this->credentialsChecker = $credentialsChecker;
+        $this->credentialsResolver = $credentialsResolver;
         $this->eZRecommendationClientApiFactory = $apiFactory;
         $this->logger = $logger;
 
-        if ($this->credentialsChecker->hasCredentials()) {
+        if ($this->credentialsResolver->hasCredentials()) {
             $this->setClientCredentials();
         }
     }
@@ -150,7 +146,7 @@ class EzRecommendationClient implements EzRecommendationClientInterface
             }
 
             return $response;
-        } catch (\Exception $exception) {
+        } catch (GuzzleException $exception) {
             $this->logger->error(
                 sprintf(
                     self::ERROR_MESSAGE . 'Error while sending data: %s %s %s %s',
@@ -162,20 +158,18 @@ class EzRecommendationClient implements EzRecommendationClientInterface
     }
 
     /**
-     * @param \Psr\Http\Message\UriInterface $uri
-     *
-     * @return string
+     * Checks if client has set Recommendation credentials.
      */
-    public function getAbsoluteUri(UriInterface $uri): string
+    public function hasCredentials(): bool
     {
-        return $uri->getScheme() . '://' . $uri->getHost() . $uri->getPath() . '?' . $uri->getQuery();
+        return !empty($this->getCustomerId()) && !empty($this->getLicenseKey());
     }
 
-    /**
-     * @param array $headers
-     *
-     * @return string
-     */
+    public function getAbsoluteUri(UriInterface $uri): string
+    {
+        return $uri->getScheme() . '://' . $uri->getHost() . $uri->getPath() . $uri->getQuery() ?? '?' . $uri->getQuery();
+    }
+
     public function getHeadersAsString(array $headers): string
     {
         $headersAsString = '';
@@ -204,42 +198,27 @@ class EzRecommendationClient implements EzRecommendationClientInterface
     /**
      * {@inheritdoc}
      */
-    public function __call(string $name, array $arguments): AbstractApi
+    public function __call(string $name, array $arguments): AbstractAPI
     {
         try {
-            return $this->eZRecommendationClientApiFactory->buildApi($name, $this);
-        } catch (\Exception $exception) {
+            return $this->eZRecommendationClientApiFactory->buildAPI($name, $this);
+        } catch (BadAPICallException $exception) {
             $this->logger->error(self::ERROR_MESSAGE . $exception->getMessage());
         }
     }
 
     /**
-     * Sets client credentials from CredentialsChecker.
+     * Sets client credentials from CredentialsResolver.
      */
     private function setClientCredentials(): void
     {
-        $credentials = $this->credentialsChecker->getCredentials();
+        $credentials = $this->credentialsResolver->getCredentials();
 
         $this
             ->setCustomerId($credentials->getCustomerId())
             ->setLicenseKey($credentials->getLicenseKey());
     }
 
-    /**
-     * Checks if client has set Recommendation credentials.
-     *
-     * @return bool
-     */
-    private function hasCredentials(): bool
-    {
-        return !empty($this->getCustomerId()) && !empty($this->getLicenseKey());
-    }
-
-    /**
-     * @param array $transaction
-     *
-     * @return string
-     */
     private function getRequestLogMessage(array $transaction): string
     {
         $message = '';

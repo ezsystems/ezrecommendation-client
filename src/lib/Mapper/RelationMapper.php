@@ -8,14 +8,11 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Mapper;
 
-class RelationMapper
+final class RelationMapper
 {
     /** @var array $fieldMapping */
     private $fieldMappings;
 
-    /**
-     * @param array $fieldMappings
-     */
     public function __construct(array $fieldMappings)
     {
         $this->fieldMappings = $fieldMappings;
@@ -23,9 +20,6 @@ class RelationMapper
 
     /**
      * Get related mapping for specified content and field.
-     *
-     * @param string $contentTypeIdentifier
-     * @param string $fieldIdentifier
      *
      * @return array|null mixed Returns mathing mapping array or null if no matching mapping found
      */

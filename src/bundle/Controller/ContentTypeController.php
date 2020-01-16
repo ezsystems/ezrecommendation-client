@@ -12,11 +12,12 @@ use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
-use eZ\Publish\Core\REST\Server\Controller;
-use eZ\Publish\Core\REST\Server\Exceptions\AuthenticationFailedException;
+use EzSystems\EzPlatformRest\Server\Controller as RestController;
+use EzSystems\EzPlatformRest\Server\Exceptions\AuthenticationFailedException;
 use EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface;
-use EzSystems\EzRecommendationClient\Content\Content;
 use EzSystems\EzRecommendationClient\Helper\SiteAccessHelper;
+use EzSystems\EzRecommendationClient\Service\ContentServiceInterface;
+use EzSystems\EzRecommendationClient\Value\Content;
 use EzSystems\EzRecommendationClient\Value\ContentData;
 use EzSystems\EzRecommendationClient\Value\IdList;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -24,7 +25,7 @@ use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ContentTypeController extends Controller
+final class ContentTypeController extends RestController
 {
     private const PAGE_SIZE = 10;
 
@@ -37,42 +38,30 @@ class ContentTypeController extends Controller
     /** @var \EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface */
     private $authenticator;
 
-    /** @var \EzSystems\EzRecommendationClient\Content\Content */
-    private $content;
+    /** @var \EzSystems\EzRecommendationClient\Service\ContentServiceInterface */
+    private $contentService;
 
     /** @var \EzSystems\EzRecommendationClient\Helper\SiteAccessHelper */
     private $siteAccessHelper;
 
-    /**
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
-     * @param \eZ\Publish\API\Repository\SearchService $searchService
-     * @param AuthenticatorInterface $authenticator
-     * @param \EzSystems\EzRecommendationClient\Content\Content $content
-     * @param \EzSystems\EzRecommendationClient\Helper\SiteAccessHelper $siteAccessHelper
-     */
     public function __construct(
         LocationServiceInterface $locationService,
         SearchServiceInterface $searchService,
         AuthenticatorInterface $authenticator,
-        Content $content,
+        ContentServiceInterface $contentService,
         SiteAccessHelper $siteAccessHelper
     ) {
         $this->locationService = $locationService;
         $this->searchService = $searchService;
         $this->authenticator = $authenticator;
-        $this->content = $content;
+        $this->contentService = $contentService;
         $this->siteAccessHelper = $siteAccessHelper;
     }
 
     /**
      * Prepares content for ContentData class.
      *
-     * @param \EzSystems\EzRecommendationClient\Value\IdList $idList
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @ParamConverter("list_converter")
-     *
-     * @return \EzSystems\EzRecommendationClient\Value\ContentData
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
@@ -92,11 +81,6 @@ class ContentTypeController extends Controller
     /**
      * Returns paged content based on ContentType ids.
      *
-     * @param array $contentTypeIds
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return array
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -104,26 +88,24 @@ class ContentTypeController extends Controller
     private function prepareContentByContentTypeIds(array $contentTypeIds, Request $request): array
     {
         $requestQuery = $request->query;
-        $lang = $requestQuery->get('lang');
+
+        $content = new Content();
+        $content->lang = $requestQuery->get('lang');
+        $content->fields = $requestQuery->get('fields');
 
         $contentItems = [];
 
         foreach ($contentTypeIds as $contentTypeId) {
             $contentItems[$contentTypeId] = $this->searchService->findContent(
                 $this->getQuery((int) $contentTypeId, $requestQuery),
-                (!empty($lang) ? ['languages' => [$lang]] : [])
+                (!empty($content->lang) ? ['languages' => [$content->lang]] : [])
             )->searchHits;
         }
 
-        return $this->content->prepareContent($contentItems, $requestQuery);
+        return $this->contentService->prepareContent($contentItems, $content);
     }
 
     /**
-     * @param int $contentTypeId
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $parameterBag
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */

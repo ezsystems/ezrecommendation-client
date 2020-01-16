@@ -18,10 +18,6 @@ class ContentData
     /** @var array */
     public $options;
 
-    /**
-     * @param array $contents
-     * @param array $options
-     */
     public function __construct(array $contents, array $options = [])
     {
         $this->contents = $contents;

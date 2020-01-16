@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Value\Output;
 
-use EzSystems\EzRecommendationClient\Value\Output\User;
 use Webmozart\Assert\Assert;
 
 class UserCollection
@@ -33,11 +32,8 @@ class UserCollection
         return $this->users;
     }
 
-    /**
-     * @return bool
-     */
     public function isEmpty(): bool
     {
-        return 0 === count($this->users);
+        return 0 === \count($this->users);
     }
 }

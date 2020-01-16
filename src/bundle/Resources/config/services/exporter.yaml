@@ -1,0 +1,12 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Exporter\:
+        resource: '../../../../src/lib/Exporter/*'
+
+    EzSystems\EzRecommendationClient\Exporter\Exporter:
+        tags:
+            - { name: monolog.logger, channel: ezrecommendation }

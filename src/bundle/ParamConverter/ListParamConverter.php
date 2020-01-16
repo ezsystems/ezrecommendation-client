@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\ParamConverter;
 
-use eZ\Publish\Core\REST\Server\Exceptions\BadRequestException;
+use EzSystems\EzPlatformRest\Server\Exceptions\BadRequestException;
 use EzSystems\EzRecommendationClient\Exception\InvalidArgumentException;
 use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
 use EzSystems\EzRecommendationClient\Value\IdList;
@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInte
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ListParamConverter implements ParamConverterInterface
+final class ListParamConverter implements ParamConverterInterface
 {
     /**
      * {@inheritdoc}

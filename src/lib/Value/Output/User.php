@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Value\Output;
 
-use EzSystems\EzRecommendationClient\Value\Output\Attribute;
 use Webmozart\Assert\Assert;
 
 class User
@@ -20,7 +19,6 @@ class User
     private $userId;
 
     /**
-     * @param string $userId
      * @param \EzSystems\EzRecommendationClient\Value\Output\Attribute[] $attributes
      */
     public function __construct(string $userId, array $attributes = [])
@@ -39,9 +37,6 @@ class User
         return $this->attributes;
     }
 
-    /**
-     * @return string
-     */
     public function getUserId(): string
     {
         return $this->userId;

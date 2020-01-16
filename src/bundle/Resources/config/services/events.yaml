@@ -1,0 +1,20 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Event\:
+        resource: '../../../../src/lib/Event/*'
+
+    EzSystems\EzRecommendationClient\Event\Listener\LoginListener:
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login, priority: 255 }
+            - { name: monolog.logger, channel: ezrecommendation }
+
+    EzSystems\EzRecommendationClient\Event\Listener\SessionBackupListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+            - { name: monolog.logger, channel: ezrecommendation }
+
+    EzSystems\EzRecommendationClient\Service\NotificationService: '@EzSystems\EzRecommendationClient\Service\EventNotificationService'

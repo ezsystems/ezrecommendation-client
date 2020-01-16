@@ -13,14 +13,12 @@ use InvalidArgumentException;
 /**
  * Provides utility to manipulate strings.
  */
-class ParamsConverterHelper
+final class ParamsConverterHelper
 {
     /**
      * Preparing array of integers based on comma separated integers in string or single integer in string.
      *
      * @param string $string list of integers separated by comma character
-     *
-     * @return array
      *
      * @throws InvalidArgumentException If incorrect $list value is given
      */
@@ -44,10 +42,6 @@ class ParamsConverterHelper
 
     /**
      * Returns list of elements as array from comma separated string.
-     *
-     * @param string $string
-     *
-     * @return array
      */
     public static function getArrayFromString(string $string): array
     {
