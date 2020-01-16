@@ -79,7 +79,6 @@ final class ExportCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         try {
-            $input->validate();
             $this->httpEnvironment->prepare();
 
             date_default_timezone_set('UTC');
