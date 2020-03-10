@@ -58,6 +58,14 @@ class ConfigurationMapper implements HookableConfigurationMapperInterface
         if (isset($scopeSettings['user_api']['default_source'])) {
             $contextualizer->setContextualParameter('user_api.default_source', $currentScope, $scopeSettings['user_api']['default_source']);
         }
+
+        if (isset($scopeSettings['api'])) {
+            $this->setApiSettings($contextualizer, $currentScope, $scopeSettings['api']);
+        }
+
+        if (isset($scopeSettings['field'])) {
+            $this->setFieldSettings($contextualizer, $currentScope, $scopeSettings['field']);
+        }
     }
 
     /**
@@ -70,14 +78,6 @@ class ConfigurationMapper implements HookableConfigurationMapperInterface
         if (isset($config['system'])) {
             $container->setParameter('ezrecommendation.siteaccess_config', $config['system']);
         }
-
-        if (isset($config['field'])) {
-            $this->setFieldSettings($container, $config['field']);
-        }
-
-        if (isset($config['api'])) {
-            $this->setApiSettings($container, $config['api']);
-        }
     }
 
     /**
@@ -88,13 +88,14 @@ class ConfigurationMapper implements HookableConfigurationMapperInterface
         // Nothing to do here.
     }
 
-    private function setApiSettings(ContainerInterface $container, array $settings): void
+    private function setApiSettings(ContextualizerInterface $contextualizer, $currentScope, array $settings): void
     {
         if ($settings) {
             foreach ($settings as $settingKey => $settingValue) {
                 foreach ($settingValue as $parameterKey => $parameterValue) {
-                    $container->setParameter(
-                        Parameters::NAMESPACE . '.' . Parameters::API_SCOPE . '.' . $settingKey . '.' . $parameterKey,
+                    $contextualizer->setContextualParameter(
+                         Parameters::API_SCOPE . '.' . $settingKey . '.' . $parameterKey,
+                        $currentScope,
                         $parameterValue
                     );
                 }
@@ -102,13 +103,17 @@ class ConfigurationMapper implements HookableConfigurationMapperInterface
         }
     }
 
-    private function setFieldSettings(ContainerInterface $container, array $settings)
+    private function setFieldSettings(ContextualizerInterface $contextualizer, $currentScope, array $settings)
     {
         if ($settings) {
             $parametersName = array_keys($settings);
 
             foreach ($parametersName as $name) {
-                $container->setParameter(Parameters::NAMESPACE . '.' . Parameters::FIELD_SCOPE . '.' . $name, $settings[$name]);
+                $contextualizer->setContextualParameter(
+                    Parameters::FIELD_SCOPE . '.' . $name,
+                    $currentScope,
+                    $settings[$name]
+                );
             }
         }
     }
