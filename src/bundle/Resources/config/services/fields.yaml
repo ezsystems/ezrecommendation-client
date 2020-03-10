@@ -9,7 +9,7 @@ services:
 
     EzSystems\EzRecommendationClient\Field\Value:
         arguments:
-            $parameters: {fieldIdentifiers: "%ezrecommendation.field.identifiers%"}
+            $parameters: {fieldIdentifiers: "%ezrecommendation.default.field.identifiers%"}
         tags:
             - { name: monolog.logger, channel: ezrecommendation }
 

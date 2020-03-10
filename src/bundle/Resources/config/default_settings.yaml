@@ -24,13 +24,13 @@ parameters:
     ezrecommendation.default.export.authentication.password: ~
     ezrecommendation.default.export.document_root: '%kernel.root_dir%/../public/var/export/'
 
-    ezrecommendation.api.admin.endpoint: 'https://admin.yoochoose.net'
-    ezrecommendation.api.recommendation.endpoint: 'https://reco.yoochoose.net'
-    ezrecommendation.api.recommendation.consume_timeout: 20
-    ezrecommendation.api.event_tracking.endpoint: 'https://event.yoochoose.net'
-    ezrecommendation.api.event_tracking.script_url: 'cdn.yoochoose.net/yct.js'
-    ezrecommendation.api.notifier.endpoint: '%ezrecommendation.api.admin.endpoint%'
-    ezrecommendation.api.user.endpoint: 'https://import.yoochoose.net'
+    ezrecommendation.default.api.admin.endpoint: 'https://admin.yoochoose.net'
+    ezrecommendation.default.api.recommendation.endpoint: 'https://reco.yoochoose.net'
+    ezrecommendation.default.api.recommendation.consume_timeout: 20
+    ezrecommendation.default.api.event_tracking.endpoint: 'https://event.yoochoose.net'
+    ezrecommendation.default.api.event_tracking.script_url: 'cdn.yoochoose.net/yct.js'
+    ezrecommendation.default.api.notifier.endpoint: '%ezrecommendation.default.api.admin.endpoint%'
+    ezrecommendation.default.api.user.endpoint: 'https://import.yoochoose.net'
 
-    ezrecommendation.field.relations: []
-    ezrecommendation.field.identifiers: []
+    ezrecommendation.default.field.relations: []
+    ezrecommendation.default.field.identifiers: []
