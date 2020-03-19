@@ -16,8 +16,8 @@
         "ezsystems/ezplatform-richtext": "^2.0@dev",
         "ezsystems/repository-forms": "^3.0@dev",
         "ezsystems/doctrine-dbal-schema": "^1.0@dev",
-        "symfony/framework-bundle": "^4.3",
-        "symfony/twig-bundle": "^4.3",
+        "symfony/framework-bundle": "^5.0",
+        "symfony/twig-bundle": "^5.0",
         "guzzlehttp/guzzle": "~6.0",
         "webmozart/assert": "^1.0",
         "ramsey/uuid": "^3.9"
