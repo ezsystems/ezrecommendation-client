@@ -22,7 +22,7 @@ parameters:
     ezrecommendation.default.export.authentication.method: 'basic'
     ezrecommendation.default.export.authentication.login: ~
     ezrecommendation.default.export.authentication.password: ~
-    ezrecommendation.default.export.document_root: '%kernel.root_dir%/../public/var/export/'
+    ezrecommendation.default.export.document_root: '%kernel.project_dir%/public/var/export/'
 
     ezrecommendation.default.api.admin.endpoint: 'https://admin.yoochoose.net'
     ezrecommendation.default.api.recommendation.endpoint: 'https://reco.yoochoose.net'
