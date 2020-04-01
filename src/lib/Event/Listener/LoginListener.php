@@ -99,11 +99,11 @@ final class LoginListener
      */
     private function getNotificationEndpoint(): string
     {
-        $trackingEndPoint = $this->configResolver->getParameter(
+        $customerId = $this->configResolver->getParameter(
             'authentication.customer_id',
             Parameters::NAMESPACE
         );
-        $customerId = $this->configResolver->getParameter(
+        $trackingEndPoint = $this->configResolver->getParameter(
             Parameters::API_SCOPE . '.event_tracking.endpoint',
             Parameters::NAMESPACE
         );
