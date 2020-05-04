@@ -73,7 +73,7 @@ class Configuration extends SiteAccessConfiguration
                         ->end()
                     ->end()
                     ->scalarNode('document_root')
-                        ->defaultValue('%kernel.project_dir%/web/var/export/')
+                        ->defaultValue('%kernel.project_dir%/public/var/export/')
                     ->end()
                 ->end()
             ->end()
