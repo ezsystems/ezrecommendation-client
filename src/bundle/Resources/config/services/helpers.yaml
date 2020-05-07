@@ -20,4 +20,4 @@ services:
 
     EzSystems\EzRecommendationClient\Helper\ImageHelper:
         arguments:
-            $imageVariationService: '@ezpublish.image_alias.imagine.alias_generator'
+            $imageVariationService: '@ezpublish.fieldType.ezimage.variation_service'

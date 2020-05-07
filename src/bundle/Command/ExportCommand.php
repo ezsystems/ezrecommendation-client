@@ -24,6 +24,8 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class ExportCommand extends Command
 {
+    private const SUCCESS = 0;
+
     /** @var \EzSystems\EzRecommendationClient\Service\ExportServiceInterface */
     private $exportService;
 
@@ -76,7 +78,7 @@ final class ExportCommand extends Command
     /**
      * @throws \Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
             $this->httpEnvironment->prepare();
@@ -87,6 +89,8 @@ final class ExportCommand extends Command
                 $this->getExportParameters($input),
                 $output
             );
+
+            return self::SUCCESS;
         } catch (\Exception $e) {
             $this->logger->error($e->getMessage());
             throw $e;

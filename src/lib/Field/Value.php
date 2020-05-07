@@ -66,7 +66,7 @@ final class Value
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    public function getFieldValue(Content $content, string $field, string $language, array $options = []): string
+    public function getFieldValue(Content $content, string $field, string $language, array $options = []): ?string
     {
         $fieldObj = $content->getField($field, $language);
 
@@ -88,12 +88,22 @@ final class Value
                     $relatedContentType = $this->contentTypeService->loadContentType($relatedContent->contentInfo->contentTypeId);
 
                     if ($relatedContentType->identifier != $mapping['content']) {
-                        throw new InvalidRelationException(sprintf("Invalid relation: field '%s:%s' (object: %s, field: %s) has improper relation to object '%s' (object: %s) but '%s:%s' expected.", $contentType->identifier, $field, $content->id, $fieldObj->id, $relatedContentType->identifier, $relatedContentId, $mapping['content'], $mapping['field']));
+                        throw new InvalidRelationException(sprintf(
+                            "Invalid relation: field '%s:%s' (object: %s, field: %s) has improper relation to object '%s' (object: %s) but '%s:%s' expected.",
+                                $contentType->identifier,
+                                $field, $content->id,
+                                $fieldObj->id,
+                                $relatedContentType->identifier,
+                                $relatedContentId,
+                                $mapping['content'],
+                                $mapping['field']
+                            )
+                        );
                     }
                     $relatedField = $content->getField($mapping['field'], $language);
                     $value = $relatedField ? $this->getParsedFieldValue($relatedField, $relatedContent, $language, $imageFieldIdentifier, $options) : '';
                 } else {
-                    $value = '';
+                    $value = null;
                 }
             } else {
                 $value = $fieldObj ? $this->getParsedFieldValue($fieldObj, $content, $language, $imageFieldIdentifier, $options) : '';
@@ -101,7 +111,7 @@ final class Value
         } catch (InvalidRelationException $exception) {
             $this->logger->warning($exception->getMessage());
 
-            $value = '';
+            $value = null;
         }
 
         return $value;
@@ -205,8 +215,13 @@ final class Value
     /**
      * Returns parsed field value.
      */
-    private function getParsedFieldValue(Field $field, Content $content, string $language, string $imageFieldIdentifier, array $options = []): string
-    {
+    private function getParsedFieldValue(
+        Field $field,
+        Content $content,
+        string $language,
+        string $imageFieldIdentifier,
+        array $options = []
+    ): ?string {
         try {
             $this->logger->debug(sprintf(
                 'Fetching field content for contentId %s, fieldId %s, fieldName %s',
@@ -226,6 +241,8 @@ final class Value
                 $field->fieldDefIdentifier,
                 $e->getMessage()
             ));
+
+            return null;
         }
     }
 }
