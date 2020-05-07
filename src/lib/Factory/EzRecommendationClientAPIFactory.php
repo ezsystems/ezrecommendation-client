@@ -57,7 +57,10 @@ final class EzRecommendationClientAPIFactory extends AbstractEzRecommendationCli
     {
         $parameterName = $this->getApiEndPointParameterName($apiName);
 
-        return $this->configResolver->getParameter($parameterName . '.endpoint', Parameters::NAMESPACE, Parameters::API_SCOPE);
+        return $this->configResolver->getParameter(
+            Parameters::API_SCOPE . '.' . $parameterName . '.endpoint',
+            Parameters::NAMESPACE
+        );
     }
 
     private function getApiEndPointParameterName(string $apiName): string
