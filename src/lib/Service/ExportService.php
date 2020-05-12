@@ -90,9 +90,11 @@ final class ExportService implements ExportServiceInterface
                 $exportFiles,
                 $this->getSecuredDirCredentials($chunkDir)
             );
-
-            $this->logger->info(sprintf('eZ Recommendation Response: %s', $response->getBody()));
-            $output->writeln('Done');
+            
+            if ($response) {
+                $this->logger->info(sprintf('eZ Recommendation Response: %s', $response->getBody()));
+                $output->writeln('Done');
+            }
         } catch (\Exception $e) {
             $this->logger->error(sprintf('Error while generating export: %s', $e->getMessage()));
             $this->fileManager->unlock();

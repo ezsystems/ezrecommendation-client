@@ -8,6 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exception;
 
-class ExportInProgressException extends ExportException
+interface EzRecommendationException extends \Throwable
 {
 }

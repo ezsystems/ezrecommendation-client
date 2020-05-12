@@ -8,6 +8,10 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exception;
 
-class ExportInProgressException extends ExportException
+class BadResponseException extends TransferException
 {
+    public function __construct($message = '', $code = 0, Throwable $previous = null)
+    {
+        parent::__construct($message, $code, $previous);
+    }
 }
