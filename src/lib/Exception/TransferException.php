@@ -8,6 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exception;
 
-class ExportInProgressException extends ExportException
+abstract class TransferException extends \Exception implements EzRecommendationException
 {
 }

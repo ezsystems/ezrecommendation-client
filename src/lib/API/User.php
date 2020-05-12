@@ -27,7 +27,7 @@ final class User extends AbstractAPI
         parent::__construct($client, $endPointUri . '/api/%d/%s/user');
     }
 
-    public function updateUserAttributes(UserAPIRequest $request): ?ResponseInterface
+    public function updateUserAttributes(UserAPIRequest $request): ResponseInterface
     {
         $endPointUri = $this->buildEndPointUri([
             $this->client->getCustomerId(),

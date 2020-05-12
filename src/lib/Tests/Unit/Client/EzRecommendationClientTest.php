@@ -12,6 +12,7 @@ use EzSystems\EzRecommendationClient\API\AbstractAPI;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClient;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
+use EzSystems\EzRecommendationClient\Exception\CredentialsNotFoundException;
 use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory;
 use EzSystems\EzRecommendationClient\Tests\Common\API\APIEndPointClassTest;
 use GuzzleHttp\ClientInterface;
@@ -83,14 +84,15 @@ class EzRecommendationClientTest extends TestCase
         );
     }
 
-    public function testSendRequestAndReturnNullWhenCredentialsAreNotSet()
+    public function testSendRequestAndThrowExceptionWhenCredentialsAreNotSet()
     {
-        $this->assertNull(
-            $this->client->sendRequest(
-                'POST',
-                new Uri('http://www.test.local'),
-                []
-            )
+        $this->expectException(CredentialsNotFoundException::class);
+        $this->expectExceptionMessage('Credentials for recommendation client are not set');
+
+        $this->client->sendRequest(
+            'POST',
+            new Uri('http://www.test.local'),
+            []
         );
     }
 

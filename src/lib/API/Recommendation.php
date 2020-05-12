@@ -30,7 +30,7 @@ final class Recommendation extends AbstractAPI
     /**
      * @return \Psr\Http\Message\ResponseInterface
      */
-    public function getRecommendations(RecommendationRequest $request): ?ResponseInterface
+    public function getRecommendations(RecommendationRequest $request): ResponseInterface
     {
         $endPointUri = $this->buildEndPointUri([
                 $this->client->getCustomerId(),

@@ -11,6 +11,8 @@ namespace EzSystems\EzRecommendationClient\Client;
 use EzSystems\EzRecommendationClient\API\AbstractAPI;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
 use EzSystems\EzRecommendationClient\Exception\BadAPICallException;
+use EzSystems\EzRecommendationClient\Exception\BadResponseException;
+use EzSystems\EzRecommendationClient\Exception\CredentialsNotFoundException;
 use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
@@ -123,13 +125,13 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function sendRequest(string $method, UriInterface $uri, array $option = []): ?ResponseInterface
+    public function sendRequest(string $method, UriInterface $uri, array $option = []): ResponseInterface
     {
         try {
             if (!$this->hasCredentials()) {
                 $this->logger->warning(self::ERROR_MESSAGE . 'Recommendation credentials are not set', []);
 
-                return null;
+                throw new CredentialsNotFoundException();
             }
 
             $container = [];
@@ -152,8 +154,8 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
                     self::ERROR_MESSAGE . 'Error while sending data: %s %s %s %s',
                     $exception->getMessage(), $exception->getCode(), $exception->getFile(), $exception->getLine()
                 ));
-
-            return null;
+            
+            throw new BadResponseException($exception->getMessage(), $exception->getCode());
         }
     }
 

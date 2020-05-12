@@ -7,19 +7,10 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exception;
 
-use Exception;
-
-/**
- * Generates InvalidArgumentException with customised message.
- *
- * @param \Exception|null $previous
- */
-class InvalidArgumentException extends \InvalidArgumentException
+class InvalidArgumentException extends \Exception implements EzRecommendationException
 {
     public function __construct($message, ?Exception $previous = null)
     {
-        parent::__construct(
-            $message, 0, $previous
-        );
+        parent::__construct($message, 0, $previous);
     }
 }

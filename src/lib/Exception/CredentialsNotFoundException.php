@@ -8,6 +8,10 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exception;
 
-class ExportInProgressException extends ExportException
+class CredentialsNotFoundException extends NotFoundException
 {
+    public function __construct(int $code = 0, ?Throwable $previous = null)
+    {
+        parent::__construct('Credentials for recommendation client are not set', $code, $previous);
+    }
 }

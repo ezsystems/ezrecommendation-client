@@ -8,14 +8,9 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exception;
 
-use Throwable;
-
-/**
- * Generates BadAPICallException.
- */
-class BadAPICallException extends \BadFunctionCallException
+class BadAPICallException extends APIException
 {
-    public function __construct($name, ?Throwable $previous = null)
+    public function __construct($name, ?\Throwable $previous = null)
     {
         $message = sprintf('Given API class %s is not callable', $name);
 

@@ -8,9 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exception;
 
-/**
- * Generates ResponseClassNotImplementedException.
- */
-class ResponseClassNotImplementedException extends \Exception
+class ResponseClassNotImplementedException extends TransferException
 {
 }

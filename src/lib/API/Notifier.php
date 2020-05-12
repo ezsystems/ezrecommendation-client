@@ -23,7 +23,7 @@ final class Notifier extends AbstractAPI
         parent::__construct($client, $endPointUri . '/api/%s/items');
     }
 
-    public function notify(Notification $notification): ?ResponseInterface
+    public function notify(Notification $notification): ResponseInterface
     {
         $this->client
             ->setLicenseKey($notification->licenseKey)
