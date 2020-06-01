@@ -24,7 +24,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class ExportCommand extends Command
 {
-    private const SUCCESS = 0;
+    public const SUCCESS = 0;
 
     /** @var \EzSystems\EzRecommendationClient\Service\ExportServiceInterface */
     private $exportService;
