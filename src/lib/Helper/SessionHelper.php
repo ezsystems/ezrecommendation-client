@@ -8,26 +8,18 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Helper;
 
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class SessionHelper
 {
-    /** @var \Symfony\Component\HttpFoundation\RequestStack */
-    private $requestStack;
-
     /** @var \Symfony\Component\HttpFoundation\Session\SessionInterface */
     private $session;
 
     /**
-     * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
      * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session
      */
-    public function __construct(
-        RequestStack $requestStack,
-        SessionInterface $session
-    ) {
-        $this->requestStack = $requestStack;
+    public function __construct(SessionInterface $session)
+    {
         $this->session = $session;
     }
 
@@ -38,16 +30,9 @@ class SessionHelper
      */
     public function getAnonymousSessionId(string $sessionKey): string
     {
-        if (!$this->session->isStarted()) {
-            $this->session->start();
-        }
+        $sessionId = $this->session->getId();
+        $this->session->set($sessionKey, $sessionId);
 
-        $request = $this->requestStack->getMasterRequest();
-
-        if (!$request->cookies->has($sessionKey)) {
-            $request->cookies->set($sessionKey, $this->session->getId());
-        }
-
-        return $request->cookies->get($sessionKey);
+        return $sessionId;
     }
 }
