@@ -157,7 +157,10 @@ final class ContentService implements ContentServiceInterface
         $this->value->setFieldDefinitionsList($contentType);
         $location = $this->locationService->loadLocation($content->contentInfo->mainLocationId);
         $language = $options->lang ?? $location->contentInfo->mainLanguageCode;
-        $uriParams = ['siteaccess' => $this->translationHelper->getTranslationSiteAccess($language)];
+        $uriParams = [
+            'locationId' => $location->id,
+            'siteaccess' => $this->translationHelper->getTranslationSiteAccess($language),
+        ];
 
         return [
             'contentId' => $content->id,
@@ -166,7 +169,7 @@ final class ContentService implements ContentServiceInterface
             'language' => $language,
             'publishedDate' => $content->contentInfo->publishedDate->format('c'),
             'author' => $this->getAuthor($content, $contentType),
-            'uri' => $this->router->generate($location, $uriParams, false),
+            'uri' => $this->router->generate('ez_urlalias', $uriParams),
             'mainLocation' => [
                 'href' => '/api/ezp/v2/content/locations' . $location->pathString,
             ],
