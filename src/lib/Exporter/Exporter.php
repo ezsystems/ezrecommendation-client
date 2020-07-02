@@ -144,7 +144,7 @@ final class Exporter implements ExporterInterface
         $output->writeln($info);
         $this->logger->info($info);
 
-        return $info;
+        return $url;
     }
 
     /**
