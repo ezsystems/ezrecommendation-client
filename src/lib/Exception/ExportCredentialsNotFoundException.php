@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exception;
 
-use Throwable;
-
 class ExportCredentialsNotFoundException extends NotFoundException
 {
 }
