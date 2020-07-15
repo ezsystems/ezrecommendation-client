@@ -6,3 +6,7 @@ services:
 
     EzSystems\EzRecommendationClient\Factory\:
         resource: '../../../../src/lib/Factory/*'
+
+    EzSystems\EzRecommendationClient\Factory\ExportParametersFactory:
+        arguments:
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'

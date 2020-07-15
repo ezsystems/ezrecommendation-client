@@ -21,9 +21,13 @@ final class ExportCredentialsResolver extends CredentialsResolver
     /**
      * {@inheritdoc}
      */
-    public function getCredentials(): ?Credentials
+    public function getCredentials(?string $siteAccess = null): ?Credentials
     {
-        $this->method = $this->configResolver->getParameter('export.authentication.method', Parameters::NAMESPACE);
+        $this->method = $this->configResolver->getParameter(
+            'export.authentication.method',
+            Parameters::NAMESPACE,
+            $siteAccess
+        );
 
         if ($this->method === ExportMethod::USER && !$this->hasCredentials()) {
             return null;
@@ -35,12 +39,20 @@ final class ExportCredentialsResolver extends CredentialsResolver
     /**
      * {@inheritdoc}
      */
-    protected function getRequiredCredentials(): array
+    protected function getRequiredCredentials(?string $siteAccess = null): array
     {
         return [
             'method' => $this->method,
-            'login' => $this->configResolver->getParameter('export.authentication.login', Parameters::NAMESPACE),
-            'password' => $this->configResolver->getParameter('export.authentication.password', Parameters::NAMESPACE),
+            'login' => $this->configResolver->getParameter(
+                'export.authentication.login',
+                Parameters::NAMESPACE,
+                $siteAccess
+            ),
+            'password' => $this->configResolver->getParameter(
+                'export.authentication.password',
+                Parameters::NAMESPACE,
+                $siteAccess
+            ),
         ];
     }
 }

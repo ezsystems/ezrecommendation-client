@@ -15,7 +15,7 @@ services:
     EzSystems\EzRecommendationClient\Service\ContentService:
         arguments:
             $defaultAuthorId: '%ezrecommendation.default.author_id%'
-            $translationHelper: '@ezpublish.translation_helper'
+            $defaultSiteAccess: '%ezpublish.siteaccess.default%'
 
     EzSystems\EzRecommendationClient\Service\EventNotificationService:
         arguments:

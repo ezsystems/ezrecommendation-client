@@ -17,10 +17,11 @@ use Symfony\Component\HttpFoundation\Request;
 final class Notifier extends AbstractAPI
 {
     const API_NAME = 'notifier';
+    const ENDPOINT_PATH = '/api/%d/items';
 
     public function __construct(EzRecommendationClientInterface $client, string $endPointUri)
     {
-        parent::__construct($client, $endPointUri . '/api/%s/items');
+        parent::__construct($client, $endPointUri . self::ENDPOINT_PATH);
     }
 
     public function notify(Notification $notification): ResponseInterface

@@ -45,11 +45,11 @@ final class ContentService implements ContentServiceInterface
     /** @var \EzSystems\EzRecommendationClient\Field\Value */
     private $value;
 
-    /** @var \eZ\Publish\Core\Helper\TranslationHelper */
-    private $translationHelper;
-
     /** @var int $defaultAuthorId */
     private $defaultAuthorId;
+
+    /** @var string */
+    private $defaultSiteAccess;
 
     public function __construct(
         APIContentServiceInterface $contentService,
@@ -58,8 +58,8 @@ final class ContentService implements ContentServiceInterface
         RouterInterface $router,
         ContentHelper $contentHelper,
         Value $value,
-        TranslationHelper $translationHelper,
-        int $defaultAuthorId
+        int $defaultAuthorId,
+        string $defaultSiteAccess
     ) {
         $this->contentService = $contentService;
         $this->contentTypeService = $contentTypeService;
@@ -67,8 +67,8 @@ final class ContentService implements ContentServiceInterface
         $this->router = $router;
         $this->contentHelper = $contentHelper;
         $this->value = $value;
-        $this->translationHelper = $translationHelper;
         $this->defaultAuthorId = $defaultAuthorId;
+        $this->defaultSiteAccess = $defaultSiteAccess;
     }
 
     /**
@@ -157,9 +157,10 @@ final class ContentService implements ContentServiceInterface
         $this->value->setFieldDefinitionsList($contentType);
         $location = $this->locationService->loadLocation($content->contentInfo->mainLocationId);
         $language = $options->lang ?? $location->contentInfo->mainLanguageCode;
+
         $uriParams = [
             'locationId' => $location->id,
-            'siteaccess' => $this->translationHelper->getTranslationSiteAccess($language),
+            'siteaccess' => $options->siteaccess ?? $this->defaultSiteAccess,
         ];
 
         return [

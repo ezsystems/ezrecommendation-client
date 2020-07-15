@@ -79,13 +79,9 @@ final class SiteAccessHelper
      */
     public function getLanguages(int $customerId, ?string $siteAccess): array
     {
-        if (!$siteAccess) {
-            return $this->getLanguagesBySiteAccesses(
-                $this->getSiteAccessesByCustomerId($customerId)
-            );
-        } else {
-            return $this->getLanguageList($siteAccess);
-        }
+        return $this->getMainLanguagesBySiteAccesses(
+            $this->getSiteAccesses($customerId, $siteAccess)
+        );
     }
 
     /**
@@ -100,7 +96,8 @@ final class SiteAccessHelper
         $siteAccesses = [];
 
         foreach ($this->siteAccessConfig as $siteAccessName => $config) {
-            if (!isset($config['authentication']['customer_id']) || (int)$config['authentication']['customer_id'] !== $customerId) {
+            if (!isset($config['authentication']['customer_id'])
+                || (int)$config['authentication']['customer_id'] !== $customerId) {
                 continue;
             }
 
@@ -127,29 +124,17 @@ final class SiteAccessHelper
      *
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
-    public function getSiteAccesses(?int $customerId, ?string $siteAccess): array
+    public function getSiteAccesses(?int $customerId = null, ?string $siteAccess = null): array
     {
-        if ($customerId) {
-            $siteAccesses = $this->getSiteaccessesByCustomerId($customerId);
-        } elseif ($siteAccess) {
+        if ($siteAccess) {
             $siteAccesses = [$siteAccess];
+        } elseif ($customerId) {
+            $siteAccesses = $this->getSiteaccessesByCustomerId($customerId);
         } else {
             $siteAccesses = [$this->siteAccess->name];
         }
 
         return $siteAccesses;
-    }
-
-    /**
-     * Returns languages from siteAccess list.
-     */
-    public function getLanguagesBySiteAccesses(array $siteAccesses): array
-    {
-        if (\count($siteAccesses) === 1 && $this->isSiteAccessSameAsSystemDefault(current($siteAccesses))) {
-            return $this->getLanguageList();
-        }
-
-        return $this->getMainLanguagesBySiteAccesses($siteAccesses);
     }
 
     /**
@@ -202,6 +187,6 @@ final class SiteAccessHelper
     private function isCustomerIdConfigured(int $customerId): bool
     {
         return \in_array($this->defaultSiteAccessName, $this->siteAccessConfig)
-            && $this->siteAccessConfig[$this->defaultSiteAccessName]['authentication']['customer_id'] == $customerId;
+            && (int)$this->siteAccessConfig[$this->defaultSiteAccessName]['authentication']['customer_id'] === $customerId;
     }
 }
