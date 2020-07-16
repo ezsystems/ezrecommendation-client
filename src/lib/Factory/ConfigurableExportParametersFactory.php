@@ -58,7 +58,7 @@ final class ConfigurableExportParametersFactory extends ExportParametersFactoryD
             ));
         }
 
-        $properties['siteaccess'] ?? $properties['siteaccess'] = $this->getSiteAccess();
+        $properties['siteaccess'] = $properties['siteaccess'] ?? $this->getSiteAccess();
 
         if (!isset($properties['customerId']) && !isset($properties['licenseKey'])) {
             /** @var \EzSystems\EzRecommendationClient\Value\Config\ExportCredentials $credentials */
@@ -75,11 +75,11 @@ final class ConfigurableExportParametersFactory extends ExportParametersFactoryD
             $properties['licenseKey'] = $credentials->getPassword();
         }
 
-        $properties['host'] ?? $properties['host'] = $this->getHostUri($properties['siteaccess']);
-        $properties['webHook'] ?? $properties['webHook'] = $this->getWebHook(
-            (int)$properties['customerId'],
-            $properties['siteaccess']
-        );
+        $properties['host'] = $properties['host'] ?? $this->getHostUri($properties['siteaccess']);
+        $properties['webHook'] = $properties['webHook'] ?? $this->getWebHook(
+                (int)$properties['customerId'],
+                $properties['siteaccess']
+            );
 
         return $this->innerService->create($properties);
     }
@@ -111,7 +111,11 @@ final class ConfigurableExportParametersFactory extends ExportParametersFactoryD
     {
         $missingOptions = [];
 
-        if (isset($options['customerId'])) {
+        if (isset($options['customerId']) || isset($options['licenseKey'])) {
+            if (!isset($options['customerId'])) {
+                $missingOptions[] = 'customerId';
+            }
+
             if (!isset($options['licenseKey'])) {
                 $missingOptions[] = 'licenseKey';
             }

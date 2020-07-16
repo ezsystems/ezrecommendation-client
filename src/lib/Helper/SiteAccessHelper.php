@@ -79,7 +79,7 @@ final class SiteAccessHelper
      */
     public function getLanguages(int $customerId, ?string $siteAccess): array
     {
-        return $this->getMainLanguagesBySiteAccesses(
+        return $this->getMainLanguageBySiteAccesses(
             $this->getSiteAccesses($customerId, $siteAccess)
         );
     }
@@ -138,9 +138,9 @@ final class SiteAccessHelper
     }
 
     /**
-     * Returns main languages from siteAccess list.
+     * Returns main language from siteAccess list.
      */
-    public function getMainLanguagesBySiteAccesses(array $siteAccesses): array
+    public function getMainLanguageBySiteAccesses(array $siteAccesses): array
     {
         $languages = [];
 

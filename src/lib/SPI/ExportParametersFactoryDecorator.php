@@ -13,6 +13,7 @@ use EzSystems\EzRecommendationClient\Value\ExportParameters;
 
 abstract class ExportParametersFactoryDecorator implements ExportParametersFactoryInterface
 {
+    /** @var \EzSystems\EzRecommendationClient\Factory\ExportParametersFactoryInterface */
     protected $innerService;
 
     public function __construct(ExportParametersFactoryInterface $innerService)
@@ -20,6 +21,9 @@ abstract class ExportParametersFactoryDecorator implements ExportParametersFacto
         $this->innerService = $innerService;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public function create(array $properties = []): ExportParameters
     {
         return $this->innerService->create($properties);

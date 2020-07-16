@@ -7,10 +7,7 @@ services:
     EzSystems\EzRecommendationClient\Factory\:
         resource: '../../../../src/lib/Factory/*'
 
-    EzSystems\EzRecommendationClient\Factory\ExportParametersFactory:
-
-    EzSystems\EzRecommendationClient\Factory\ExportParametersFactoryInterface:
-        '@EzSystems\EzRecommendationClient\Factory\ConfigurableExportParametersFactory'
+    EzSystems\EzRecommendationClient\Factory\ExportParametersFactory: ~
 
     EzSystems\EzRecommendationClient\Factory\ConfigurableExportParametersFactory:
         arguments:
