@@ -14,7 +14,7 @@ interface CredentialsResolverInterface
     /**
      * Returns object with credentials data.
      */
-    public function getCredentials(): ?Credentials;
+    public function getCredentials(?string $siteAccess = null): ?Credentials;
 
     public function hasCredentials(): bool;
 }

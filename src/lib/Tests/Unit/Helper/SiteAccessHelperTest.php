@@ -130,7 +130,7 @@ class SiteAccessHelperTest extends TestCase
         $this->assertEquals(['eng-GB', 'fre-FR'], $result);
     }
 
-    public function testGetLanguagesWithSiteAccess()
+    public function testGetMainLanguagesWithSiteAccess()
     {
         $this->configResolver
             ->expects($this->once())
@@ -150,7 +150,7 @@ class SiteAccessHelperTest extends TestCase
 
         $result = $siteAccessHelper->getLanguages(1542, 'foo');
 
-        $this->assertEquals(['eng-GB', 'fre-FR'], $result);
+        $this->assertEquals(['eng-GB'], $result);
     }
 
     public function testGetLanguagesByCustomerId()

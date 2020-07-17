@@ -20,7 +20,7 @@ abstract class CredentialsResolver implements CredentialsResolverInterface
         $this->configResolver = $configResolver;
     }
 
-    abstract protected function getRequiredCredentials(): array;
+    abstract protected function getRequiredCredentials(?string $siteAccess = null): array;
 
     /**
      * {@inheritdoc}

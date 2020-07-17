@@ -17,7 +17,7 @@ final class EzRecommendationClientCredentialsResolver extends CredentialsResolve
     /**
      * {@inheritdoc}
      */
-    public function getCredentials(): ?Credentials
+    public function getCredentials(?string $siteAccess = null): ?Credentials
     {
         if (!$this->hasCredentials()) {
             return null;
@@ -29,11 +29,19 @@ final class EzRecommendationClientCredentialsResolver extends CredentialsResolve
     /**
      * {@inheritdoc}
      */
-    protected function getRequiredCredentials(): array
+    protected function getRequiredCredentials(?string $siteAccess = null): array
     {
         return [
-            'customerId' => $this->configResolver->getParameter('authentication.customer_id', Parameters::NAMESPACE),
-            'licenseKey' => $this->configResolver->getParameter('authentication.license_key', Parameters::NAMESPACE),
+            'customerId' => $this->configResolver->getParameter(
+                'authentication.customer_id',
+                Parameters::NAMESPACE,
+                $siteAccess
+            ),
+            'licenseKey' => $this->configResolver->getParameter(
+                'authentication.license_key',
+                Parameters::NAMESPACE,
+                $siteAccess
+            ),
         ];
     }
 }

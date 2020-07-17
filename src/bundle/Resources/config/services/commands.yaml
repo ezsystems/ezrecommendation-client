@@ -8,6 +8,9 @@ services:
         resource: '../../../../src/bundle/Command/*'
 
     EzSystems\EzRecommendationClientBundle\Command\ExportCommand:
+        arguments:
+            $exportParametersFactory: '@EzSystems\EzRecommendationClient\Factory\ConfigurableExportParametersFactory'
+
         tags:
             - { name: console.command, command: ezrecommendation:export:run }
             - { name: monolog.logger, channel: ezrecommendation }

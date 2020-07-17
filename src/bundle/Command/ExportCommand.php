@@ -8,8 +8,9 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\Command;
 
+use EzSystems\EzRecommendationClient\Factory\ExportParametersFactoryInterface;
 use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
-use EzSystems\EzRecommendationClient\Helper\SiteAccessHelper;
+
 use EzSystems\EzRecommendationClient\Http\HttpEnvironmentInterface;
 use EzSystems\EzRecommendationClient\Service\ExportServiceInterface;
 use EzSystems\EzRecommendationClient\Value\ExportParameters;
@@ -35,21 +36,21 @@ final class ExportCommand extends Command
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /** @var \EzSystems\EzRecommendationClient\Helper\SiteAccessHelper */
-    private $siteAccessHelper;
+    /** @var \EzSystems\EzRecommendationClient\Factory\ExportParametersFactoryInterface */
+    private $exportParametersFactory;
 
     public function __construct(
         ExportServiceInterface $exportService,
         HttpEnvironmentInterface $httpEnvironment,
         LoggerInterface $logger,
-        SiteAccessHelper $siteAccessHelper
+        ExportParametersFactoryInterface $exportParametersFactory
     ) {
         parent::__construct();
 
         $this->exportService = $exportService;
         $this->httpEnvironment = $httpEnvironment;
         $this->logger = $logger;
-        $this->siteAccessHelper = $siteAccessHelper;
+        $this->exportParametersFactory = $exportParametersFactory;
     }
 
     /**
@@ -60,11 +61,10 @@ final class ExportCommand extends Command
         $this
             ->setName('ezrecommendation:export:run')
             ->setDescription('Run export to files.')
-            ->addOption('webHook', null, InputOption::VALUE_REQUIRED, 'Guzzle Client base_uri parameter, will be used to send recommendation data')
-            ->addOption('host', null, InputOption::VALUE_REQUIRED, 'Host used in exportDownload url for notifier in export feature')
+            ->addOption('webHook', null, InputOption::VALUE_OPTIONAL, 'Guzzle Client base_uri parameter, will be used to send recommendation data')
+            ->addOption('host', null, InputOption::VALUE_OPTIONAL, 'Host used in exportDownload url for notifier in export feature')
             ->addOption('customerId', null, InputOption::VALUE_OPTIONAL, 'Your eZ Recommendation customer ID')
             ->addOption('licenseKey', null, InputOption::VALUE_OPTIONAL, 'Your eZ Recommendation license key')
-            ->addOption('lang', null, InputOption::VALUE_OPTIONAL, 'List of language codes, eg: eng-GB,fre-FR')
             ->addOption('pageSize', null, InputOption::VALUE_OPTIONAL, '', 500)
             ->addOption('page', null, InputOption::VALUE_OPTIONAL, '', 1)
             ->addOption('path', null, InputOption::VALUE_OPTIONAL, 'A string of subtree path, eg: /1/2/')
@@ -85,8 +85,14 @@ final class ExportCommand extends Command
 
             date_default_timezone_set('UTC');
 
+            $options = array_diff_key(
+                $input->getOptions(),
+                $this->getApplication()->getDefinition()->getOptions()
+            );
+            $options['siteaccess'] = $input->getOption('siteaccess');
+
             $this->exportService->process(
-                $this->getExportParameters($input),
+                $this->exportParametersFactory->create($options),
                 $output
             );
 
@@ -95,40 +101,5 @@ final class ExportCommand extends Command
             $this->logger->error($e->getMessage());
             throw $e;
         }
-    }
-
-    /**
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
-     */
-    private function getExportParameters(InputInterface $input): ExportParameters
-    {
-        $commandOptions = array_diff_key(
-            $input->getOptions(),
-            $this->getApplication()->getDefinition()->getOptions()
-        );
-        $commandOptions['siteaccess'] = $input->getOption('siteaccess');
-        $commandOptions['contentTypeIdList'] = ParamsConverterHelper::getIdListFromString(
-            $input->getOption('contentTypeIdList')
-        );
-        $commandOptions['languages'] = $this->getLanguages($input);
-        $commandOptions['fields'] = $input->getOption('fields')
-            ? ParamsConverterHelper::getArrayFromString($input->getOption('fields'))
-            : null;
-
-        return new ExportParameters($commandOptions);
-    }
-
-    /**
-     * Returns languages list.
-     *
-     * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
-     */
-    private function getLanguages(InputInterface $input): array
-    {
-        if (!empty($input->getOption('lang'))) {
-            return ParamsConverterHelper::getArrayFromString($input->getOption('lang'));
-        }
-
-        return $this->siteAccessHelper->getLanguages((int)$input->getOption('customerId'), $input->getOption('siteaccess'));
     }
 }
