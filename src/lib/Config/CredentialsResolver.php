@@ -25,9 +25,9 @@ abstract class CredentialsResolver implements CredentialsResolverInterface
     /**
      * {@inheritdoc}
      */
-    public function hasCredentials(): bool
+    public function hasCredentials(?string $siteAccess = null): bool
     {
-        $credentials = $this->getRequiredCredentials();
+        $credentials = $this->getRequiredCredentials($siteAccess);
 
         foreach ($credentials as $credentialKey => $credentialValue) {
             if (empty($credentialValue)) {

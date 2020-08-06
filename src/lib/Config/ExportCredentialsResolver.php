@@ -29,11 +29,11 @@ final class ExportCredentialsResolver extends CredentialsResolver
             $siteAccess
         );
 
-        if ($this->method === ExportMethod::USER && !$this->hasCredentials()) {
+        if ($this->method === ExportMethod::USER && !$this->hasCredentials($siteAccess)) {
             return null;
         }
 
-        return new ExportCredentials($this->getRequiredCredentials());
+        return new ExportCredentials($this->getRequiredCredentials($siteAccess));
     }
 
     /**

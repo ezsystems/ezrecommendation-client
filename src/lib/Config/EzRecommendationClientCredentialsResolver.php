@@ -19,11 +19,11 @@ final class EzRecommendationClientCredentialsResolver extends CredentialsResolve
      */
     public function getCredentials(?string $siteAccess = null): ?Credentials
     {
-        if (!$this->hasCredentials()) {
+        if (!$this->hasCredentials($siteAccess)) {
             return null;
         }
 
-        return new EzRecommendationClientCredentials($this->getRequiredCredentials());
+        return new EzRecommendationClientCredentials($this->getRequiredCredentials($siteAccess));
     }
 
     /**
