@@ -22,6 +22,10 @@ class Configuration extends SiteAccessConfiguration
 
         $systemNode = $this->generateScopeBaseNode($rootNode);
         $systemNode
+            ->scalarNode('site_name')
+                ->info('Site name for internal usage e.g. Displaying name of Personalization limitations')
+                ->example('My site name')
+            ->end()
             ->arrayNode('authentication')
                 ->children()
                     ->scalarNode('customer_id')
@@ -48,7 +52,7 @@ class Configuration extends SiteAccessConfiguration
                 ->scalarPrototype()->end()
             ->end()
             ->scalarNode('host_uri')
-                ->info('HTTP base URI of the eZ Publish server')
+                ->info('HTTP base URI of the eZ Platform server')
                 ->example('http://site.com')
                 ->isRequired()
             ->end()
