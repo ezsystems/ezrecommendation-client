@@ -32,7 +32,6 @@ final class RecommendationExtension extends AbstractExtension
             new TwigFunction('ez_recommendation_enabled', [Recommendation::class, 'isRecommendationsEnabled']),
             new TwigFunction('ez_recommendation_track_user', [UserTracking::class, 'trackUser'], [
                 'is_safe' => ['html'],
-                'needs_environment' => true,
             ]),
         ];
     }
