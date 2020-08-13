@@ -19,6 +19,14 @@ class ConfigurationMapper implements HookableConfigurationMapperInterface
      */
     public function mapConfig(array &$scopeSettings, $currentScope, ContextualizerInterface $contextualizer): void
     {
+        if (isset($scopeSettings['site_name'])) {
+            $contextualizer->setContextualParameter(
+                'site_name',
+                $currentScope,
+                $scopeSettings['site_name']
+            );
+        }
+
         if (isset($scopeSettings['authentication']['customer_id'])) {
             $contextualizer->setContextualParameter('authentication.customer_id', $currentScope, $scopeSettings['authentication']['customer_id']);
         }
