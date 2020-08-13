@@ -70,7 +70,7 @@ final class UserTracking extends AbstractFunction implements RuntimeExtensionInt
         }
 
         return $this->twig->render(
-            'EzRecommendationClientBundle::track_user.html.twig',
+            '@EzRecommendationClient/track_user.html.twig',
             [
                 'contentId' => $contentId,
                 'contentTypeId' => $this->contentTypeHelper->getContentTypeId(
@@ -81,9 +81,8 @@ final class UserTracking extends AbstractFunction implements RuntimeExtensionInt
                 'customerId' => $customerId,
                 'consumeTimeout' => $this->getConsumeTimeout(),
                 'trackingScriptUrl' => $this->configResolver->getParameter(
-                    'event_tracking.script_url',
-                    Parameters::NAMESPACE,
-                    Parameters::API_SCOPE
+                    Parameters::API_SCOPE . '.event_tracking.script_url',
+                    Parameters::NAMESPACE
                 ),
             ]
         );
@@ -92,9 +91,8 @@ final class UserTracking extends AbstractFunction implements RuntimeExtensionInt
     private function getConsumeTimeout(): int
     {
         $consumeTimout = (int)$this->configResolver->getParameter(
-            'recommendation.consume_timeout',
-            Parameters::NAMESPACE,
-            Parameters::API_SCOPE
+            Parameters::API_SCOPE . '.recommendation.consume_timeout',
+            Parameters::NAMESPACE
         );
 
         return $consumeTimout * 1000;
