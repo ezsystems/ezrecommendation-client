@@ -50,11 +50,12 @@ final class LocationHelper
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    public function getLocationPathString(int $contentId): string
+    public function getParentLocationPathString(int $contentId): string
     {
         $content = $this->contentService->loadContent($contentId);
         $location = $this->locationService->loadLocation($content->contentInfo->mainLocationId);
+        $parentLocation = $this->locationService->loadLocation($location->parentLocationId);
 
-        return $location->pathString;
+        return $parentLocation->pathString;
     }
 }

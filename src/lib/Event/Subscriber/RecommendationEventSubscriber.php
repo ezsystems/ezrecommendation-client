@@ -96,7 +96,7 @@ final class RecommendationEventSubscriber implements EventSubscriberInterface
             Request::CONTEXT_ITEMS_KEY => $contextItems,
             Request::CONTENT_TYPE_KEY => $this->contentTypeHelper->getContentTypeId($this->contentTypeHelper->getContentTypeIdentifier($contextItems)),
             Request::OUTPUT_TYPE_ID_KEY => $this->contentTypeHelper->getContentTypeId($parameterBag->get(Request::OUTPUT_TYPE_ID_KEY, '')),
-            Request::CATEGORY_PATH_KEY => $this->locationHelper->getLocationPathString($contextItems),
+            Request::CATEGORY_PATH_KEY => $this->locationHelper->getParentLocationPathString($contextItems),
             Request::LANGUAGE_KEY => $this->getRequestLanguage($parameterBag->get(self::LOCALE_REQUEST_KEY)),
             Request::ATTRIBUTES_KEY => $parameterBag->get(Request::ATTRIBUTES_KEY, []),
             Request::FILTERS_KEY => $parameterBag->get(Request::FILTERS_KEY, []),
