@@ -248,14 +248,13 @@ class SignalSlotService implements SignalSlotServiceInterface
         if ($content) {
             $this->logger->debug(sprintf('RecommendationNotifier: Generating notification for %s(%s)', $method, $content->id));
 
-            $notificationEvents = $this->generateNotificationEvents($action, $content, $versionNo);
             /** @var EzRecommendationClientCredentials $clientCredentials */
             $clientCredentials = $this->credentialsChecker->getCredentials();
 
             if (!$clientCredentials) {
                 return;
             }
-
+            $notificationEvents = $this->generateNotificationEvents($action, $content, $versionNo, $clientCredentials);
             $notification = $this->getNotification($notificationEvents, $clientCredentials);
 
             try {
@@ -288,14 +287,19 @@ class SignalSlotService implements SignalSlotServiceInterface
      * @param string $action
      * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      * @param int|null $versionNo
+     * @param \EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials $clientCredentials
      *
      * @return array
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    private function generateNotificationEvents(string $action, Content $content, ?int $versionNo): array
-    {
+    private function generateNotificationEvents(
+        string $action,
+        Content $content,
+        ?int $versionNo,
+        EzRecommendationClientCredentials $clientCredentials
+    ): array {
         $events = [];
 
         foreach ($this->getLanguageCodes($content, $versionNo) as $lang) {
@@ -306,6 +310,10 @@ class SignalSlotService implements SignalSlotServiceInterface
                 EventNotifierRequest::ITEM_ID_KEY => $content->id,
                 EventNotifierRequest::CONTENT_TYPE_ID_KEY => $content->contentInfo->contentTypeId,
                 EventNotifierRequest::LANG_KEY => $lang ?? null,
+                EventNotifierRequest::CREDENTIALS_KEY => [
+                    'login' => $clientCredentials->getCustomerId(),
+                    'password' => $clientCredentials->getLicenseKey()
+                ]
             ]);
 
             $events[] = $event->getRequestAttributes();
