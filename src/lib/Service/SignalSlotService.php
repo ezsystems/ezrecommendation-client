@@ -18,6 +18,7 @@ use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use EzSystems\EzRecommendationClient\Request\EventNotifierRequest;
+use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
 use EzSystems\EzRecommendationClient\Value\Notification;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
@@ -46,7 +47,10 @@ class SignalSlotService implements SignalSlotServiceInterface
     private $contentTypeService;
 
     /** @var \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface */
-    private $credentialsChecker;
+    private $clientCredentialsChecker;
+
+    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface */
+    private $exportCredentialsChecker;
 
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
@@ -60,7 +64,8 @@ class SignalSlotService implements SignalSlotServiceInterface
      * @param \eZ\Publish\API\Repository\ContentService $contentService
      * @param \eZ\Publish\API\Repository\LocationService $locationService
      * @param \eZ\Publish\API\Repository\ContentTypeService $contentTypeService
-     * @param \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface $credentialsChecker
+     * @param \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface $clientCredentialsChecker
+     * @param \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface $exportCredentialsChecker
      * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
      * @param \Psr\Log\LoggerInterface $logger
      */
@@ -70,7 +75,8 @@ class SignalSlotService implements SignalSlotServiceInterface
         ContentServiceInterface $contentService,
         LocationServiceInterface $locationService,
         ContentTypeServiceInterface $contentTypeService,
-        CredentialsCheckerInterface $credentialsChecker,
+        CredentialsCheckerInterface $clientCredentialsChecker,
+        CredentialsCheckerInterface $exportCredentialsChecker,
         ConfigResolverInterface $configResolver,
         LoggerInterface $logger
     ) {
@@ -79,7 +85,8 @@ class SignalSlotService implements SignalSlotServiceInterface
         $this->contentService = $contentService;
         $this->locationService = $locationService;
         $this->contentTypeService = $contentTypeService;
-        $this->credentialsChecker = $credentialsChecker;
+        $this->clientCredentialsChecker = $clientCredentialsChecker;
+        $this->exportCredentialsChecker = $exportCredentialsChecker;
         $this->configResolver = $configResolver;
         $this->logger = $logger;
     }
@@ -249,12 +256,12 @@ class SignalSlotService implements SignalSlotServiceInterface
             $this->logger->debug(sprintf('RecommendationNotifier: Generating notification for %s(%s)', $method, $content->id));
 
             /** @var EzRecommendationClientCredentials $clientCredentials */
-            $clientCredentials = $this->credentialsChecker->getCredentials();
+            $clientCredentials = $this->clientCredentialsChecker->getCredentials();
 
             if (!$clientCredentials) {
                 return;
             }
-            $notificationEvents = $this->generateNotificationEvents($action, $content, $versionNo, $clientCredentials);
+            $notificationEvents = $this->generateNotificationEvents($action, $content, $versionNo, $this->exportCredentialsChecker->getCredentials());
             $notification = $this->getNotification($notificationEvents, $clientCredentials);
 
             try {
@@ -287,7 +294,7 @@ class SignalSlotService implements SignalSlotServiceInterface
      * @param string $action
      * @param \eZ\Publish\API\Repository\Values\Content\Content $content
      * @param int|null $versionNo
-     * @param \EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials $clientCredentials
+     * @param \EzSystems\EzRecommendationClient\Value\Config\ExportCredentials $exportCredentials
      *
      * @return array
      *
@@ -298,7 +305,7 @@ class SignalSlotService implements SignalSlotServiceInterface
         string $action,
         Content $content,
         ?int $versionNo,
-        EzRecommendationClientCredentials $clientCredentials
+        ExportCredentials $exportCredentials
     ): array {
         $events = [];
 
@@ -311,8 +318,8 @@ class SignalSlotService implements SignalSlotServiceInterface
                 EventNotifierRequest::CONTENT_TYPE_ID_KEY => $content->contentInfo->contentTypeId,
                 EventNotifierRequest::LANG_KEY => $lang ?? null,
                 EventNotifierRequest::CREDENTIALS_KEY => [
-                    'login' => $clientCredentials->getCustomerId(),
-                    'password' => $clientCredentials->getLicenseKey()
+                    'login' => $exportCredentials->getLogin(),
+                    'password' => $exportCredentials->getPassword()
                 ]
             ]);
 
