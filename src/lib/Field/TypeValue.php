@@ -128,11 +128,7 @@ class TypeValue
             return '';
         }
 
-        try {
-            return $this->imageHelper->getImageUrl($field, $content, $options);
-        } catch (SourceImageNotFoundException $exception) {
-            return '';
-        }
+        return $this->imageHelper->getImageUrl($field, $content, $options) ?? '';
     }
 
     /**
