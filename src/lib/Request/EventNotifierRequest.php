@@ -18,6 +18,7 @@ class EventNotifierRequest extends Request
     const ITEM_ID_KEY = 'itemId';
     const CONTENT_TYPE_ID_KEY = 'contentTypeId';
     const LANG_KEY = 'lang';
+    const CREDENTIALS_KEY = 'credentials';
 
     /** @var string */
     public $action;
@@ -37,6 +38,9 @@ class EventNotifierRequest extends Request
     /** @var string|null */
     public $lang;
 
+    /** @var array */
+    public $credentials;
+
     public function __construct(array $parameters)
     {
         parent::__construct($this, $parameters);
@@ -54,6 +58,7 @@ class EventNotifierRequest extends Request
             'itemId' => $this->itemId,
             'contentTypeId' => $this->contentTypeId,
             'lang' => $this->lang,
+            'credentials' => $this->credentials,
         ];
     }
 }
