@@ -20,3 +20,4 @@ services:
     EzSystems\EzRecommendationClient\Service\EventNotificationService:
         arguments:
             $clientCredentials: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'
+            $exportCredentials: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'

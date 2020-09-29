@@ -15,6 +15,7 @@ use EzSystems\EzRecommendationClient\Helper\ContentHelper;
 use EzSystems\EzRecommendationClient\Helper\ContentTypeHelper;
 use EzSystems\EzRecommendationClient\Request\EventNotifierRequest;
 use EzSystems\EzRecommendationClient\SPI\Notification;
+use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use EzSystems\EzRecommendationClient\Value\EventNotification;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,6 +24,9 @@ final class EventNotificationService extends NotificationService
 {
     /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface */
     private $clientCredentials;
+
+    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface */
+    private $exportCredentials;
 
     /** @var \EzSystems\EzRecommendationClient\Helper\ContentHelper */
     private $contentHelper;
@@ -34,12 +38,14 @@ final class EventNotificationService extends NotificationService
         EzRecommendationClientInterface $client,
         LoggerInterface $logger,
         CredentialsResolverInterface $clientCredentials,
+        CredentialsResolverInterface $exportCredentials,
         ContentHelper $contentHelper,
         ContentTypeHelper $contentTypeHelper
     ) {
         parent::__construct($client, $logger);
 
         $this->clientCredentials = $clientCredentials;
+        $this->exportCredentials = $exportCredentials;
         $this->contentHelper = $contentHelper;
         $this->contentTypeHelper = $contentTypeHelper;
     }
@@ -61,7 +67,7 @@ final class EventNotificationService extends NotificationService
         $this->configureOptions($resolver);
 
         $notificationOptions = $resolver->resolve([
-            'events' => $this->generateNotificationEvents($action, $contentInfo),
+            'events' => $this->generateNotificationEvents($action, $contentInfo, $this->exportCredentials->getCredentials()),
             'licenseKey' => $credentials->getLicenseKey(),
             'customerId' => $credentials->getCustomerId(),
         ]);
@@ -91,8 +97,11 @@ final class EventNotificationService extends NotificationService
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    private function generateNotificationEvents(string $action, ContentInfo $contentInfo): array
-    {
+    private function generateNotificationEvents(
+        string $action,
+        ContentInfo $contentInfo,
+        ExportCredentials $exportCredentials
+    ): array {
         $events = [];
 
         foreach ($this->contentHelper->getLanguageCodes($contentInfo) as $lang) {
@@ -103,6 +112,10 @@ final class EventNotificationService extends NotificationService
                 EventNotifierRequest::ITEM_ID_KEY => $contentInfo->id,
                 EventNotifierRequest::CONTENT_TYPE_ID_KEY => $contentInfo->contentTypeId,
                 EventNotifierRequest::LANG_KEY => $lang ?? null,
+                EventNotifierRequest::CREDENTIALS_KEY => [
+                    'login' => $exportCredentials->getLogin(),
+                    'password' => $exportCredentials->getPassword(),
+                ]
             ]);
 
             $events[] = $event->getRequestAttributes();
