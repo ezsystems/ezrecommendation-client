@@ -9,6 +9,7 @@ services:
 
     EzSystems\EzRecommendationClient\Exporter\Exporter:
         arguments:
+            $repository: '@ezpublish.api.repository'
             $credentialsChecker: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsChecker'
             $outputGenerator: '@ezpublish_rest.output.generator.json'
         tags:
