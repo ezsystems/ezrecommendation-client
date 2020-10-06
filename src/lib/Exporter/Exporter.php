@@ -37,7 +37,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Exporter implements ExporterInterface
 {
-    /** @var eZ\Publish\API\Repository\Repository */
+    /** @var \eZ\Publish\API\Repository\Repository */
     private $repository;
 
     /** @var \eZ\Publish\Api\Repository\SearchService */
