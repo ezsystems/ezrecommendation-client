@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\Controller;
 
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Query;
@@ -29,6 +30,9 @@ final class ContentTypeController extends RestController
 {
     private const PAGE_SIZE = 10;
 
+    /** @var \eZ\Publish\API\Repository\Repository */
+    protected $repository;
+
     /** @var \eZ\Publish\Core\Repository\LocationService */
     private $locationService;
 
@@ -45,12 +49,14 @@ final class ContentTypeController extends RestController
     private $siteAccessHelper;
 
     public function __construct(
+        Repository $repository,
         LocationServiceInterface $locationService,
         SearchServiceInterface $searchService,
         AuthenticatorInterface $authenticator,
         ContentServiceInterface $contentService,
         SiteAccessHelper $siteAccessHelper
     ) {
+        $this->repository = $repository;
         $this->locationService = $locationService;
         $this->searchService = $searchService;
         $this->authenticator = $authenticator;
@@ -96,10 +102,12 @@ final class ContentTypeController extends RestController
         $contentItems = [];
 
         foreach ($contentTypeIds as $contentTypeId) {
-            $contentItems[$contentTypeId] = $this->searchService->findContent(
-                $this->getQuery((int) $contentTypeId, $requestQuery),
-                (!empty($content->lang) ? ['languages' => [$content->lang]] : [])
-            )->searchHits;
+            $contentItems[$contentTypeId] = $this->repository->sudo(function () use ($contentTypeId, $requestQuery, $content) {
+                return $this->searchService->findContent(
+                    $this->getQuery((int) $contentTypeId, $requestQuery),
+                    (!empty($content->lang) ? ['languages' => [$content->lang]] : [])
+                )->searchHits;
+            });
         }
 
         return $this->contentService->prepareContent($contentItems, $content);

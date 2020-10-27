@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\Controller;
 
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
@@ -26,6 +27,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ContentController extends RestController
 {
+    /** @var \eZ\Publish\API\Repository\Repository */
+    protected $repository;
+
     /** @var \eZ\Publish\Core\Repository\SearchService */
     private $searchService;
 
@@ -36,10 +40,12 @@ final class ContentController extends RestController
     private $contentService;
 
     public function __construct(
+        Repository $repository,
         SearchServiceInterface $searchService,
         AuthenticatorInterface $authenticator,
         ContentServiceInterface $contentService
     ) {
+        $this->repository = $repository;
         $this->searchService = $searchService;
         $this->authenticator = $authenticator;
         $this->contentService = $contentService;
@@ -66,10 +72,12 @@ final class ContentController extends RestController
             ? ParamsConverterHelper::getArrayFromString($requestQuery->get('fields'))
             : null;
 
-        $contentItems = $this->searchService->findContent(
-            $this->getQuery($requestQuery, $idList),
-            (!empty($content->lang) ? ['languages' => [$content->lang]] : [])
-        )->searchHits;
+        $contentItems = $this->repository->sudo(function () use ($requestQuery, $idList, $content) {
+            return $this->searchService->findContent(
+                $this->getQuery($requestQuery, $idList),
+                (!empty($content->lang) ? ['languages' => [$content->lang]] : [])
+            )->searchHits;
+        });
         $contentData = $this->contentService->prepareContent([$contentItems], $content);
 
         return new ContentData($contentData);

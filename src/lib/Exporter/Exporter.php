@@ -13,6 +13,7 @@ use EzSystems\EzRecommendationClient\File\ExportFileGenerator;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
 use EzSystems\EzRecommendationClient\Service\ContentServiceInterface;
 use EzSystems\EzRecommendationClient\Value\ExportParameters;
+use eZ\Publish\API\Repository\Repository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -22,6 +23,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 final class Exporter implements ExporterInterface
 {
     private const API_ENDPOINT_URL = '%s/api/ezp/v2/ez_recommendation/v1/exportDownload/%s';
+
+    /** @var \eZ\Publish\API\Repository\Repository */
+    private $repository;
 
     /** @var \EzSystems\EzRecommendationClient\File\ExportFileGenerator */
     private $exportFileGenerator;
@@ -39,12 +43,14 @@ final class Exporter implements ExporterInterface
     private $logger;
 
     public function __construct(
+        Repository $repository,
         ExportFileGenerator $exportFileGenerator,
         ContentTypeServiceInterface $contentTypeService,
         ContentServiceInterface $contentService,
         ContentHelper $contentHelper,
         LoggerInterface $logger
     ) {
+        $this->repository = $repository;
         $this->exportFileGenerator = $exportFileGenerator;
         $this->contentTypeService = $contentTypeService;
         $this->contentService = $contentService;
@@ -119,7 +125,11 @@ final class Exporter implements ExporterInterface
         ExportParameters $parameters,
         OutputInterface $output): void
     {
-        $content = $this->contentService->fetchContent($contentTypeId, $parameters, $output);
+        $content = $this->repository->sudo(
+            function () use ($contentTypeId, $parameters, $output) {
+                return $this->contentService->fetchContent($contentTypeId, $parameters, $output);
+            }
+        );
 
         $output->writeln(sprintf(
             'Generating file for contentTypeId: %s, language: %s, chunk: #%s',

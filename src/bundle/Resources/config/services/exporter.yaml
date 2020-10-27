@@ -8,5 +8,7 @@ services:
         resource: '../../../../src/lib/Exporter/*'
 
     EzSystems\EzRecommendationClient\Exporter\Exporter:
+        arguments:
+            $repository: '@ezpublish.api.repository'
         tags:
             - { name: monolog.logger, channel: ezrecommendation }
