@@ -26,7 +26,7 @@ use Symfony\Component\HttpFoundation\Response;
 class ContentController extends BaseController
 {
     /** @var \eZ\Publish\API\Repository\Repository */
-    private $repository;
+    protected $repository;
 
     /** @var \eZ\Publish\Core\Repository\SearchService */
     private $searchService;

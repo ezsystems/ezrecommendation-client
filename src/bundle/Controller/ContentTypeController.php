@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\Controller;
 
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Query;
@@ -29,7 +30,7 @@ class ContentTypeController extends Controller
     private const PAGE_SIZE = 10;
 
     /** @var \eZ\Publish\API\Repository\Repository */
-    private $repository;
+    protected $repository;
 
     /** @var \eZ\Publish\Core\Repository\LocationService */
     private $locationService;
