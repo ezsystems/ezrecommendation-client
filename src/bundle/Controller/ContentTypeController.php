@@ -28,6 +28,9 @@ class ContentTypeController extends Controller
 {
     private const PAGE_SIZE = 10;
 
+    /** @var \eZ\Publish\API\Repository\Repository */
+    private $repository;
+
     /** @var \eZ\Publish\Core\Repository\LocationService */
     private $locationService;
 
@@ -44,19 +47,17 @@ class ContentTypeController extends Controller
     private $siteAccessHelper;
 
     /**
-     * @param \eZ\Publish\API\Repository\LocationService $locationService
-     * @param \eZ\Publish\API\Repository\SearchService $searchService
-     * @param AuthenticatorInterface $authenticator
-     * @param \EzSystems\EzRecommendationClient\Content\Content $content
-     * @param \EzSystems\EzRecommendationClient\Helper\SiteAccessHelper $siteAccessHelper
+     * @param \eZ\Publish\API\Repository\Repository $repository
      */
     public function __construct(
+        Repository $repository,
         LocationServiceInterface $locationService,
         SearchServiceInterface $searchService,
         AuthenticatorInterface $authenticator,
         Content $content,
         SiteAccessHelper $siteAccessHelper
     ) {
+        $this->repository = $repository;
         $this->locationService = $locationService;
         $this->searchService = $searchService;
         $this->authenticator = $authenticator;
@@ -67,12 +68,7 @@ class ContentTypeController extends Controller
     /**
      * Prepares content for ContentData class.
      *
-     * @param \EzSystems\EzRecommendationClient\Value\IdList $idList
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @ParamConverter("list_converter")
-     *
-     * @return \EzSystems\EzRecommendationClient\Value\ContentData
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
@@ -92,11 +88,6 @@ class ContentTypeController extends Controller
     /**
      * Returns paged content based on ContentType ids.
      *
-     * @param array $contentTypeIds
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
-     * @return array
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -109,21 +100,18 @@ class ContentTypeController extends Controller
         $contentItems = [];
 
         foreach ($contentTypeIds as $contentTypeId) {
-            $contentItems[$contentTypeId] = $this->searchService->findContent(
-                $this->getQuery((int) $contentTypeId, $requestQuery),
-                (!empty($lang) ? ['languages' => [$lang]] : [])
-            )->searchHits;
+            $contentItems[$contentTypeId] = $this->repository->sudo(function () use ($contentTypeId, $requestQuery, $lang) {
+                return $this->searchService->findContent(
+                    $this->getQuery((int) $contentTypeId, $requestQuery),
+                    (!empty($lang) ? ['languages' => [$lang]] : [])
+                )->searchHits;
+            });
         }
 
         return $this->content->prepareContent($contentItems, $requestQuery);
     }
 
     /**
-     * @param int $contentTypeId
-     * @param \Symfony\Component\HttpFoundation\ParameterBag $parameterBag
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */

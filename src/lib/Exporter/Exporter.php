@@ -9,19 +9,20 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Exporter;
 
 use Exception;
-use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
-use eZ\Publish\Core\REST\Common\Output\Generator;
 use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
+use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\SearchService as SearchServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
+use eZ\Publish\Core\REST\Common\Output\Generator;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface;
 use EzSystems\EzRecommendationClient\Content\Content;
 use EzSystems\EzRecommendationClient\Generator\ContentListElementGenerator;
 use EzSystems\EzRecommendationClient\Helper\FileSystemHelper;
-use EzSystems\EzRecommendationClient\Helper\SiteAccessHelper;
 use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
+use EzSystems\EzRecommendationClient\Helper\SiteAccessHelper;
 use EzSystems\EzRecommendationClient\Request\ExportNotifierRequest;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use EzSystems\EzRecommendationClient\Value\ContentData;
@@ -36,6 +37,9 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class Exporter implements ExporterInterface
 {
+    /** @var \eZ\Publish\API\Repository\Repository */
+    private $repository;
+
     /** @var \eZ\Publish\Api\Repository\SearchService */
     private $searchService;
 
@@ -69,20 +73,8 @@ class Exporter implements ExporterInterface
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /**
-     * @param \eZ\Publish\Api\Repository\SearchService $searchService
-     * @param \eZ\Publish\Api\Repository\ContentTypeService $contentTypeService
-     * @param \eZ\Publish\Api\Repository\LocationService $locationService
-     * @param \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface $client
-     * @param \EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface $credentialsChecker
-     * @param \EzSystems\EzRecommendationClient\Helper\FileSystemHelper $fileSystemHelper
-     * @param \EzSystems\EzRecommendationClient\Helper\SiteAccessHelper $siteAccessHelper
-     * @param \EzSystems\EzRecommendationClient\Content\Content  $content
-     * @param \EzSystems\EzRecommendationClient\Generator\ContentListElementGenerator $contentListElementGenerator
-     * @param \eZ\Publish\Core\REST\Common\Output\Generator $outputGenerator
-     * @param \Psr\Log\LoggerInterface $logger
-     */
     public function __construct(
+        Repository $repository,
         SearchServiceInterface $searchService,
         ContentTypeServiceInterface $contentTypeService,
         LocationServiceInterface $locationService,
@@ -95,6 +87,7 @@ class Exporter implements ExporterInterface
         Generator $outputGenerator,
         LoggerInterface $logger
     ) {
+        $this->repository = $repository;
         $this->searchService = $searchService;
         $this->contentTypeService = $contentTypeService;
         $this->locationService = $locationService;
@@ -149,14 +142,11 @@ class Exporter implements ExporterInterface
     /**
      * Validates required options.
      *
-     * @param array $options
-     * @return array
-     *
      * @throws Exception
      */
     private function validate(array $options): array
     {
-        if (array_key_exists('mandatorId', $options)) {
+        if (\array_key_exists('mandatorId', $options)) {
             $options['mandatorId'] = (int) $options['mandatorId'];
         }
 
@@ -185,10 +175,6 @@ class Exporter implements ExporterInterface
     /**
      * Returns languages list.
      *
-     * @param array $options
-     *
-     * @return array
-     *
      * @throws \eZ\Publish\Core\Base\Exceptions\NotFoundException
      */
     private function getLanguages(array $options): array
@@ -203,13 +189,6 @@ class Exporter implements ExporterInterface
     /**
      * Generate export files.
      *
-     * @param array $languages
-     * @param string $chunkDir
-     * @param array $options
-     * @param \Symfony\Component\Console\Output\OutputInterface $output
-     *
-     * @return array
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -218,7 +197,7 @@ class Exporter implements ExporterInterface
     {
         $urls = [];
 
-        $output->writeln(sprintf('Exporting %s content types', count($options['contentTypeIds'])));
+        $output->writeln(sprintf('Exporting %s content types', \count($options['contentTypeIds'])));
 
         foreach ($options['contentTypeIds'] as $id) {
             $contentTypeId = (int) $id;
@@ -253,11 +232,15 @@ class Exporter implements ExporterInterface
                         'Preparing content for contentTypeId: %s, language: %s, amount: %s, chunk: #%s',
                         $contentTypeId,
                         $lang,
-                        count($contentItems),
+                        \count($contentItems),
                         $i
                     ));
 
-                    $content = $this->content->prepareContent([$contentTypeId => $contentItems], $parameters, $output);
+                    $content = $this->repository->sudo(
+                        function () use ($contentTypeId, $contentItems, $parameters, $output) {
+                            return $this->content->prepareContent([$contentTypeId => $contentItems], $parameters, $output);
+                        }
+                    );
 
                     unset($contentItems);
 
@@ -293,11 +276,6 @@ class Exporter implements ExporterInterface
     /**
      * Returns total amount of content based on ContentType ids.
      *
-     * @param int $contentTypeId
-     * @param array $options
-     *
-     * @return int|null
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -307,18 +285,15 @@ class Exporter implements ExporterInterface
         $query = $this->getQuery($contentTypeId, $options);
         $query->limit = 0;
 
-        return $this->searchService->findContent(
-            $query,
-            (!empty($options['lang']) ? array('languages' => array($options['lang'])) : array())
-        )->totalCount;
+        return $this->repository->sudo(function () use ($query, $options) {
+            return $this->searchService->findContent(
+                $query,
+                (!empty($options['lang']) ? array('languages' => array($options['lang'])) : array())
+            )->totalCount;
+        });
     }
 
     /**
-     * @param int $contentTypeId
-     * @param array $options
-     *
-     * @return array
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
@@ -329,18 +304,15 @@ class Exporter implements ExporterInterface
         $query->limit = (int) $options['pageSize'];
         $query->offset = $options['page'] * $options['pageSize'] - $options['pageSize'];
 
-        return $this->searchService->findContent(
-            $query,
-            (!empty($options['lang']) ? array('languages' => array($options['lang'])) : array())
-        )->searchHits;
+        return $this->repository->sudo(function () use ($query, $options) {
+            return $this->searchService->findContent(
+                $query,
+                (!empty($options['lang']) ? array('languages' => array($options['lang'])) : array())
+            )->searchHits;
+        });
     }
 
     /**
-     * @param int $contentTypeId
-     * @param array $options
-     *
-     * @return Query
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -369,11 +341,6 @@ class Exporter implements ExporterInterface
     /**
      * Generates Criterions based on mandatoryId or requested siteAccess.
      *
-     * @param int|null $mandatorId
-     * @param string|null $siteAccess
-     *
-     * @return Criterion\LogicalOr
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
@@ -384,17 +351,14 @@ class Exporter implements ExporterInterface
         $subtreeCriteria = [];
         $rootLocations = $this->siteAccessHelper->getRootLocationsBySiteAccesses($siteAccesses);
         foreach ($rootLocations as $rootLocationId) {
-            $subtreeCriteria[] = new Criterion\Subtree($this->locationService->loadLocation($rootLocationId)->pathString);
+            $subtreeCriteria[] = $this->repository->sudo(function () use ($rootLocationId) {
+                return new Criterion\Subtree($this->locationService->loadLocation($rootLocationId)->pathString);
+            });
         }
 
         return new Criterion\LogicalOr($subtreeCriteria);
     }
 
-    /**
-     * @param array $content
-     * @param string $chunkPath
-     * @param array $options
-     */
     private function generateFile(array $content, string $chunkPath, array $options): void
     {
         $data = new ContentData($content, $options);
@@ -421,13 +385,6 @@ class Exporter implements ExporterInterface
         $this->logger->info(sprintf('Generating file: %s', $filePath));
     }
 
-    /**
-     * @param array $options
-     * @param array $urls
-     * @param array $securedDirCredentials
-     *
-     * @return \EzSystems\EzRecommendationClient\Value\Notification
-     */
     private function getNotification(array $options, array $urls, array $securedDirCredentials): Notification
     {
         $notfication = new Notification();
@@ -440,12 +397,6 @@ class Exporter implements ExporterInterface
         return $notfication;
     }
 
-    /**
-     * @param array $urls
-     * @param array $securedDirCredentials
-     *
-     * @return array
-     */
     private function getNotificationEvents(array $urls, array $securedDirCredentials): array
     {
         $notifications = [];
