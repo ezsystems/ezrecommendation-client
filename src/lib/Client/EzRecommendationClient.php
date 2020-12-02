@@ -16,12 +16,14 @@ use EzSystems\EzRecommendationClient\Exception\CredentialsNotFoundException;
 use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\BadResponseException as GuzzleBadResponseException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Middleware;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\UriInterface;
 use Psr\Log\LoggerInterface;
+use function GuzzleHttp\Psr7\str;
 
 final class EzRecommendationClient implements EzRecommendationClientInterface
 {
@@ -148,14 +150,20 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
             }
 
             return $response;
-        } catch (GuzzleException $exception) {
+        } catch (GuzzleBadResponseException $exception) {
             $this->logger->error(
                 sprintf(
                     self::ERROR_MESSAGE . 'Error while sending data: %s %s %s %s',
                     $exception->getMessage(), $exception->getCode(), $exception->getFile(), $exception->getLine()
                 ));
-            
-            throw new BadResponseException($exception->getMessage(), $exception->getCode());
+
+            throw new BadResponseException(
+                $exception->getMessage(),
+                $exception->getRequest(),
+                $exception->getResponse(),
+                $exception->getPrevious(),
+                $exception->getHandlerContext()
+            );
         }
     }
 
@@ -165,11 +173,6 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
     public function hasCredentials(): bool
     {
         return !empty($this->getCustomerId()) && !empty($this->getLicenseKey());
-    }
-
-    public function getAbsoluteUri(UriInterface $uri): string
-    {
-        return $uri->getScheme() . '://' . $uri->getHost() . $uri->getPath() . $uri->getQuery() ?? '?' . $uri->getQuery();
     }
 
     public function getHeadersAsString(array $headers): string
@@ -226,11 +229,11 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
         $message = '';
 
         if (isset($transaction['request']) && $transaction['request'] instanceof RequestInterface) {
-            $requestUri = $this->getAbsoluteUri($transaction['request']->getUri());
+            $requestUri = (string)$transaction['request']->getUri();
             $method = 'Method: ' . $transaction['request']->getMethod();
             $requestHeaders = $this->getHeadersAsString($transaction['request']->getheaders());
 
-            $message .= 'RequestUri: ' . $requestUri . self::MESSAGE_SEPARATOR . $method . self::MESSAGE_SEPARATOR . $requestHeaders;
+            $message .= 'RequestUri: ' . $requestUri . self::MESSAGE_SEPARATOR . $method . self::MESSAGE_SEPARATOR . '?'. $requestHeaders;
         }
 
         if (isset($transaction['response']) && $transaction['response'] instanceof ResponseInterface) {
