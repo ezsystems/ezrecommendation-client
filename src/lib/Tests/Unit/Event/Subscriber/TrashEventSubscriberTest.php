@@ -10,6 +10,7 @@ namespace EzSystems\EzRecommendationClient\Tests\Unit\Event\Subscriber;
 
 use eZ\Publish\API\Repository\Events\Trash\RecoverEvent;
 use eZ\Publish\API\Repository\Events\Trash\TrashEvent;
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\Content\LocationList;
 use eZ\Publish\Core\Repository\Values\Content\Location;
@@ -18,23 +19,28 @@ use EzSystems\EzRecommendationClient\Event\Subscriber\TrashEventSubscriber;
 use EzSystems\EzRecommendationClient\Tests\Common\Event\Subscriber\AbstractRepositoryEventSubscriberTest;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
-class TrashEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
+final class TrashEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
 {
     private const CONTENT_ID = 123;
 
     /** @var \EzSystems\EzRecommendationClient\Event\Subscriber\TrashEventSubscriber */
     private $trashEventSubscriber;
 
+    /** @var \eZ\Publish\API\Repository\Repository|\PHPUnit\Framework\MockObject\MockObject */
+    private $repositoryMock;
+
     public function setUp(): void
     {
         parent::setUp();
 
+        $this->repositoryMock = $this->createMock(Repository::class);
         $this->trashEventSubscriber = new TrashEventSubscriber(
             $this->notificationServiceMock,
             $this->contentServiceMock,
             $this->locationServiceMock,
             $this->locationHelperMock,
-            $this->contentHelperMock
+            $this->contentHelperMock,
+            $this->repositoryMock
         );
     }
 
@@ -64,10 +70,10 @@ class TrashEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             ->method('getLocation')
             ->willReturn($this->location);
 
-        $this->contentServiceMock
-            ->expects($this->atLeastOnce())
-            ->method('loadReverseRelations')
-            ->with($this->contentInfo)
+        $contentInfo = $this->contentInfo;
+        $this->repositoryMock
+            ->method('sudo')
+            ->with(function () use ($contentInfo) {})
             ->willReturn($this->getRelationList());
 
         $this->contentServiceMock
@@ -97,10 +103,10 @@ class TrashEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             ->method('loadContentInfo')
             ->willReturn($this->contentInfo);
 
-        $this->contentServiceMock
-            ->expects($this->atLeastOnce())
-            ->method('loadReverseRelations')
-            ->with($this->contentInfo)
+        $contentInfo = $this->contentInfo;
+        $this->repositoryMock
+            ->method('sudo')
+            ->with(function () use ($contentInfo) {})
             ->willReturn($this->getRelationList());
 
         $this->contentServiceMock
