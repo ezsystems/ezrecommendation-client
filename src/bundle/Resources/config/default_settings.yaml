@@ -1,7 +1,8 @@
 parameters:
-    ezrecommendation.default.authentication.customer_id: ~
-    ezrecommendation.default.authentication.license_key: ~
+    ezrecommendation.default.authentication.customer_id: '%env(int:RECOMMENDATION_CUSTOMER_ID)%'
+    ezrecommendation.default.authentication.license_key: '%env(RECOMMENDATION_LICENSE_KEY)%'
     ezrecommendation.default.included_content_types: []
+    ezrecommendation.default.host_uri: '%env(RECOMMENDATION_HOST_URI)%'
 
     # Random content types must have required fields: intro and image.
     # You can also set/map these fields using below configuration:
@@ -12,7 +13,6 @@ parameters:
     #               content_type_name: content_type_field
     #
     ezrecommendation.default.random_content_types: []
-    ezrecommendation.default.host_uri: ~
     ezrecommendation.default.author_id: 14
 
     # Export folder authentication method:
