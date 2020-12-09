@@ -117,18 +117,6 @@ class EzRecommendationClientTest extends TestCase
         );
     }
 
-    public function testReturnAbsoluteUri()
-    {
-        $this->assertEquals(
-            'http://www.test.local',
-            $this->client->getAbsoluteUri(
-                new Uri(
-                    'http://www.test.local'
-                )
-            )
-        );
-    }
-
     public function testReturnHeadersAsString()
     {
         $this->assertEquals(
