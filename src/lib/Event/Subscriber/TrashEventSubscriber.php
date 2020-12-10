@@ -8,14 +8,36 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Event\Subscriber;
 
+use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
 use eZ\Publish\API\Repository\Events\Trash\RecoverEvent;
 use eZ\Publish\API\Repository\Events\Trash\TrashEvent;
+use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
+use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use EzSystems\EzRecommendationClient\Helper\ContentHelper;
+use EzSystems\EzRecommendationClient\Helper\LocationHelper;
+use EzSystems\EzRecommendationClient\Service\NotificationService;
 use EzSystems\EzRecommendationClient\Value\EventNotification;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class TrashEventSubscriber extends AbstractRepositoryEventSubscriber implements EventSubscriberInterface
 {
+    /** @var \eZ\Publish\API\Repository\Repository */
+    private $repository;
+
+    public function __construct(
+        NotificationService $notificationService,
+        ContentServiceInterface $contentService,
+        LocationServiceInterface $locationService,
+        LocationHelper $locationHelper,
+        ContentHelper $contentHelper,
+        Repository $repository
+    ) {
+        parent::__construct($notificationService, $contentService, $locationService, $locationHelper, $contentHelper);
+
+        $this->repository = $repository;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -68,8 +90,10 @@ final class TrashEventSubscriber extends AbstractRepositoryEventSubscriber imple
      */
     public function getRelations(ContentInfo $contentInfo): array
     {
-        return $this->contentService
-            ->loadReverseRelations($contentInfo);
+        /** Sudo must be used to have access to trash and load content relations, since Client using this EventSubscriber operates as a User without privileges. */
+        return $this->repository->sudo(function () use ($contentInfo) {
+            return $this->contentService->loadReverseRelations($contentInfo);
+        });
     }
 
     /**
