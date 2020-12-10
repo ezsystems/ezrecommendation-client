@@ -33,6 +33,11 @@
             "EzSystems\\EzRecommendationClient\\": "src/lib/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "EzSystems\\EzRecommendationClient\\Tests\\": "tests/lib/"
+        }
+    },
     "scripts": {
         "fix-cs": "@php ./vendor/bin/php-cs-fixer fix -v --show-progress=estimating"
     },
