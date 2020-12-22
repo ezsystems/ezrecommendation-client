@@ -63,6 +63,10 @@ final class LoginListener
 
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event): void
     {
+        if (!$event->getRequest()->get('is_rest_request')) {
+            return;
+        }
+
         if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY') // user has just logged in
             || !$this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED') // user has logged in using remember_me cookie
         ) {
