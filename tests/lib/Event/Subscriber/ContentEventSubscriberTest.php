@@ -44,8 +44,6 @@ class ContentEventSubscriberTest extends AbstractCoreEventSubscriberTest
     public function subscribedEventsDataProvider(): array
     {
         return [
-            [CreateContentEvent::class],
-            [UpdateContentEvent::class],
             [DeleteContentEvent::class],
             [HideContentEvent::class],
             [RevealContentEvent::class],
@@ -53,28 +51,6 @@ class ContentEventSubscriberTest extends AbstractCoreEventSubscriberTest
             [CopyContentEvent::class],
             [PublishVersionEvent::class],
         ];
-    }
-
-    public function testCallOnCreateContentMethod()
-    {
-        $event = $this->createMock(CreateContentEvent::class);
-        $event
-            ->expects($this->once())
-            ->method('getContent')
-            ->willReturn($this->content);
-
-        $this->contentEventSubscriber->onCreateContent($event);
-    }
-
-    public function testCallOnUpdateContentMethod()
-    {
-        $event = $this->createMock(UpdateContentEvent::class);
-        $event
-            ->expects($this->once())
-            ->method('getContent')
-            ->willReturn($this->content);
-
-        $this->contentEventSubscriber->onUpdateContent($event);
     }
 
     public function testCallOnDeleteContentMethod()

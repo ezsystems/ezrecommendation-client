@@ -27,8 +27,6 @@ final class ContentEventSubscriber extends AbstractCoreEventSubscriber implement
     public static function getSubscribedEvents(): array
     {
         return [
-            CreateContentEvent::class => ['onCreateContent', parent::EVENT_PRIORITY],
-            UpdateContentEvent::class => ['onUpdateContent', parent::EVENT_PRIORITY],
             DeleteContentEvent::class => ['onDeleteContent', parent::EVENT_PRIORITY],
             HideContentEvent::class => ['onHideContent', parent::EVENT_PRIORITY],
             RevealContentEvent::class => ['onRevealContent', parent::EVENT_PRIORITY],
@@ -36,32 +34,6 @@ final class ContentEventSubscriber extends AbstractCoreEventSubscriber implement
             CopyContentEvent::class => ['onCopyContent', parent::EVENT_PRIORITY],
             PublishVersionEvent::class => ['onPublishVersion', parent::EVENT_PRIORITY],
         ];
-    }
-
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     */
-    public function onCreateContent(CreateContentEvent $event): void
-    {
-        $this->notificationService->sendNotification(
-            __METHOD__,
-            EventNotification::ACTION_UPDATE,
-            $event->getContent()->contentInfo
-        );
-    }
-
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     */
-    public function onUpdateContent(UpdateContentEvent $event): void
-    {
-        $this->notificationService->sendNotification(
-            __METHOD__,
-            EventNotification::ACTION_UPDATE,
-            $event->getContent()->contentInfo
-        );
     }
 
     /**
