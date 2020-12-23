@@ -68,7 +68,7 @@ class ExportAuthenticatorTest extends TestCase
     {
         $return = new \stdClass();
         $return->server = new ParameterBag([
-            'PHP_AUTH_USER' => 1111,
+            'PHP_AUTH_USER' => '1111',
             'PHP_AUTH_PW' => 'password',
         ]);
 
@@ -97,7 +97,7 @@ class ExportAuthenticatorTest extends TestCase
     {
         $return = new \stdClass();
         $return->server = new ParameterBag([
-            'PHP_AUTH_USER' => 12345,
+            'PHP_AUTH_USER' => '12345',
             'PHP_AUTH_PW' => 'wrong_password',
         ]);
 
@@ -250,7 +250,7 @@ class ExportAuthenticatorTest extends TestCase
     {
         return new ExportCredentials([
             'method' => $method,
-            'login' => 1111,
+            'login' => '1111',
             'password' => 'password',
         ]);
     }
