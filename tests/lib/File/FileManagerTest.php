@@ -295,7 +295,7 @@ class FileManagerTest extends TestCase
     {
         return new ExportCredentials([
             'method' => $method,
-            'login' => 0001,
+            'login' => '0001',
             'password' => 'pass',
         ]);
     }

@@ -13,7 +13,7 @@ final class ExportCredentials extends Credentials
     /** @var string */
     private $method;
 
-    /** @var int */
+    /** @var string */
     private $login;
 
     /** @var string */
@@ -31,7 +31,7 @@ final class ExportCredentials extends Credentials
         return $this->method;
     }
 
-    public function getLogin(): int
+    public function getLogin(): string
     {
         return $this->login;
     }

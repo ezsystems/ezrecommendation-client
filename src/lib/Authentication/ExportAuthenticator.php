@@ -52,15 +52,10 @@ final class ExportAuthenticator implements FileAuthenticatorInterface
             return true;
         }
 
-        if (!empty($credentials->getLogin())
+        return !empty($credentials->getLogin())
             && !empty($credentials->getPassword())
-            && (int) $server->get(self::PHP_AUTH_USER) === $credentials->getLogin()
-            && $server->get(self::PHP_AUTH_PW) === $credentials->getPassword()
-        ) {
-            return true;
-        }
-
-        return false;
+            && $server->get(self::PHP_AUTH_USER) === $credentials->getLogin()
+            && $server->get(self::PHP_AUTH_PW) === $credentials->getPassword();
     }
 
     /**
