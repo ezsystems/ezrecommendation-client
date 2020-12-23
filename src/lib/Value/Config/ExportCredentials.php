@@ -13,15 +13,12 @@ final class ExportCredentials extends Credentials
     /** @var string */
     private $method;
 
-    /** @var int */
+    /** @var string */
     private $login;
 
     /** @var string */
     private $password;
 
-    /**
-     * @param array $credentials
-     */
     public function __construct(array $credentials)
     {
         $this->method = $credentials['method'] ?? '';
@@ -29,25 +26,16 @@ final class ExportCredentials extends Credentials
         $this->password = $credentials['password'] ?? '';
     }
 
-    /**
-     * @return string
-     */
     public function getMethod(): string
     {
         return $this->method;
     }
 
-    /**
-     * @return int
-     */
-    public function getLogin(): int
+    public function getLogin(): string
     {
         return $this->login;
     }
 
-    /**
-     * @return string
-     */
     public function getPassword(): string
     {
         return $this->password;
