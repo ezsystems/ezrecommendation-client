@@ -159,10 +159,11 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
             $this->locationService->loadLocation($location->id)->contentId
         );
 
-        if (!$content instanceof Content
-            && !$isChild
-            && $this->locationHelper->areLocationsVisible($content->contentInfo)
-        ) {
+        if (!$content instanceof Content) {
+            return;
+        }
+
+        if (!$isChild && $this->locationHelper->areLocationsVisible($content->contentInfo)) {
             return;
         }
 
