@@ -61,5 +61,7 @@ abstract class NotificationService
         } catch (RequestException $e) {
             $this->logger->error(sprintf('RecommendationNotifier: notification error for %s: %s', $action, $e->getMessage()));
         }
+
+        return null;
     }
 }
