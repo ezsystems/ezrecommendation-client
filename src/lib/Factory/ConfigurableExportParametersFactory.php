@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -43,7 +43,7 @@ final class ConfigurableExportParametersFactory extends ExportParametersFactoryD
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @throws \EzSystems\EzRecommendationClient\Exception\ExportCredentialsNotFoundException
      * @throws \EzSystems\EzRecommendationClient\Exception\MissingExportParameterException
@@ -54,7 +54,7 @@ final class ConfigurableExportParametersFactory extends ExportParametersFactoryD
         if (!empty($this->getMissingRequiredOptions($properties))) {
             throw new MissingExportParameterException(sprintf(
                 'Required parameters %s are missing',
-                implode(', ',$this->getMissingRequiredOptions($properties))
+                implode(', ', $this->getMissingRequiredOptions($properties))
             ));
         }
 

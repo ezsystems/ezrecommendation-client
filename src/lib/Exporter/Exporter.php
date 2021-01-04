@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -9,11 +9,11 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Exporter;
 
 use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
+use eZ\Publish\API\Repository\Repository;
 use EzSystems\EzRecommendationClient\File\ExportFileGenerator;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
 use EzSystems\EzRecommendationClient\Service\ContentServiceInterface;
 use EzSystems\EzRecommendationClient\Value\ExportParameters;
-use eZ\Publish\API\Repository\Repository;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -125,7 +125,7 @@ final class ContentHelper
 
         return $this->searchService->findContent(
             $query,
-            (!empty($options['lang']) ? array('languages' => array($options['lang'])) : array())
+            (!empty($options['lang']) ? ['languages' => [$options['lang']]] : [])
         )->totalCount;
     }
 
@@ -142,7 +142,7 @@ final class ContentHelper
 
         return $this->searchService->findContent(
             $query,
-            (!empty($options['lang']) ? array('languages' => array($options['lang'])) : array())
+            (!empty($options['lang']) ? ['languages' => [$options['lang']]] : [])
         )->searchHits;
     }
 

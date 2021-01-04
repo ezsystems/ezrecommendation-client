@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -53,7 +53,7 @@ final class UserCollectionNormalizer implements NormalizerInterface, NormalizerA
         $users = $this->owningNormalizer->normalize($object->getUsers());
 
         $normalizedUsers = [];
-        $normalizedUsers[self::ATTR_NAME] = array_map(function ($item) {
+        $normalizedUsers[self::ATTR_NAME] = array_map(static function ($item) {
             return $item[self::ATTR_NAME];
         }, $users);
 

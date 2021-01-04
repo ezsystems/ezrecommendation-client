@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -18,7 +18,7 @@ use EzSystems\EzRecommendationClient\Value\Parameters;
 
 final class EzRecommendationClientAPIFactory extends AbstractEzRecommendationClientAPIFactory
 {
-    /** @var \EzSystems\EzRecommendationClient\API\AllowedAPI $allowedAPI */
+    /** @var \EzSystems\EzRecommendationClient\API\AllowedAPI */
     private $allowedAPI;
 
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */

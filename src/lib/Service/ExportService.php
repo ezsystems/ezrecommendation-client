@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -90,7 +90,7 @@ final class ExportService implements ExportServiceInterface
                 $exportFiles,
                 $this->getSecuredDirCredentials($chunkDir)
             );
-            
+
             if ($response) {
                 $this->logger->info(sprintf('eZ Recommendation Response: %s', $response->getBody()));
                 $output->writeln('Done');

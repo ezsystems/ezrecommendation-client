@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -14,7 +14,6 @@ use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType as APIContentType;
-use eZ\Publish\Core\Helper\TranslationHelper;
 use eZ\Publish\Core\Repository\Values\Content\Content as CoreContent;
 use EzSystems\EzRecommendationClient\Field\Value;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
@@ -45,7 +44,7 @@ final class ContentService implements ContentServiceInterface
     /** @var \EzSystems\EzRecommendationClient\Field\Value */
     private $value;
 
-    /** @var int $defaultAuthorId */
+    /** @var int */
     private $defaultAuthorId;
 
     /** @var string */

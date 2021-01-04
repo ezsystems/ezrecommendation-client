@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -9,12 +9,10 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Event\Subscriber;
 
 use eZ\Publish\API\Repository\Events\Content\CopyContentEvent;
-use eZ\Publish\API\Repository\Events\Content\CreateContentEvent;
 use eZ\Publish\API\Repository\Events\Content\DeleteContentEvent;
 use eZ\Publish\API\Repository\Events\Content\HideContentEvent;
 use eZ\Publish\API\Repository\Events\Content\PublishVersionEvent;
 use eZ\Publish\API\Repository\Events\Content\RevealContentEvent;
-use eZ\Publish\API\Repository\Events\Content\UpdateContentEvent;
 use eZ\Publish\API\Repository\Events\Content\UpdateContentMetadataEvent;
 use EzSystems\EzRecommendationClient\Event\Subscriber\ContentEventSubscriber;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

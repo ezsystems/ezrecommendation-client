@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -29,7 +29,7 @@ final class ParamsConverterHelper
         }
 
         return array_map(
-            function ($id) {
+            static function ($id) {
                 if (false === filter_var($id, FILTER_VALIDATE_INT)) {
                     throw new InvalidArgumentException('String should be a list of Integers');
                 }

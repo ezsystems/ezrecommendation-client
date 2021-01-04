@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -9,11 +9,8 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClientBundle\Command;
 
 use EzSystems\EzRecommendationClient\Factory\ExportParametersFactoryInterface;
-use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
-
 use EzSystems\EzRecommendationClient\Http\HttpEnvironmentInterface;
 use EzSystems\EzRecommendationClient\Service\ExportServiceInterface;
-use EzSystems\EzRecommendationClient\Value\ExportParameters;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
