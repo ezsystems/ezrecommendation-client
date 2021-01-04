@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -10,7 +10,6 @@ namespace EzSystems\EzRecommendationClientBundle\Command;
 
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Event\UserAPIEvent;
-use EzSystems\EzRecommendationClient\SPI\UserAPIRequest;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -40,7 +39,7 @@ class UserAttributesUpdateCommand extends Command
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function configure(): void
     {
@@ -49,7 +48,7 @@ class UserAttributesUpdateCommand extends Command
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
@@ -60,17 +59,20 @@ class UserAttributesUpdateCommand extends Command
 
         $output->writeln([
             'Updating user attributes',
-            ''
+            '',
         ]);
 
         if (!$request) {
             $output->writeln('<fg=red>Request object is empty</>');
+
             return;
         } elseif (!$request->source) {
             $output->writeln('<fg=red>Property source is not defined</>');
+
             return;
         } elseif (!$request->xmlBody) {
             $output->writeln('<fg=red>Property xmlBody is not defined</>');
+
             return;
         }
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -10,7 +10,8 @@ namespace EzSystems\EzRecommendationClient\Value\Output;
 
 use Webmozart\Assert\Assert;
 
-class Attribute {
+class Attribute
+{
     const TYPE_NUMERIC = 'NUMERIC';
     const TYPE_NOMINAL = 'NOMINAL';
     const TYPE_TEXT = 'TEXT';

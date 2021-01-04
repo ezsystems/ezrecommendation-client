@@ -1,18 +1,18 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Content;
 
-use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
 use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
-use eZ\Publish\API\Repository\Values\ContentType\ContentType as ApiContentType;
+use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Content as ApiContent;
+use eZ\Publish\API\Repository\Values\ContentType\ContentType as ApiContentType;
 use eZ\Publish\Core\Base\Exceptions\UnauthorizedException;
 use eZ\Publish\Core\Helper\TranslationHelper;
 use EzSystems\EzRecommendationClient\Field\Value;
@@ -42,7 +42,7 @@ class Content
     /** @var \eZ\Publish\Core\Helper\TranslationHelper */
     private $translationHelper;
 
-    /** @var int $defaultAuthorId */
+    /** @var int */
     private $defaultAuthorId;
 
     /**

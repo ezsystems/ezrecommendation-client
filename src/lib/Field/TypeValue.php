@@ -1,18 +1,18 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Field;
 
-use eZ\Publish\Core\FieldType\RichText\Converter as RichTextConverterInterface;
-use eZ\Publish\Core\MVC\Exception\SourceImageNotFoundException;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\Field;
+use eZ\Publish\Core\FieldType\RichText\Converter as RichTextConverterInterface;
 use eZ\Publish\Core\FieldType\XmlText\Converter\Html5 as XmlHtml5;
+use eZ\Publish\Core\MVC\Exception\SourceImageNotFoundException;
 use EzSystems\EzRecommendationClient\Helper\ImageHelper;
 use LogicException;
 

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -153,7 +153,7 @@ class Exporter implements ExporterInterface
         list($customerId, $licenseKey) =
             $this->siteAccessHelper->getRecommendationServiceCredentials($options['mandatorId'], $options['siteaccess']);
 
-        $options = array_filter($options, function ($val) {
+        $options = array_filter($options, static function ($val) {
             return $val !== null;
         });
 
@@ -288,7 +288,7 @@ class Exporter implements ExporterInterface
         return $this->repository->sudo(function () use ($query, $options) {
             return $this->searchService->findContent(
                 $query,
-                (!empty($options['lang']) ? array('languages' => array($options['lang'])) : array())
+                (!empty($options['lang']) ? ['languages' => [$options['lang']]] : [])
             )->totalCount;
         });
     }
@@ -307,7 +307,7 @@ class Exporter implements ExporterInterface
         return $this->repository->sudo(function () use ($query, $options) {
             return $this->searchService->findContent(
                 $query,
-                (!empty($options['lang']) ? array('languages' => array($options['lang'])) : array())
+                (!empty($options['lang']) ? ['languages' => [$options['lang']]] : [])
             )->searchHits;
         });
     }
@@ -366,7 +366,7 @@ class Exporter implements ExporterInterface
         $this->outputGenerator->reset();
         $this->outputGenerator->startDocument($data);
 
-        $contents = array();
+        $contents = [];
         foreach ($data->contents as $contentTypes) {
             foreach ($contentTypes as $contentType) {
                 $contents[] = $contentType;

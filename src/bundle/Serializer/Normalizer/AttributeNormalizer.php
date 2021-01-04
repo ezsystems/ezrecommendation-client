@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -15,9 +15,6 @@ class AttributeNormalizer implements NormalizerInterface
 {
     const ATTR_NAME = 'attribute';
 
-    /**
-     * @inheritDoc()
-     */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var $object \EzSystems\EzRecommendationClient\Value\Output\Attribute */
@@ -28,9 +25,6 @@ class AttributeNormalizer implements NormalizerInterface
         ]];
     }
 
-    /**
-     * @inheritDoc()
-     */
     public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof Attribute;

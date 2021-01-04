@@ -1,15 +1,15 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\eZ\Publish\Slot;
 
-use eZ\Publish\SPI\Persistence\Content\Relation;
 use eZ\Publish\Core\SignalSlot\Signal\TrashService\RecoverSignal;
+use eZ\Publish\SPI\Persistence\Content\Relation;
 
 class RecoverTest extends AbstractPersistenceAwareBaseTest
 {
@@ -32,7 +32,7 @@ class RecoverTest extends AbstractPersistenceAwareBaseTest
             ->expects($this->once())
             ->method('loadReverseRelations')
             ->with(self::CONTENT_ID)
-            ->willReturn(array_map(function ($id) {
+            ->willReturn(array_map(static function ($id) {
                 return new Relation([
                     'destinationContentId' => $id,
                 ]);
