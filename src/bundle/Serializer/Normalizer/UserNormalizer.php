@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -20,19 +20,19 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
     private $owningNormalizer;
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var $object \EzSystems\EzRecommendationClient\Value\Output\User */
         return [self::ATTR_NAME => [
             '@id' => $object->getUserId(),
-            'attributes' =>  $this->getNormalizedAttributes($object->getAttributes()),
+            'attributes' => $this->getNormalizedAttributes($object->getAttributes()),
         ]];
     }
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function supportsNormalization($data, $format = null): bool
     {
@@ -40,7 +40,7 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
     }
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function setNormalizer(NormalizerInterface $normalizer): void
     {
@@ -63,7 +63,7 @@ class UserNormalizer implements NormalizerInterface, NormalizerAwareInterface
         $attributes = $this->owningNormalizer->normalize($attributes);
 
         $normalizedAttributes = [];
-        $normalizedAttributes['attribute'] = array_map(function ($item) {
+        $normalizedAttributes['attribute'] = array_map(static function ($item) {
             return $item['attribute'];
         }, $attributes);
 

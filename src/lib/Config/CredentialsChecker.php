@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Config;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use Psr\Log\LoggerInterface;
 
 abstract class CredentialsChecker implements CredentialsCheckerInterface
 {
@@ -19,7 +18,8 @@ abstract class CredentialsChecker implements CredentialsCheckerInterface
     /**
      * @param \eZ\Publish\Core\MVC\ConfigResolverInterface $configResolver
      */
-    public function __construct(ConfigResolverInterface $configResolver) {
+    public function __construct(ConfigResolverInterface $configResolver)
+    {
         $this->configResolver = $configResolver;
     }
 

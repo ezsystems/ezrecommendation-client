@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
@@ -20,7 +20,7 @@ class UserCollectionNormalizer implements NormalizerInterface, NormalizerAwareIn
     private $owningNormalizer;
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function normalize($object, $format = null, array $context = []): array
     {
@@ -28,7 +28,7 @@ class UserCollectionNormalizer implements NormalizerInterface, NormalizerAwareIn
     }
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function supportsNormalization($data, $format = null): bool
     {
@@ -36,7 +36,7 @@ class UserCollectionNormalizer implements NormalizerInterface, NormalizerAwareIn
     }
 
     /**
-     * @inheritDoc()
+     * {@inheritdoc}()
      */
     public function setNormalizer(NormalizerInterface $normalizer): void
     {
@@ -55,7 +55,7 @@ class UserCollectionNormalizer implements NormalizerInterface, NormalizerAwareIn
         $users = $this->owningNormalizer->normalize($object->getUsers());
 
         $normalizedUsers = [];
-        $normalizedUsers[self::ATTR_NAME] = array_map(function ($item) {
+        $normalizedUsers[self::ATTR_NAME] = array_map(static function ($item) {
             return $item[self::ATTR_NAME];
         }, $users);
 

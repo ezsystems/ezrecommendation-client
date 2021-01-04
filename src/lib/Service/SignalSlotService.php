@@ -1,27 +1,27 @@
 <?php
 
 /**
- * @copyright Copyright (C) eZ Systems AS. All rights reserved.
+ * @copyright Copyright (C) Ibexa AS. All rights reserved.
  * @license For full copyright and license information view LICENSE file distributed with this source code.
  */
 declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Service;
 
+use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
+use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
+use eZ\Publish\API\Repository\Exceptions\NotFoundException;
+use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
+use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Config\CredentialsCheckerInterface;
-use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
-use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
-use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
-use eZ\Publish\API\Repository\Repository as RepositoryInterface;
 use EzSystems\EzRecommendationClient\Request\EventNotifierRequest;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
 use EzSystems\EzRecommendationClient\Value\Notification;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 use GuzzleHttp\Exception\RequestException;
 use Psr\Log\LoggerInterface;
@@ -247,7 +247,6 @@ class SignalSlotService implements SignalSlotServiceInterface
      * @param int|null $versionNo
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     *
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     private function processSending(string $method, string $action, ?Content $content, ?int $versionNo = null): void
@@ -319,8 +318,8 @@ class SignalSlotService implements SignalSlotServiceInterface
                 EventNotifierRequest::LANG_KEY => $lang ?? null,
                 EventNotifierRequest::CREDENTIALS_KEY => [
                     'login' => $exportCredentials->getLogin(),
-                    'password' => $exportCredentials->getPassword()
-                ]
+                    'password' => $exportCredentials->getPassword(),
+                ],
             ]);
 
             $events[] = $event->getRequestAttributes();
