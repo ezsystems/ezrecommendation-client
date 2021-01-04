@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\Command;
 
+use eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Event\UpdateUserAPIEvent;
 use Symfony\Component\Console\Command\Command;
@@ -16,7 +17,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-final class UserAttributesUpdateCommand extends Command
+final class UserAttributesUpdateCommand extends Command implements BackwardCompatibleCommand
 {
     /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
     private $eventDispatcher;
@@ -40,6 +41,8 @@ final class UserAttributesUpdateCommand extends Command
     protected function configure(): void
     {
         $this
+            ->setName('ibexa:recommendation:update-user')
+            ->setAliases(['ezrecommendation:user:update'])
             ->setDescription('Update the set of the user attributes');
     }
 
@@ -77,5 +80,13 @@ final class UserAttributesUpdateCommand extends Command
         if ($response && $response->getStatusCode() === Response::HTTP_OK) {
             $output->writeln('<fg=green>User attributes updated successfully!</>');
         }
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getDeprecatedAliases(): array
+    {
+        return ['ezrecommendation:user:update'];
     }
 }

@@ -12,10 +12,10 @@ services:
             $exportParametersFactory: '@EzSystems\EzRecommendationClient\Factory\ConfigurableExportParametersFactory'
 
         tags:
-            - { name: console.command, command: ezrecommendation:export:run }
+            - { name: console.command }
             - { name: monolog.logger, channel: ezrecommendation }
 
     EzSystems\EzRecommendationClientBundle\Command\UserAttributesUpdateCommand:
         tags:
-            - { name: console.command, command: ezrecommendation:user:update }
+            - { name: console.command }
             - { name: monolog.logger, channel: ezrecommendation }
