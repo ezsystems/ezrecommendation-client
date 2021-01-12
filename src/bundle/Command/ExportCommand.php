@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClientBundle\Command;
 
+use eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand;
 use EzSystems\EzRecommendationClient\Factory\ExportParametersFactoryInterface;
 use EzSystems\EzRecommendationClient\Http\HttpEnvironmentInterface;
 use EzSystems\EzRecommendationClient\Service\ExportServiceInterface;
@@ -20,7 +21,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Generates and export content to Recommendation Server for a given command options.
  */
-final class ExportCommand extends Command
+final class ExportCommand extends Command implements BackwardCompatibleCommand
 {
     public const SUCCESS = 0;
 
@@ -56,7 +57,8 @@ final class ExportCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('ezrecommendation:export:run')
+            ->setName('ibexa:recommendation:run-export')
+            ->setAliases(['ezrecommendation:export:run'])
             ->setDescription('Run export to files.')
             ->addOption('webHook', null, InputOption::VALUE_OPTIONAL, 'Guzzle Client base_uri parameter, will be used to send recommendation data')
             ->addOption('host', null, InputOption::VALUE_OPTIONAL, 'Host used in exportDownload url for notifier in export feature')
@@ -98,5 +100,13 @@ final class ExportCommand extends Command
             $this->logger->error($e->getMessage());
             throw $e;
         }
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getDeprecatedAliases(): array
+    {
+        return ['ezrecommendation:export:run'];
     }
 }
