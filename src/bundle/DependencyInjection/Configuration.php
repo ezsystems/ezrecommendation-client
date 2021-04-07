@@ -164,15 +164,18 @@ class Configuration extends SiteAccessConfiguration
                     ->arrayNode('relations')
                         ->beforeNormalization()
                             ->ifTrue(
-                                function (array $relations) {
+                                function (array $relations): bool {
                                     $pattern = '/\D+\.\D+/';
                                     foreach ($relations as $relationFrom => $relationTo) {
-                                        return
-                                            !(
-                                                preg_match($pattern, $relationFrom)
-                                                && preg_match($pattern, $relationTo)
-                                            );
+                                        if (
+                                            !preg_match($pattern, $relationFrom)
+                                            || !preg_match($pattern, $relationTo)
+                                        ) {
+                                            return true;
+                                        }
                                     }
+                                    
+                                    return false;
                                 }
                             )
                             ->thenInvalid('Invalid relation %s. Relations should be configured according to pattern: "content_type.field: content_type.field"')
