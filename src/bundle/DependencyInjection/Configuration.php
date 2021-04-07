@@ -165,7 +165,7 @@ class Configuration extends SiteAccessConfiguration
                         ->beforeNormalization()
                             ->ifTrue(
                                 function (array $relations): bool {
-                                    $pattern = '/\D+\.\D+/';
+                                    $pattern = '/^[a-zA-Z][\w]+\.[a-zA-Z][\w]+$/';
                                     foreach ($relations as $relationFrom => $relationTo) {
                                         if (
                                             !preg_match($pattern, $relationFrom)
