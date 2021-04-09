@@ -14,6 +14,14 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 class Configuration extends SiteAccessConfiguration
 {
     /**
+     * Pattern using to check if relation is set according to pattern: content_type.field
+     * Examples:
+     *  article.image
+     *  image.image
+     */
+    private const RELATION_PATTERN = '/^[a-zA-Z][\w]+\.[a-zA-Z][\w]+$/';
+
+    /**
      * {@inheritdoc}
      */
     public function getConfigTreeBuilder()
@@ -94,7 +102,7 @@ class Configuration extends SiteAccessConfiguration
                         ->children()
                             ->scalarNode('endpoint')
                                 ->info('Admin api endpoint')
-                                ->example('end_point: https://admin.net')
+                                ->example('https://admin.net')
                             ->end()
                         ->end()
                     ->end()
@@ -102,7 +110,7 @@ class Configuration extends SiteAccessConfiguration
                         ->children()
                             ->scalarNode('endpoint')
                                 ->info('Recommendation api endpoint')
-                                ->example('end_point: https://recommendation.net')
+                                ->example('https://recommendation.net')
                             ->end()
                             ->scalarNode('consume_timeout')
                                 ->info('Recommendation consume timeout')
@@ -114,7 +122,7 @@ class Configuration extends SiteAccessConfiguration
                         ->children()
                             ->scalarNode('endpoint')
                                 ->info('Event API endpoint')
-                                ->example('end_point: https://events.net')
+                                ->example('https://events.net')
                             ->end()
                             ->scalarNode('script_url')
                                 ->info('Tracking script url')
@@ -126,7 +134,7 @@ class Configuration extends SiteAccessConfiguration
                         ->children()
                             ->scalarNode('endpoint')
                                 ->info('Notifier API endpoint - Should be the same as Admin API endpoint')
-                                ->example('end_point: https://admin.net')
+                                ->example('https://admin.net')
                             ->end()
                         ->end()
                     ->end()
@@ -134,7 +142,7 @@ class Configuration extends SiteAccessConfiguration
                         ->children()
                             ->scalarNode('endpoint')
                                 ->info('User API endpoint')
-                                ->example('end_point: https://user.net')
+                                ->example('https://user.net')
                             ->end()
                         ->end()
                     ->end()
@@ -165,11 +173,10 @@ class Configuration extends SiteAccessConfiguration
                         ->beforeNormalization()
                             ->ifTrue(
                                 function (array $relations): bool {
-                                    $pattern = '/^[a-zA-Z][\w]+\.[a-zA-Z][\w]+$/';
                                     foreach ($relations as $relationFrom => $relationTo) {
                                         if (
-                                            !preg_match($pattern, $relationFrom)
-                                            || !preg_match($pattern, $relationTo)
+                                            !preg_match(self::RELATION_PATTERN, $relationFrom)
+                                            || !preg_match(self::RELATION_PATTERN, $relationTo)
                                         ) {
                                             return true;
                                         }
