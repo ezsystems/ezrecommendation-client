@@ -2,7 +2,7 @@
 | ---------------------------------------- | ------------------
 | **JIRA issue**                          | [IBX-XXXX](https://issues.ibexa.co/browse/IBX-XXXX)
 | **Type**                                   | feature/bug/improvement
-| **Target Ibexa DXP version** | `v3.x` - please update `x` accordingly
+| **Target Ibexa DXP version** | `v4.x` - please update `x` accordingly
 | **BC breaks**                          | yes/no
 | **Doc needed**                       | yes/no
 

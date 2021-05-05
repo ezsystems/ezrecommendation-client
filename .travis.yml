@@ -9,7 +9,7 @@ cache:
 matrix:
     fast_finish: true
     include:
-        - php: 7.3
+        - php: 7.4
 
 # test only master (+ Pull requests)
 branches:
