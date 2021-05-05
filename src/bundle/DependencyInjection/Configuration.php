@@ -18,6 +18,7 @@ class Configuration extends SiteAccessConfiguration
      * Examples:
      *  article.image
      *  image.image
+     * .
      */
     private const RELATION_PATTERN = '/^[a-zA-Z][\w]+\.[a-zA-Z][\w]+$/';
 
@@ -172,7 +173,7 @@ class Configuration extends SiteAccessConfiguration
                     ->arrayNode('relations')
                         ->beforeNormalization()
                             ->ifTrue(
-                                function (array $relations): bool {
+                                static function (array $relations): bool {
                                     foreach ($relations as $relationFrom => $relationTo) {
                                         if (
                                             !preg_match(self::RELATION_PATTERN, $relationFrom)
@@ -181,7 +182,7 @@ class Configuration extends SiteAccessConfiguration
                                             return true;
                                         }
                                     }
-                                    
+
                                     return false;
                                 }
                             )

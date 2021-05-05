@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: "ubuntu-20.04"
+
+    strategy:
+      matrix:
+        php:
+          - '7.3'
+          - '7.4'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP Action
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+          extensions: pdo_sqlite, gd, zip
+          tools: cs2pr
+
+      - name: Add composer keys for private packagist
+        run: |
+          composer config http-basic.updates.ibexa.co $SATIS_NETWORK_KEY $SATIS_NETWORK_TOKEN
+          composer config github-oauth.github.com $TRAVIS_GITHUB_TOKEN
+        env:
+          SATIS_NETWORK_KEY: ${{ secrets.SATIS_NETWORK_KEY }}
+          SATIS_NETWORK_TOKEN: ${{ secrets.SATIS_NETWORK_TOKEN }}
+          TRAVIS_GITHUB_TOKEN: ${{ secrets.TRAVIS_GITHUB_TOKEN }}
+
+      - uses: "ramsey/composer-install@v1"
+        with:
+          dependency-versions: "highest"
+          composer-options: "--prefer-dist --no-progress --no-suggest"
+
+      - name: Run PHPStan analysis
+        run: composer run-script phpstan
+
+      - name: Run code style check
+        run: composer run-script php-cs -- --format=checkstyle | cs2pr

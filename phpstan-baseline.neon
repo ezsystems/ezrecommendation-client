@@ -1,0 +1,2092 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Cannot call method getDefinition\\(\\) on Symfony\\\\Component\\\\Console\\\\Application\\|null\\.$#"
+			count: 1
+			path: src/bundle/Command/ExportCommand.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Command\\\\ExportCommand\\:\\:configure\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/bundle/Command/ExportCommand.php
+
+		-
+			message: "#^Parameter \\#5 \\$default of method Symfony\\\\Component\\\\Console\\\\Command\\\\Command\\:\\:addOption\\(\\) expects array\\<string\\>\\|bool\\|string\\|null, int given\\.$#"
+			count: 3
+			path: src/bundle/Command/ExportCommand.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: src/bundle/Command/UserAttributesUpdateCommand.php
+
+		-
+			message: "#^Return type \\(void\\) of method EzSystems\\\\EzRecommendationClientBundle\\\\Command\\\\UserAttributesUpdateCommand\\:\\:execute\\(\\) should be compatible with return type \\(int\\) of method Symfony\\\\Component\\\\Console\\\\Command\\\\Command\\:\\:execute\\(\\)$#"
+			count: 1
+			path: src/bundle/Command/UserAttributesUpdateCommand.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentController\\:\\:getQuery\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentController.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\\\Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag ParameterBag \\$parameterBag\\)\\: Unexpected token \"ParameterBag\", expected variable at offset 65$#"
+			count: 1
+			path: src/bundle/Controller/ContentController.php
+
+		-
+			message: "#^Parameter \\#1 \\$string of static method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ParamsConverterHelper\\:\\:getArrayFromString\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentController.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentController\\:\\:\\$searchService \\(eZ\\\\Publish\\\\Core\\\\Repository\\\\SearchService\\) does not accept eZ\\\\Publish\\\\API\\\\Repository\\\\SearchService\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentController.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$fields \\(array\\<string\\>\\) does not accept array\\|null\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentController.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentTypeController\\:\\:getQuery\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentTypeController\\:\\:prepareContentByContentTypeIds\\(\\) has parameter \\$contentTypeIds with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentTypeController\\:\\:prepareContentByContentTypeIds\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentTypeController\\:\\:\\$locationService \\(eZ\\\\Publish\\\\Core\\\\Repository\\\\LocationService\\) does not accept eZ\\\\Publish\\\\API\\\\Repository\\\\LocationService\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentTypeController\\:\\:\\$searchService \\(eZ\\\\Publish\\\\Core\\\\Repository\\\\SearchService\\) does not accept eZ\\\\Publish\\\\API\\\\Repository\\\\SearchService\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$fields \\(array\\<string\\>\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Authentication\\\\AuthenticatorInterface\\:\\:authenticateByFile\\(\\)\\.$#"
+			count: 1
+			path: src/bundle/Controller/ExportController.php
+
+		-
+			message: "#^Parameter \\#2 \\$values of method Symfony\\\\Component\\\\HttpFoundation\\\\ResponseHeaderBag\\:\\:set\\(\\) expects array\\<string\\>\\|string, int\\|false given\\.$#"
+			count: 1
+			path: src/bundle/Controller/ExportController.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\RecommendationController\\:\\:getTemplate\\(\\) should return string but returns string\\|null\\.$#"
+			count: 1
+			path: src/bundle/Controller/RecommendationController.php
+
+		-
+			message: "#^Parameter \\#1 \\$name of method Twig\\\\Loader\\\\LoaderInterface\\:\\:exists\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/bundle/Controller/RecommendationController.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\Compiler\\\\RestResponsePass\\:\\:process\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/Compiler/RestResponsePass.php
+
+		-
+			message: "#^Cannot call method arrayNode\\(\\) on Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\|null\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Parameter \\#1 \\$rootNode of method eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\DependencyInjection\\\\Configuration\\\\SiteAccessAware\\\\Configuration\\:\\:generateScopeBaseNode\\(\\) expects Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\ArrayNodeDefinition, Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition given\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:mapConfig\\(\\) has parameter \\$scopeSettings with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/ConfigurationMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:postMap\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/ConfigurationMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:preMap\\(\\) has parameter \\$config with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/ConfigurationMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:setApiSettings\\(\\) has parameter \\$currentScope with no typehint specified\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/ConfigurationMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:setApiSettings\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/ConfigurationMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:setFieldSettings\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/ConfigurationMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:setFieldSettings\\(\\) has parameter \\$currentScope with no typehint specified\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/ConfigurationMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:setFieldSettings\\(\\) has parameter \\$settings with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/ConfigurationMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\EzRecommendationClientExtension\\:\\:load\\(\\) has parameter \\$configs with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/EzRecommendationClientExtension.php
+
+		-
+			message: "#^Parameter \\#1 \\$configuration of method Symfony\\\\Component\\\\DependencyInjection\\\\Extension\\\\Extension\\:\\:processConfiguration\\(\\) expects Symfony\\\\Component\\\\Config\\\\Definition\\\\ConfigurationInterface, Symfony\\\\Component\\\\Config\\\\Definition\\\\ConfigurationInterface\\|null given\\.$#"
+			count: 1
+			path: src/bundle/DependencyInjection/EzRecommendationClientExtension.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\EzRecommendationClientBundle\\:\\:build\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/bundle/EzRecommendationClientBundle.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\AttributeNormalizer\\:\\:normalize\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/Serializer/Normalizer/AttributeNormalizer.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\AttributeNormalizer\\:\\:normalize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/Serializer/Normalizer/AttributeNormalizer.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserCollectionNormalizer\\:\\:getNormalizedUsers\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/Serializer/Normalizer/UserCollectionNormalizer.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserCollectionNormalizer\\:\\:normalize\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/Serializer/Normalizer/UserCollectionNormalizer.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserCollectionNormalizer\\:\\:normalize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/Serializer/Normalizer/UserCollectionNormalizer.php
+
+		-
+			message: "#^Parameter \\#2 \\$input1 of function array_map expects array, array\\|ArrayObject\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/bundle/Serializer/Normalizer/UserCollectionNormalizer.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserNormalizer\\:\\:getNormalizedAttributes\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/Serializer/Normalizer/UserNormalizer.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserNormalizer\\:\\:getNormalizedAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/Serializer/Normalizer/UserNormalizer.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserNormalizer\\:\\:normalize\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/Serializer/Normalizer/UserNormalizer.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserNormalizer\\:\\:normalize\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/bundle/Serializer/Normalizer/UserNormalizer.php
+
+		-
+			message: "#^Parameter \\#2 \\$input1 of function array_map expects array, array\\|ArrayObject\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			count: 1
+			path: src/bundle/Serializer/Normalizer/UserNormalizer.php
+
+		-
+			message: "#^Cannot call method get\\(\\) on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
+			count: 1
+			path: src/bundle/Templating/Twig/Functions/UserTracking.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\API\\\\AbstractAPI\\:\\:buildEndPointUri\\(\\) has parameter \\$endPointParameters with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/API/AbstractAPI.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\API\\\\AbstractAPI\\:\\:buildQueryStringFromArray\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/API/AbstractAPI.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\API\\\\AbstractAPI\\:\\:getQueryStringParameters\\(\\) has parameter \\$requiredAttributes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/API/AbstractAPI.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\API\\\\AbstractAPI\\:\\:getQueryStringParameters\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/API/AbstractAPI.php
+
+		-
+			message: "#^Parameter \\#1 \\$format of function vsprintf expects string, GuzzleHttp\\\\Psr7\\\\Uri given\\.$#"
+			count: 1
+			path: src/lib/API/AbstractAPI.php
+
+		-
+			message: "#^Parameter \\#1 \\$uri of class GuzzleHttp\\\\Psr7\\\\Uri constructor expects string, GuzzleHttp\\\\Psr7\\\\Uri given\\.$#"
+			count: 1
+			path: src/lib/API/AbstractAPI.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\API\\\\AbstractAPI\\:\\:\\$endPointUri \\(GuzzleHttp\\\\Psr7\\\\Uri\\) does not accept string\\.$#"
+			count: 1
+			path: src/lib/API/AbstractAPI.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\API\\\\AllowedAPI\\:\\:getAllowedAPI\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/API/AllowedAPI.php
+
+		-
+			message: "#^Access to an undefined property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Notification\\:\\:\\$transaction\\.$#"
+			count: 1
+			path: src/lib/API/Notifier.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\API\\\\User\\:\\:getHeaders\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/API/User.php
+
+		-
+			message: "#^Cannot access property \\$server on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
+			count: 2
+			path: src/lib/Authentication/ExportAuthenticator.php
+
+		-
+			message: "#^Parameter \\#1 \\$str of function trim expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/lib/Authentication/ExportAuthenticator.php
+
+		-
+			message: "#^Cannot call method getCustomerId\\(\\) on EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\Credentials\\|null\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClient.php
+
+		-
+			message: "#^Cannot call method getLicenseKey\\(\\) on EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\Credentials\\|null\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClient.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:__call\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClient.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:__call\\(\\) should return EzSystems\\\\EzRecommendationClient\\\\API\\\\AbstractAPI but return statement is missing\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClient.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:getHeadersAsString\\(\\) has parameter \\$headers with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClient.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:getRequestLogMessage\\(\\) has parameter \\$transaction with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClient.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:getUserIdentifier\\(\\) should return string\\|null but returns int\\|string\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClient.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:sendRequest\\(\\) has parameter \\$option with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClient.php
+
+		-
+			message: "#^Parameter \\#4 \\$previous of class EzSystems\\\\EzRecommendationClient\\\\Exception\\\\BadResponseException constructor expects Exception\\|null, Throwable\\|null given\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClient.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:\\$credentialsResolver \\(EzSystems\\\\EzRecommendationClient\\\\Config\\\\EzRecommendationClientCredentialsResolver\\) does not accept EzSystems\\\\EzRecommendationClient\\\\Config\\\\CredentialsResolverInterface\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClient.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClientInterface\\:\\:__call\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClientInterface.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClientInterface\\:\\:sendRequest\\(\\) has parameter \\$option with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClientInterface.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Config\\\\CredentialsResolver\\:\\:getRequiredCredentials\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Config/CredentialsResolver.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Config\\\\ExportCredentialsResolver\\:\\:getRequiredCredentials\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Config/ExportCredentialsResolver.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Config\\\\EzRecommendationClientCredentialsResolver\\:\\:getRequiredCredentials\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Config/EzRecommendationClientCredentialsResolver.php
+
+		-
+			message: "#^Call to an undefined method GuzzleHttp\\\\ClientInterface\\:\\:get\\(\\)\\.$#"
+			count: 1
+			path: src/lib/Event/Listener/LoginListener.php
+
+		-
+			message: "#^Cannot call method debug\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
+			count: 2
+			path: src/lib/Event/Listener/LoginListener.php
+
+		-
+			message: "#^Cannot call method error\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
+			count: 1
+			path: src/lib/Event/Listener/LoginListener.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:__construct\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Event/RecommendationResponseEvent.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:getParameterBag\\(\\) return type has no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Event/RecommendationResponseEvent.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:getParameterBag\\(\\) should return Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag but returns Psr\\\\Http\\\\Message\\\\ResponseInterface\\|null\\.$#"
+			count: 1
+			path: src/lib/Event/RecommendationResponseEvent.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:setRecommendationItems\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/lib/Event/RecommendationResponseEvent.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:setRecommendationItems\\(\\) has parameter \\$recommendationItems with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/RecommendationResponseEvent.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:\\$parameterBag \\(Psr\\\\Http\\\\Message\\\\ResponseInterface\\|null\\) does not accept Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Event/RecommendationResponseEvent.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\AbstractCoreEventSubscriber\\:\\:\\$notificationService \\(EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\) does not accept EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/AbstractCoreEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/ContentEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\LocationEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/LocationEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\LocationEventSubscriber\\:\\:swapLocation\\(\\) has parameter \\$locations with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/LocationEventSubscriber.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\\\eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\Location\\[\\]\\)\\: Unexpected token \"\\\\n     \\*\", expected variable at offset 70$#"
+			count: 1
+			path: src/lib/Event/Subscriber/LocationEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ObjectStateEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/ObjectStateEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationEventSubscriber\\:\\:extractRecommendationItems\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationEventSubscriber\\:\\:getRecommendationRequest\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$parameters of class EzSystems\\\\EzRecommendationClient\\\\Request\\\\BasicRecommendationRequest constructor expects array\\<string\\>, array\\<string, mixed\\> given\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$posixLocale of method eZ\\\\Publish\\\\Core\\\\MVC\\\\Symfony\\\\Locale\\\\LocaleConverterInterface\\:\\:convertToEz\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\ValueObject\\:\\:\\$contentInfo\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationRandomContentEventSubscriber\\:\\:getFieldValue\\(\\) should return eZ\\\\Publish\\\\SPI\\\\FieldType\\\\Value but returns eZ\\\\Publish\\\\SPI\\\\FieldType\\\\Value\\|null\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationRandomContentEventSubscriber\\:\\:getImage\\(\\) never returns null so it can be removed from the return typehint\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationRandomContentEventSubscriber\\:\\:getIntro\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationRandomContentEventSubscriber\\:\\:getQuery\\(\\) has parameter \\$selectedContentTypes with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationRandomContentEventSubscriber\\:\\:getRandomContent\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationRandomContentEventSubscriber\\:\\:getRandomRecommendationItems\\(\\) has parameter \\$randomContent with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationRandomContentEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$contentService with type eZ\\\\Publish\\\\API\\\\Repository\\\\SearchService is not subtype of native type eZ\\\\Publish\\\\API\\\\Repository\\\\ContentService\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$searchService with type eZ\\\\Publish\\\\API\\\\Repository\\\\ContentService is not subtype of native type eZ\\\\Publish\\\\API\\\\Repository\\\\SearchService\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^PHPDoc tag @return has invalid value \\(\\)\\: Unexpected token \"\\\\n     \", expected type at offset 18$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^Parameter \\#1 \\$field of method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ImageHelper\\:\\:getImageUrl\\(\\) expects eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\Field, eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\Field\\|null given\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\RecommendationItem\\:\\:\\$image \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\TrashEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/TrashEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\UserAPIRequestDefaultSourceEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/UserAPIRequestDefaultSourceEventSubscriber.php
+
+		-
+			message: "#^Cannot access property \\$source on EzSystems\\\\EzRecommendationClient\\\\SPI\\\\UserAPIRequest\\|null\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/UserCollectionGeneratorEventSubscriber.php
+
+		-
+			message: "#^Cannot access property \\$xmlBody on EzSystems\\\\EzRecommendationClient\\\\SPI\\\\UserAPIRequest\\|null\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/UserCollectionGeneratorEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\UserCollectionGeneratorEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/UserCollectionGeneratorEventSubscriber.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\UserCollectionGeneratorEventSubscriber\\:\\:\\$eventDispatcher \\(Symfony\\\\Component\\\\EventDispatcher\\\\EventDispatcher\\) does not accept Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/UserCollectionGeneratorEventSubscriber.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\BadAPICallException\\:\\:__construct\\(\\) has parameter \\$name with no typehint specified\\.$#"
+			count: 1
+			path: src/lib/Exception/BadAPICallException.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\BadResponseException\\:\\:__construct\\(\\) has parameter \\$handlerContext with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Exception/BadResponseException.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\BadResponseException\\:\\:getHandlerContext\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Exception/BadResponseException.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Exception\\\\BadResponseException\\:\\:\\$handlerContext type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Exception/BadResponseException.php
+
+		-
+			message: "#^Parameter \\#3 \\$previous of method Exception\\:\\:__construct\\(\\) expects Throwable\\|null, EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Throwable\\|null given\\.$#"
+			count: 1
+			path: src/lib/Exception/CredentialsNotFoundException.php
+
+		-
+			message: "#^Parameter \\$previous of method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\CredentialsNotFoundException\\:\\:__construct\\(\\) has invalid typehint type EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Throwable\\.$#"
+			count: 1
+			path: src/lib/Exception/CredentialsNotFoundException.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\FileNotFoundException\\:\\:__construct\\(\\) has parameter \\$code with no typehint specified\\.$#"
+			count: 1
+			path: src/lib/Exception/FileNotFoundException.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\FileNotFoundException\\:\\:__construct\\(\\) has parameter \\$message with no typehint specified\\.$#"
+			count: 1
+			path: src/lib/Exception/FileNotFoundException.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidArgumentException\\:\\:__construct\\(\\) has parameter \\$message with no typehint specified\\.$#"
+			count: 1
+			path: src/lib/Exception/InvalidArgumentException.php
+
+		-
+			message: "#^Parameter \\#3 \\$previous of method Exception\\:\\:__construct\\(\\) expects Throwable\\|null, EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Exception\\|null given\\.$#"
+			count: 1
+			path: src/lib/Exception/InvalidArgumentException.php
+
+		-
+			message: "#^Parameter \\$previous of method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidArgumentException\\:\\:__construct\\(\\) has invalid typehint type EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Exception\\.$#"
+			count: 1
+			path: src/lib/Exception/InvalidArgumentException.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidArgumentException\\:\\:__construct\\(\\) invoked with 3 parameters, 1\\-2 required\\.$#"
+			count: 1
+			path: src/lib/Exception/InvalidRelationException.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidRelationException\\:\\:__construct\\(\\) has parameter \\$message with no typehint specified\\.$#"
+			count: 1
+			path: src/lib/Exception/InvalidRelationException.php
+
+		-
+			message: "#^Parameter \\#2 \\$previous of method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidArgumentException\\:\\:__construct\\(\\) expects EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Exception\\|null, int given\\.$#"
+			count: 1
+			path: src/lib/Exception/InvalidRelationException.php
+
+		-
+			message: "#^Parameter \\$previous of method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidRelationException\\:\\:__construct\\(\\) has invalid typehint type EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Exception\\.$#"
+			count: 1
+			path: src/lib/Exception/InvalidRelationException.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exporter\\\\Exporter\\:\\:generateUrlList\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Exporter/Exporter.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exporter\\\\Exporter\\:\\:getContentForGivenLanguages\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Exporter/Exporter.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exporter\\\\Exporter\\:\\:run\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Exporter/Exporter.php
+
+		-
+			message: "#^Parameter \\#2 \\$lang of method EzSystems\\\\EzRecommendationClient\\\\Exporter\\\\Exporter\\:\\:generateUrlList\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/lib/Exporter/Exporter.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exporter\\\\ExporterInterface\\:\\:run\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Exporter/ExporterInterface.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\ConfigurableExportParametersFactory\\:\\:create\\(\\) has parameter \\$properties with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Factory/ConfigurableExportParametersFactory.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\ConfigurableExportParametersFactory\\:\\:getMissingRequiredOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Factory/ConfigurableExportParametersFactory.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\ConfigurableExportParametersFactory\\:\\:getMissingRequiredOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Factory/ConfigurableExportParametersFactory.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\ExportParametersFactory\\:\\:create\\(\\) has parameter \\$properties with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Factory/ExportParametersFactory.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\ExportParametersFactoryInterface\\:\\:create\\(\\) has parameter \\$properties with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Factory/ExportParametersFactoryInterface.php
+
+		-
+			message: "#^Parameter \\#1 \\$str of function strtolower expects string, string\\|null given\\.$#"
+			count: 1
+			path: src/lib/Factory/EzRecommendationClientAPIFactory.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\TokenFactory\\:\\:createAnonymousToken\\(\\) has parameter \\$roles with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Factory/TokenFactory.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\TokenFactoryInterface\\:\\:createAnonymousToken\\(\\) has parameter \\$roles with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Factory/TokenFactoryInterface.php
+
+		-
+			message: "#^Binary operation \"\\.\" between '\\<\\!\\[CDATA\\[' and DOMDocument results in an error\\.$#"
+			count: 1
+			path: src/lib/Field/TypeValue.php
+
+		-
+			message: "#^Cannot call method convert\\(\\) on EzSystems\\\\EzPlatformRichTextBundle\\\\eZ\\\\RichText\\\\Converter\\\\Html5\\|null\\.$#"
+			count: 1
+			path: src/lib/Field/TypeValue.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\TypeValue\\:\\:ezimage\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Field/TypeValue.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\TypeValue\\:\\:ezimageasset\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Field/TypeValue.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\TypeValue\\:\\:ezobjectrelation\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Field/TypeValue.php
+
+		-
+			message: "#^Cannot access property \\$fieldDefIdentifier on eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\Field\\|null\\.$#"
+			count: 1
+			path: src/lib/Field/Value.php
+
+		-
+			message: "#^Cannot access property \\$id on eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\Field\\|null\\.$#"
+			count: 1
+			path: src/lib/Field/Value.php
+
+		-
+			message: "#^Left side of && is always true\\.$#"
+			count: 1
+			path: src/lib/Field/Value.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\Value\\:\\:__construct\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Field/Value.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\Value\\:\\:getFieldDefinitionList\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Field/Value.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\Value\\:\\:getFieldValue\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Field/Value.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\Value\\:\\:getImageFieldIdentifier\\(\\) has parameter \\$contentId with no typehint specified\\.$#"
+			count: 1
+			path: src/lib/Field/Value.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\Value\\:\\:getImageFieldIdentifier\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: src/lib/Field/Value.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\Value\\:\\:getParsedFieldValue\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Field/Value.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$contentId\\)\\: Unexpected token \"\\$contentId\", expected type at offset 78$#"
+			count: 1
+			path: src/lib/Field/Value.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Field\\\\Value\\:\\:\\$fieldDefIdentifiers type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Field/Value.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Field\\\\Value\\:\\:\\$parameters type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Field/Value.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\File\\\\ExportFileGenerator\\:\\:generateFile\\(\\) has parameter \\$content with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/File/ExportFileGenerator.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\File\\\\ExportFileGenerator\\:\\:generateFile\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/File/ExportFileGenerator.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\File\\\\FileManager\\:\\:load\\(\\) should return string\\|null but returns string\\|false\\.$#"
+			count: 1
+			path: src/lib/File/FileManager.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\File\\\\FileManager\\:\\:secureDir\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/File/FileManager.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\File\\\\FileManagerInterface\\:\\:secureDir\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/File/FileManagerInterface.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Generator\\\\ContentListElementGenerator\\:\\:generateElement\\(\\) has parameter \\$contentList with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Generator/ContentListElementGenerator.php
+
+		-
+			message: "#^Cannot access property \\$contentInfo on eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\Content\\|null\\.$#"
+			count: 1
+			path: src/lib/Helper/ContentHelper.php
+
+		-
+			message: "#^Interface eZ\\\\Publish\\\\API\\\\Repository\\\\SearchService referenced with incorrect case\\: eZ\\\\Publish\\\\Api\\\\Repository\\\\SearchService\\.$#"
+			count: 1
+			path: src/lib/Helper/ContentHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\:\\:countContentItemsByContentTypeId\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/ContentHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\:\\:getContent\\(\\) has parameter \\$languages with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/ContentHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\:\\:getContentItems\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/ContentHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\:\\:getContentItems\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/ContentHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\:\\:getIncludedContent\\(\\) has parameter \\$languages with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/ContentHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\:\\:getLanguageCodes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/ContentHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\:\\:getQuery\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/ContentHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ExportProcessRunnerHelper\\:\\:run\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/ExportProcessRunnerHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ExportProcessRunnerHelper\\:\\:run\\(\\) return type has no value type specified in iterable type Symfony\\\\Component\\\\Process\\\\Process\\.$#"
+			count: 1
+			path: src/lib/Helper/ExportProcessRunnerHelper.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ExportProcessRunnerHelper\\:\\:\\$phpPath \\(string\\) does not accept string\\|false\\.$#"
+			count: 1
+			path: src/lib/Helper/ExportProcessRunnerHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ImageHelper\\:\\:getImageUrl\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/ImageHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ImageHelper\\:\\:getImageUrl\\(\\) should return string but returns string\\|false\\|null\\.$#"
+			count: 1
+			path: src/lib/Helper/ImageHelper.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$imageVariation$#"
+			count: 1
+			path: src/lib/Helper/ImageHelper.php
+
+		-
+			message: "#^Parameter \\#1 \\$locationId of method eZ\\\\Publish\\\\API\\\\Repository\\\\LocationService\\:\\:loadLocation\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: src/lib/Helper/LocationHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ParamsConverterHelper\\:\\:getArrayFromString\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/ParamsConverterHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ParamsConverterHelper\\:\\:getIdListFromString\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/ParamsConverterHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\SiteAccessHelper\\:\\:__construct\\(\\) has parameter \\$siteAccessConfig with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/SiteAccessHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\SiteAccessHelper\\:\\:getLanguageList\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/SiteAccessHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\SiteAccessHelper\\:\\:getLanguages\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/SiteAccessHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\SiteAccessHelper\\:\\:getMainLanguageBySiteAccesses\\(\\) has parameter \\$siteAccesses with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/SiteAccessHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\SiteAccessHelper\\:\\:getMainLanguageBySiteAccesses\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/SiteAccessHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\SiteAccessHelper\\:\\:getRootLocationsBySiteAccesses\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/SiteAccessHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\SiteAccessHelper\\:\\:getSiteAccesses\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/SiteAccessHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\SiteAccessHelper\\:\\:getSiteAccessesByCustomerId\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/SiteAccessHelper.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Helper\\\\SiteAccessHelper\\:\\:\\$siteAccessConfig type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Helper/SiteAccessHelper.php
+
+		-
+			message: "#^Cannot call method getUser\\(\\) on Symfony\\\\Component\\\\Security\\\\Core\\\\Authentication\\\\Token\\\\TokenInterface\\|null\\.$#"
+			count: 1
+			path: src/lib/Helper/UserHelper.php
+
+		-
+			message: "#^Cannot call method getUsername\\(\\) on Symfony\\\\Component\\\\Security\\\\Core\\\\Authentication\\\\Token\\\\TokenInterface\\|null\\.$#"
+			count: 1
+			path: src/lib/Helper/UserHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\UserHelper\\:\\:getCurrentUser\\(\\) should return string but return statement is missing\\.$#"
+			count: 1
+			path: src/lib/Helper/UserHelper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getCustomerId\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getFields\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getImage\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getLang\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getLicenseKey\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getPath\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getSiteAccess\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getVisibility\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getWebHook\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Parameter \\#2 \\$default of method Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\:\\:get\\(\\) expects string\\|null, int given\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$fields \\(array\\<string\\>\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters\\:\\:\\$customerId \\(int\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters\\:\\:\\$hidden \\(string\\|null\\) does not accept int\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters\\:\\:\\$languages \\(array\\<string\\>\\) does not accept string\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters\\:\\:\\$licenseKey \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters\\:\\:\\$webHook \\(string\\) does not accept string\\|null\\.$#"
+			count: 1
+			path: src/lib/Mapper/ExportRequestMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\RelationMapper\\:\\:__construct\\(\\) has parameter \\$fieldMappings with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Mapper/RelationMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\RelationMapper\\:\\:getMapping\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Mapper/RelationMapper.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\RelationMapper\\:\\:\\$fieldMappings type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Mapper/RelationMapper.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Request\\\\BasicRecommendationRequest\\:\\:extractFilters\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Request/BasicRecommendationRequest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Request\\\\BasicRecommendationRequest\\:\\:getRequestAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Request/BasicRecommendationRequest.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Request\\\\BasicRecommendationRequest\\:\\:\\$attributes type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Request/BasicRecommendationRequest.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Request\\\\BasicRecommendationRequest\\:\\:\\$filters type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Request/BasicRecommendationRequest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Request\\\\EventNotifierRequest\\:\\:getRequestAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Request/EventNotifierRequest.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Request\\\\EventNotifierRequest\\:\\:\\$credentials type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Request/EventNotifierRequest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Request\\\\ExportNotifierRequest\\:\\:getRequestAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Request/ExportNotifierRequest.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Request\\\\ExportNotifierRequest\\:\\:\\$credentials type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Request/ExportNotifierRequest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Request\\\\UserMetadataRequest\\:\\:getRequestAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Request/UserMetadataRequest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Response\\\\HttpResponse\\:\\:render\\(\\) has parameter \\$data with no typehint specified\\.$#"
+			count: 1
+			path: src/lib/Response/HttpResponse.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Response\\\\ResponseInterface\\:\\:render\\(\\) has parameter \\$data with no typehint specified\\.$#"
+			count: 1
+			path: src/lib/Response/ResponseInterface.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$data\\)\\: Unexpected token \"\\$data\", expected type at offset 18$#"
+			count: 1
+			path: src/lib/Response/ResponseInterface.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:getProperties\\(\\) has parameter \\$dynamicProperties with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/SPI/Content.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:getProperties\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/SPI/Content.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\SPI\\\\ExportParametersFactoryDecorator\\:\\:create\\(\\) has parameter \\$properties with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/SPI/ExportParametersFactoryDecorator.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Notification\\:\\:\\$events type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/SPI/Notification.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Request\\:\\:getAdditionalAttributesToQueryString\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/SPI/Request.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Request\\:\\:getRequestAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/SPI/Request.php
+
+		-
+			message: "#^Access to an undefined property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$siteaccess\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Access to an undefined property eZ\\\\Publish\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Content\\:\\:\\$valueObject\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Comparison operation \"\\>\" between int\\<1, max\\> and 0 is always true\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:fetchContent\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:fetchContentItems\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareContent\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareContent\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareFields\\(\\) has parameter \\$fields with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareFields\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareFields\\(\\) should return array but returns array\\|null\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:setContent\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:setFields\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Parameter \\#1 \\$locationId of method eZ\\\\Publish\\\\API\\\\Repository\\\\LocationService\\:\\:loadLocation\\(\\) expects int, int\\|null given\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentServiceInterface\\:\\:fetchContent\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentServiceInterface.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentServiceInterface\\:\\:fetchContentItems\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentServiceInterface.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentServiceInterface\\:\\:prepareContent\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentServiceInterface.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentServiceInterface\\:\\:prepareContent\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentServiceInterface.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentServiceInterface\\:\\:setContent\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentServiceInterface.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\Credentials\\:\\:getCustomerId\\(\\)\\.$#"
+			count: 1
+			path: src/lib/Service/EventNotificationService.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\Credentials\\:\\:getLicenseKey\\(\\)\\.$#"
+			count: 1
+			path: src/lib/Service/EventNotificationService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\:\\:createNotification\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/EventNotificationService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\:\\:generateNotificationEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/EventNotificationService.php
+
+		-
+			message: "#^PHPDoc tag @param references unknown parameter\\: \\$content$#"
+			count: 1
+			path: src/lib/Service/EventNotificationService.php
+
+		-
+			message: "#^Parameter \\#1 \\$parameters of class EzSystems\\\\EzRecommendationClient\\\\Request\\\\EventNotifierRequest constructor expects array\\<string\\>, array\\<string, mixed\\> given\\.$#"
+			count: 1
+			path: src/lib/Service/EventNotificationService.php
+
+		-
+			message: "#^Parameter \\#3 \\$exportCredentials of method EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\:\\:generateNotificationEvents\\(\\) expects EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\ExportCredentials, EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\Credentials\\|null given\\.$#"
+			count: 1
+			path: src/lib/Service/EventNotificationService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ExportNotificationService\\:\\:createNotification\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ExportNotificationService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ExportNotificationService\\:\\:getNotificationEvents\\(\\) has parameter \\$securedDirCredentials with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ExportNotificationService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ExportNotificationService\\:\\:getNotificationEvents\\(\\) has parameter \\$urls with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ExportNotificationService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ExportNotificationService\\:\\:getNotificationEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ExportNotificationService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ExportNotificationService\\:\\:sendNotification\\(\\) has parameter \\$securedDirCredentials with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ExportNotificationService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ExportNotificationService\\:\\:sendNotification\\(\\) has parameter \\$urls with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ExportNotificationService.php
+
+		-
+			message: "#^Parameter \\#1 \\$parameters of class EzSystems\\\\EzRecommendationClient\\\\Request\\\\ExportNotifierRequest constructor expects array\\<string\\>, array\\<string, mixed\\> given\\.$#"
+			count: 1
+			path: src/lib/Service/ExportNotificationService.php
+
+		-
+			message: "#^Cannot cast Symfony\\\\Component\\\\Validator\\\\ConstraintViolationListInterface to string\\.$#"
+			count: 1
+			path: src/lib/Service/ExportService.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Service\\\\ExportService\\:\\:\\$notificationService \\(EzSystems\\\\EzRecommendationClient\\\\Service\\\\ExportNotificationService\\) does not accept EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService\\.$#"
+			count: 1
+			path: src/lib/Service/ExportService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService\\:\\:createNotification\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/NotificationService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\RecommendationService\\:\\:getRecommendationItems\\(\\) has parameter \\$recommendationItems with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/RecommendationService.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\\\EzSystems\\\\EzRecommendationClient\\\\Service\\\\UserServiceInterface\\)\\: Unexpected token \"\\*/\", expected variable at offset 74$#"
+			count: 1
+			path: src/lib/Service/RecommendationService.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Service\\\\RecommendationService\\:\\:\\$userService has no typehint specified\\.$#"
+			count: 1
+			path: src/lib/Service/RecommendationService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\RecommendationServiceInterface\\:\\:getRecommendationItems\\(\\) has parameter \\$recommendationItems with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/RecommendationServiceInterface.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\ExportCredentials\\:\\:__construct\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Value/Config/ExportCredentials.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\EzRecommendationClientCredentials\\:\\:__construct\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Value/Config/EzRecommendationClientCredentials.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentData\\:\\:__construct\\(\\) has parameter \\$contents with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Value/ContentData.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentData\\:\\:__construct\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Value/ContentData.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentData\\:\\:\\$contents type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Value/ContentData.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentData\\:\\:\\$options type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Value/ContentData.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentDataVisitor\\:\\:setResponseRenderers\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/lib/Value/ContentDataVisitor.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentDataVisitor\\:\\:setResponseRenderers\\(\\) has parameter \\$responseRenderers with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Value/ContentDataVisitor.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentDataVisitor\\:\\:visit\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/lib/Value/ContentDataVisitor.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentDataVisitor\\:\\:\\$responseRenderers type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Value/ContentDataVisitor.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportRequest\\:\\:getExportRequestParameters\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Value/ExportRequest.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\IdList\\:\\:\\$list type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Value/IdList.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\Output\\\\User\\:\\:\\$attributes has no typehint specified\\.$#"
+			count: 1
+			path: src/lib/Value/Output/User.php
+
+		-
+			message: "#^Call to an undefined static method Webmozart\\\\Assert\\\\Assert\\:\\:nullOrAllIsInstanceOf\\(\\)\\.$#"
+			count: 1
+			path: src/lib/Value/Output/UserCollection.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateByFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Authentication/ExportAuthenticatorTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateByFileWithRealFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Authentication/ExportAuthenticatorTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateByFileWithWrongCredenrials\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Authentication/ExportAuthenticatorTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateByFileWithWrongFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Authentication/ExportAuthenticatorTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateWithMethodNone\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Authentication/ExportAuthenticatorTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateWithMethodUser\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Authentication/ExportAuthenticatorTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateWithMethodUserAndWrongCredentials\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Authentication/ExportAuthenticatorTest.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\EzRecommendationClientAPIFactory\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:expects\\(\\)\\.$#"
+			count: 1
+			path: tests/lib/Client/EzRecommendationClientTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testCreateEzRecommendationClientInstance\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Client/EzRecommendationClientTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testReturnCalledAPI\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Client/EzRecommendationClientTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testReturnFalseWhenCredentialsAreNotSet\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Client/EzRecommendationClientTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testReturnHeadersAsString\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Client/EzRecommendationClientTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testSendRequestAndReturnResponse\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Client/EzRecommendationClientTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testSendRequestAndThrowExceptionWhenCredentialsAreNotSet\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Client/EzRecommendationClientTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:testCreateCredentialsResolverInstance\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Config/CredentialsResolverTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:testReturnFalseWhenOneOfRequiredCredentialsAreMissing\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Config/CredentialsResolverTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:testShouldReturnTrueWhenRequiredCredentialsAreSet\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Config/CredentialsResolverTest.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:\\$credentials type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Config/CredentialsResolverTest.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:\\$invalidCredentials type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Config/CredentialsResolverTest.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:\\$loggerMock \\(PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Psr\\\\Log\\\\NullLogger\\) does not accept PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Psr\\\\Log\\\\LoggerInterface\\.$#"
+			count: 1
+			path: tests/lib/Config/CredentialsResolverTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\ExportCredentialsResolverTest\\:\\:testCreateExportCredentialsResolverInstance\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Config/ExportCredentialsResolverTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\ExportCredentialsResolverTest\\:\\:testGetCredentialsForAuthenticationMethodUser\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Config/ExportCredentialsResolverTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\ExportCredentialsResolverTest\\:\\:testReturnNullWhenMethodIsUserAndHasCredentialsIsFalse\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Config/ExportCredentialsResolverTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\EzRecommendationClientCredentialsResolverTest\\:\\:testCreateEzRecommendationClientCredentialsResolverInstance\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Config/EzRecommendationClientCredentialsResolverTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\EzRecommendationClientCredentialsResolverTest\\:\\:testReturnGetEzRecommendationClientCredentials\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Config/EzRecommendationClientCredentialsResolverTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\EzRecommendationClientCredentialsResolverTest\\:\\:testReturnNullWhenCredentialsAreNotSet\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Config/EzRecommendationClientCredentialsResolverTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\AbstractCoreEventSubscriberTest\\:\\:subscribedEventsDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/AbstractCoreEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\AbstractCoreEventSubscriberTest\\:\\:testHasSubscribedEvent\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/AbstractCoreEventSubscriberTest.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:onCopyContent\\(\\)\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:onDeleteContent\\(\\)\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:onHideContent\\(\\)\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:onPublishVersion\\(\\)\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:onRevealContent\\(\\)\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:onUpdateContentMetadata\\(\\)\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:getEventSubscriber\\(\\) should return Symfony\\\\Component\\\\EventDispatcher\\\\EventSubscriberInterface but returns EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:subscribedEventsDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnCopyContentMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnDeleteContentMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnHideContentMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnPublishVersionMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnRevealContentMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnUpdateContentMetadataMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCreateInstanceOfContentEventSubscriber\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$notificationService of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService, EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:expects\\(\\)\\.$#"
+			count: 4
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:subscribedEventsDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnCopySubtreeMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnCreateLocationMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnDeleteLocationMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnHideLocationMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnMoveSubtreeMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnSwapLocationMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnUnhideLocationMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnUpdateLocationMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCreateInstanceOfLocationEventSubscriber\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testUpdateSingleLocationWithChildren\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:updateLocationWithChildrenDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$notificationService of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\LocationEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService, EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$originalClassName of method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) expects class\\-string\\<mixed\\>, string given\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Parameter \\#4 \\$locationHelper of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\LocationEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Helper\\\\LocationHelper, EzSystems\\\\EzRecommendationClient\\\\Helper\\\\LocationHelper\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Parameter \\#5 \\$contentHelper of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\LocationEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper, EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Unable to resolve the template type T in call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\)$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ObjectStateEventSubscriberTest\\:\\:subscribedEventsDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ObjectStateEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ObjectStateEventSubscriberTest\\:\\:testCallOnSetContentStateMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ObjectStateEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ObjectStateEventSubscriberTest\\:\\:testCreateInstanceOfObjectStateEventSubscriber\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ObjectStateEventSubscriberTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$notificationService of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ObjectStateEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService, EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ObjectStateEventSubscriberTest.php
+
+		-
+			message: "#^Anonymous function has an unused use \\$contentInfo\\.$#"
+			count: 2
+			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:getRelationList\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:getReverseRelations\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:subscribedEventsDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:testCallOnRecoverMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:testCallOnTrashMethod\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:testCreateInstanceOfTrashEventSubscriber\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
+
+		-
+			message: "#^Parameter \\#1 \\$notificationService of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\TrashEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService, EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
+
+		-
+			message: "#^Parameter \\#4 \\$locationHelper of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\TrashEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Helper\\\\LocationHelper, EzSystems\\\\EzRecommendationClient\\\\Helper\\\\LocationHelper\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
+
+		-
+			message: "#^Parameter \\#5 \\$contentHelper of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\TrashEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper, EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\API\\\\AllowedAPI\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:expects\\(\\)\\.$#"
+			count: 2
+			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:apiDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:testCreateEzRecommendationClientApiFactoryInstance\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:testReturnAPIClass\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:testThrowExceptionWhenAPIClassDoesNotExists\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:testThrowExceptionWhenInvalidAPIKeyIsGiven\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testCreateChunkDir\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testCreateChunkDirWithUnexistingDir\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testGetDir\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testIsLockedWithLockedFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testIsLockedWithoutLockedFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testLoad\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testLoadUnexistingFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testLock\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testSave\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testSecureDirWithMethodBasic\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testSecureDirWithMethodNone\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testSecureDirWithMethodUser\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testUnlock\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testUnlockWithoutLockedFile\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Parameter \\#2 \\$haystack of method PHPUnit\\\\Framework\\\\Assert\\:\\:assertStringContainsString\\(\\) expects string, string\\|null given\\.$#"
+			count: 1
+			path: tests/lib/File/FileManagerTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:getArrayFromStringDataProvider\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/ParamsConverterHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:stringLists\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/ParamsConverterHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetArrayFromString\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/ParamsConverterHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetArrayFromString\\(\\) has parameter \\$expected with no typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/ParamsConverterHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetArrayFromString\\(\\) has parameter \\$input with no typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/ParamsConverterHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromString\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/ParamsConverterHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromString\\(\\) has parameter \\$expected with no typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/ParamsConverterHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromString\\(\\) has parameter \\$input with no typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/ParamsConverterHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromStringWitInvalidArgument\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/ParamsConverterHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromStringWithoutSeparator\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/ParamsConverterHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetLanguageList\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetLanguagesByCustomerId\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetMainLanguagesWithSiteAccess\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetRootLocationBySiteAccessName\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetRootLocationBySiteAccessNameWithoutParameterSpecified\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetRootLocationsBySiteAccesses\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccesses\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerId\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithChangedDefaultSiteAccess\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithChangedDefaultSiteAccessAndMultipleConfig\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithChangedDefaultSiteAccessDifferentCustomerId\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithMultipleConfig\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithWrongCustomerId\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithoutCustomerId\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesWithCustomerId\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesWithSiteAccess\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesWithWrongCustomerId\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Helper/SiteAccessHelperTest.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Config\\\\ExportCredentialsResolver\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:method\\(\\)\\.$#"
+			count: 1
+			path: tests/lib/Service/EventNotificationServiceTest.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Config\\\\EzRecommendationClientCredentialsResolver\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:expects\\(\\)\\.$#"
+			count: 1
+			path: tests/lib/Service/EventNotificationServiceTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\EventNotificationServiceTest\\:\\:testCreateEventNotification\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Service/EventNotificationServiceTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\EventNotificationServiceTest\\:\\:testCreateInstanceOfEventNotificationService\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Service/EventNotificationServiceTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\EventNotificationServiceTest\\:\\:testSendNotification\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Service/EventNotificationServiceTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:testCreateExportNotification\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Service/ExportNotificationServiceTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:testCreateInstanceOfEventNotificationService\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Service/ExportNotificationServiceTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:testSendNotification\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: tests/lib/Service/ExportNotificationServiceTest.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:\\$notificationOptions type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Service/ExportNotificationServiceTest.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:\\$urls type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Service/ExportNotificationServiceTest.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\NotificationServiceTest\\:\\:\\$basicNotificationOptions type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Service/NotificationServiceTest.php
+
