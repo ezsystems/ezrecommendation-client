@@ -10,7 +10,7 @@
         }
     ],
     "require": {
-        "php": "^7.3",
+        "php": "^7.4",
         "ezsystems/ezplatform-kernel": "^2.0@dev",
         "ezsystems/ezplatform-rest": "^2.0@dev",
         "ezsystems/ezplatform-richtext": "^3.0@dev",
