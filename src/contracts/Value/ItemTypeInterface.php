@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Contracts\PersonalizationClient\Storage;
+namespace Ibexa\Contracts\PersonalizationClient\Value;
 
 interface ItemTypeInterface
 {

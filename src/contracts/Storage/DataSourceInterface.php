@@ -8,14 +8,17 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\PersonalizationClient\Storage;
 
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemInterface;
+
 interface DataSourceInterface
 {
     /**
-     * @return iterable<\Ibexa\Contracts\PersonalizationClient\Storage\Item>
+     * @return iterable<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface>
      */
     public function fetchItems(CriteriaInterface $criteria): iterable;
 
     public function countItems(CriteriaInterface $criteria): int;
 
-    public function fetchItem(string $id, string $language): Item;
+    public function fetchItem(string $id, string $language): ItemInterface;
 }

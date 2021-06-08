@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Contracts\PersonalizationClient\Storage;
+namespace Ibexa\Contracts\PersonalizationClient\Criteria;
 
 interface CriteriaInterface
 {
@@ -19,11 +19,6 @@ interface CriteriaInterface
      * @return array<string>
      */
     public function getLanguages(): array;
-
-    /**
-     * @return ?array<string>
-     */
-    public function getItemIds(): ?array;
 
     public function getLimit(): int;
 
