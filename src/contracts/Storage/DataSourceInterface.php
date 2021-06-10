@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Contracts\PersonalizationClient\Storage;
+namespace Ibexa\Contracts\Personalization\Storage;
 
-use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
-use Ibexa\Contracts\PersonalizationClient\Value\ItemInterface;
+use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
+use Ibexa\Contracts\Personalization\Value\ItemInterface;
 
 interface DataSourceInterface
 {
     /**
-     * @return iterable<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface>
+     * @return iterable<\Ibexa\Contracts\Personalization\Value\ItemInterface>
      */
     public function fetchItems(CriteriaInterface $criteria): iterable;
 
