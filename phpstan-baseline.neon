@@ -36,7 +36,7 @@ parameters:
 			path: src/bundle/Controller/ContentController.php
 
 		-
-			message: "#^Parameter \\#1 \\$string of static method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ParamsConverterHelper\\:\\:getArrayFromString\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$string of static method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ParamsConverterHelper\\:\\:getArrayFromString\\(\\) expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentController.php
 
@@ -47,6 +47,11 @@ parameters:
 
 		-
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$fields \\(array\\<string\\>\\) does not accept array\\|null\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentController.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$lang \\(string\\|null\\) does not accept bool\\|float\\|int\\|string\\|null\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentController.php
 
@@ -76,7 +81,12 @@ parameters:
 			path: src/bundle/Controller/ContentTypeController.php
 
 		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$fields \\(array\\<string\\>\\) does not accept string\\|null\\.$#"
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$fields \\(array\\<string\\>\\) does not accept bool\\|float\\|int\\|string\\|null\\.$#"
+			count: 1
+			path: src/bundle/Controller/ContentTypeController.php
+
+		-
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$lang \\(string\\|null\\) does not accept bool\\|float\\|int\\|string\\|null\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentTypeController.php
 
@@ -1007,11 +1017,6 @@ parameters:
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getWebHook\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Parameter \\#2 \\$default of method Symfony\\\\Component\\\\HttpFoundation\\\\InputBag\\:\\:get\\(\\) expects string\\|null, int given\\.$#"
 			count: 1
 			path: src/lib/Mapper/ExportRequestMapper.php
 
