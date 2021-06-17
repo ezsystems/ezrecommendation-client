@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Contracts\Personalization\Value;
 
-use Closure;
 use Countable;
 use IteratorAggregate;
 
@@ -24,5 +23,13 @@ interface ItemListInterface extends IteratorAggregate, Countable
 
     public function has(string $identifier, string $language): bool;
 
+    /**
+     * Callable argument: ItemInterface
+     *   return static function (ItemInterface $item): bool {
+     *       ...
+     *   };.
+     *
+     * Returns a new ItemInterface collection containing matched elements.
+     */
     public function filter(callable $predicate): self;
 }
