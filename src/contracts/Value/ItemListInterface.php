@@ -24,5 +24,5 @@ interface ItemListInterface extends IteratorAggregate, Countable
 
     public function has(string $identifier, string $language): bool;
 
-    public function filter(Closure $predicate): self;
+    public function filter(callable $predicate): self;
 }
