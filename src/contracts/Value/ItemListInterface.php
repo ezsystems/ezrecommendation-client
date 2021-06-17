@@ -24,12 +24,9 @@ interface ItemListInterface extends IteratorAggregate, Countable
     public function has(string $identifier, string $language): bool;
 
     /**
-     * Callable argument: ItemInterface
-     *   return static function (ItemInterface $item): bool {
-     *       ...
-     *   };.
-     *
      * Returns a new ItemInterface collection containing matched elements.
+     *
+     * @phpstan-param callable(\Ibexa\Contracts\Personalization\Value\ItemInterface=): bool $predicate
      */
     public function filter(callable $predicate): self;
 }
