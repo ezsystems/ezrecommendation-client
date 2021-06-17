@@ -8,6 +8,8 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exception;
 
-abstract class NotFoundException extends \Exception implements EzRecommendationException
+use RuntimeException;
+
+abstract class NotFoundException extends RuntimeException implements EzRecommendationException
 {
 }
