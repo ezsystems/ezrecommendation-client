@@ -41,6 +41,7 @@ final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
      *
      * @dataProvider providerForTestFetchItems
      * @dataProvider providerForTestFetchItemListWithLimit
+     * @dataProvider providerForTestFetchItemListWithLimitAndOffset
      */
     public function testFetchItems(CriteriaInterface $criteria, iterable $expectedItems): void
     {
@@ -227,6 +228,61 @@ final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
                     'Article',
                     'en'
                 ),
+                $this->createTestItem(
+                    1,
+                    '3',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'de'
+                ),
+                $this->createTestItem(
+                    2,
+                    '4',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'de'
+                ),
+                $this->createTestItem(
+                    1,
+                    '5',
+                    ItemType::BLOG_IDENTIFIER,
+                    'Blog',
+                    'en'
+                ),
+                $this->createTestItem(
+                    2,
+                    '6',
+                    ItemType::BLOG_IDENTIFIER,
+                    'Blog',
+                    'en'
+                ),
+                $this->createTestItem(
+                    3,
+                    '7',
+                    ItemType::BLOG_IDENTIFIER,
+                    'Blog',
+                    'en'
+                ),
+            ),
+        ];
+    }
+
+    /**
+     * @return iterable<array{CriteriaInterface, ItemListInterface}>
+     */
+    public function providerForTestFetchItemListWithLimitAndOffset(): iterable
+    {
+        yield [
+            $this->createTestCriteria(
+                [
+                    ItemType::ARTICLE_IDENTIFIER,
+                    ItemType::BLOG_IDENTIFIER,
+                ],
+                ['en', 'fr', 'de'],
+                5,
+                2
+            ),
+            $this->createTestItemList(
                 $this->createTestItem(
                     1,
                     '3',
