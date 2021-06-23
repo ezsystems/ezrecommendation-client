@@ -29,4 +29,9 @@ interface ItemListInterface extends IteratorAggregate, Countable
      * @phpstan-param callable(\Ibexa\Contracts\Personalization\Value\ItemInterface=): bool $predicate
      */
     public function filter(callable $predicate): self;
+
+    /**
+     * Returns a new ItemInterface collection sliced of $length elements starting at position $offset.
+     */
+    public function slice(int $offset, ?int $length = null): self;
 }
