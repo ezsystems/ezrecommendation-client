@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\Storage;
 
-use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
 use EzSystems\EzRecommendationClient\Storage\InMemoryDataSource;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemList;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
@@ -32,30 +31,20 @@ final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
     /**
      * @dataProvider providerForTestCountItems
      */
-    public function testCountItems(CriteriaInterface $criteria, int $expected): void
+    public function testCountItems(CriteriaInterface $criteria, int $expectedCount): void
     {
-        self::assertCount(
-            $expected,
-            $this->inMemoryDataSource->fetchItems($criteria)
-        );
-
-        self::assertEquals(
-            $expected,
-            $this->inMemoryDataSource->countItems($criteria)
-        );
+        $this->assertCountItems($this->inMemoryDataSource, $criteria, $expectedCount);
     }
 
     /**
      * @param iterable<\Ibexa\Contracts\Personalization\Value\ItemInterface> $expectedItems
      *
      * @dataProvider providerForTestFetchItems
+     * @dataProvider providerForTestFetchItemListWithLimit
      */
     public function testFetchItems(CriteriaInterface $criteria, iterable $expectedItems): void
     {
-        self::assertEquals(
-            $expectedItems,
-            $this->inMemoryDataSource->fetchItems($criteria)
-        );
+        $this->assertFetchItems($this->inMemoryDataSource, $criteria, $expectedItems);
     }
 
     public function testFetchItem(): void
@@ -65,24 +54,23 @@ final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
         $articleName = 'Article';
         $articleLanguage = 'en';
 
-        self::assertEquals(
+        $this->assertFetchItem(
+            $this->inMemoryDataSource,
+            $articleId,
+            $articleLanguage,
             $this->createTestItem(
                 $counter,
                 $articleId,
                 ItemType::ARTICLE_IDENTIFIER,
                 $articleName,
                 $articleLanguage
-            ),
-            $this->inMemoryDataSource->fetchItem($articleId, $articleLanguage)
+            )
         );
     }
 
     public function testFetchNonexistentItem(): void
     {
-        $this->expectException(ItemNotFoundException::class);
-        $this->expectExceptionMessage('Item not found with id: 12345678 and language: pl');
-
-        $this->inMemoryDataSource->fetchItem('12345678', 'pl');
+        $this->exceptExceptionsOnFetchNonexistentItem($this->inMemoryDataSource);
     }
 
     /**
@@ -204,6 +192,74 @@ final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
                     '11',
                     ItemType::PRODUCT_IDENTIFIER,
                     'Product',
+                    'en'
+                ),
+            ),
+        ];
+    }
+
+    /**
+     * @return iterable<array{CriteriaInterface, ItemListInterface}>
+     */
+    public function providerForTestFetchItemListWithLimit(): iterable
+    {
+        yield [
+            $this->createTestCriteria(
+                [
+                    ItemType::ARTICLE_IDENTIFIER,
+                    ItemType::BLOG_IDENTIFIER,
+                ],
+                ['en', 'fr', 'de'],
+                7
+            ),
+            $this->createTestItemList(
+                $this->createTestItem(
+                    1,
+                    '1',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'en'
+                ),
+                $this->createTestItem(
+                    2,
+                    '2',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'en'
+                ),
+                $this->createTestItem(
+                    1,
+                    '3',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'de'
+                ),
+                $this->createTestItem(
+                    2,
+                    '4',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'de'
+                ),
+                $this->createTestItem(
+                    1,
+                    '5',
+                    ItemType::BLOG_IDENTIFIER,
+                    'Blog',
+                    'en'
+                ),
+                $this->createTestItem(
+                    2,
+                    '6',
+                    ItemType::BLOG_IDENTIFIER,
+                    'Blog',
+                    'en'
+                ),
+                $this->createTestItem(
+                    3,
+                    '7',
+                    ItemType::BLOG_IDENTIFIER,
+                    'Blog',
                     'en'
                 ),
             ),
