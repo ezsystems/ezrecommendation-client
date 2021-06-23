@@ -77,6 +77,11 @@ final class ItemList implements ItemListInterface
         return count($this->items);
     }
 
+    public function slice(int $offset, ?int $length = null): ItemListInterface
+    {
+        return new self(array_slice($this->items, $offset, $length));
+    }
+
     private function getItemPredicate(string $identifier, string $language): Closure
     {
         return static function (ItemInterface $item) use ($identifier, $language): bool {

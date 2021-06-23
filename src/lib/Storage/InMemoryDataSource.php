@@ -25,7 +25,9 @@ final class InMemoryDataSource implements DataSourceInterface
 
     public function fetchItems(CriteriaInterface $criteria): iterable
     {
-        return $this->itemList->filter($this->getPredicateFromCriteria($criteria));
+        return $this->itemList
+            ->filter($this->getPredicateFromCriteria($criteria))
+            ->slice($criteria->getOffset(), $criteria->getLimit());
     }
 
     public function countItems(CriteriaInterface $criteria): int
