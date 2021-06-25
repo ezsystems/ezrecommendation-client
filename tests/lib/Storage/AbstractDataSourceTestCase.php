@@ -209,7 +209,7 @@ abstract class AbstractDataSourceTestCase extends TestCase
     protected function createTestCriteria(
         array $identifiers,
         array $languages,
-        int $limit = 20,
+        int $limit = Criteria::LIMIT,
         int $offset = 0
     ): CriteriaInterface {
         return new Criteria(

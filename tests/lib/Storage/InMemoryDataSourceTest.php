@@ -109,7 +109,7 @@ final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
                 ],
                 ['en']
             ),
-            6,
+            15,
         ];
 
         yield [
@@ -121,7 +121,7 @@ final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
                 ],
                 ['en', 'no']
             ),
-            7,
+            25,
         ];
 
         yield [
@@ -133,7 +133,7 @@ final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
                 ],
                 ['en', 'fr', 'de']
             ),
-            13,
+            40,
         ];
 
         yield [
@@ -145,7 +145,7 @@ final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
                 ],
                 ['en', 'fr', 'de', 'no']
             ),
-            14,
+            50,
         ];
     }
 
@@ -191,6 +191,69 @@ final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
                 $this->createTestItem(
                     1,
                     '11',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                $this->createTestItem(
+                    2,
+                    '12',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                $this->createTestItem(
+                    3,
+                    '13',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                $this->createTestItem(
+                    4,
+                    '14',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                $this->createTestItem(
+                    5,
+                    '15',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                $this->createTestItem(
+                    6,
+                    '16',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                $this->createTestItem(
+                    7,
+                    '17',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                $this->createTestItem(
+                    8,
+                    '18',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                $this->createTestItem(
+                    9,
+                    '19',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                $this->createTestItem(
+                    10,
+                    '20',
                     ItemType::PRODUCT_IDENTIFIER,
                     'Product',
                     'en'
@@ -350,7 +413,7 @@ final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
             'item_type_identifier' => ItemType::PRODUCT_IDENTIFIER,
             'item_type_name' => 'Product',
             'languages' => ['en', 'de', 'fr', 'no'],
-            'limit' => 1,
+            'limit' => 10,
         ];
     }
 }

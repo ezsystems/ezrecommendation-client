@@ -12,6 +12,8 @@ use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 
 final class Criteria implements CriteriaInterface
 {
+    public const LIMIT = 50;
+
     /** @var array<string> */
     private array $itemTypeIdentifiers;
 
@@ -29,7 +31,7 @@ final class Criteria implements CriteriaInterface
     public function __construct(
         array $itemTypeIdentifiers,
         array $languages,
-        int $limit = 20,
+        int $limit = self::LIMIT,
         int $offset = 0
     ) {
         $this->itemTypeIdentifiers = $itemTypeIdentifiers;
