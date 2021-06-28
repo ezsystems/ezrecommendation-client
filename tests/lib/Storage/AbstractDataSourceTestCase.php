@@ -9,13 +9,11 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Storage;
 
 use ArrayIterator;
-use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
 use EzSystems\EzRecommendationClient\Tests\Stubs\Criteria;
 use EzSystems\EzRecommendationClient\Tests\Stubs\Item;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemList;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
-use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 use Ibexa\Contracts\Personalization\Value\ItemTypeInterface;
@@ -24,56 +22,6 @@ use Traversable;
 
 abstract class AbstractDataSourceTestCase extends TestCase
 {
-    /**
-     * @param iterable<\Ibexa\Contracts\Personalization\Value\ItemInterface> $expectedItems
-     */
-    protected function assertFetchItems(
-        DataSourceInterface $dataSource,
-        CriteriaInterface $criteria,
-        iterable $expectedItems
-    ): void {
-        self::assertEquals(
-            $expectedItems,
-            $dataSource->fetchItems($criteria)
-        );
-    }
-
-    protected function assertCountItems(
-        DataSourceInterface $dataSource,
-        CriteriaInterface $criteria,
-        int $expectedCount
-    ): void {
-        self::assertCount(
-            $expectedCount,
-            $dataSource->fetchItems($criteria)
-        );
-
-        self::assertEquals(
-            $expectedCount,
-            $dataSource->countItems($criteria)
-        );
-    }
-
-    protected function assertFetchItem(
-        DataSourceInterface $dataSource,
-        string $itemId,
-        string $language,
-        ItemInterface $expectedItem
-    ): void {
-        self::assertEquals(
-            $expectedItem,
-            $dataSource->fetchItem($itemId, $language)
-        );
-    }
-
-    protected function exceptExceptionsOnFetchNonexistentItem(DataSourceInterface $dataSource): void
-    {
-        $this->expectException(ItemNotFoundException::class);
-        $this->expectExceptionMessage('Item not found with id: undefined_item and language: pl');
-
-        $dataSource->fetchItem('undefined_item', 'pl');
-    }
-
     /**
      * @phpstan-param array<string, array{
      *  'item_type_identifier': string,
