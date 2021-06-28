@@ -10,7 +10,7 @@ namespace Ibexa\Contracts\Personalization\Value;
 
 interface ItemGroupInterface
 {
-    public function getGroupIdentifier(): string;
+    public function getIdentifier(): string;
 
     public function getItems(): ItemListInterface;
 }
