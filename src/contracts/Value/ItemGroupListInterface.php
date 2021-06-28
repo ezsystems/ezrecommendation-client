@@ -12,7 +12,7 @@ use Countable;
 use IteratorAggregate;
 
 /**
- * @extends IteratorAggregate<ItemGroupInterface>
+ * @extends IteratorAggregate<\Ibexa\Contracts\Personalization\Value\ItemGroupInterface>
  */
 interface ItemGroupListInterface extends IteratorAggregate, Countable
 {
