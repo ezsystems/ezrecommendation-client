@@ -10,9 +10,13 @@ namespace EzSystems\EzRecommendationClient\Tests\Stubs;
 
 use ArrayIterator;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
+use IteratorAggregate;
 use Traversable;
 
-final class ItemGroupList implements ItemGroupListInterface
+/**
+ * @implements IteratorAggregate<\Ibexa\Contracts\Personalization\Value\ItemGroupInterface>
+ */
+final class ItemGroupList implements IteratorAggregate, ItemGroupListInterface
 {
     /** @var array<\Ibexa\Contracts\Personalization\Value\ItemGroupInterface> */
     private array $groups;
