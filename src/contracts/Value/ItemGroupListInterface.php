@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Personalization\Value;
 
 use Countable;
-use IteratorAggregate;
+use Traversable;
 
 /**
- * @extends IteratorAggregate<\Ibexa\Contracts\Personalization\Value\ItemGroupInterface>
+ * @extends Traversable<\Ibexa\Contracts\Personalization\Value\ItemGroupInterface>
  */
-interface ItemGroupListInterface extends IteratorAggregate, Countable
+interface ItemGroupListInterface extends Traversable, Countable
 {
     /**
      * @return iterable<\Ibexa\Contracts\Personalization\Value\ItemGroupInterface>
