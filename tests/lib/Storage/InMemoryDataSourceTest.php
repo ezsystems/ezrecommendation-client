@@ -10,11 +10,12 @@ namespace EzSystems\EzRecommendationClient\Tests\Storage;
 
 use EzSystems\EzRecommendationClient\Storage\InMemoryDataSource;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
+use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 
-final class InMemoryDataSourceTest extends AbstractItemSourceTestCase
+final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
 {
-    protected function createDataSource(): DataSourceInterface
+    protected function createDataSource(ItemListInterface $itemList): DataSourceInterface
     {
-        return new InMemoryDataSource($this->createItems());
+        return new InMemoryDataSource($itemList);
     }
 }
