@@ -100,11 +100,6 @@ final class DataSourceTestItemCreator
         );
     }
 
-    public static function createTestEmptyItemList(): ItemListInterface
-    {
-        return new ItemList([]);
-    }
-
     public static function createTestItemList(ItemInterface ...$items): ItemListInterface
     {
         return new ItemList($items);
