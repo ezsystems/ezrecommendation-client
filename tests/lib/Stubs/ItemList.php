@@ -82,6 +82,14 @@ final class ItemList implements ItemListInterface
         return new self(array_slice($this->items, $offset, $length));
     }
 
+    /**
+     * @param \Traversable<\Ibexa\Contracts\Personalization\Value\ItemInterface> $traversable
+     */
+    public static function fromTraversable(Traversable $traversable): ItemListInterface
+    {
+        return new self(iterator_to_array($traversable));
+    }
+
     private function getItemPredicate(string $identifier, string $language): Closure
     {
         return static function (ItemInterface $item) use ($identifier, $language): bool {
