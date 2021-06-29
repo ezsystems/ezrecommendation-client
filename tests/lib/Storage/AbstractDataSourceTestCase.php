@@ -175,7 +175,7 @@ abstract class AbstractDataSourceTestCase extends TestCase
                 ],
                 ['pl']
             ),
-            DataSourceTestItemCreator::createTestEmptyItemList(),
+            DataSourceTestItemCreator::createTestItemList(),
         ];
 
         yield [
@@ -440,7 +440,7 @@ abstract class AbstractDataSourceTestCase extends TestCase
         );
     }
 
-    protected function exceptExceptionsOnFetchNonexistentItem(): void
+    protected function expectExceptionOnFetchNonexistentItem(): void
     {
         $dataSource = $this->createDataSource($this->createItems());
 

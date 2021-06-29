@@ -67,7 +67,7 @@ final class DataSourceTestItemCreator
     }
 
     /**
-     * @return array<string, string|int|array>
+     * @return array<string, string>
      */
     public static function createTestItemAttributes(
         int $counter,
