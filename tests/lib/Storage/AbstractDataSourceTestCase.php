@@ -8,173 +8,445 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\Storage;
 
-use ArrayIterator;
-use EzSystems\EzRecommendationClient\Tests\Stubs\Criteria;
-use EzSystems\EzRecommendationClient\Tests\Stubs\Item;
+use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
+use EzSystems\EzRecommendationClient\Tests\Creator\DataSourceTestItemCreator;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemList;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
+use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
-use Ibexa\Contracts\Personalization\Value\ItemTypeInterface;
 use PHPUnit\Framework\TestCase;
-use Traversable;
 
 abstract class AbstractDataSourceTestCase extends TestCase
 {
+    abstract protected function createDataSource(ItemListInterface $itemList): DataSourceInterface;
+
     /**
-     * @phpstan-param array<string, array{
+     * @phpstan-param ?iterable<string, array{
      *  'item_type_identifier': string,
      *  'item_type_name': string,
-     *  'languages': array,
+     *  'languages': array<string>,
      *  'limit': int,
-     * }> $testItemsConfig
-     *
-     * @return Traversable<ItemInterface>
+     * }> $itemsConfig
      */
-    protected function getDataSourceTestItems(iterable $testItemsConfig): Traversable
+    public function createItems(?iterable $itemsConfig = null): ItemListInterface
     {
-        $items = [];
-
-        foreach ($this->createTestItems($testItemsConfig) as $itemGroup) {
-            foreach ($itemGroup as $item) {
-                $items[] = $item;
-            }
-        }
-
-        return new ArrayIterator($items);
+        return ItemList::fromTraversable(
+            DataSourceTestItemCreator::createTestItems($itemsConfig)
+        );
     }
 
     /**
-     * @phpstan-param array<string, array{
-     *  'item_type_identifier': string,
-     *  'item_type_name': string,
-     *  'languages': array,
-     *  'limit': int,
-     * }> $testItemsConfig
-     *
-     * @return iterable<int, iterable<ItemInterface>>
+     * @dataProvider providerForTestCountItems
      */
-    protected function createTestItems(iterable $testItemsConfig): iterable
+    public function testCountItems(CriteriaInterface $criteria, int $expectedCount): void
     {
-        $items = [];
+        $dataSource = $this->createDataSource($this->createItems());
+        $this->assertCountItems($dataSource, $criteria, $expectedCount);
+    }
+
+    /**
+     * @param iterable<\Ibexa\Contracts\Personalization\Value\ItemInterface> $expectedItems
+     *
+     * @dataProvider providerForTestFetchItems
+     * @dataProvider providerForTestFetchItemListWithLimit
+     * @dataProvider providerForTestFetchItemListWithLimitAndOffset
+     */
+    public function testFetchItems(CriteriaInterface $criteria, iterable $expectedItems): void
+    {
+        $dataSource = $this->createDataSource($this->createItems());
+        $this->assertFetchItems($dataSource, $criteria, $expectedItems);
+    }
+
+    public function testFetchItem(): void
+    {
+        $dataSource = $this->createDataSource($this->createItems());
+
         $counter = 1;
+        $articleId = '1';
+        $articleName = 'Article';
+        $articleLanguage = 'en';
 
-        foreach ($testItemsConfig as $testItem) {
-            $createdItems = $this->createTestItemsForGivenLanguages(
+        $this->assertFetchItem(
+            $dataSource,
+            $articleId,
+            $articleLanguage,
+            DataSourceTestItemCreator::createTestItem(
                 $counter,
-                $testItem['item_type_identifier'],
-                $testItem['item_type_name'],
-                $testItem['languages'],
-                $testItem['limit'],
-            );
-            $counter += count($createdItems);
-            $items[] = $createdItems;
-        }
-
-        return $items;
-    }
-
-    /**
-     * @param array<string> $languages
-     *
-     * @return array<ItemInterface>
-     */
-    protected function createTestItemsForGivenLanguages(
-        int $id,
-        string $itemTypeIdentifier,
-        string $itemTypeName,
-        array $languages,
-        int $limit
-    ): array {
-        $items = [];
-
-        foreach ($languages as $language) {
-            for ($i = 1; $i <= $limit; ++$i) {
-                $items[] = $this->createTestItem(
-                    $i,
-                    (string)$id,
-                    $itemTypeIdentifier,
-                    $itemTypeName,
-                    $language
-                );
-
-                ++$id;
-            }
-        }
-
-        return $items;
-    }
-
-    protected function createTestItem(
-        int $counter,
-        string $itemId,
-        string $itemTypeIdentifier,
-        string $itemTypeName,
-        string $language
-    ): ItemInterface {
-        return new Item(
-            $itemId,
-            $this->createTestItemType($itemTypeIdentifier, $itemTypeName),
-            $language,
-            $this->createTestItemAttributes(
-                $counter,
-                $itemTypeIdentifier,
-                $itemTypeName,
-                $language
+                $articleId,
+                ItemType::ARTICLE_IDENTIFIER,
+                $articleName,
+                $articleLanguage
             )
         );
     }
 
-    protected function createTestItemType(string $identifier, string $name): ItemTypeInterface
+    public function testFetchNonexistentItem(): void
     {
-        return new ItemType(
-            $identifier,
-            $name
-        );
+        $this->exceptExceptionsOnFetchNonexistentItem();
     }
 
     /**
-     * @return array<string, string|int|array>
+     * @return iterable<array{CriteriaInterface, int}>
      */
-    protected function createTestItemAttributes(
-        int $counter,
-        string $itemTypeIdentifier,
-        string $itemTypeName,
-        string $language
-    ): array {
-        return [
-            'name' => sprintf('%s %s %s', $itemTypeName, $counter, $language),
-            'body' => sprintf('%s %s %s %s', $itemTypeName, $counter, Item::ITEM_BODY, $language),
-            'image' => sprintf(Item::ITEM_IMAGE, $itemTypeIdentifier, $counter),
+    public function providerForTestCountItems(): iterable
+    {
+        yield [
+            DataSourceTestItemCreator::createTestCriteria(
+                [
+                    ItemType::ARTICLE_IDENTIFIER,
+                    ItemType::PRODUCT_IDENTIFIER,
+                ],
+                ['pl']
+            ),
+            0,
+        ];
+
+        yield [
+            DataSourceTestItemCreator::createTestCriteria(
+                [
+                    ItemType::ARTICLE_IDENTIFIER,
+                ],
+                ['en']
+            ),
+            2,
+        ];
+
+        yield [
+            DataSourceTestItemCreator::createTestCriteria(
+                [
+                    ItemType::ARTICLE_IDENTIFIER,
+                    ItemType::BLOG_IDENTIFIER,
+                    ItemType::PRODUCT_IDENTIFIER,
+                ],
+                ['en']
+            ),
+            15,
+        ];
+
+        yield [
+            DataSourceTestItemCreator::createTestCriteria(
+                [
+                    ItemType::ARTICLE_IDENTIFIER,
+                    ItemType::BLOG_IDENTIFIER,
+                    ItemType::PRODUCT_IDENTIFIER,
+                ],
+                ['en', 'no']
+            ),
+            25,
+        ];
+
+        yield [
+            DataSourceTestItemCreator::createTestCriteria(
+                [
+                    ItemType::ARTICLE_IDENTIFIER,
+                    ItemType::BLOG_IDENTIFIER,
+                    ItemType::PRODUCT_IDENTIFIER,
+                ],
+                ['en', 'fr', 'de']
+            ),
+            40,
+        ];
+
+        yield [
+            DataSourceTestItemCreator::createTestCriteria(
+                [
+                    ItemType::ARTICLE_IDENTIFIER,
+                    ItemType::BLOG_IDENTIFIER,
+                    ItemType::PRODUCT_IDENTIFIER,
+                ],
+                ['en', 'fr', 'de', 'no']
+            ),
+            50,
         ];
     }
 
     /**
-     * @param array<string> $identifiers
-     * @param array<string> $languages
+     * @return iterable<array{CriteriaInterface, ItemListInterface}>
      */
-    protected function createTestCriteria(
-        array $identifiers,
-        array $languages,
-        int $limit = Criteria::LIMIT,
-        int $offset = 0
-    ): CriteriaInterface {
-        return new Criteria(
-            $identifiers,
-            $languages,
-            $limit,
-            $offset
+    public function providerForTestFetchItems(): iterable
+    {
+        yield [
+            DataSourceTestItemCreator::createTestCriteria(
+                [
+                    ItemType::ARTICLE_IDENTIFIER,
+                    ItemType::PRODUCT_IDENTIFIER,
+                ],
+                ['pl']
+            ),
+            DataSourceTestItemCreator::createTestEmptyItemList(),
+        ];
+
+        yield [
+            DataSourceTestItemCreator::createTestCriteria(
+                [
+                    ItemType::ARTICLE_IDENTIFIER,
+                    ItemType::PRODUCT_IDENTIFIER,
+                ],
+                ['en']
+            ),
+            DataSourceTestItemCreator::createTestItemList(
+                DataSourceTestItemCreator::createTestItem(
+                    1,
+                    '1',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    2,
+                    '2',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    1,
+                    '11',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    2,
+                    '12',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    3,
+                    '13',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    4,
+                    '14',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    5,
+                    '15',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    6,
+                    '16',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    7,
+                    '17',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    8,
+                    '18',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    9,
+                    '19',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    10,
+                    '20',
+                    ItemType::PRODUCT_IDENTIFIER,
+                    'Product',
+                    'en'
+                ),
+            ),
+        ];
+    }
+
+    /**
+     * @return iterable<array{CriteriaInterface, ItemListInterface}>
+     */
+    public function providerForTestFetchItemListWithLimit(): iterable
+    {
+        yield [
+            DataSourceTestItemCreator::createTestCriteria(
+                [
+                    ItemType::ARTICLE_IDENTIFIER,
+                    ItemType::BLOG_IDENTIFIER,
+                ],
+                ['en', 'fr', 'de'],
+                7
+            ),
+            DataSourceTestItemCreator::createTestItemList(
+                DataSourceTestItemCreator::createTestItem(
+                    1,
+                    '1',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    2,
+                    '2',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    1,
+                    '3',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'de'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    2,
+                    '4',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'de'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    1,
+                    '5',
+                    ItemType::BLOG_IDENTIFIER,
+                    'Blog',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    2,
+                    '6',
+                    ItemType::BLOG_IDENTIFIER,
+                    'Blog',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    3,
+                    '7',
+                    ItemType::BLOG_IDENTIFIER,
+                    'Blog',
+                    'en'
+                ),
+            ),
+        ];
+    }
+
+    /**
+     * @return iterable<array{CriteriaInterface, ItemListInterface}>
+     */
+    public function providerForTestFetchItemListWithLimitAndOffset(): iterable
+    {
+        yield [
+            DataSourceTestItemCreator::createTestCriteria(
+                [
+                    ItemType::ARTICLE_IDENTIFIER,
+                    ItemType::BLOG_IDENTIFIER,
+                ],
+                ['en', 'fr', 'de'],
+                5,
+                2
+            ),
+            DataSourceTestItemCreator::createTestItemList(
+                DataSourceTestItemCreator::createTestItem(
+                    1,
+                    '3',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'de'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    2,
+                    '4',
+                    ItemType::ARTICLE_IDENTIFIER,
+                    'Article',
+                    'de'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    1,
+                    '5',
+                    ItemType::BLOG_IDENTIFIER,
+                    'Blog',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    2,
+                    '6',
+                    ItemType::BLOG_IDENTIFIER,
+                    'Blog',
+                    'en'
+                ),
+                DataSourceTestItemCreator::createTestItem(
+                    3,
+                    '7',
+                    ItemType::BLOG_IDENTIFIER,
+                    'Blog',
+                    'en'
+                ),
+            ),
+        ];
+    }
+
+    /**
+     * @param iterable<\Ibexa\Contracts\Personalization\Value\ItemInterface> $expectedItems
+     */
+    protected function assertFetchItems(
+        DataSourceInterface $source,
+        CriteriaInterface $criteria,
+        iterable $expectedItems
+    ): void {
+        self::assertEquals(
+            $expectedItems,
+            $source->fetchItems($criteria)
         );
     }
 
-    protected function createTestEmptyItemList(): ItemListInterface
-    {
-        return new ItemList([]);
+    protected function assertCountItems(
+        DataSourceInterface $source,
+        CriteriaInterface $criteria,
+        int $expectedCount
+    ): void {
+        self::assertCount(
+            $expectedCount,
+            $source->fetchItems($criteria)
+        );
+
+        self::assertEquals(
+            $expectedCount,
+            $source->countItems($criteria)
+        );
     }
 
-    protected function createTestItemList(ItemInterface ...$items): ItemListInterface
+    protected function assertFetchItem(
+        DataSourceInterface $source,
+        string $id,
+        string $language,
+        ItemInterface $expectedItem
+    ): void {
+        self::assertEquals(
+            $expectedItem,
+            $source->fetchItem($id, $language)
+        );
+    }
+
+    protected function exceptExceptionsOnFetchNonexistentItem(): void
     {
-        return new ItemList($items);
+        $dataSource = $this->createDataSource($this->createItems());
+
+        $this->expectException(ItemNotFoundException::class);
+        $this->expectExceptionMessage('Item not found with id: undefined_item and language: pl');
+
+        $dataSource->fetchItem('undefined_item', 'pl');
     }
 }
