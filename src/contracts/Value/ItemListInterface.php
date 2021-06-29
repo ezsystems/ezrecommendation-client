@@ -9,12 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\Contracts\Personalization\Value;
 
 use Countable;
-use IteratorAggregate;
+use Traversable;
 
 /**
- * @extends IteratorAggregate<ItemInterface>
+ * @extends Traversable<\Ibexa\Contracts\Personalization\Value\ItemInterface>
  */
-interface ItemListInterface extends IteratorAggregate, Countable
+interface ItemListInterface extends Traversable, Countable
 {
     /**
      * @throws \EzSystems\EzRecommendationClient\Exception\ItemNotFoundException
@@ -34,4 +34,9 @@ interface ItemListInterface extends IteratorAggregate, Countable
      * Returns a new ItemInterface collection sliced of $length elements starting at position $offset.
      */
     public function slice(int $offset, ?int $length = null): self;
+
+    /**
+     * @param Traversable<\Ibexa\Contracts\Personalization\Value\ItemInterface> $traversable
+     */
+    public static function fromTraversable(Traversable $traversable): self;
 }
