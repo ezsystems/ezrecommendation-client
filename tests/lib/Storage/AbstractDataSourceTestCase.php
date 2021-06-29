@@ -84,7 +84,7 @@ abstract class AbstractDataSourceTestCase extends TestCase
 
     public function testFetchNonexistentItem(): void
     {
-        $this->exceptExceptionsOnFetchNonexistentItem();
+        $this->expectExceptionOnFetchNonexistentItem();
     }
 
     /**
