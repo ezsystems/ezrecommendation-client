@@ -12,7 +12,7 @@ use EzSystems\EzRecommendationClient\Storage\InMemoryDataSource;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 
-final class InMemoryDataSourceTest extends AbstractDataSourceTestCase
+final class InMemoryDataSourceTest extends AbstractItemTestCase
 {
     protected function createDataSource(ItemListInterface $itemList): DataSourceInterface
     {
