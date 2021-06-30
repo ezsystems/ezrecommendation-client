@@ -8,13 +8,8 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\Storage;
 
-use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
 use EzSystems\EzRecommendationClient\Tests\Creator\DataSourceTestItemCreator;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemList;
-use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
-use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
-use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
-use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -22,6 +17,9 @@ abstract class AbstractDataSourceTestCase extends TestCase
 {
     protected DataSourceTestItemCreator $itemCreator;
 
+    /**
+     * @param array<mixed> $data
+     */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
