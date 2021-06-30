@@ -21,7 +21,7 @@ use Traversable;
 
 final class DataSourceTestItemCreator
 {
-    private static int $lastGeneratedId = 1;
+    private int $lastGeneratedId = 1;
 
     /**
      * @phpstan-param ?iterable<string, array{
@@ -33,14 +33,14 @@ final class DataSourceTestItemCreator
      *
      * @return Traversable<\Ibexa\Contracts\Personalization\Value\ItemInterface>
      */
-    public static function createTestItems(?iterable $itemsConfig = null): Traversable
+    public function createTestItems(?iterable $itemsConfig = null): Traversable
     {
-        return self::createTestItemsForConfig(
-            $itemsConfig ?? self::getDefaultItemsConfig()
+        return $this->createTestItemsForConfig(
+            $itemsConfig ?? $this->getDefaultItemsConfig()
         );
     }
 
-    public static function createTestItem(
+    public function createTestItem(
         int $counter,
         string $itemId,
         string $itemTypeIdentifier,
@@ -49,9 +49,9 @@ final class DataSourceTestItemCreator
     ): ItemInterface {
         return new Item(
             $itemId,
-            self::createTestItemType($itemTypeIdentifier, $itemTypeName),
+            $this->createTestItemType($itemTypeIdentifier, $itemTypeName),
             $language,
-            self::createTestItemAttributes(
+            $this->createTestItemAttributes(
                 $counter,
                 $itemTypeIdentifier,
                 $itemTypeName,
@@ -60,7 +60,7 @@ final class DataSourceTestItemCreator
         );
     }
 
-    public static function createTestItemType(string $identifier, string $name): ItemTypeInterface
+    public function createTestItemType(string $identifier, string $name): ItemTypeInterface
     {
         return new ItemType(
             $identifier,
@@ -71,7 +71,7 @@ final class DataSourceTestItemCreator
     /**
      * @return array<string, string>
      */
-    public static function createTestItemAttributes(
+    public function createTestItemAttributes(
         int $counter,
         string $itemTypeIdentifier,
         string $itemTypeName,
@@ -88,7 +88,7 @@ final class DataSourceTestItemCreator
      * @param array<string> $identifiers
      * @param array<string> $languages
      */
-    public static function createTestCriteria(
+    public function createTestCriteria(
         array $identifiers,
         array $languages,
         int $limit = Criteria::LIMIT,
@@ -102,7 +102,7 @@ final class DataSourceTestItemCreator
         );
     }
 
-    public static function createTestItemList(ItemInterface ...$items): ItemListInterface
+    public function createTestItemList(ItemInterface ...$items): ItemListInterface
     {
         return new ItemList($items);
     }
@@ -117,12 +117,12 @@ final class DataSourceTestItemCreator
      *
      * @return Traversable<\Ibexa\Contracts\Personalization\Value\ItemInterface>
      */
-    private static function createTestItemsForConfig(iterable $testItemsConfig): Traversable
+    private function createTestItemsForConfig(iterable $testItemsConfig): Traversable
     {
         $items = [];
-        self::$lastGeneratedId = 1;
+        $this->lastGeneratedId = 1;
 
-        foreach (self::createTestItemsForConcreteConfig($testItemsConfig) as $itemGroup) {
+        foreach ($this->createTestItemsForConcreteConfig($testItemsConfig) as $itemGroup) {
             foreach ($itemGroup as $item) {
                 $items[] = $item;
             }
@@ -141,12 +141,12 @@ final class DataSourceTestItemCreator
      *
      * @return iterable<int, iterable<\Ibexa\Contracts\Personalization\Value\ItemInterface>>
      */
-    private static function createTestItemsForConcreteConfig(iterable $testItemsConfig): iterable
+    private function createTestItemsForConcreteConfig(iterable $testItemsConfig): iterable
     {
         $items = [];
 
         foreach ($testItemsConfig as $testItem) {
-            $items[] = self::createTestItemsForGivenLanguages(
+            $items[] = $this->createTestItemsForGivenLanguages(
                 $testItem['item_type_identifier'],
                 $testItem['item_type_name'],
                 $testItem['languages'],
@@ -162,7 +162,7 @@ final class DataSourceTestItemCreator
      *
      * @return array<\Ibexa\Contracts\Personalization\Value\ItemInterface>
      */
-    private static function createTestItemsForGivenLanguages(
+    private function createTestItemsForGivenLanguages(
         string $itemTypeIdentifier,
         string $itemTypeName,
         array $languages,
@@ -172,15 +172,15 @@ final class DataSourceTestItemCreator
 
         foreach ($languages as $language) {
             for ($i = 1; $i <= $limit; ++$i) {
-                $items[] = self::createTestItem(
+                $items[] = $this->createTestItem(
                     $i,
-                    (string)self::$lastGeneratedId,
+                    (string)$this->lastGeneratedId,
                     $itemTypeIdentifier,
                     $itemTypeName,
                     $language
                 );
 
-                ++self::$lastGeneratedId;
+                ++$this->lastGeneratedId;
             }
         }
 
@@ -195,7 +195,7 @@ final class DataSourceTestItemCreator
      *  'limit': int,
      * }>
      */
-    private static function getDefaultItemsConfig(): iterable
+    private function getDefaultItemsConfig(): iterable
     {
         yield 'articles' => [
             'item_type_identifier' => ItemType::ARTICLE_IDENTIFIER,
