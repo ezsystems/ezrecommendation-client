@@ -21,6 +21,8 @@ use Traversable;
 
 final class DataSourceTestItemCreator
 {
+    private static int $lastGeneratedId = 1;
+
     /**
      * @phpstan-param ?iterable<string, array{
      *  'item_type_identifier': string,
@@ -118,6 +120,7 @@ final class DataSourceTestItemCreator
     private static function createTestItemsForConfig(iterable $testItemsConfig): Traversable
     {
         $items = [];
+        self::$lastGeneratedId = 1;
 
         foreach (self::createTestItemsForConcreteConfig($testItemsConfig) as $itemGroup) {
             foreach ($itemGroup as $item) {
@@ -141,18 +144,14 @@ final class DataSourceTestItemCreator
     private static function createTestItemsForConcreteConfig(iterable $testItemsConfig): iterable
     {
         $items = [];
-        $counter = 1;
 
         foreach ($testItemsConfig as $testItem) {
-            $createdItems = self::createTestItemsForGivenLanguages(
-                $counter,
+            $items[] = self::createTestItemsForGivenLanguages(
                 $testItem['item_type_identifier'],
                 $testItem['item_type_name'],
                 $testItem['languages'],
                 $testItem['limit'],
             );
-            $counter += count($createdItems);
-            $items[] = $createdItems;
         }
 
         return $items;
@@ -164,7 +163,6 @@ final class DataSourceTestItemCreator
      * @return array<\Ibexa\Contracts\Personalization\Value\ItemInterface>
      */
     private static function createTestItemsForGivenLanguages(
-        int $id,
         string $itemTypeIdentifier,
         string $itemTypeName,
         array $languages,
@@ -176,13 +174,13 @@ final class DataSourceTestItemCreator
             for ($i = 1; $i <= $limit; ++$i) {
                 $items[] = self::createTestItem(
                     $i,
-                    (string)$id,
+                    (string)self::$lastGeneratedId,
                     $itemTypeIdentifier,
                     $itemTypeName,
                     $language
                 );
 
-                ++$id;
+                ++self::$lastGeneratedId;
             }
         }
 
