@@ -29,106 +29,12 @@ final class GroupByItemTypeAndLanguageStrategyTest extends AbstractDataSourceTes
 
     public function testGetGroupList(): void
     {
-        $articleListEn = $this->itemCreator->createTestItemList(
-            $this->itemCreator->createTestItem(
-                1,
-                '1',
-                ItemType::ARTICLE_IDENTIFIER,
-                ItemType::ARTICLE_NAME,
-                'en'
-            ),
-            $this->itemCreator->createTestItem(
-                2,
-                '2',
-                ItemType::ARTICLE_IDENTIFIER,
-                ItemType::ARTICLE_NAME,
-                'en'
-            ),
-        );
+        $articleListEn = $this->itemCreator->createTestItemListForEnglishArticles();
+        $articleListDe = $this->itemCreator->createTestItemListForGermanArticles();
+        $blogListEn = $this->itemCreator->createTestItemListForEnglishBlogPosts();
+        $blogListFr = $this->itemCreator->createTestItemListForFrenchBlogPosts();
 
-        $articleListDe = $this->itemCreator->createTestItemList(
-            $this->itemCreator->createTestItem(
-                1,
-                '3',
-                ItemType::ARTICLE_IDENTIFIER,
-                ItemType::ARTICLE_NAME,
-                'de'
-            ),
-            $this->itemCreator->createTestItem(
-                2,
-                '4',
-                ItemType::ARTICLE_IDENTIFIER,
-                ItemType::ARTICLE_NAME,
-                'de'
-            ),
-        );
-
-        $blogListEn = $this->itemCreator->createTestItemList(
-            $this->itemCreator->createTestItem(
-                1,
-                '5',
-                ItemType::BLOG_IDENTIFIER,
-                ItemType::BLOG_NAME,
-                'en'
-            ),
-            $this->itemCreator->createTestItem(
-                2,
-                '6',
-                ItemType::BLOG_IDENTIFIER,
-                ItemType::BLOG_NAME,
-                'en'
-            ),
-            $this->itemCreator->createTestItem(
-                3,
-                '7',
-                ItemType::BLOG_IDENTIFIER,
-                ItemType::BLOG_NAME,
-                'en'
-            ),
-        );
-
-        $blogListFr = $this->itemCreator->createTestItemList(
-            $this->itemCreator->createTestItem(
-                1,
-                '8',
-                ItemType::BLOG_IDENTIFIER,
-                ItemType::BLOG_NAME,
-                'fr'
-            ),
-            $this->itemCreator->createTestItem(
-                2,
-                '9',
-                ItemType::BLOG_IDENTIFIER,
-                ItemType::BLOG_NAME,
-                'fr'
-            ),
-            $this->itemCreator->createTestItem(
-                3,
-                '10',
-                ItemType::BLOG_IDENTIFIER,
-                ItemType::BLOG_NAME,
-                'fr'
-            ),
-        );
-
-        $expectedGroupList = $this->itemCreator->createTestItemGroupList(
-            $this->itemCreator->createTestItemGroup(
-                ItemType::ARTICLE_IDENTIFIER . '_' . 'en',
-                $articleListEn
-            ),
-            $this->itemCreator->createTestItemGroup(
-                ItemType::ARTICLE_IDENTIFIER . '_' . 'de',
-                $articleListDe
-            ),
-            $this->itemCreator->createTestItemGroup(
-                ItemType::BLOG_IDENTIFIER . '_' . 'en',
-                $blogListEn
-            ),
-            $this->itemCreator->createTestItemGroup(
-                ItemType::BLOG_IDENTIFIER . '_' . 'fr',
-                $blogListFr
-            ),
-        );
+        $expectedGroupList = $this->itemCreator->createTestItemGroupListForArticlesAndBlogPosts();
 
         $criteria = $this->itemCreator->createTestCriteria(
             [
