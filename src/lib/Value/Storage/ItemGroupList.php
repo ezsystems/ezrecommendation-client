@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Stubs;
+namespace EzSystems\EzRecommendationClient\Value\Storage;
 
 use ArrayIterator;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;

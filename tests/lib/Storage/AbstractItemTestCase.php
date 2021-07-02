@@ -151,6 +151,30 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
     {
         yield [
             $this->itemCreator->createTestCriteria(
+                [],
+                []
+            ),
+            $this->itemCreator->createTestItemList(),
+        ];
+
+        yield [
+            $this->itemCreator->createTestCriteria(
+                [],
+                ['pl']
+            ),
+            $this->itemCreator->createTestItemList(),
+        ];
+
+        yield [
+            $this->itemCreator->createTestCriteria(
+                [ItemType::ARTICLE_IDENTIFIER],
+                []
+            ),
+            $this->itemCreator->createTestItemList(),
+        ];
+
+        yield [
+            $this->itemCreator->createTestCriteria(
                 [
                     ItemType::ARTICLE_IDENTIFIER,
                     ItemType::PRODUCT_IDENTIFIER,

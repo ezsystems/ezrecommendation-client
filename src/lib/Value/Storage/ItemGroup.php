@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Stubs;
+namespace EzSystems\EzRecommendationClient\Value\Storage;
 
 use Ibexa\Contracts\Personalization\Value\ItemGroupInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;

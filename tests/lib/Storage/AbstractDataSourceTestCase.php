@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Storage;
 
 use EzSystems\EzRecommendationClient\Tests\Creator\DataSourceTestItemCreator;
-use EzSystems\EzRecommendationClient\Tests\Stubs\ItemList;
+use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 use PHPUnit\Framework\TestCase;
 
