@@ -46,7 +46,7 @@
     "scripts": {
         "fix-cs": "php-cs-fixer fix -v --config=.php_cs --show-progress=estimating",
         "phpstan": "phpstan analyse -c phpstan.neon",
-        "php-cs": "php-cs-fixer fix -v --diff --config=.php_cs --dry-run --show-progress=estimating",
+        "check-cs": "php-cs-fixer fix -v --diff --config=.php_cs --dry-run --show-progress=estimating",
         "test": "phpunit -vc phpunit.xml"
     },
     "extra": {
