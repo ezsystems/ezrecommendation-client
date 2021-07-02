@@ -47,7 +47,7 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
 
         $counter = 1;
         $articleId = '1';
-        $articleName = 'Article';
+        $articleName = ItemType::ARTICLE_NAME;
         $articleLanguage = 'en';
 
         $this->assertFetchItem(
@@ -197,84 +197,84 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
                     1,
                     '1',
                     ItemType::ARTICLE_IDENTIFIER,
-                    'Article',
+                    ItemType::ARTICLE_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     2,
                     '2',
                     ItemType::ARTICLE_IDENTIFIER,
-                    'Article',
+                    ItemType::ARTICLE_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     1,
                     '11',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     2,
                     '12',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     3,
                     '13',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     4,
                     '14',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     5,
                     '15',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     6,
                     '16',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     7,
                     '17',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     8,
                     '18',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     9,
                     '19',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     10,
                     '20',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
             ),
@@ -300,49 +300,49 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
                     1,
                     '1',
                     ItemType::ARTICLE_IDENTIFIER,
-                    'Article',
+                    ItemType::ARTICLE_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     2,
                     '2',
                     ItemType::ARTICLE_IDENTIFIER,
-                    'Article',
+                    ItemType::ARTICLE_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     1,
                     '3',
                     ItemType::ARTICLE_IDENTIFIER,
-                    'Article',
+                    ItemType::ARTICLE_NAME,
                     'de'
                 ),
                 $this->itemCreator->createTestItem(
                     2,
                     '4',
                     ItemType::ARTICLE_IDENTIFIER,
-                    'Article',
+                    ItemType::ARTICLE_NAME,
                     'de'
                 ),
                 $this->itemCreator->createTestItem(
                     1,
                     '5',
                     ItemType::BLOG_IDENTIFIER,
-                    'Blog',
+                    ItemType::BLOG_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     2,
                     '6',
                     ItemType::BLOG_IDENTIFIER,
-                    'Blog',
+                    ItemType::BLOG_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     3,
                     '7',
                     ItemType::BLOG_IDENTIFIER,
-                    'Blog',
+                    ItemType::BLOG_NAME,
                     'en'
                 ),
             ),
@@ -369,35 +369,35 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
                     1,
                     '3',
                     ItemType::ARTICLE_IDENTIFIER,
-                    'Article',
+                    ItemType::ARTICLE_NAME,
                     'de'
                 ),
                 $this->itemCreator->createTestItem(
                     2,
                     '4',
                     ItemType::ARTICLE_IDENTIFIER,
-                    'Article',
+                    ItemType::ARTICLE_NAME,
                     'de'
                 ),
                 $this->itemCreator->createTestItem(
                     1,
                     '5',
                     ItemType::BLOG_IDENTIFIER,
-                    'Blog',
+                    ItemType::BLOG_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     2,
                     '6',
                     ItemType::BLOG_IDENTIFIER,
-                    'Blog',
+                    ItemType::BLOG_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     3,
                     '7',
                     ItemType::BLOG_IDENTIFIER,
-                    'Blog',
+                    ItemType::BLOG_NAME,
                     'en'
                 ),
             ),

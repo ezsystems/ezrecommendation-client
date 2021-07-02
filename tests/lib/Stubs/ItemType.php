@@ -16,6 +16,10 @@ final class ItemType implements ItemTypeInterface
     public const BLOG_IDENTIFIER = 'blog';
     public const PRODUCT_IDENTIFIER = 'product';
 
+    public const ARTICLE_NAME = 'Article';
+    public const BLOG_NAME = 'Blog';
+    public const PRODUCT_NAME = 'Product';
+
     private string $identifier;
 
     private string $name;

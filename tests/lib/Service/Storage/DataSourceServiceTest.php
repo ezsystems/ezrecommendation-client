@@ -33,7 +33,7 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
             1,
             '1',
             ItemType::ARTICLE_IDENTIFIER,
-            'Article',
+            ItemType::ARTICLE_NAME,
             'en'
         );
 
@@ -95,14 +95,14 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
                 1,
                 '1',
                 ItemType::ARTICLE_IDENTIFIER,
-                'Article',
+                ItemType::ARTICLE_NAME,
                 'en'
             ),
             $this->itemCreator->createTestItem(
                 2,
                 '2',
                 ItemType::ARTICLE_IDENTIFIER,
-                'Article',
+                ItemType::ARTICLE_NAME,
                 'en'
             ),
         );
@@ -112,14 +112,14 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
                 1,
                 '3',
                 ItemType::ARTICLE_IDENTIFIER,
-                'Article',
+                ItemType::ARTICLE_NAME,
                 'de'
             ),
             $this->itemCreator->createTestItem(
                 2,
                 '4',
                 ItemType::ARTICLE_IDENTIFIER,
-                'Article',
+                ItemType::ARTICLE_NAME,
                 'de'
             ),
         );
@@ -129,21 +129,21 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
                 1,
                 '5',
                 ItemType::BLOG_IDENTIFIER,
-                'Blog post',
+                ItemType::BLOG_NAME,
                 'en'
             ),
             $this->itemCreator->createTestItem(
                 2,
                 '6',
                 ItemType::BLOG_IDENTIFIER,
-                'Blog post',
+                ItemType::BLOG_NAME,
                 'en'
             ),
             $this->itemCreator->createTestItem(
                 3,
                 '7',
                 ItemType::BLOG_IDENTIFIER,
-                'Blog post',
+                ItemType::BLOG_NAME,
                 'en'
             ),
         );
@@ -153,21 +153,21 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
                 1,
                 '8',
                 ItemType::BLOG_IDENTIFIER,
-                'Blog post',
+                ItemType::BLOG_IDENTIFIER,
                 'fr'
             ),
             $this->itemCreator->createTestItem(
                 2,
                 '9',
                 ItemType::BLOG_IDENTIFIER,
-                'Blog post',
+                ItemType::BLOG_NAME,
                 'fr'
             ),
             $this->itemCreator->createTestItem(
                 3,
                 '10',
                 ItemType::BLOG_IDENTIFIER,
-                'Blog post',
+                ItemType::BLOG_NAME,
                 'fr'
             ),
         );
@@ -241,84 +241,84 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
                     1,
                     '1',
                     ItemType::ARTICLE_IDENTIFIER,
-                    'Article',
+                    ItemType::ARTICLE_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     2,
                     '2',
                     ItemType::ARTICLE_IDENTIFIER,
-                    'Article',
+                    ItemType::ARTICLE_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     1,
                     '11',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     2,
                     '12',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     3,
                     '13',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     4,
                     '14',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     5,
                     '15',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     6,
                     '16',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     7,
                     '17',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     8,
                     '18',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     9,
                     '19',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
                 $this->itemCreator->createTestItem(
                     10,
                     '20',
                     ItemType::PRODUCT_IDENTIFIER,
-                    'Product',
+                    ItemType::PRODUCT_NAME,
                     'en'
                 ),
             ),

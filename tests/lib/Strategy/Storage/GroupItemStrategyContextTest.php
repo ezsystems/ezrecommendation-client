@@ -47,14 +47,14 @@ final class GroupItemStrategyContextTest extends AbstractDataSourceTestCase
                 1,
                 '1',
                 ItemType::ARTICLE_IDENTIFIER,
-                'Article',
+                ItemType::ARTICLE_NAME,
                 'en'
             ),
             $this->itemCreator->createTestItem(
                 2,
                 '2',
                 ItemType::ARTICLE_IDENTIFIER,
-                'Article',
+                ItemType::ARTICLE_NAME,
                 'en'
             ),
         );
@@ -64,14 +64,14 @@ final class GroupItemStrategyContextTest extends AbstractDataSourceTestCase
                 1,
                 '3',
                 ItemType::ARTICLE_IDENTIFIER,
-                'Article',
+                ItemType::ARTICLE_NAME,
                 'de'
             ),
             $this->itemCreator->createTestItem(
                 2,
                 '4',
                 ItemType::ARTICLE_IDENTIFIER,
-                'Article',
+                ItemType::ARTICLE_NAME,
                 'de'
             ),
         );
@@ -81,21 +81,21 @@ final class GroupItemStrategyContextTest extends AbstractDataSourceTestCase
                 1,
                 '5',
                 ItemType::BLOG_IDENTIFIER,
-                'Blog post',
+                ItemType::BLOG_NAME,
                 'en'
             ),
             $this->itemCreator->createTestItem(
                 2,
                 '6',
                 ItemType::BLOG_IDENTIFIER,
-                'Blog post',
+                ItemType::BLOG_NAME,
                 'en'
             ),
             $this->itemCreator->createTestItem(
                 3,
                 '7',
                 ItemType::BLOG_IDENTIFIER,
-                'Blog post',
+                ItemType::BLOG_NAME,
                 'en'
             ),
         );
@@ -105,21 +105,21 @@ final class GroupItemStrategyContextTest extends AbstractDataSourceTestCase
                 1,
                 '8',
                 ItemType::BLOG_IDENTIFIER,
-                'Blog post',
+                ItemType::BLOG_NAME,
                 'fr'
             ),
             $this->itemCreator->createTestItem(
                 2,
                 '9',
                 ItemType::BLOG_IDENTIFIER,
-                'Blog post',
+                ItemType::BLOG_NAME,
                 'fr'
             ),
             $this->itemCreator->createTestItem(
                 3,
                 '10',
                 ItemType::BLOG_IDENTIFIER,
-                'Blog post',
+                ItemType::BLOG_NAME,
                 'fr'
             ),
         );
