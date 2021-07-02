@@ -1,0 +1,17 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    _instanceof:
+        EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface:
+            tags:
+                - { name: ibexa.personalizaiton.group_item.strategy }
+
+    EzSystems\EzRecommendationClient\Strategy\Storage\GroupByItemTypeAndLanguageStrategy:
+
+    EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyContext: ~
+
+    EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyContextInterface:
+        '@EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyContext'
