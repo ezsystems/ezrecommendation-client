@@ -9,11 +9,15 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Creator;
 
 use ArrayIterator;
-use EzSystems\EzRecommendationClient\Tests\Stubs\Criteria;
+use EzSystems\EzRecommendationClient\Criteria\Criteria;
 use EzSystems\EzRecommendationClient\Tests\Stubs\Item;
-use EzSystems\EzRecommendationClient\Tests\Stubs\ItemList;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
+use EzSystems\EzRecommendationClient\Value\Storage\ItemGroup;
+use EzSystems\EzRecommendationClient\Value\Storage\ItemGroupList;
+use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
+use Ibexa\Contracts\Personalization\Value\ItemGroupInterface;
+use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 use Ibexa\Contracts\Personalization\Value\ItemTypeInterface;
@@ -105,6 +109,16 @@ final class DataSourceTestItemCreator
     public function createTestItemList(ItemInterface ...$items): ItemListInterface
     {
         return new ItemList($items);
+    }
+
+    public function createTestItemGroup(string $identifier, ItemListInterface $itemList): ItemGroupInterface
+    {
+        return new ItemGroup($identifier, $itemList);
+    }
+
+    public function createTestItemGroupList(ItemGroupInterface ...$groups): ItemGroupListInterface
+    {
+        return new ItemGroupList($groups);
     }
 
     /**

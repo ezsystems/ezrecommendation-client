@@ -6,16 +6,20 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Stubs;
+namespace EzSystems\EzRecommendationClient\Value\Storage;
 
 use ArrayIterator;
 use Closure;
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
+use IteratorAggregate;
 use Traversable;
 
-final class ItemList implements ItemListInterface
+/**
+ * @implements IteratorAggregate<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+ */
+final class ItemList implements IteratorAggregate, ItemListInterface
 {
     /** @var array<\Ibexa\Contracts\Personalization\Value\ItemInterface> */
     private array $items;
@@ -46,10 +50,7 @@ final class ItemList implements ItemListInterface
             throw new ItemNotFoundException($identifier, $language);
         }
 
-        $items = array_filter(
-            $this->items,
-            $this->getItemPredicate($identifier, $language)
-        );
+        $items = array_filter($this->items, $this->getItemPredicate($identifier, $language));
         $item = current($items);
 
         if (!$item instanceof ItemInterface) {
@@ -61,10 +62,7 @@ final class ItemList implements ItemListInterface
 
     public function has(string $identifier, string $language): bool
     {
-        return array_filter(
-            $this->items,
-            $this->getItemPredicate($identifier, $language)
-        ) !== null;
+        return array_filter($this->items, $this->getItemPredicate($identifier, $language)) !== null;
     }
 
     public function getIterator(): Traversable
