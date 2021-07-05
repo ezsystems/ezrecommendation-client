@@ -19,7 +19,6 @@ final class GroupByItemTypeAndLanguageStrategy implements GroupItemStrategyInter
 {
     private DataSourceServiceInterface $dataSourceService;
 
-    private const GROUP_BY_ITEM_TYPE_AND_LANGUAGE = 'item_type_and_language';
     private const GROUP_IDENTIFIER = '%s_%s';
 
     public function __construct(DataSourceServiceInterface $dataSourceService)
@@ -54,6 +53,6 @@ final class GroupByItemTypeAndLanguageStrategy implements GroupItemStrategyInter
 
     public function supports(string $groupBy): bool
     {
-        return $groupBy === self::GROUP_BY_ITEM_TYPE_AND_LANGUAGE;
+        return $groupBy === SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE;
     }
 }

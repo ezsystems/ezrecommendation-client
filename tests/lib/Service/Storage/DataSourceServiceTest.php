@@ -11,6 +11,7 @@ namespace EzSystems\EzRecommendationClient\Tests\Service\Storage;
 use EzSystems\EzRecommendationClient\Service\Storage\DataSourceService;
 use EzSystems\EzRecommendationClient\Storage\InMemoryDataSource;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyContextInterface;
+use EzSystems\EzRecommendationClient\Strategy\Storage\SupportedGroupItemStrategy;
 use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
@@ -80,6 +81,42 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         );
     }
 
+    public function testGetItemsFromMultipleDataSources(): void
+    {
+        $criteria = $this->itemCreator->createTestCriteria(
+            [
+                ItemType::ARTICLE_IDENTIFIER,
+                ItemType::PRODUCT_IDENTIFIER,
+            ],
+            ['en']
+        );
+        $products = $this->itemCreator->createTestItemListForEnglishProducts();
+        $articles = $this->itemCreator->createTestItemListForEnglishArticles();
+        $productsDataSource = $this->createDataSourceMockForCriteria(
+            $criteria,
+            $products,
+            count($products)
+        );
+        $articlesDataSources = $this->createDataSourceMockForCriteria(
+            $criteria,
+            $articles,
+            count($articles)
+        );
+
+        $dataSourceService = new DataSourceService(
+            [
+                $articlesDataSources,
+                $productsDataSource,
+            ],
+            $this->itemGroupStrategy
+        );
+
+        self::assertEquals(
+            $this->itemCreator->createTestItemListForEnglishArticlesAndProducts(),
+            $dataSourceService->getItems($criteria)
+        );
+    }
+
     public function testGetGroupedItems(): void
     {
         $criteria = $this->itemCreator->createTestCriteria(
@@ -95,7 +132,7 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         $itemGroupStrategy = $this->createMock(GroupItemStrategyContextInterface::class);
         $itemGroupStrategy
             ->method('getGroupList')
-            ->with($criteria, 'item_type_and_language')
+            ->with($criteria, SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE)
             ->willReturn($expectedGroupList);
 
         $dataSourceService = new DataSourceService(
@@ -109,7 +146,7 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
             $expectedGroupList,
             $dataSourceService->getGroupedItems(
                 $criteria,
-                'item_type_and_language'
+                SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE
             )
         );
     }

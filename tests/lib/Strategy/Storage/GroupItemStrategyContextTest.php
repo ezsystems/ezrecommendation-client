@@ -11,6 +11,7 @@ namespace EzSystems\EzRecommendationClient\Tests\Strategy\Storage;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyContext;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyContextInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface;
+use EzSystems\EzRecommendationClient\Strategy\Storage\SupportedGroupItemStrategy;
 use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
 
@@ -40,7 +41,7 @@ final class GroupItemStrategyContextTest extends AbstractDataSourceTestCase
             ],
             ['en', 'de', 'fr']
         );
-        $groupBy = 'item_type_and_language';
+        $groupBy = SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE;
         $expectedGroupList = $this->itemCreator->createTestItemGroupListForArticlesAndBlogPosts();
 
         $this->groupByItemTypeAndLanguages
