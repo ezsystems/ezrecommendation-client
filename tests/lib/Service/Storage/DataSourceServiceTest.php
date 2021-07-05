@@ -97,7 +97,7 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
             $products,
             count($products)
         );
-        $articlesDataSources = $this->createDataSourceMockForCriteria(
+        $articlesDataSource = $this->createDataSourceMockForCriteria(
             $criteria,
             $articles,
             count($articles)
@@ -105,15 +105,22 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
 
         $dataSourceService = new DataSourceService(
             [
-                $articlesDataSources,
+                $articlesDataSource,
                 $productsDataSource,
             ],
             $this->itemGroupStrategy
         );
 
+        $items = $dataSourceService->getItems($criteria);
+
+        self::assertCount(
+            $products->count() + $articles->count(),
+            $items
+        );
+
         self::assertEquals(
             $this->itemCreator->createTestItemListForEnglishArticlesAndProducts(),
-            $dataSourceService->getItems($criteria)
+            $items
         );
     }
 
