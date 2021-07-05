@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Service\Storage;
 
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
-use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyContextInterface;
+use EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategyInterface;
 use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
@@ -21,12 +21,12 @@ final class DataSourceService implements DataSourceServiceInterface
     /** @var iterable<\Ibexa\Contracts\Personalization\Storage\DataSourceInterface> */
     private iterable $sources;
 
-    private GroupItemStrategyContextInterface $groupItemStrategy;
+    private ItemGroupListStrategyInterface $groupItemStrategy;
 
     /** @param iterable<\Ibexa\Contracts\Personalization\Storage\DataSourceInterface> $sources */
     public function __construct(
         iterable $sources,
-        GroupItemStrategyContextInterface $groupItemStrategy
+        ItemGroupListStrategyInterface $groupItemStrategy
     ) {
         $this->sources = $sources;
         $this->groupItemStrategy = $groupItemStrategy;

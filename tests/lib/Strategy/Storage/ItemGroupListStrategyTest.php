@@ -8,16 +8,16 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\Strategy\Storage;
 
-use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyContext;
-use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyContextInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface;
+use EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategy;
+use EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategyInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\SupportedGroupItemStrategy;
 use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
 
-final class GroupItemStrategyContextTest extends AbstractDataSourceTestCase
+final class ItemGroupListStrategyTest extends AbstractDataSourceTestCase
 {
-    private GroupItemStrategyContextInterface $groupItemStrategy;
+    private ItemGroupListStrategyInterface $groupItemStrategy;
 
     /** @var \EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface|\PHPUnit\Framework\MockObject\MockObject */
     private GroupItemStrategyInterface $groupByItemTypeAndLanguages;
@@ -29,7 +29,7 @@ final class GroupItemStrategyContextTest extends AbstractDataSourceTestCase
             $this->groupByItemTypeAndLanguages,
         ];
 
-        $this->groupItemStrategy = new GroupItemStrategyContext($strategies);
+        $this->groupItemStrategy = new ItemGroupListStrategy($strategies);
     }
 
     public function testGetGroupList(): void

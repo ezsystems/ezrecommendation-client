@@ -11,7 +11,7 @@ namespace EzSystems\EzRecommendationClient\Strategy\Storage;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
 
-interface GroupItemStrategyContextInterface
+interface ItemGroupListStrategyInterface
 {
     /**
      * @throws \EzSystems\EzRecommendationClient\Exception\UnsupportedGroupItemStrategy

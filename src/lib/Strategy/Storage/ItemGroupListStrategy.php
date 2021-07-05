@@ -12,7 +12,7 @@ use EzSystems\EzRecommendationClient\Exception\UnsupportedGroupItemStrategy;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
 
-final class GroupItemStrategyContext implements GroupItemStrategyContextInterface
+final class ItemGroupListStrategy implements ItemGroupListStrategyInterface
 {
     /** @var iterable<\EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface> */
     private iterable $strategies;
