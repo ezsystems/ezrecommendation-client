@@ -9,40 +9,33 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Strategy\Storage;
 
 use EzSystems\EzRecommendationClient\Criteria\Criteria;
-use EzSystems\EzRecommendationClient\Service\Storage\DataSourceServiceInterface;
 use EzSystems\EzRecommendationClient\Value\Storage\ItemGroup;
 use EzSystems\EzRecommendationClient\Value\Storage\ItemGroupList;
+use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
+use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
+use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 
 final class GroupByItemTypeAndLanguageStrategy implements GroupItemStrategyInterface
 {
-    private DataSourceServiceInterface $dataSourceService;
-
     private const GROUP_IDENTIFIER = '%s_%s';
 
-    public function __construct(DataSourceServiceInterface $dataSourceService)
-    {
-        $this->dataSourceService = $dataSourceService;
-    }
-
-    public function getGroupList(CriteriaInterface $criteria): ItemGroupListInterface
+    public function getGroupList(DataSourceInterface $source, CriteriaInterface $criteria): ItemGroupListInterface
     {
         $groupedItems = [];
 
         foreach ($criteria->getItemTypeIdentifiers() as $identifier) {
             foreach ($criteria->getLanguages() as $language) {
                 $modifiedCriteria = new Criteria([$identifier], [$language]);
-                $items = $this->dataSourceService->getItems($modifiedCriteria);
-
-                if ($items->count() > 0) {
+                if ($source->countItems($modifiedCriteria) > 0) {
                     $groupedItems[] = new ItemGroup(
                         sprintf(
                             self::GROUP_IDENTIFIER,
                             $identifier,
                             $language
                         ),
-                        $items
+                        $this->getItemList($source->fetchItems($modifiedCriteria))
                     );
                 }
             }
@@ -51,8 +44,22 @@ final class GroupByItemTypeAndLanguageStrategy implements GroupItemStrategyInter
         return new ItemGroupList($groupedItems);
     }
 
-    public function supports(string $groupBy): bool
+    public static function getIndex(): string
     {
-        return $groupBy === SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE;
+        return SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE;
+    }
+
+    /**
+     * @param iterable<\Ibexa\Contracts\Personalization\Value\ItemInterface> $items
+     */
+    private function getItemList(iterable $items): ItemListInterface
+    {
+        $extractedItems = [];
+
+        foreach ($items as $item) {
+            $extractedItems[] = $item;
+        }
+
+        return new ItemList($extractedItems);
     }
 }

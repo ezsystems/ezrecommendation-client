@@ -8,12 +8,14 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\Strategy\Storage;
 
+use EzSystems\EzRecommendationClient\Exception\UnsupportedGroupItemStrategy;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategy;
 use EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategyInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\SupportedGroupItemStrategy;
 use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
+use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 
 final class ItemGroupListStrategyTest extends AbstractDataSourceTestCase
 {
@@ -22,14 +24,18 @@ final class ItemGroupListStrategyTest extends AbstractDataSourceTestCase
     /** @var \EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface|\PHPUnit\Framework\MockObject\MockObject */
     private GroupItemStrategyInterface $groupByItemTypeAndLanguages;
 
+    /** @var \Ibexa\Contracts\Personalization\Storage\DataSourceInterface|\PHPUnit\Framework\MockObject\MockObject */
+    private DataSourceInterface $dataSource;
+
     public function setUp(): void
     {
         $this->groupByItemTypeAndLanguages = $this->createMock(GroupItemStrategyInterface::class);
         $strategies = [
-            $this->groupByItemTypeAndLanguages,
+            SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE => $this->groupByItemTypeAndLanguages,
         ];
 
         $this->groupItemStrategy = new ItemGroupListStrategy($strategies);
+        $this->dataSource = $this->createMock(DataSourceInterface::class);
     }
 
     public function testGetGroupList(): void
@@ -46,19 +52,28 @@ final class ItemGroupListStrategyTest extends AbstractDataSourceTestCase
 
         $this->groupByItemTypeAndLanguages
             ->expects(self::once())
-            ->method('supports')
-            ->with($groupBy)
-            ->willReturn(true);
-
-        $this->groupByItemTypeAndLanguages
-            ->expects(self::once())
             ->method('getGroupList')
-            ->with($criteria)
+            ->with($this->dataSource, $criteria)
             ->willReturn($expectedGroupList);
 
         self::assertEquals(
             $expectedGroupList,
-            $this->groupItemStrategy->getGroupList($criteria, $groupBy)
+            $this->groupItemStrategy->getGroupList($this->dataSource, $criteria, $groupBy)
         );
+    }
+
+    public function testThrowUnsupportedGroupItemStrategyException(): void
+    {
+        $criteria = $this->itemCreator->createTestCriteria(
+            [
+                ItemType::PRODUCT_IDENTIFIER,
+            ],
+            ['en']
+        );
+
+        $this->expectException(UnsupportedGroupItemStrategy::class);
+        $this->expectExceptionMessage('Unsupported GroupItemStrategy nonexistent_group_item_strategy');
+
+        $this->groupItemStrategy->getGroupList($this->dataSource, $criteria, 'nonexistent_group_item_strategy');
     }
 }

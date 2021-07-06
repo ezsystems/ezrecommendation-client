@@ -10,6 +10,7 @@ namespace EzSystems\EzRecommendationClient\Service\Storage;
 
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
 use EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategyInterface;
+use EzSystems\EzRecommendationClient\Value\Storage\ItemGroupList;
 use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
@@ -63,6 +64,14 @@ final class DataSourceService implements DataSourceServiceInterface
         CriteriaInterface $criteria,
         string $groupBy
     ): ItemGroupListInterface {
-        return $this->groupItemStrategy->getGroupList($criteria, $groupBy);
+        $groups = [];
+
+        foreach ($this->sources as $source) {
+            foreach ($this->groupItemStrategy->getGroupList($source, $criteria, $groupBy)->getGroups() as $group) {
+                $groups[] = $group;
+            }
+        }
+
+        return new ItemGroupList($groups);
     }
 }

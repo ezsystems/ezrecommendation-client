@@ -9,11 +9,12 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Strategy\Storage;
 
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
+use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
 
 interface GroupItemStrategyInterface
 {
-    public function supports(string $groupBy): bool;
+    public function getGroupList(DataSourceInterface $source, CriteriaInterface $criteria): ItemGroupListInterface;
 
-    public function getGroupList(CriteriaInterface $criteria): ItemGroupListInterface;
+    public static function getIndex(): string;
 }

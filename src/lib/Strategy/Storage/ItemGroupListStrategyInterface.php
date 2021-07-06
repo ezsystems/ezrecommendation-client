@@ -9,12 +9,14 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Strategy\Storage;
 
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
+use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
 
 interface ItemGroupListStrategyInterface
 {
-    /**
-     * @throws \EzSystems\EzRecommendationClient\Exception\UnsupportedGroupItemStrategy
-     */
-    public function getGroupList(CriteriaInterface $criteria, string $groupBy): ItemGroupListInterface;
+    public function getGroupList(
+        DataSourceInterface $source,
+        CriteriaInterface $criteria,
+        string $groupBy
+    ): ItemGroupListInterface;
 }

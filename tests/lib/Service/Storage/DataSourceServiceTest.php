@@ -9,7 +9,6 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Service\Storage;
 
 use EzSystems\EzRecommendationClient\Service\Storage\DataSourceService;
-use EzSystems\EzRecommendationClient\Storage\InMemoryDataSource;
 use EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategyInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\SupportedGroupItemStrategy;
 use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
@@ -135,16 +134,18 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         );
 
         $expectedGroupList = $this->itemCreator->createTestItemGroupListForArticlesAndBlogPosts();
+        $dataSource = $this->createMock(DataSourceInterface::class);
 
         $itemGroupStrategy = $this->createMock(ItemGroupListStrategyInterface::class);
         $itemGroupStrategy
+            ->expects(self::once())
             ->method('getGroupList')
-            ->with($criteria, SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE)
+            ->with($dataSource, $criteria, SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE)
             ->willReturn($expectedGroupList);
 
         $dataSourceService = new DataSourceService(
             [
-                new InMemoryDataSource($this->createItems()),
+                $dataSource,
             ],
             $itemGroupStrategy
         );
@@ -202,24 +203,19 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         ItemListInterface $expectedItemList,
         int $expectedCount
     ): DataSourceInterface {
-        /** @var DataSourceInterface|\PHPUnit\Framework\MockObject\MockObject $source */
-        $source = $this->createDataSourceMock();
+        $source = $this->createMock(DataSourceInterface::class);
         $source
             ->expects(self::once())
             ->method('countItems')
             ->with($criteria)
-            ->willReturn(
-                $expectedCount
-            );
+            ->willReturn($expectedCount);
 
         if ($expectedCount > 0) {
             $source
                 ->expects(self::once())
                 ->method('fetchItems')
                 ->with($criteria)
-                ->willReturn(
-                    $expectedItemList
-                );
+                ->willReturn($expectedItemList);
         }
 
         return $source;
@@ -230,8 +226,7 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         string $language,
         ItemInterface $expectedItem
     ): DataSourceInterface {
-        /** @var DataSourceInterface|\PHPUnit\Framework\MockObject\MockObject $source */
-        $source = $this->createDataSourceMock();
+        $source = $this->createMock(DataSourceInterface::class);
         $source
             ->expects(self::once())
             ->method('fetchItem')
@@ -239,10 +234,5 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
             ->willReturn($expectedItem);
 
         return $source;
-    }
-
-    private function createDataSourceMock(): DataSourceInterface
-    {
-        return $this->createMock(DataSourceInterface::class);
     }
 }

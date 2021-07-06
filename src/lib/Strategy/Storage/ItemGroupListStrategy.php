@@ -10,7 +10,9 @@ namespace EzSystems\EzRecommendationClient\Strategy\Storage;
 
 use EzSystems\EzRecommendationClient\Exception\UnsupportedGroupItemStrategy;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
+use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
+use Traversable;
 
 final class ItemGroupListStrategy implements ItemGroupListStrategyInterface
 {
@@ -23,14 +25,19 @@ final class ItemGroupListStrategy implements ItemGroupListStrategyInterface
         $this->strategies = $strategies;
     }
 
-    public function getGroupList(CriteriaInterface $criteria, string $groupBy): ItemGroupListInterface
-    {
-        foreach ($this->strategies as $strategy) {
-            if ($strategy->supports($groupBy)) {
-                return $strategy->getGroupList($criteria);
-            }
+    public function getGroupList(
+        DataSourceInterface $source,
+        CriteriaInterface $criteria,
+        string $groupBy
+    ): ItemGroupListInterface {
+        $strategies = $this->strategies instanceof Traversable
+            ? iterator_to_array($this->strategies)
+            : $this->strategies;
+
+        if (!array_key_exists($groupBy, $strategies)) {
+            throw new UnsupportedGroupItemStrategy($groupBy);
         }
 
-        throw new UnsupportedGroupItemStrategy($groupBy);
+        return $strategies[$groupBy]->getGroupList($source, $criteria);
     }
 }

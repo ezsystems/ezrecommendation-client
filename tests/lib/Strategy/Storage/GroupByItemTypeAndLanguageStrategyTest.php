@@ -8,34 +8,28 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Tests\Strategy\Storage;
 
-use EzSystems\EzRecommendationClient\Service\Storage\DataSourceServiceInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupByItemTypeAndLanguageStrategy;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface;
 use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
+use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 
 final class GroupByItemTypeAndLanguageStrategyTest extends AbstractDataSourceTestCase
 {
     private GroupItemStrategyInterface $strategy;
 
-    /** @var \EzSystems\EzRecommendationClient\Service\Storage\DataSourceServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
-    private DataSourceServiceInterface $dataSourceService;
+    /** @var \Ibexa\Contracts\Personalization\Storage\DataSourceInterface|\PHPUnit\Framework\MockObject\MockObject */
+    private DataSourceInterface $dataSource;
 
     public function setUp(): void
     {
-        $this->dataSourceService = $this->createMock(DataSourceServiceInterface::class);
-        $this->strategy = new GroupByItemTypeAndLanguageStrategy($this->dataSourceService);
+        $this->dataSource = $this->createConfiguredMock(DataSourceInterface::class, [
+        ]);
+        $this->strategy = new GroupByItemTypeAndLanguageStrategy();
     }
 
     public function testGetGroupList(): void
     {
-        $articleListEn = $this->itemCreator->createTestItemListForEnglishArticles();
-        $articleListDe = $this->itemCreator->createTestItemListForGermanArticles();
-        $blogListEn = $this->itemCreator->createTestItemListForEnglishBlogPosts();
-        $blogListFr = $this->itemCreator->createTestItemListForFrenchBlogPosts();
-
-        $expectedGroupList = $this->itemCreator->createTestItemGroupListForArticlesAndBlogPosts();
-
         $criteria = $this->itemCreator->createTestCriteria(
             [
                 ItemType::ARTICLE_IDENTIFIER,
@@ -43,60 +37,74 @@ final class GroupByItemTypeAndLanguageStrategyTest extends AbstractDataSourceTes
             ],
             ['en', 'de', 'fr']
         );
+        $criteriaArticlesEn = $this->itemCreator->createTestCriteria(
+            [ItemType::ARTICLE_IDENTIFIER],
+            ['en'],
+        );
+        $criteriaArticlesDe = $this->itemCreator->createTestCriteria(
+            [ItemType::ARTICLE_IDENTIFIER],
+            ['de'],
+        );
+        $criteriaBlogPostsEn = $this->itemCreator->createTestCriteria(
+            [ItemType::BLOG_IDENTIFIER],
+            ['en'],
+        );
+        $criteriaBlogPostsFr = $this->itemCreator->createTestCriteria(
+            [ItemType::BLOG_IDENTIFIER],
+            ['fr'],
+        );
 
-        $this->dataSourceService
+        $this->dataSource
             ->expects(self::at(0))
-            ->method('getItems')
-            ->with(
-                $this->itemCreator->createTestCriteria(
-                    [ItemType::ARTICLE_IDENTIFIER],
-                    ['en'],
-                )
-            )
-            ->willReturn($articleListEn);
+            ->method('countItems')
+            ->with($criteriaArticlesEn)
+            ->willReturn(2);
 
-        $this->dataSourceService
+        $this->dataSource
             ->expects(self::at(1))
-            ->method('getItems')
-            ->with(
-                $this->itemCreator->createTestCriteria(
-                    [ItemType::ARTICLE_IDENTIFIER],
-                    ['de'],
-                )
-            )
-            ->willReturn($articleListDe);
+            ->method('fetchItems')
+            ->with($criteriaArticlesEn)
+            ->willReturn($this->itemCreator->createTestItemListForEnglishArticles());
 
-        $this->dataSourceService
+        $this->dataSource
+            ->expects(self::at(2))
+            ->method('countItems')
+            ->with($criteriaArticlesDe)
+            ->willReturn(2);
+
+        $this->dataSource
             ->expects(self::at(3))
-            ->method('getItems')
-            ->with(
-                $this->itemCreator->createTestCriteria(
-                    [ItemType::BLOG_IDENTIFIER],
-                    ['en'],
-                )
-            )
-            ->willReturn($blogListEn);
+            ->method('fetchItems')
+            ->with($criteriaArticlesDe)
+            ->willReturn($this->itemCreator->createTestItemListForGermanArticles());
 
-        $this->dataSourceService
+        $this->dataSource
             ->expects(self::at(5))
-            ->method('getItems')
-            ->with(
-                $this->itemCreator->createTestCriteria(
-                    [ItemType::BLOG_IDENTIFIER],
-                    ['fr'],
-                )
-            )
-            ->willReturn($blogListFr);
+            ->method('countItems')
+            ->with($criteriaBlogPostsEn)
+            ->willReturn(3);
+
+        $this->dataSource
+            ->expects(self::at(6))
+            ->method('fetchItems')
+            ->with($criteriaBlogPostsEn)
+            ->willReturn($this->itemCreator->createTestItemListForEnglishBlogPosts());
+
+        $this->dataSource
+            ->expects(self::at(8))
+            ->method('countItems')
+            ->with($criteriaBlogPostsFr)
+            ->willReturn(3);
+
+        $this->dataSource
+            ->expects(self::at(9))
+            ->method('fetchItems')
+            ->with($criteriaBlogPostsFr)
+            ->willReturn($this->itemCreator->createTestItemListForFrenchBlogPosts());
 
         self::assertEquals(
-            $expectedGroupList,
-            $this->strategy->getGroupList($criteria)
+            $this->itemCreator->createTestItemGroupListForArticlesAndBlogPosts(),
+            $this->strategy->getGroupList($this->dataSource, $criteria)
         );
-    }
-
-    public function testSupports(): void
-    {
-        self::assertTrue($this->strategy->supports('item_type_and_language'));
-        self::assertFalse($this->strategy->supports('unsupported'));
     }
 }
