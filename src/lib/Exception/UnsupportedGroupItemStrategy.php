@@ -16,7 +16,7 @@ final class UnsupportedGroupItemStrategy extends RuntimeException implements EzR
     public function __construct(string $strategy, int $code = 0, Throwable $previous = null)
     {
         parent::__construct(
-            sprintf('Unsupported GroupItemStrategy %s ', $strategy),
+            sprintf('Unsupported GroupItemStrategy %s', $strategy),
             $code,
             $previous
         );
