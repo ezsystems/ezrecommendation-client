@@ -35,7 +35,7 @@ final class GroupByItemTypeAndLanguageStrategy implements GroupItemStrategyInter
                 $modifiedCriteria = new Criteria([$identifier], [$language]);
                 $items = $this->dataSourceService->getItems($modifiedCriteria);
 
-                if (($items->count() > 0)) {
+                if ($items->count() > 0) {
                     $groupedItems[] = new ItemGroup(
                         sprintf(
                             self::GROUP_IDENTIFIER,
