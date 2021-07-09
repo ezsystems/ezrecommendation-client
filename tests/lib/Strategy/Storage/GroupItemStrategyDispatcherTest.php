@@ -9,17 +9,17 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Strategy\Storage;
 
 use EzSystems\EzRecommendationClient\Exception\UnsupportedGroupItemStrategy;
+use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcher;
+use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface;
-use EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategy;
-use EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategyInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\SupportedGroupItemStrategy;
 use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 
-final class ItemGroupListStrategyTest extends AbstractDataSourceTestCase
+final class GroupItemStrategyDispatcherTest extends AbstractDataSourceTestCase
 {
-    private ItemGroupListStrategyInterface $groupItemStrategy;
+    private GroupItemStrategyDispatcherInterface $groupItemStrategyDispatcher;
 
     /** @var \EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface|\PHPUnit\Framework\MockObject\MockObject */
     private GroupItemStrategyInterface $groupByItemTypeAndLanguages;
@@ -34,7 +34,7 @@ final class ItemGroupListStrategyTest extends AbstractDataSourceTestCase
             SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE => $this->groupByItemTypeAndLanguages,
         ];
 
-        $this->groupItemStrategy = new ItemGroupListStrategy($strategies);
+        $this->groupItemStrategyDispatcher = new GroupItemStrategyDispatcher($strategies);
         $this->dataSource = $this->createMock(DataSourceInterface::class);
     }
 
@@ -58,7 +58,7 @@ final class ItemGroupListStrategyTest extends AbstractDataSourceTestCase
 
         self::assertEquals(
             $expectedGroupList,
-            $this->groupItemStrategy->getGroupList($this->dataSource, $criteria, $groupBy)
+            $this->groupItemStrategyDispatcher->getGroupList($this->dataSource, $criteria, $groupBy)
         );
     }
 
@@ -74,6 +74,6 @@ final class ItemGroupListStrategyTest extends AbstractDataSourceTestCase
         $this->expectException(UnsupportedGroupItemStrategy::class);
         $this->expectExceptionMessage('Unsupported GroupItemStrategy nonexistent_group_item_strategy');
 
-        $this->groupItemStrategy->getGroupList($this->dataSource, $criteria, 'nonexistent_group_item_strategy');
+        $this->groupItemStrategyDispatcher->getGroupList($this->dataSource, $criteria, 'nonexistent_group_item_strategy');
     }
 }

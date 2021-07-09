@@ -12,7 +12,7 @@ use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
 
-interface ItemGroupListStrategyInterface
+interface GroupItemStrategyDispatcherInterface
 {
     public function getGroupList(
         DataSourceInterface $source,

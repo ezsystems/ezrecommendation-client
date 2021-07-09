@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Service\Storage;
 
 use EzSystems\EzRecommendationClient\Service\Storage\DataSourceService;
-use EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategyInterface;
+use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\SupportedGroupItemStrategy;
 use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
 use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
@@ -20,11 +20,11 @@ use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 
 final class DataSourceServiceTest extends AbstractDataSourceTestCase
 {
-    private ItemGroupListStrategyInterface $itemGroupStrategy;
+    private GroupItemStrategyDispatcherInterface $itemGroupStrategy;
 
     public function setUp(): void
     {
-        $this->itemGroupStrategy = $this->createMock(ItemGroupListStrategyInterface::class);
+        $this->itemGroupStrategy = $this->createMock(GroupItemStrategyDispatcherInterface::class);
     }
 
     public function testGetItem(): void
@@ -136,7 +136,7 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         $expectedGroupList = $this->itemCreator->createTestItemGroupListForArticlesAndBlogPosts();
         $dataSource = $this->createMock(DataSourceInterface::class);
 
-        $itemGroupStrategy = $this->createMock(ItemGroupListStrategyInterface::class);
+        $itemGroupStrategy = $this->createMock(GroupItemStrategyDispatcherInterface::class);
         $itemGroupStrategy
             ->expects(self::once())
             ->method('getGroupList')

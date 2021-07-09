@@ -11,9 +11,9 @@ services:
 
     EzSystems\EzRecommendationClient\Strategy\Storage\GroupByItemTypeAndLanguageStrategy: ~
 
-    EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategy:
+    EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcher:
         arguments:
             $strategies: !tagged_iterator { tag: ibexa.personalization.group_item.strategy, default_index_method: getIndex }
 
-    EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategyInterface:
-        '@EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategy'
+    EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface:
+        '@EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcher'

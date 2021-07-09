@@ -14,7 +14,7 @@ use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
 use Traversable;
 
-final class ItemGroupListStrategy implements ItemGroupListStrategyInterface
+final class GroupItemStrategyDispatcher implements GroupItemStrategyDispatcherInterface
 {
     /** @var iterable<\EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface> */
     private iterable $strategies;

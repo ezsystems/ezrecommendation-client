@@ -9,7 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Service\Storage;
 
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
-use EzSystems\EzRecommendationClient\Strategy\Storage\ItemGroupListStrategyInterface;
+use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface;
 use EzSystems\EzRecommendationClient\Value\Storage\ItemGroupList;
 use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
@@ -22,15 +22,15 @@ final class DataSourceService implements DataSourceServiceInterface
     /** @var iterable<\Ibexa\Contracts\Personalization\Storage\DataSourceInterface> */
     private iterable $sources;
 
-    private ItemGroupListStrategyInterface $groupItemStrategy;
+    private GroupItemStrategyDispatcherInterface $groupItemStrategyDispatcher;
 
     /** @param iterable<\Ibexa\Contracts\Personalization\Storage\DataSourceInterface> $sources */
     public function __construct(
         iterable $sources,
-        ItemGroupListStrategyInterface $groupItemStrategy
+        GroupItemStrategyDispatcherInterface $groupItemStrategyDispatcher
     ) {
         $this->sources = $sources;
-        $this->groupItemStrategy = $groupItemStrategy;
+        $this->groupItemStrategyDispatcher = $groupItemStrategyDispatcher;
     }
 
     public function getItem(string $identifier, string $language): ?ItemInterface
@@ -67,7 +67,7 @@ final class DataSourceService implements DataSourceServiceInterface
         $groups = [];
 
         foreach ($this->sources as $source) {
-            foreach ($this->groupItemStrategy->getGroupList($source, $criteria, $groupBy)->getGroups() as $group) {
+            foreach ($this->groupItemStrategyDispatcher->getGroupList($source, $criteria, $groupBy)->getGroups() as $group) {
                 $groups[] = $group;
             }
         }
