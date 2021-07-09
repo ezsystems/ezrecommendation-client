@@ -11,8 +11,8 @@ namespace EzSystems\EzRecommendationClient\Tests\Service\Storage;
 use EzSystems\EzRecommendationClient\Service\Storage\DataSourceService;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\SupportedGroupItemStrategy;
+use EzSystems\EzRecommendationClient\Tests\Creator\DataSourceTestItemCreator;
 use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
-use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
@@ -33,8 +33,8 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         $item = $this->itemCreator->createTestItem(
             1,
             '1',
-            ItemType::ARTICLE_IDENTIFIER,
-            ItemType::ARTICLE_NAME,
+            DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+            DataSourceTestItemCreator::ARTICLE_NAME,
             'en'
         );
 
@@ -85,8 +85,8 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
     {
         $criteria = $this->itemCreator->createTestCriteria(
             [
-                ItemType::ARTICLE_IDENTIFIER,
-                ItemType::PRODUCT_IDENTIFIER,
+                DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
             ],
             ['en']
         );
@@ -128,8 +128,8 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
     {
         $criteria = $this->itemCreator->createTestCriteria(
             [
-                ItemType::ARTICLE_IDENTIFIER,
-                ItemType::BLOG_IDENTIFIER,
+                DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                DataSourceTestItemCreator::BLOG_IDENTIFIER,
             ],
             ['en', 'de', 'fr']
         );
@@ -177,8 +177,8 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::PRODUCT_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                    DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
                 ],
                 ['en']
             ),
@@ -188,9 +188,9 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::BLOG_IDENTIFIER,
-                    ItemType::PRODUCT_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                    DataSourceTestItemCreator::BLOG_IDENTIFIER,
+                    DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
                 ],
                 ['en', 'fr', 'de', 'no']
             ),

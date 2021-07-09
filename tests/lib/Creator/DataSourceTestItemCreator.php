@@ -10,11 +10,11 @@ namespace EzSystems\EzRecommendationClient\Tests\Creator;
 
 use ArrayIterator;
 use EzSystems\EzRecommendationClient\Criteria\Criteria;
-use EzSystems\EzRecommendationClient\Tests\Stubs\Item;
-use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
+use EzSystems\EzRecommendationClient\Value\Storage\Item;
 use EzSystems\EzRecommendationClient\Value\Storage\ItemGroup;
 use EzSystems\EzRecommendationClient\Value\Storage\ItemGroupList;
 use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
+use EzSystems\EzRecommendationClient\Value\Storage\ItemType;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
@@ -25,6 +25,15 @@ use Traversable;
 
 final class DataSourceTestItemCreator
 {
+    public const ITEM_BODY = 'body';
+    public const ITEM_IMAGE = 'public/var/1/2/4/5/%s/%s';
+    public const ARTICLE_IDENTIFIER = 'article';
+    public const BLOG_IDENTIFIER = 'blog';
+    public const PRODUCT_IDENTIFIER = 'product';
+    public const ARTICLE_NAME = 'Article';
+    public const BLOG_NAME = 'Blog';
+    public const PRODUCT_NAME = 'Product';
+
     private int $lastGeneratedId = 1;
 
     /**
@@ -83,8 +92,8 @@ final class DataSourceTestItemCreator
     ): array {
         return [
             'name' => sprintf('%s %s %s', $itemTypeName, $counter, $language),
-            'body' => sprintf('%s %s %s %s', $itemTypeName, $counter, Item::ITEM_BODY, $language),
-            'image' => sprintf(Item::ITEM_IMAGE, $itemTypeIdentifier, $counter),
+            'body' => sprintf('%s %s %s %s', $itemTypeName, $counter, self::ITEM_BODY, $language),
+            'image' => sprintf(self::ITEM_IMAGE, $itemTypeIdentifier, $counter),
         ];
     }
 
@@ -125,19 +134,19 @@ final class DataSourceTestItemCreator
     {
         return $this->createTestItemGroupList(
             $this->createTestItemGroup(
-                ItemType::ARTICLE_IDENTIFIER . '_' . 'en',
+                self::ARTICLE_IDENTIFIER . '_' . 'en',
                 $this->createTestItemListForEnglishArticles()
             ),
             $this->createTestItemGroup(
-                ItemType::ARTICLE_IDENTIFIER . '_' . 'de',
+                self::ARTICLE_IDENTIFIER . '_' . 'de',
                 $this->createTestItemListForGermanArticles()
             ),
             $this->createTestItemGroup(
-                ItemType::BLOG_IDENTIFIER . '_' . 'en',
+                self::BLOG_IDENTIFIER . '_' . 'en',
                 $this->createTestItemListForEnglishBlogPosts()
             ),
             $this->createTestItemGroup(
-                ItemType::BLOG_IDENTIFIER . '_' . 'fr',
+                self::BLOG_IDENTIFIER . '_' . 'fr',
                 $this->createTestItemListForFrenchBlogPosts()
             ),
         );
@@ -154,15 +163,15 @@ final class DataSourceTestItemCreator
             $this->createTestItem(
                 1,
                 '3',
-                ItemType::ARTICLE_IDENTIFIER,
-                ItemType::ARTICLE_NAME,
+                self::ARTICLE_IDENTIFIER,
+                self::ARTICLE_NAME,
                 'de'
             ),
             $this->createTestItem(
                 2,
                 '4',
-                ItemType::ARTICLE_IDENTIFIER,
-                ItemType::ARTICLE_NAME,
+                self::ARTICLE_IDENTIFIER,
+                self::ARTICLE_NAME,
                 'de'
             ),
         );
@@ -170,29 +179,7 @@ final class DataSourceTestItemCreator
 
     public function createTestItemListForEnglishBlogPosts(): ItemListInterface
     {
-        return $this->createTestItemList(
-            $this->createTestItem(
-                1,
-                '5',
-                ItemType::BLOG_IDENTIFIER,
-                ItemType::BLOG_NAME,
-                'en'
-            ),
-            $this->createTestItem(
-                2,
-                '6',
-                ItemType::BLOG_IDENTIFIER,
-                ItemType::BLOG_NAME,
-                'en'
-            ),
-            $this->createTestItem(
-                3,
-                '7',
-                ItemType::BLOG_IDENTIFIER,
-                ItemType::BLOG_NAME,
-                'en'
-            ),
-        );
+        return new ItemList($this->createTestItemsForEnglishBlogPosts());
     }
 
     public function createTestItemListForFrenchBlogPosts(): ItemListInterface
@@ -201,22 +188,22 @@ final class DataSourceTestItemCreator
             $this->createTestItem(
                 1,
                 '8',
-                ItemType::BLOG_IDENTIFIER,
-                ItemType::BLOG_IDENTIFIER,
+                self::BLOG_IDENTIFIER,
+                self::BLOG_IDENTIFIER,
                 'fr'
             ),
             $this->createTestItem(
                 2,
                 '9',
-                ItemType::BLOG_IDENTIFIER,
-                ItemType::BLOG_NAME,
+                self::BLOG_IDENTIFIER,
+                self::BLOG_NAME,
                 'fr'
             ),
             $this->createTestItem(
                 3,
                 '10',
-                ItemType::BLOG_IDENTIFIER,
-                ItemType::BLOG_NAME,
+                self::BLOG_IDENTIFIER,
+                self::BLOG_NAME,
                 'fr'
             ),
         );
@@ -236,15 +223,68 @@ final class DataSourceTestItemCreator
             $this->createTestItem(
                 1,
                 '1',
-                ItemType::ARTICLE_IDENTIFIER,
-                ItemType::ARTICLE_NAME,
+                self::ARTICLE_IDENTIFIER,
+                self::ARTICLE_NAME,
                 'en'
             ),
             $this->createTestItem(
                 2,
                 '2',
-                ItemType::ARTICLE_IDENTIFIER,
-                ItemType::ARTICLE_NAME,
+                self::ARTICLE_IDENTIFIER,
+                self::ARTICLE_NAME,
+                'en'
+            ),
+        ];
+    }
+
+    /**
+     * @return array<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+     */
+    public function createTestItemsForGermanArticles(): array
+    {
+        return [
+            $this->createTestItem(
+                1,
+                '3',
+                DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                DataSourceTestItemCreator::ARTICLE_NAME,
+                'de'
+            ),
+            $this->createTestItem(
+                2,
+                '4',
+                DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                DataSourceTestItemCreator::ARTICLE_NAME,
+                'de'
+            ),
+        ];
+    }
+
+    /**
+     * @return array<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+     */
+    public function createTestItemsForEnglishBlogPosts(): array
+    {
+        return [
+            $this->createTestItem(
+                1,
+                '5',
+                self::BLOG_IDENTIFIER,
+                self::BLOG_NAME,
+                'en'
+            ),
+            $this->createTestItem(
+                2,
+                '6',
+                self::BLOG_IDENTIFIER,
+                self::BLOG_NAME,
+                'en'
+            ),
+            $this->createTestItem(
+                3,
+                '7',
+                self::BLOG_IDENTIFIER,
+                self::BLOG_NAME,
                 'en'
             ),
         ];
@@ -263,8 +303,8 @@ final class DataSourceTestItemCreator
             $products[] = $this->createTestItem(
                 $i,
                 (string)$id,
-                ItemType::PRODUCT_IDENTIFIER,
-                ItemType::PRODUCT_NAME,
+                self::PRODUCT_IDENTIFIER,
+                self::PRODUCT_NAME,
                 'en'
             );
         }
@@ -280,6 +320,18 @@ final class DataSourceTestItemCreator
                 $this->createTestItemsForEnglishProducts(),
             )
         );
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getAllTestItemTypeIdentifiers(): array
+    {
+        return [
+            self::ARTICLE_IDENTIFIER,
+            self::BLOG_IDENTIFIER,
+            self::PRODUCT_IDENTIFIER,
+        ];
     }
 
     /**
@@ -373,21 +425,21 @@ final class DataSourceTestItemCreator
     private function getDefaultItemsConfig(): iterable
     {
         yield 'articles' => [
-            'item_type_identifier' => ItemType::ARTICLE_IDENTIFIER,
+            'item_type_identifier' => self::ARTICLE_IDENTIFIER,
             'item_type_name' => 'Article',
             'languages' => ['en', 'de'],
             'limit' => 2,
         ];
 
         yield 'blog posts' => [
-            'item_type_identifier' => ItemType::BLOG_IDENTIFIER,
+            'item_type_identifier' => self::BLOG_IDENTIFIER,
             'item_type_name' => 'Blog',
             'languages' => ['en', 'fr'],
             'limit' => 3,
         ];
 
         yield 'products' => [
-            'item_type_identifier' => ItemType::PRODUCT_IDENTIFIER,
+            'item_type_identifier' => self::PRODUCT_IDENTIFIER,
             'item_type_name' => 'Product',
             'languages' => ['en', 'de', 'fr', 'no'],
             'limit' => 10,

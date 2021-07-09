@@ -15,8 +15,10 @@ imports:
     - { resource: services/helpers.yaml }
     - { resource: services/http.yaml }
     - { resource: services/mappers.yaml }
+    - { resource: services/query_types.yaml }
     - { resource: services/response.yaml }
     - { resource: services/services.yaml }
+    - { resource: services/storages.yaml }
     - { resource: services/strategies.yaml }
     - { resource: services/twig.yaml }
     - { resource: services/values.yaml }

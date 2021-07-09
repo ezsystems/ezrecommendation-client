@@ -13,8 +13,8 @@ use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatche
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\SupportedGroupItemStrategy;
+use EzSystems\EzRecommendationClient\Tests\Creator\DataSourceTestItemCreator;
 use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
-use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 
 final class GroupItemStrategyDispatcherTest extends AbstractDataSourceTestCase
@@ -42,8 +42,8 @@ final class GroupItemStrategyDispatcherTest extends AbstractDataSourceTestCase
     {
         $criteria = $this->itemCreator->createTestCriteria(
             [
-                ItemType::ARTICLE_IDENTIFIER,
-                ItemType::BLOG_IDENTIFIER,
+                DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                DataSourceTestItemCreator::BLOG_IDENTIFIER,
             ],
             ['en', 'de', 'fr']
         );
@@ -66,7 +66,7 @@ final class GroupItemStrategyDispatcherTest extends AbstractDataSourceTestCase
     {
         $criteria = $this->itemCreator->createTestCriteria(
             [
-                ItemType::PRODUCT_IDENTIFIER,
+                DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
             ],
             ['en']
         );

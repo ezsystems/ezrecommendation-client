@@ -9,7 +9,8 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Storage;
 
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
-use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
+use EzSystems\EzRecommendationClient\Tests\Creator\DataSourceTestItemCreator;
+use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
@@ -47,7 +48,6 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
 
         $counter = 1;
         $articleId = '1';
-        $articleName = ItemType::ARTICLE_NAME;
         $articleLanguage = 'en';
 
         $this->assertFetchItem(
@@ -57,8 +57,8 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
             $this->itemCreator->createTestItem(
                 $counter,
                 $articleId,
-                ItemType::ARTICLE_IDENTIFIER,
-                $articleName,
+                DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                DataSourceTestItemCreator::ARTICLE_NAME,
                 $articleLanguage
             )
         );
@@ -77,8 +77,8 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::PRODUCT_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                    DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
                 ],
                 ['pl']
             ),
@@ -88,7 +88,7 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    ItemType::ARTICLE_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
                 ],
                 ['en']
             ),
@@ -97,11 +97,7 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
 
         yield [
             $this->itemCreator->createTestCriteria(
-                [
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::BLOG_IDENTIFIER,
-                    ItemType::PRODUCT_IDENTIFIER,
-                ],
+                $this->itemCreator->getAllTestItemTypeIdentifiers(),
                 ['en']
             ),
             15,
@@ -109,11 +105,7 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
 
         yield [
             $this->itemCreator->createTestCriteria(
-                [
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::BLOG_IDENTIFIER,
-                    ItemType::PRODUCT_IDENTIFIER,
-                ],
+                $this->itemCreator->getAllTestItemTypeIdentifiers(),
                 ['en', 'no']
             ),
             25,
@@ -121,11 +113,7 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
 
         yield [
             $this->itemCreator->createTestCriteria(
-                [
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::BLOG_IDENTIFIER,
-                    ItemType::PRODUCT_IDENTIFIER,
-                ],
+                $this->itemCreator->getAllTestItemTypeIdentifiers(),
                 ['en', 'fr', 'de']
             ),
             40,
@@ -133,11 +121,7 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
 
         yield [
             $this->itemCreator->createTestCriteria(
-                [
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::BLOG_IDENTIFIER,
-                    ItemType::PRODUCT_IDENTIFIER,
-                ],
+                $this->itemCreator->getAllTestItemTypeIdentifiers(),
                 ['en', 'fr', 'de', 'no']
             ),
             50,
@@ -167,7 +151,7 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
 
         yield [
             $this->itemCreator->createTestCriteria(
-                [ItemType::ARTICLE_IDENTIFIER],
+                [DataSourceTestItemCreator::ARTICLE_IDENTIFIER],
                 []
             ),
             $this->itemCreator->createTestItemList(),
@@ -176,8 +160,8 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::PRODUCT_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                    DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
                 ],
                 ['pl']
             ),
@@ -187,8 +171,8 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::PRODUCT_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                    DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
                 ],
                 ['en']
             ),
@@ -204,62 +188,18 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::BLOG_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                    DataSourceTestItemCreator::BLOG_IDENTIFIER,
                 ],
                 ['en', 'fr', 'de'],
                 7
             ),
-            $this->itemCreator->createTestItemList(
-                $this->itemCreator->createTestItem(
-                    1,
-                    '1',
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::ARTICLE_NAME,
-                    'en'
-                ),
-                $this->itemCreator->createTestItem(
-                    2,
-                    '2',
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::ARTICLE_NAME,
-                    'en'
-                ),
-                $this->itemCreator->createTestItem(
-                    1,
-                    '3',
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::ARTICLE_NAME,
-                    'de'
-                ),
-                $this->itemCreator->createTestItem(
-                    2,
-                    '4',
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::ARTICLE_NAME,
-                    'de'
-                ),
-                $this->itemCreator->createTestItem(
-                    1,
-                    '5',
-                    ItemType::BLOG_IDENTIFIER,
-                    ItemType::BLOG_NAME,
-                    'en'
-                ),
-                $this->itemCreator->createTestItem(
-                    2,
-                    '6',
-                    ItemType::BLOG_IDENTIFIER,
-                    ItemType::BLOG_NAME,
-                    'en'
-                ),
-                $this->itemCreator->createTestItem(
-                    3,
-                    '7',
-                    ItemType::BLOG_IDENTIFIER,
-                    ItemType::BLOG_NAME,
-                    'en'
-                ),
+            new ItemList(
+                array_merge(
+                    $this->itemCreator->createTestItemsForEnglishArticles(),
+                    $this->itemCreator->createTestItemsForGermanArticles(),
+                    $this->itemCreator->createTestItemsForEnglishBlogPosts(),
+                )
             ),
         ];
     }
@@ -272,49 +212,18 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::BLOG_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                    DataSourceTestItemCreator::BLOG_IDENTIFIER,
                 ],
                 ['en', 'fr', 'de'],
                 5,
                 2
             ),
-            $this->itemCreator->createTestItemList(
-                $this->itemCreator->createTestItem(
-                    1,
-                    '3',
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::ARTICLE_NAME,
-                    'de'
-                ),
-                $this->itemCreator->createTestItem(
-                    2,
-                    '4',
-                    ItemType::ARTICLE_IDENTIFIER,
-                    ItemType::ARTICLE_NAME,
-                    'de'
-                ),
-                $this->itemCreator->createTestItem(
-                    1,
-                    '5',
-                    ItemType::BLOG_IDENTIFIER,
-                    ItemType::BLOG_NAME,
-                    'en'
-                ),
-                $this->itemCreator->createTestItem(
-                    2,
-                    '6',
-                    ItemType::BLOG_IDENTIFIER,
-                    ItemType::BLOG_NAME,
-                    'en'
-                ),
-                $this->itemCreator->createTestItem(
-                    3,
-                    '7',
-                    ItemType::BLOG_IDENTIFIER,
-                    ItemType::BLOG_NAME,
-                    'en'
-                ),
+            new ItemList(
+                array_merge(
+                    $this->itemCreator->createTestItemsForGermanArticles(),
+                    $this->itemCreator->createTestItemsForEnglishBlogPosts()
+                )
             ),
         ];
     }

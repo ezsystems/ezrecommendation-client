@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Storage\ContentDataSource:
+        arguments:
+            $queryType: '@EzSystems\EzRecommendationClient\QueryType\ContentDataSourceQueryType'
