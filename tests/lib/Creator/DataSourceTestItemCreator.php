@@ -121,6 +121,167 @@ final class DataSourceTestItemCreator
         return new ItemGroupList($groups);
     }
 
+    public function createTestItemGroupListForArticlesAndBlogPosts(): ItemGroupListInterface
+    {
+        return $this->createTestItemGroupList(
+            $this->createTestItemGroup(
+                ItemType::ARTICLE_IDENTIFIER . '_' . 'en',
+                $this->createTestItemListForEnglishArticles()
+            ),
+            $this->createTestItemGroup(
+                ItemType::ARTICLE_IDENTIFIER . '_' . 'de',
+                $this->createTestItemListForGermanArticles()
+            ),
+            $this->createTestItemGroup(
+                ItemType::BLOG_IDENTIFIER . '_' . 'en',
+                $this->createTestItemListForEnglishBlogPosts()
+            ),
+            $this->createTestItemGroup(
+                ItemType::BLOG_IDENTIFIER . '_' . 'fr',
+                $this->createTestItemListForFrenchBlogPosts()
+            ),
+        );
+    }
+
+    public function createTestItemListForEnglishArticles(): ItemListInterface
+    {
+        return new ItemList($this->createTestItemsForEnglishArticles());
+    }
+
+    public function createTestItemListForGermanArticles(): ItemListInterface
+    {
+        return $this->createTestItemList(
+            $this->createTestItem(
+                1,
+                '3',
+                ItemType::ARTICLE_IDENTIFIER,
+                ItemType::ARTICLE_NAME,
+                'de'
+            ),
+            $this->createTestItem(
+                2,
+                '4',
+                ItemType::ARTICLE_IDENTIFIER,
+                ItemType::ARTICLE_NAME,
+                'de'
+            ),
+        );
+    }
+
+    public function createTestItemListForEnglishBlogPosts(): ItemListInterface
+    {
+        return $this->createTestItemList(
+            $this->createTestItem(
+                1,
+                '5',
+                ItemType::BLOG_IDENTIFIER,
+                ItemType::BLOG_NAME,
+                'en'
+            ),
+            $this->createTestItem(
+                2,
+                '6',
+                ItemType::BLOG_IDENTIFIER,
+                ItemType::BLOG_NAME,
+                'en'
+            ),
+            $this->createTestItem(
+                3,
+                '7',
+                ItemType::BLOG_IDENTIFIER,
+                ItemType::BLOG_NAME,
+                'en'
+            ),
+        );
+    }
+
+    public function createTestItemListForFrenchBlogPosts(): ItemListInterface
+    {
+        return $this->createTestItemList(
+            $this->createTestItem(
+                1,
+                '8',
+                ItemType::BLOG_IDENTIFIER,
+                ItemType::BLOG_IDENTIFIER,
+                'fr'
+            ),
+            $this->createTestItem(
+                2,
+                '9',
+                ItemType::BLOG_IDENTIFIER,
+                ItemType::BLOG_NAME,
+                'fr'
+            ),
+            $this->createTestItem(
+                3,
+                '10',
+                ItemType::BLOG_IDENTIFIER,
+                ItemType::BLOG_NAME,
+                'fr'
+            ),
+        );
+    }
+
+    public function createTestItemListForEnglishProducts(): ItemListInterface
+    {
+        return new ItemList($this->createTestItemsForEnglishProducts());
+    }
+
+    /**
+     * @return array<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+     */
+    public function createTestItemsForEnglishArticles(): array
+    {
+        return [
+            $this->createTestItem(
+                1,
+                '1',
+                ItemType::ARTICLE_IDENTIFIER,
+                ItemType::ARTICLE_NAME,
+                'en'
+            ),
+            $this->createTestItem(
+                2,
+                '2',
+                ItemType::ARTICLE_IDENTIFIER,
+                ItemType::ARTICLE_NAME,
+                'en'
+            ),
+        ];
+    }
+
+    /**
+     * @return array<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+     */
+    public function createTestItemsForEnglishProducts(): array
+    {
+        $products = [];
+        $id = 10;
+
+        for ($i = 1; $i <= 10; ++$i) {
+            ++$id;
+            $products[] = $this->createTestItem(
+                $i,
+                (string)$id,
+                ItemType::PRODUCT_IDENTIFIER,
+                ItemType::PRODUCT_NAME,
+                'en'
+            );
+        }
+
+        return $products;
+    }
+
+    public function createTestItemListForEnglishArticlesAndProducts(): ItemListInterface
+    {
+        return new ItemList(
+            array_merge(
+                $this->createTestItemsForEnglishArticles(),
+                $this->createTestItemsForEnglishProducts(),
+            )
+        );
+    }
+
     /**
      * @phpstan-param array<string, array{
      *  'item_type_identifier': string,

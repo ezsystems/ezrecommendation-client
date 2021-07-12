@@ -21,3 +21,10 @@ services:
         arguments:
             $clientCredentials: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'
             $exportCredentials: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'
+
+    EzSystems\EzRecommendationClient\Service\Storage\DataSourceService:
+        arguments:
+            $sources: !tagged_iterator ibexa.personalization.data_source
+
+    EzSystems\EzRecommendationClient\Service\Storage\DataSourceServiceInterface:
+        '@EzSystems\EzRecommendationClient\Service\Storage\DataSourceService'

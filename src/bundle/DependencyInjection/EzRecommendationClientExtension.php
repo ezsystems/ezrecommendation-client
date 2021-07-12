@@ -9,13 +9,16 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClientBundle\DependencyInjection;
 
 use eZ\Bundle\EzPublishCoreBundle\DependencyInjection\Configuration\SiteAccessAware\ConfigurationProcessor;
+use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 
-class EzRecommendationClientExtension extends Extension
+final class EzRecommendationClientExtension extends Extension
 {
+    public const DATA_SOURCE_SERVICE_TAG = 'ibexa.personalization.data_source';
+
     /**
      * {@inheritdoc}
      */
@@ -30,6 +33,10 @@ class EzRecommendationClientExtension extends Extension
 
         $processor = new ConfigurationProcessor($container, 'ezrecommendation');
         $processor->mapConfig($config, new ConfigurationMapper());
+
+        $container
+            ->registerForAutoconfiguration(DataSourceInterface::class)
+            ->addTag(self::DATA_SOURCE_SERVICE_TAG);
     }
 
     /**

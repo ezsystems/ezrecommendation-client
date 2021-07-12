@@ -1,0 +1,22 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    _instanceof:
+        EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface:
+            tags:
+                - { name: ibexa.personalization.group_item.strategy }
+
+    EzSystems\EzRecommendationClient\Strategy\Storage\GroupByItemTypeAndLanguageStrategy: ~
+
+    EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcher:
+        arguments:
+            $strategies: !tagged_iterator 
+                tag: ibexa.personalization.group_item.strategy
+                default_index_method: getIndex
+                index: key
+
+    EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface:
+        '@EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcher'
