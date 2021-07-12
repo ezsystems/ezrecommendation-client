@@ -33,7 +33,7 @@ final class DataSourceService implements DataSourceServiceInterface
         $this->groupItemStrategyDispatcher = $groupItemStrategyDispatcher;
     }
 
-    public function getItem(string $identifier, string $language): ?ItemInterface
+    public function getItem(string $identifier, string $language): ItemInterface
     {
         foreach ($this->sources as $source) {
             try {
@@ -42,7 +42,7 @@ final class DataSourceService implements DataSourceServiceInterface
             }
         }
 
-        return null;
+        throw new ItemNotFoundException($identifier, $language);
     }
 
     public function getItems(CriteriaInterface $criteria): ItemListInterface
