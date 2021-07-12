@@ -17,12 +17,12 @@ use Traversable;
 final class GroupItemStrategyDispatcher implements GroupItemStrategyDispatcherInterface
 {
     /** @var iterable<\EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface> */
-    private iterable $strategies;
+    private iterable $groupItemStrategies;
 
-    /** @param iterable<\EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface> $strategies */
-    public function __construct(iterable $strategies)
+    /** @param iterable<\EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface> $groupItemStrategies */
+    public function __construct(iterable $groupItemStrategies)
     {
-        $this->strategies = $strategies;
+        $this->groupItemStrategies = $groupItemStrategies;
     }
 
     public function getGroupList(
@@ -30,9 +30,9 @@ final class GroupItemStrategyDispatcher implements GroupItemStrategyDispatcherIn
         CriteriaInterface $criteria,
         string $groupBy
     ): ItemGroupListInterface {
-        $strategies = $this->strategies instanceof Traversable
-            ? iterator_to_array($this->strategies)
-            : $this->strategies;
+        $strategies = $this->groupItemStrategies instanceof Traversable
+            ? iterator_to_array($this->groupItemStrategies)
+            : $this->groupItemStrategies;
 
         if (!isset($strategies[$groupBy])) {
             throw new UnsupportedGroupItemStrategy(
