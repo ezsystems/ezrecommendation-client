@@ -37,7 +37,7 @@ final class GroupItemStrategyDispatcher implements GroupItemStrategyDispatcherIn
         if (!isset($strategies[$groupBy])) {
             throw new UnsupportedGroupItemStrategy(
                 $groupBy,
-                implode(', ', array_keys($strategies))
+                array_keys($strategies)
             );
         }
 
