@@ -20,6 +20,7 @@ use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 
 final class DataSourceServiceTest extends AbstractDataSourceTestCase
 {
+    /** @var \EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface|\PHPUnit\Framework\MockObject\MockObject */
     private GroupItemStrategyDispatcherInterface $itemGroupStrategy;
 
     public function setUp(): void
@@ -136,8 +137,7 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         $expectedGroupList = $this->itemCreator->createTestItemGroupListForArticlesAndBlogPosts();
         $dataSource = $this->createMock(DataSourceInterface::class);
 
-        $itemGroupStrategy = $this->createMock(GroupItemStrategyDispatcherInterface::class);
-        $itemGroupStrategy
+        $this->itemGroupStrategy
             ->expects(self::once())
             ->method('getGroupList')
             ->with($dataSource, $criteria, SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE)
@@ -147,7 +147,7 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
             [
                 $dataSource,
             ],
-            $itemGroupStrategy
+            $this->itemGroupStrategy
         );
 
         self::assertEquals(

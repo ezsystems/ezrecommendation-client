@@ -13,10 +13,14 @@ use Throwable;
 
 final class UnsupportedGroupItemStrategy extends RuntimeException implements EzRecommendationException
 {
-    public function __construct(string $strategy, int $code = 0, Throwable $previous = null)
+    public function __construct(string $strategy, string $supportedStrategies, int $code = 0, Throwable $previous = null)
     {
         parent::__construct(
-            sprintf('Unsupported GroupItemStrategy %s', $strategy),
+            sprintf(
+                'Unsupported GroupItemStrategy: %s. Supported strategies: %s',
+                $strategy,
+                $supportedStrategies
+            ),
             $code,
             $previous
         );

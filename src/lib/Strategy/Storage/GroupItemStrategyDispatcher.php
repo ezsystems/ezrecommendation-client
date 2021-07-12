@@ -35,7 +35,10 @@ final class GroupItemStrategyDispatcher implements GroupItemStrategyDispatcherIn
             : $this->strategies;
 
         if (!isset($strategies[$groupBy])) {
-            throw new UnsupportedGroupItemStrategy($groupBy);
+            throw new UnsupportedGroupItemStrategy(
+                $groupBy,
+                implode(', ', array_keys($strategies))
+            );
         }
 
         return $strategies[$groupBy]->getGroupList($source, $criteria);

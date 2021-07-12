@@ -71,8 +71,13 @@ final class GroupItemStrategyDispatcherTest extends AbstractDataSourceTestCase
             ['en']
         );
 
+        $exceptionMessage = sprintf(
+            'Unsupported GroupItemStrategy: %s. Supported strategies: %s',
+            'nonexistent_group_item_strategy',
+            SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE
+        );
         $this->expectException(UnsupportedGroupItemStrategy::class);
-        $this->expectExceptionMessage('Unsupported GroupItemStrategy nonexistent_group_item_strategy');
+        $this->expectExceptionMessage($exceptionMessage);
 
         $this->groupItemStrategyDispatcher->getGroupList($this->dataSource, $criteria, 'nonexistent_group_item_strategy');
     }
