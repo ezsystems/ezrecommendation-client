@@ -39,6 +39,7 @@ final class DataSourceService implements DataSourceServiceInterface
             try {
                 return $source->fetchItem($identifier, $language);
             } catch (ItemNotFoundException $exception) {
+                /** ItemNotFoundException will be thrown if item will not be find in any of data sources */
             }
         }
 
