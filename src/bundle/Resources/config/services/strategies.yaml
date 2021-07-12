@@ -13,7 +13,9 @@ services:
 
     EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcher:
         arguments:
-            $strategies: !tagged_iterator { tag: ibexa.personalization.group_item.strategy, default_index_method: getIndex }
+            $strategies: !tagged_iterator 
+                tag: ibexa.personalization.group_item.strategy
+                default_index_method: getIndex
 
     EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface:
         '@EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcher'
