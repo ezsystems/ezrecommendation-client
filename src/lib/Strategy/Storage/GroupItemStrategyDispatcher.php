@@ -34,7 +34,7 @@ final class GroupItemStrategyDispatcher implements GroupItemStrategyDispatcherIn
             ? iterator_to_array($this->strategies)
             : $this->strategies;
 
-        if (!array_key_exists($groupBy, $strategies)) {
+        if (!isset($strategies[$groupBy])) {
             throw new UnsupportedGroupItemStrategy($groupBy);
         }
 
