@@ -13,7 +13,7 @@ services:
 
     EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcher:
         arguments:
-            $strategies: !tagged_iterator 
+            $groupItemStrategies: !tagged_iterator
                 tag: ibexa.personalization.group_item.strategy
                 default_index_method: getIndex
                 index_by: key
