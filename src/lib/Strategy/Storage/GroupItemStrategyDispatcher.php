@@ -19,7 +19,9 @@ final class GroupItemStrategyDispatcher implements GroupItemStrategyDispatcherIn
     /** @var iterable<\EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface> */
     private iterable $groupItemStrategies;
 
-    /** @param iterable<\EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface> $groupItemStrategies */
+    /**
+     * @param iterable<\EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface> $groupItemStrategies
+     */
     public function __construct(iterable $groupItemStrategies)
     {
         $this->groupItemStrategies = $groupItemStrategies;
