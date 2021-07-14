@@ -11,21 +11,26 @@
     ],
     "require": {
         "php": "^7.4",
+        "ezsystems/doctrine-dbal-schema": "^2.0@dev",
+        "ezsystems/ezplatform-content-forms": "^2.0@dev",
         "ezsystems/ezplatform-kernel": "^2.0@dev",
         "ezsystems/ezplatform-rest": "^2.0@dev",
         "ezsystems/ezplatform-richtext": "^3.0@dev",
-        "ezsystems/ezplatform-content-forms": "^2.0@dev",
-        "ezsystems/doctrine-dbal-schema": "^2.0@dev",
-        "symfony/framework-bundle": "^5.0",
-        "symfony/twig-bundle": "^5.0",
         "guzzlehttp/guzzle": "~6.0",
-        "webmozart/assert": "^1.0",
-        "ramsey/uuid": "^3.9"
+        "ramsey/uuid": "^3.9",
+        "symfony/framework-bundle": "^5.0",
+        "symfony/proxy-manager-bridge": "^5.0",
+        "symfony/twig-bundle": "^5.0",
+        "webmozart/assert": "^1.0"
     },
     "require-dev": {
+        "behat/behat": "^3.7",
         "dg/bypass-finals": "^1.1",
         "ezsystems/ezplatform-code-style": "^0.4",
+        "ezsystems/ezplatform-core": "^3.0@dev",
         "ezsystems/ezplatform-http-cache": "^3.0@dev",
+        "friends-of-behat/mink-extension": "^2.4",
+        "friendsofsymfony/jsrouting-bundle": "^2.7",
         "phpstan/extension-installer": "^1.1",
         "phpstan/phpstan": "^0.12.85",
         "phpstan/phpstan-phpunit": "^0.12.18",
@@ -40,7 +45,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "EzSystems\\EzRecommendationClient\\Tests\\": "tests/lib/"
+            "EzSystems\\EzRecommendationClient\\Tests\\": "tests/lib/",
+            "Ibexa\\Tests\\Integration\\Personalization\\": "tests/integration/",
+            "Ibexa\\Tests\\Bundle\\Personalization\\": "tests/bundle/"
         }
     },
     "scripts": {
