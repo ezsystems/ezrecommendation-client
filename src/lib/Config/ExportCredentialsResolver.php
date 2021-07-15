@@ -15,34 +15,32 @@ use EzSystems\EzRecommendationClient\Value\Parameters;
 
 final class ExportCredentialsResolver extends CredentialsResolver
 {
-    /** @var string */
-    private $method;
-
-    /**
-     * {@inheritdoc}
-     */
     public function getCredentials(?string $siteAccess = null): ?Credentials
     {
-        $this->method = $this->configResolver->getParameter(
-            'export.authentication.method',
-            Parameters::NAMESPACE,
-            $siteAccess
-        );
+        $requiredCredentials = $this->getRequiredCredentials($siteAccess);
 
-        if ($this->method === ExportMethod::USER && !$this->hasCredentials($siteAccess)) {
+        if ($requiredCredentials['method'] === ExportMethod::USER && !$this->hasCredentials($siteAccess)) {
             return null;
         }
 
-        return new ExportCredentials($this->getRequiredCredentials($siteAccess));
+        return new ExportCredentials($requiredCredentials);
     }
 
     /**
-     * {@inheritdoc}
+     * @phpstan-return array{
+     *  'method': ?string,
+     *  'login': ?string,
+     *  'password': ?string,
+     * }
      */
     protected function getRequiredCredentials(?string $siteAccess = null): array
     {
         return [
-            'method' => $this->method,
+            'method' => $this->configResolver->getParameter(
+                'export.authentication.method',
+                Parameters::NAMESPACE,
+                $siteAccess
+            ),
             'login' => $this->configResolver->getParameter(
                 'export.authentication.login',
                 Parameters::NAMESPACE,

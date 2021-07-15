@@ -25,17 +25,14 @@ class ExportCredentialsResolverTest extends TestCase
         parent::setUp();
     }
 
-    public function testCreateExportCredentialsResolverInstance()
+    public function testCreateExportCredentialsResolverInstance(): void
     {
         $this->assertInstanceOf(ExportCredentialsResolver::class, new ExportCredentialsResolver(
             $this->configResolver
         ));
     }
 
-    /**
-     * Test for getCredentials() method.
-     */
-    public function testGetCredentialsForAuthenticationMethodUser()
+    public function testGetCredentialsForAuthenticationMethodUser(): void
     {
         $credentialsResolver = new ExportCredentialsResolver(
             $this->configResolver
@@ -44,10 +41,7 @@ class ExportCredentialsResolverTest extends TestCase
         $this->assertInstanceOf(ExportCredentials::class, $credentialsResolver->getCredentials());
     }
 
-    /**
-     * Test for getCredentials() method.
-     */
-    public function testReturnNullWhenMethodIsUserAndHasCredentialsIsFalse()
+    public function testReturnNullWhenMethodIsUserAndHasCredentialsIsFalse(): void
     {
         $this->configResolver
             ->expects($this->at(0))
