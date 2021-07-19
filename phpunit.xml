@@ -4,20 +4,18 @@
          failOnWarning="true"
          colors="true">
     <testsuites>
-        <testsuite name="Lib Tests">
-            <directory>tests/lib/</directory>
+        <testsuite name="Ibexa Personalization tests">
+            <directory>tests/</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
             <directory>src</directory>
             <exclude>
-                <directory>tests/bundle/</directory>
-                <directory>tests/lib/</directory>
+                <directory>tests/</directory>
             </exclude>
         </whitelist>
     </filter>
-
     <extensions>
         <extension class="EzSystems\EzRecommendationClient\PHPUnit\BypassFinalHook"/>
     </extensions>
