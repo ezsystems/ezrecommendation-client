@@ -8,22 +8,24 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Config;
 
-use EzSystems\EzRecommendationClient\Value\Config\Credentials;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use EzSystems\EzRecommendationClient\Value\ExportMethod;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 
 final class ExportCredentialsResolver extends CredentialsResolver
 {
-    public function getCredentials(?string $siteAccess = null): ?Credentials
+    public function getCredentials(?string $siteAccess = null): ?ExportCredentials
     {
         $requiredCredentials = $this->getRequiredCredentials($siteAccess);
 
-        if ($requiredCredentials['method'] === ExportMethod::USER && !$this->hasCredentials($siteAccess)) {
+        if (
+            $requiredCredentials[ExportCredentials::METHOD_KEY] === ExportMethod::USER
+            && !$this->hasCredentials($siteAccess)
+        ) {
             return null;
         }
 
-        return new ExportCredentials($requiredCredentials);
+        return ExportCredentials::fromArray($requiredCredentials);
     }
 
     /**
@@ -36,17 +38,17 @@ final class ExportCredentialsResolver extends CredentialsResolver
     protected function getRequiredCredentials(?string $siteAccess = null): array
     {
         return [
-            'method' => $this->configResolver->getParameter(
+            ExportCredentials::METHOD_KEY => $this->configResolver->getParameter(
                 'export.authentication.method',
                 Parameters::NAMESPACE,
                 $siteAccess
             ),
-            'login' => $this->configResolver->getParameter(
+            ExportCredentials::LOGIN_KEY => $this->configResolver->getParameter(
                 'export.authentication.login',
                 Parameters::NAMESPACE,
                 $siteAccess
             ),
-            'password' => $this->configResolver->getParameter(
+            ExportCredentials::PASSWORD_KEY => $this->configResolver->getParameter(
                 'export.authentication.password',
                 Parameters::NAMESPACE,
                 $siteAccess

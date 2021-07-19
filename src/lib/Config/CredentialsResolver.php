@@ -20,10 +20,13 @@ abstract class CredentialsResolver implements CredentialsResolverInterface
     }
 
     /**
-     * @return array<string>
+     * @return array<string, int|string|null>
      */
     abstract protected function getRequiredCredentials(?string $siteAccess = null): array;
 
+    /**
+     * Checks if array returned by getRequiredCredentials method contains valid values retrieved by ConfigResolver.
+     */
     public function hasCredentials(?string $siteAccess = null): bool
     {
         foreach ($this->getRequiredCredentials($siteAccess) as $credential) {

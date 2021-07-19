@@ -10,25 +10,42 @@ namespace EzSystems\EzRecommendationClient\Value\Config;
 
 final class EzRecommendationClientCredentials extends Credentials
 {
-    /** @var int */
-    private $customerId;
+    public const CUSTOMER_ID_KEY = 'customerId';
+    public const LICENSE_KEY_KEY = 'licenseKey';
 
-    /** @var string */
-    private $licenseKey;
+    private ?int $customerId;
 
-    public function __construct(array $credentials)
-    {
-        $this->customerId = $credentials['customerId'] ?? null;
-        $this->licenseKey = $credentials['licenseKey'] ?? null;
+    private ?string $licenseKey;
+
+    public function __construct(
+        ?int $customerId = null,
+        ?string $licenseKey = null
+    ) {
+        $this->customerId = $customerId;
+        $this->licenseKey = $licenseKey;
     }
 
-    public function getCustomerId(): int
+    public function getCustomerId(): ?int
     {
         return $this->customerId;
     }
 
-    public function getLicenseKey(): string
+    public function getLicenseKey(): ?string
     {
         return $this->licenseKey;
+    }
+
+    /**
+     * @phpstan-param array{
+     *  'customerId': ?int,
+     *  'licenseKey': ?string,
+     * } $credentials
+     */
+    public static function fromArray(array $credentials): self
+    {
+        return new self(
+            $credentials[self::CUSTOMER_ID_KEY] ?? null,
+            $credentials[self::LICENSE_KEY_KEY] ?? null,
+        );
     }
 }

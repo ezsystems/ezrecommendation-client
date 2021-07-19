@@ -293,10 +293,10 @@ class FileManagerTest extends TestCase
 
     private function getExportCredentials(string $method = 'basic'): ExportCredentials
     {
-        return new ExportCredentials([
-            'method' => $method,
-            'login' => '0001',
-            'password' => 'pass',
+        return ExportCredentials::fromArray([
+            ExportCredentials::METHOD_KEY => $method,
+            ExportCredentials::LOGIN_KEY => '0001',
+            ExportCredentials::PASSWORD_KEY => 'pass',
         ]);
     }
 }

@@ -24,14 +24,14 @@ interface EzRecommendationClientInterface
     /**
      * @return \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface
      */
-    public function setCustomerId(int $customerId): self;
+    public function setCustomerId(?int $customerId = null): self;
 
     public function getCustomerId(): ?int;
 
     /**
      * @return \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface
      */
-    public function setLicenseKey(string $licenseKey): self;
+    public function setLicenseKey(?string $licenseKey = null): self;
 
     public function getLicenseKey(): ?string;
 

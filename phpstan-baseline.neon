@@ -301,16 +301,6 @@ parameters:
 			path: src/lib/Authentication/ExportAuthenticator.php
 
 		-
-			message: "#^Cannot call method getCustomerId\\(\\) on EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\Credentials\\|null\\.$#"
-			count: 1
-			path: src/lib/Client/EzRecommendationClient.php
-
-		-
-			message: "#^Cannot call method getLicenseKey\\(\\) on EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\Credentials\\|null\\.$#"
-			count: 1
-			path: src/lib/Client/EzRecommendationClient.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:__call\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Client/EzRecommendationClient.php
@@ -1334,16 +1324,6 @@ parameters:
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\RecommendationServiceInterface\\:\\:getRecommendationItems\\(\\) has parameter \\$recommendationItems with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Service/RecommendationServiceInterface.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\ExportCredentials\\:\\:__construct\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Value/Config/ExportCredentials.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\EzRecommendationClientCredentials\\:\\:__construct\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Value/Config/EzRecommendationClientCredentials.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentData\\:\\:__construct\\(\\) has parameter \\$contents with no value type specified in iterable type array\\.$#"

@@ -72,17 +72,26 @@ class EventNotificationServiceTest extends NotificationServiceTest
         $this->credentialsResolverMock
             ->expects($this->once())
             ->method('getCredentials')
-            ->willReturn(new EzRecommendationClientCredentials([
-                'customerId' => 12345,
-                'licenseKey' => '12345-12345-12345-12345',
-            ]));
+            ->willReturn(
+                EzRecommendationClientCredentials::fromArray(
+                    [
+                        'customerId' => 12345,
+                        'licenseKey' => '12345-12345-12345-12345',
+                    ]
+                )
+            );
 
         $this->exportCredentialsMock
             ->method('getCredentials')
-            ->willReturn(new ExportCredentials([
-                'login' => 12345,
-                'password' => '12345-12345-12345-12345',
-            ]));
+            ->willReturn(
+                ExportCredentials::fromArray(
+                    [
+                        ExportCredentials::METHOD_KEY => 'basic',
+                        ExportCredentials::LOGIN_KEY => '12345',
+                        ExportCredentials::PASSWORD_KEY => '12345-12345-12345-12345',
+                    ]
+                )
+            );
 
         $this->clientMock
             ->method('__call')

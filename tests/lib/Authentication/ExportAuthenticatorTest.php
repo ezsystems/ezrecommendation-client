@@ -257,10 +257,10 @@ class ExportAuthenticatorTest extends TestCase
 
     private function getExportCredentials(string $method = 'basic'): ExportCredentials
     {
-        return new ExportCredentials([
-            'method' => $method,
-            'login' => '1111',
-            'password' => 'password',
+        return ExportCredentials::fromArray([
+            ExportCredentials::METHOD_KEY => $method,
+            ExportCredentials::LOGIN_KEY => '1111',
+            ExportCredentials::PASSWORD_KEY => 'password',
         ]);
     }
 }
