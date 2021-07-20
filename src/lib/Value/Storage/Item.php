@@ -6,27 +6,24 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Stubs;
+namespace EzSystems\EzRecommendationClient\Value\Storage;
 
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Contracts\Personalization\Value\ItemTypeInterface;
 
 final class Item implements ItemInterface
 {
-    public const ITEM_BODY = 'body';
-    public const ITEM_IMAGE = 'public/var/1/2/4/5/%s/%s';
-
     private string $id;
 
     private ItemTypeInterface $type;
 
     private string $language;
 
-    /** @var array<string, int|string|array> */
+    /** @var array<string, string|float|array> */
     private array $attributes;
 
     /**
-     * @param array<string, int|string|array> $attributes
+     * @param array<string, string|float|array> $attributes
      */
     public function __construct(
         string $id,
@@ -55,6 +52,9 @@ final class Item implements ItemInterface
         return $this->language;
     }
 
+    /**
+     * @return array<string, string|float|array>
+     */
     public function getAttributes(): array
     {
         return $this->attributes;

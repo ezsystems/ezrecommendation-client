@@ -10,8 +10,8 @@ namespace EzSystems\EzRecommendationClient\Tests\Strategy\Storage;
 
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupByItemTypeAndLanguageStrategy;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface;
+use EzSystems\EzRecommendationClient\Tests\Creator\DataSourceTestItemCreator;
 use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
-use EzSystems\EzRecommendationClient\Tests\Stubs\ItemType;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 
 final class GroupByItemTypeAndLanguageStrategyTest extends AbstractDataSourceTestCase
@@ -23,8 +23,7 @@ final class GroupByItemTypeAndLanguageStrategyTest extends AbstractDataSourceTes
 
     public function setUp(): void
     {
-        $this->dataSource = $this->createConfiguredMock(DataSourceInterface::class, [
-        ]);
+        $this->dataSource = $this->createMock(DataSourceInterface::class);
         $this->strategy = new GroupByItemTypeAndLanguageStrategy();
     }
 
@@ -32,25 +31,25 @@ final class GroupByItemTypeAndLanguageStrategyTest extends AbstractDataSourceTes
     {
         $criteria = $this->itemCreator->createTestCriteria(
             [
-                ItemType::ARTICLE_IDENTIFIER,
-                ItemType::BLOG_IDENTIFIER,
+                DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                DataSourceTestItemCreator::BLOG_IDENTIFIER,
             ],
             ['en', 'de', 'fr']
         );
         $criteriaArticlesEn = $this->itemCreator->createTestCriteria(
-            [ItemType::ARTICLE_IDENTIFIER],
+            [DataSourceTestItemCreator::ARTICLE_IDENTIFIER],
             ['en'],
         );
         $criteriaArticlesDe = $this->itemCreator->createTestCriteria(
-            [ItemType::ARTICLE_IDENTIFIER],
+            [DataSourceTestItemCreator::ARTICLE_IDENTIFIER],
             ['de'],
         );
         $criteriaBlogPostsEn = $this->itemCreator->createTestCriteria(
-            [ItemType::BLOG_IDENTIFIER],
+            [DataSourceTestItemCreator::BLOG_IDENTIFIER],
             ['en'],
         );
         $criteriaBlogPostsFr = $this->itemCreator->createTestCriteria(
-            [ItemType::BLOG_IDENTIFIER],
+            [DataSourceTestItemCreator::BLOG_IDENTIFIER],
             ['fr'],
         );
 

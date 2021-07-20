@@ -3,6 +3,7 @@ imports:
     - { resource: services/authenticators.yaml }
     - { resource: services/client.yaml }
     - { resource: services/commands.yaml }
+    - { resource: services/contents.yaml }
     - { resource: services/controllers.yaml }
     - { resource: services/converters.yaml }
     - { resource: services/credentials_checker.yaml }
@@ -15,8 +16,10 @@ imports:
     - { resource: services/helpers.yaml }
     - { resource: services/http.yaml }
     - { resource: services/mappers.yaml }
+    - { resource: services/query_types.yaml }
     - { resource: services/response.yaml }
     - { resource: services/services.yaml }
+    - { resource: services/storages.yaml }
     - { resource: services/strategies.yaml }
     - { resource: services/twig.yaml }
     - { resource: services/values.yaml }

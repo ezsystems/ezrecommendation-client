@@ -40,7 +40,8 @@
         "psr-4": {
             "EzSystems\\EzRecommendationClientBundle\\": "src/bundle/",
             "EzSystems\\EzRecommendationClient\\": "src/lib/",
-            "Ibexa\\Contracts\\Personalization\\": "src/contracts/"
+            "Ibexa\\Contracts\\Personalization\\": "src/contracts/",
+            "Ibexa\\Personalization\\": "src/lib/"
         }
     },
     "autoload-dev": {

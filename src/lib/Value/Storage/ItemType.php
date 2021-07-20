@@ -6,20 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Stubs;
+namespace EzSystems\EzRecommendationClient\Value\Storage;
 
+use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Personalization\Value\ItemTypeInterface;
 
 final class ItemType implements ItemTypeInterface
 {
-    public const ARTICLE_IDENTIFIER = 'article';
-    public const BLOG_IDENTIFIER = 'blog';
-    public const PRODUCT_IDENTIFIER = 'product';
-
-    public const ARTICLE_NAME = 'Article';
-    public const BLOG_NAME = 'Blog';
-    public const PRODUCT_NAME = 'Product';
-
     private string $identifier;
 
     private string $name;
@@ -38,5 +31,13 @@ final class ItemType implements ItemTypeInterface
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public static function fromContentType(ContentType $contentType): self
+    {
+        return new self(
+            $contentType->identifier,
+            $contentType->getName() ?? $contentType->identifier
+        );
     }
 }
