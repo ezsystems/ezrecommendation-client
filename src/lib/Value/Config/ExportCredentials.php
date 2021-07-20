@@ -10,34 +10,54 @@ namespace EzSystems\EzRecommendationClient\Value\Config;
 
 final class ExportCredentials extends Credentials
 {
-    /** @var string */
-    private $method;
+    public const METHOD_KEY = 'method';
+    public const LOGIN_KEY = 'login';
+    public const PASSWORD_KEY = 'password';
 
-    /** @var string */
-    private $login;
+    private ?string $method;
 
-    /** @var string */
-    private $password;
+    private ?string $login;
 
-    public function __construct(array $credentials)
-    {
-        $this->method = $credentials['method'] ?? '';
-        $this->login = $credentials['login'] ?? '';
-        $this->password = $credentials['password'] ?? '';
+    private ?string $password;
+
+    public function __construct(
+        ?string $method = null,
+        ?string $login = null,
+        ?string $password = null
+    ) {
+        $this->method = $method;
+        $this->login = $login;
+        $this->password = $password;
     }
 
-    public function getMethod(): string
+    public function getMethod(): ?string
     {
         return $this->method;
     }
 
-    public function getLogin(): string
+    public function getLogin(): ?string
     {
         return $this->login;
     }
 
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->password;
+    }
+
+    /**
+     * @phpstan-param array{
+     *  'method': ?string,
+     *  'login': ?string,
+     *  'password': ?string,
+     * } $credentials
+     */
+    public static function fromArray(array $credentials): self
+    {
+        return new self(
+            $credentials[self::METHOD_KEY] ?? null,
+            $credentials[self::LOGIN_KEY] ?? null,
+            $credentials[self::PASSWORD_KEY] ?? null,
+        );
     }
 }

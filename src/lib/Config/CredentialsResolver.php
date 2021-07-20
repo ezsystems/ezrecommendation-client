@@ -12,25 +12,25 @@ use eZ\Publish\Core\MVC\ConfigResolverInterface;
 
 abstract class CredentialsResolver implements CredentialsResolverInterface
 {
-    /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
-    protected $configResolver;
+    protected ConfigResolverInterface $configResolver;
 
     public function __construct(ConfigResolverInterface $configResolver)
     {
         $this->configResolver = $configResolver;
     }
 
+    /**
+     * @return array<string, int|string|null>
+     */
     abstract protected function getRequiredCredentials(?string $siteAccess = null): array;
 
     /**
-     * {@inheritdoc}
+     * Checks if array returned by getRequiredCredentials method contains valid values retrieved by ConfigResolver.
      */
     public function hasCredentials(?string $siteAccess = null): bool
     {
-        $credentials = $this->getRequiredCredentials($siteAccess);
-
-        foreach ($credentials as $credentialKey => $credentialValue) {
-            if (empty($credentialValue)) {
+        foreach ($this->getRequiredCredentials($siteAccess) as $credential) {
+            if (empty($credential)) {
                 return false;
             }
         }

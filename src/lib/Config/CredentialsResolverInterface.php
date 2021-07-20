@@ -17,5 +17,5 @@ interface CredentialsResolverInterface
      */
     public function getCredentials(?string $siteAccess = null): ?Credentials;
 
-    public function hasCredentials(): bool;
+    public function hasCredentials(?string $siteAccess = null): bool;
 }

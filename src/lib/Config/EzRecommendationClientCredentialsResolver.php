@@ -8,36 +8,35 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Config;
 
-use EzSystems\EzRecommendationClient\Value\Config\Credentials;
 use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 
 final class EzRecommendationClientCredentialsResolver extends CredentialsResolver
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function getCredentials(?string $siteAccess = null): ?Credentials
+    public function getCredentials(?string $siteAccess = null): ?EzRecommendationClientCredentials
     {
         if (!$this->hasCredentials($siteAccess)) {
             return null;
         }
 
-        return new EzRecommendationClientCredentials($this->getRequiredCredentials($siteAccess));
+        return EzRecommendationClientCredentials::fromArray($this->getRequiredCredentials($siteAccess));
     }
 
     /**
-     * {@inheritdoc}
+     * @phpstan-return array{
+     *  'customerId': ?int,
+     *  'licenseKey': ?string,
+     * }
      */
     protected function getRequiredCredentials(?string $siteAccess = null): array
     {
         return [
-            'customerId' => $this->configResolver->getParameter(
+            EzRecommendationClientCredentials::CUSTOMER_ID_KEY => $this->configResolver->getParameter(
                 'authentication.customer_id',
                 Parameters::NAMESPACE,
                 $siteAccess
             ),
-            'licenseKey' => $this->configResolver->getParameter(
+            EzRecommendationClientCredentials::LICENSE_KEY_KEY => $this->configResolver->getParameter(
                 'authentication.license_key',
                 Parameters::NAMESPACE,
                 $siteAccess

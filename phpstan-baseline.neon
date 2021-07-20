@@ -301,16 +301,6 @@ parameters:
 			path: src/lib/Authentication/ExportAuthenticator.php
 
 		-
-			message: "#^Cannot call method getCustomerId\\(\\) on EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\Credentials\\|null\\.$#"
-			count: 1
-			path: src/lib/Client/EzRecommendationClient.php
-
-		-
-			message: "#^Cannot call method getLicenseKey\\(\\) on EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\Credentials\\|null\\.$#"
-			count: 1
-			path: src/lib/Client/EzRecommendationClient.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:__call\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Client/EzRecommendationClient.php
@@ -359,21 +349,6 @@ parameters:
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClientInterface\\:\\:sendRequest\\(\\) has parameter \\$option with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Client/EzRecommendationClientInterface.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Config\\\\CredentialsResolver\\:\\:getRequiredCredentials\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Config/CredentialsResolver.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Config\\\\ExportCredentialsResolver\\:\\:getRequiredCredentials\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Config/ExportCredentialsResolver.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Config\\\\EzRecommendationClientCredentialsResolver\\:\\:getRequiredCredentials\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Config/EzRecommendationClientCredentialsResolver.php
 
 		-
 			message: "#^Call to an undefined method GuzzleHttp\\\\ClientInterface\\:\\:get\\(\\)\\.$#"
@@ -1351,16 +1326,6 @@ parameters:
 			path: src/lib/Service/RecommendationServiceInterface.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\ExportCredentials\\:\\:__construct\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Value/Config/ExportCredentials.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\EzRecommendationClientCredentials\\:\\:__construct\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Value/Config/EzRecommendationClientCredentials.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentData\\:\\:__construct\\(\\) has parameter \\$contents with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Value/ContentData.php
@@ -1519,21 +1484,6 @@ parameters:
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:\\$loggerMock \\(PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Psr\\\\Log\\\\NullLogger\\) does not accept PHPUnit\\\\Framework\\\\MockObject\\\\MockObject&Psr\\\\Log\\\\LoggerInterface\\.$#"
 			count: 1
 			path: tests/lib/Config/CredentialsResolverTest.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\ExportCredentialsResolverTest\\:\\:testCreateExportCredentialsResolverInstance\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/lib/Config/ExportCredentialsResolverTest.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\ExportCredentialsResolverTest\\:\\:testGetCredentialsForAuthenticationMethodUser\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/lib/Config/ExportCredentialsResolverTest.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\ExportCredentialsResolverTest\\:\\:testReturnNullWhenMethodIsUserAndHasCredentialsIsFalse\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/lib/Config/ExportCredentialsResolverTest.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\EzRecommendationClientCredentialsResolverTest\\:\\:testCreateEzRecommendationClientCredentialsResolverInstance\\(\\) has no return typehint specified\\.$#"

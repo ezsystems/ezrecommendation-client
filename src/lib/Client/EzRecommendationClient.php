@@ -29,10 +29,10 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
     private const ERROR_MESSAGE = 'ClientError: ';
     private const MESSAGE_SEPARATOR = ' | ';
 
-    /** @var int */
+    /** @var ?int */
     private $customerId;
 
-    /** @var string */
+    /** @var ?string */
     private $licenseKey;
 
     /** @var \GuzzleHttp\ClientInterface */
@@ -69,7 +69,7 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
     /**
      * {@inheritdoc}
      */
-    public function setCustomerId(int $customerId): EzRecommendationClientInterface
+    public function setCustomerId(?int $customerId = null): EzRecommendationClientInterface
     {
         $this->customerId = $customerId;
 
@@ -87,7 +87,7 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
     /**
      * {@inheritdoc}
      */
-    public function setLicenseKey(string $licenseKey): EzRecommendationClientInterface
+    public function setLicenseKey(?string $licenseKey = null): EzRecommendationClientInterface
     {
         $this->licenseKey = $licenseKey;
 
@@ -217,9 +217,11 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
     {
         $credentials = $this->credentialsResolver->getCredentials();
 
-        $this
-            ->setCustomerId($credentials->getCustomerId())
-            ->setLicenseKey($credentials->getLicenseKey());
+        if (null !== $credentials) {
+            $this
+                ->setCustomerId($credentials->getCustomerId())
+                ->setLicenseKey($credentials->getLicenseKey());
+        }
     }
 
     private function getRequestLogMessage(array $transaction): string

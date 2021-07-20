@@ -8,47 +8,47 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Config;
 
-use EzSystems\EzRecommendationClient\Value\Config\Credentials;
 use EzSystems\EzRecommendationClient\Value\Config\ExportCredentials;
 use EzSystems\EzRecommendationClient\Value\ExportMethod;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 
 final class ExportCredentialsResolver extends CredentialsResolver
 {
-    /** @var string */
-    private $method;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getCredentials(?string $siteAccess = null): ?Credentials
+    public function getCredentials(?string $siteAccess = null): ?ExportCredentials
     {
-        $this->method = $this->configResolver->getParameter(
-            'export.authentication.method',
-            Parameters::NAMESPACE,
-            $siteAccess
-        );
+        $requiredCredentials = $this->getRequiredCredentials($siteAccess);
 
-        if ($this->method === ExportMethod::USER && !$this->hasCredentials($siteAccess)) {
+        if (
+            $requiredCredentials[ExportCredentials::METHOD_KEY] === ExportMethod::USER
+            && !$this->hasCredentials($siteAccess)
+        ) {
             return null;
         }
 
-        return new ExportCredentials($this->getRequiredCredentials($siteAccess));
+        return ExportCredentials::fromArray($requiredCredentials);
     }
 
     /**
-     * {@inheritdoc}
+     * @phpstan-return array{
+     *  'method': ?string,
+     *  'login': ?string,
+     *  'password': ?string,
+     * }
      */
     protected function getRequiredCredentials(?string $siteAccess = null): array
     {
         return [
-            'method' => $this->method,
-            'login' => $this->configResolver->getParameter(
+            ExportCredentials::METHOD_KEY => $this->configResolver->getParameter(
+                'export.authentication.method',
+                Parameters::NAMESPACE,
+                $siteAccess
+            ),
+            ExportCredentials::LOGIN_KEY => $this->configResolver->getParameter(
                 'export.authentication.login',
                 Parameters::NAMESPACE,
                 $siteAccess
             ),
-            'password' => $this->configResolver->getParameter(
+            ExportCredentials::PASSWORD_KEY => $this->configResolver->getParameter(
                 'export.authentication.password',
                 Parameters::NAMESPACE,
                 $siteAccess
