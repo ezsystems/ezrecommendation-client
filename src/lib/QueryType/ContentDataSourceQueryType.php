@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\QueryType;
+namespace Ibexa\Personalization\QueryType;
 
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\Core\QueryType\OptionsResolverBasedQueryType;

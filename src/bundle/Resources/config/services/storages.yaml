@@ -4,6 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    EzSystems\EzRecommendationClient\Storage\ContentDataSource:
+    Ibexa\Personalization\Storage\ContentDataSource:
         arguments:
-            $queryType: '@EzSystems\EzRecommendationClient\QueryType\ContentDataSourceQueryType'
+            $queryType: '@Ibexa\Personalization\QueryType\ContentDataSourceQueryType'

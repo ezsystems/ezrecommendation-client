@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Storage;
+namespace Ibexa\Personalization\Storage;
 
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
