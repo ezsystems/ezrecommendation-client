@@ -15,13 +15,13 @@ use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\Core\QueryType\QueryType;
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
-use EzSystems\EzRecommendationClient\Field\ContentFieldResolverInterface;
 use EzSystems\EzRecommendationClient\Value\Storage\Item;
 use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
 use EzSystems\EzRecommendationClient\Value\Storage\ItemType;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
+use Ibexa\Personalization\Content\DataResolverInterface;
 
 final class ContentDataSource implements DataSourceInterface
 {
@@ -31,18 +31,18 @@ final class ContentDataSource implements DataSourceInterface
 
     private QueryType $queryType;
 
-    private ContentFieldResolverInterface $contentFieldResolver;
+    private DataResolverInterface $dataResolver;
 
     public function __construct(
         SearchService $searchService,
         ContentService $contentService,
         QueryType $queryType,
-        ContentFieldResolverInterface $contentFieldResolver
+        DataResolverInterface $dataResolver
     ) {
         $this->searchService = $searchService;
         $this->contentService = $contentService;
         $this->queryType = $queryType;
-        $this->contentFieldResolver = $contentFieldResolver;
+        $this->dataResolver = $dataResolver;
     }
 
     /**
@@ -94,7 +94,7 @@ final class ContentDataSource implements DataSourceInterface
             (string)$content->id,
             ItemType::fromContentType($content->getContentType()),
             $content->contentInfo->getMainLanguage()->languageCode,
-            $this->contentFieldResolver->resolve($content)
+            $this->dataResolver->resolve($content)
         );
     }
 }

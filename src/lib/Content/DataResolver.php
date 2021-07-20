@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Field;
+namespace Ibexa\Personalization\Content;
 
 use eZ\Publish\API\Repository\Values\Content\Content;
 
-final class ContentFieldResolver implements ContentFieldResolverInterface
+final class DataResolver implements DataResolverInterface
 {
     public function resolve(Content $content): array
     {
         $resolvedFields = [];
 
         foreach ($content->getFields() as $field) {
-            $resolvedFields[$field->fieldDefIdentifier] = $field->value;
+            $resolvedFields[$field->fieldDefIdentifier] = (string)$field->value;
         }
 
         return $resolvedFields;

@@ -6,14 +6,14 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Field;
+namespace Ibexa\Personalization\Content;
 
 use eZ\Publish\API\Repository\Values\Content\Content;
 
-interface ContentFieldResolverInterface
+interface DataResolverInterface
 {
     /**
-     * @return array<string, string|float|array>
+     * @return array<string, string>
      */
     public function resolve(Content $content): array;
 }

@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\Personalization\Content\DataResolver: ~
+
+    Ibexa\Personalization\Content\DataResolverInterface:
+        '@Ibexa\Personalization\Content\DataResolver'
