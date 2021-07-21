@@ -42,7 +42,10 @@ interface EzRecommendationClientInterface
 
     public function getUserIdentifier(): ?string;
 
-    public function sendRequest(string $method, UriInterface $uri, array $option = []): ResponseInterface;
+    /**
+     * @param array<string, array|string|bool> $options
+     */
+    public function sendRequest(string $method, UriInterface $uri, array $options = []): ResponseInterface;
 
     public function getHttpClient(): ClientInterface;
 
