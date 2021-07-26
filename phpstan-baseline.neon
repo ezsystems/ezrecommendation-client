@@ -326,11 +326,6 @@ parameters:
 			path: src/lib/Client/EzRecommendationClient.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:sendRequest\\(\\) has parameter \\$option with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Client/EzRecommendationClient.php
-
-		-
 			message: "#^Parameter \\#4 \\$previous of class EzSystems\\\\EzRecommendationClient\\\\Exception\\\\BadResponseException constructor expects Exception\\|null, Throwable\\|null given\\.$#"
 			count: 1
 			path: src/lib/Client/EzRecommendationClient.php
@@ -342,11 +337,6 @@ parameters:
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClientInterface\\:\\:__call\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Client/EzRecommendationClientInterface.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClientInterface\\:\\:sendRequest\\(\\) has parameter \\$option with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Client/EzRecommendationClientInterface.php
 

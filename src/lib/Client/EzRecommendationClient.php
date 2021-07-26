@@ -125,7 +125,7 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
      *
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    public function sendRequest(string $method, UriInterface $uri, array $option = []): ResponseInterface
+    public function sendRequest(string $method, UriInterface $uri, array $options = []): ResponseInterface
     {
         try {
             if (!$this->hasCredentials()) {
@@ -139,8 +139,12 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
             $stack = HandlerStack::create();
             $stack->push($history);
 
-            $response = $this->getHttpClient()->request($method, $uri, array_merge($option, [
+            $response = $this->getHttpClient()->request($method, $uri, array_merge($options, [
                 'handler' => $stack,
+                'auth' => [
+                    $this->getCustomerId(),
+                    $this->getLicenseKey(),
+                ],
             ]));
 
             foreach ($container as $transaction) {
