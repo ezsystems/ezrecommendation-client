@@ -4,12 +4,22 @@ services:
         autoconfigure: true
         public: false
 
-    EzSystems\EzRecommendationClient\Factory\:
-        resource: '../../../../src/lib/Factory/*'
+    EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory: ~
 
-    EzSystems\EzRecommendationClient\Factory\ExportParametersFactory: ~
+    EzSystems\EzRecommendationClient\Factory\FakeRequestFactory: ~
 
-    EzSystems\EzRecommendationClient\Factory\ConfigurableExportParametersFactory:
+    EzSystems\EzRecommendationClient\Factory\RequestFactoryInterface:
+        '@EzSystems\EzRecommendationClient\Factory\FakeRequestFactory'
+
+    EzSystems\EzRecommendationClient\Factory\TokenFactory: ~
+
+    EzSystems\EzRecommendationClient\Factory\TokenFactoryInterface:
+        '@EzSystems\EzRecommendationClient\Factory\TokenFactory'
+
+    Ibexa\Personalization\Factory\Export\ParametersFactory:
         arguments:
-            $innerService: '@EzSystems\EzRecommendationClient\Factory\ExportParametersFactory'
-            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'
+            $siteAccessService: '@ezpublish.siteaccess_service'
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'
+
+    Ibexa\Personalization\Factory\Export\ParametersFactoryInterface:
+        '@Ibexa\Personalization\Factory\Export\ParametersFactory'

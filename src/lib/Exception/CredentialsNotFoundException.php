@@ -8,10 +8,24 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exception;
 
-class CredentialsNotFoundException extends NotFoundException
+use Throwable;
+
+final class CredentialsNotFoundException extends NotFoundException
 {
-    public function __construct(int $code = 0, ?Throwable $previous = null)
+    public function __construct(?string $siteAccess = null, int $code = 0, Throwable $previous = null)
     {
-        parent::__construct('Credentials for recommendation client are not set', $code, $previous);
+        $message = 'Credentials for recommendation client are not set';
+
+        if (null !== $siteAccess) {
+            $message .= sprintf(
+                ' for siteAccess: %s', $siteAccess
+            );
+        }
+
+        parent::__construct(
+            $message,
+            $code,
+            $previous
+        );
     }
 }
