@@ -4,18 +4,12 @@ services:
         autoconfigure: true
         public: false
 
-    EzSystems\EzRecommendationClientBundle\Command\:
-        resource: '../../../../src/bundle/Command/*'
-
-    EzSystems\EzRecommendationClientBundle\Command\ExportCommand:
-        arguments:
-            $exportParametersFactory: '@EzSystems\EzRecommendationClient\Factory\ConfigurableExportParametersFactory'
-
+    Ibexa\Bundle\Personalization\Command\ExportCommand:
         tags:
             - { name: console.command }
-            - { name: monolog.logger, channel: ezrecommendation }
+            - { name: monolog.logger, channel: ibexa-recommendation }
 
     EzSystems\EzRecommendationClientBundle\Command\UserAttributesUpdateCommand:
         tags:
             - { name: console.command }
-            - { name: monolog.logger, channel: ezrecommendation }
+            - { name: monolog.logger, channel: ibexa-recommendation }

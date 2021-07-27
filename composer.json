@@ -41,7 +41,8 @@
             "EzSystems\\EzRecommendationClientBundle\\": "src/bundle/",
             "EzSystems\\EzRecommendationClient\\": "src/lib/",
             "Ibexa\\Contracts\\Personalization\\": "src/contracts/",
-            "Ibexa\\Personalization\\": "src/lib/"
+            "Ibexa\\Personalization\\": "src/lib/",
+            "Ibexa\\Bundle\\Personalization\\": "src/bundle/"
         }
     },
     "autoload-dev": {
