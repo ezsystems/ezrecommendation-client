@@ -156,11 +156,11 @@ final class ContentHelper
             new Criterion\ContentTypeId($contentTypeId),
         ];
 
-        if ($options['path']) {
+        if (isset($options['path'])) {
             $criteria[] = new Criterion\Subtree($options['path']);
         }
 
-        if (!$options['hidden']) {
+        if (!isset($options['hidden'])) {
             $criteria[] = new Criterion\Visibility(Criterion\Visibility::VISIBLE);
         }
 

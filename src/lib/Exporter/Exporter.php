@@ -13,7 +13,7 @@ use eZ\Publish\API\Repository\Repository;
 use EzSystems\EzRecommendationClient\File\ExportFileGenerator;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
 use EzSystems\EzRecommendationClient\Service\ContentServiceInterface;
-use EzSystems\EzRecommendationClient\Value\ExportParameters;
+use Ibexa\Personalization\Value\Export\Parameters;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -65,13 +65,13 @@ final class Exporter implements ExporterInterface
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
-    public function run(ExportParameters $parameters, string $chunkDir, OutputInterface $output): array
+    public function run(Parameters $parameters, string $chunkDir, OutputInterface $output): array
     {
         $urls = [];
 
-        $output->writeln(sprintf('Exporting %s content types', \count($parameters->contentTypeIdList)));
+        $output->writeln(sprintf('Exporting %s content types', \count($parameters->getItemTypeIdentifierList())));
 
-        foreach ($parameters->contentTypeIdList as $id) {
+        foreach ($parameters->getItemTypeIdentifierList() as $id) {
             $contentTypeId = (int)$id;
             $urls[$contentTypeId] = $this->getContentForGivenLanguages($contentTypeId, $chunkDir, $parameters, $output);
         }
@@ -87,7 +87,7 @@ final class Exporter implements ExporterInterface
     private function getContentForGivenLanguages(
         int $contentTypeId,
         string $chunkDir,
-        ExportParameters $parameters,
+        Parameters $parameters,
         OutputInterface $output): array
     {
         $contents = [];
@@ -95,7 +95,14 @@ final class Exporter implements ExporterInterface
         foreach ($parameters->languages as $lang) {
             $parameters->lang = $lang;
 
-            $count = $this->contentHelper->countContentItemsByContentTypeId($contentTypeId, $parameters->getProperties());
+            $options = [
+                'lang' => $lang,
+                'languages' => $parameters->getLanguages(),
+                'pageSize' => $parameters->getPageSize(),
+                'customerId' => $parameters->getCustomerId(),
+                'siteaccess' => $parameters->getSiteaccess(),
+            ];
+            $count = $this->contentHelper->countContentItemsByContentTypeId($contentTypeId, $options);
 
             $info = sprintf('Fetching %s items of contentTypeId %s (language: %s)', $count, $contentTypeId, $parameters->lang);
             $output->writeln($info);
@@ -122,7 +129,7 @@ final class Exporter implements ExporterInterface
     private function generateFileForContentType(
         int $contentTypeId,
         string $chunkPath,
-        ExportParameters $parameters,
+        Parameters $parameters,
         OutputInterface $output): void
     {
         $content = $this->repository->sudo(

@@ -11,21 +11,22 @@ namespace EzSystems\EzRecommendationClient\Tests\Service;
 use EzSystems\EzRecommendationClient\API\Notifier;
 use EzSystems\EzRecommendationClient\Service\ExportNotificationService;
 use EzSystems\EzRecommendationClient\Value\ExportNotification;
-use EzSystems\EzRecommendationClient\Value\ExportParameters;
+use GuzzleHttp\Psr7\Response;
+use Ibexa\Personalization\Value\Export\Parameters;
 
 class ExportNotificationServiceTest extends NotificationServiceTest
 {
     /** @var \EzSystems\EzRecommendationClient\Service\ExportNotificationService */
     private $notificationService;
 
-    /** @var \EzSystems\EzRecommendationClient\Value\ExportParameters|\PHPUnit\Framework\MockObject\MockObject */
-    private $exportParametersMock;
-
-    /** @var array */
+    /** @var array<array<string, array<string, array<string>|string>>> */
     private $urls;
 
-    /** @var array */
+    /** @var array<string> */
     private $notificationOptions;
+
+    /** @var \Ibexa\Personalization\Value\Export\Parameters */
+    private $exportParameters;
 
     public function setUp(): void
     {
@@ -35,7 +36,16 @@ class ExportNotificationServiceTest extends NotificationServiceTest
             $this->clientMock,
             $this->loggerMock
         );
-        $this->exportParametersMock = $this->createMock(ExportParameters::class);
+        $this->exportParameters = Parameters::fromArray([
+            'customer_id' => '12345',
+            'license_key' => '12345-12345-12345-12345',
+            'siteaccess' => 'test',
+            'item_type_identifier_list' => 'article, product, blog',
+            'languages' => 'eng-GB',
+            'web_hook' => 'https://reco-engine.com/api/12345/items',
+            'host' => 'https://127.0.0.1',
+            'page_size' => '500',
+        ]);
         $this->urls = [
             1 => [
                 'eng-EN' => [
@@ -72,12 +82,12 @@ class ExportNotificationServiceTest extends NotificationServiceTest
         );
     }
 
-    public function testCreateInstanceOfEventNotificationService()
+    public function testCreateInstanceOfEventNotificationService(): void
     {
         $this->assertInstanceOf(ExportNotificationService::class, $this->notificationService);
     }
 
-    public function testCreateExportNotification()
+    public function testCreateExportNotification(): void
     {
         $this->assertInstanceOf(
             ExportNotification::class,
@@ -85,22 +95,27 @@ class ExportNotificationServiceTest extends NotificationServiceTest
         );
     }
 
-    public function testSendNotification()
+    public function testSendNotification(): void
     {
-        $this->exportParametersMock
-            ->expects($this->once())
-            ->method('getProperties')
-            ->willReturn($this->notificationOptions);
-
+        $notifier = $this->createMock(Notifier::class);
         $this->clientMock
+            ->expects(self::once())
             ->method('__call')
             ->with(Notifier::API_NAME, [])
-            ->willReturn($this->createMock(Notifier::class));
+            ->willReturn($notifier);
 
-        $this->notificationService->sendNotification(
-            $this->exportParametersMock,
-            $this->urls,
-            ['login' => 'abc', 'pass' => 'def']
+        $notifier
+            ->expects(self::once())
+            ->method('notify')
+            ->willReturn(new Response());
+
+        self::assertEquals(
+            new Response(),
+            $this->notificationService->sendNotification(
+                $this->exportParameters,
+                $this->urls,
+                ['login' => 'abc', 'pass' => 'def']
+            )
         );
     }
 }

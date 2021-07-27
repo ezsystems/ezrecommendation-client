@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exporter;
 
-use EzSystems\EzRecommendationClient\Value\ExportParameters;
+use Ibexa\Personalization\Value\Export\Parameters;
 use Symfony\Component\Console\Output\OutputInterface;
 
 interface ExporterInterface
 {
-    public function run(ExportParameters $parameters, string $chunkDir, OutputInterface $output): array;
+    public function run(Parameters $parameters, string $chunkDir, OutputInterface $output): array;
 }

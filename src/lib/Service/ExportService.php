@@ -9,75 +9,41 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Service;
 
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
-use EzSystems\EzRecommendationClient\Exception\InvalidArgumentException;
 use EzSystems\EzRecommendationClient\Exporter\ExporterInterface;
 use EzSystems\EzRecommendationClient\File\FileManagerInterface;
-use EzSystems\EzRecommendationClient\Value\ExportParameters;
+use Ibexa\Personalization\Value\Export\Parameters;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ExportService implements ExportServiceInterface
 {
-    /** @var \EzSystems\EzRecommendationClient\Exporter\ExporterInterface */
-    private $exporter;
-
-    /** @var \Symfony\Component\Validator\Validator\ValidatorInterface */
-    private $validator;
+    private ExporterInterface $exporter;
 
     /** @var \Psr\Log\LoggerInterface */
-    private $logger;
+    private LoggerInterface $logger;
 
-    /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface */
-    private $credentialsResolver;
+    private CredentialsResolverInterface $credentialsResolver;
 
-    /** @var \EzSystems\EzRecommendationClient\File\FileManagerInterface */
-    private $fileManager;
+    private FileManagerInterface $fileManager;
 
     /** @var \EzSystems\EzRecommendationClient\Service\ExportNotificationService */
-    private $notificationService;
+    private ExportNotificationService $notificationService;
 
     public function __construct(
         ExporterInterface $exporter,
-        ValidatorInterface $validator,
         LoggerInterface $logger,
         CredentialsResolverInterface $credentialsResolver,
         FileManagerInterface $fileManager,
         NotificationService $notificationService
     ) {
         $this->exporter = $exporter;
-        $this->validator = $validator;
         $this->logger = $logger;
         $this->credentialsResolver = $credentialsResolver;
         $this->fileManager = $fileManager;
         $this->notificationService = $notificationService;
     }
 
-    /**
-     * {@inheritdoc}
-     *
-     * @throws \Exception
-     */
-    public function process(ExportParameters $parameters, OutputInterface $output): void
-    {
-        $errors = $this->validator->validate($parameters);
-
-        if (\count($errors) > 0) {
-            $errors = (string)$errors;
-
-            $output->write($errors);
-            $this->logger->error($errors);
-
-            throw new InvalidArgumentException($errors);
-        }
-
-        $this->runExport($parameters, $output);
-    }
-
-    /**
-     * @throws \Exception
-     */
-    private function runExport(ExportParameters $parameters, OutputInterface $output): void
+    public function runExport(Parameters $parameters, OutputInterface $output): void
     {
         try {
             $chunkDir = $this->fileManager->createChunkDir();

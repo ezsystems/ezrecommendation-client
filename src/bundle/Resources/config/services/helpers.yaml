@@ -9,6 +9,7 @@ services:
 
     EzSystems\EzRecommendationClient\Helper\SiteAccessHelper:
         arguments:
+            $siteAccess: '@ezpublish.siteaccess'
             $siteAccessConfig: '%ezrecommendation.siteaccess_config%'
             $defaultSiteAccessName: '%ezpublish.siteaccess.default%'
 

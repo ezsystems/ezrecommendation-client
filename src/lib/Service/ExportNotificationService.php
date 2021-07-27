@@ -11,7 +11,7 @@ namespace EzSystems\EzRecommendationClient\Service;
 use EzSystems\EzRecommendationClient\Request\ExportNotifierRequest;
 use EzSystems\EzRecommendationClient\SPI\Notification;
 use EzSystems\EzRecommendationClient\Value\ExportNotification;
-use EzSystems\EzRecommendationClient\Value\ExportParameters;
+use Ibexa\Personalization\Value\Export\Parameters;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,10 +19,14 @@ final class ExportNotificationService extends NotificationService
 {
     private const NOTIFICATION_ACTION_NAME = 'export';
 
-    public function sendNotification(ExportParameters $parameters, array $urls, array $securedDirCredentials): ?ResponseInterface
+    public function sendNotification(Parameters $parameters, array $urls, array $securedDirCredentials): ?ResponseInterface
     {
-        $options = $parameters->getProperties();
-        $options['events'] = $this->getNotificationEvents($urls, $securedDirCredentials);
+        $options = [
+            'events' => $this->getNotificationEvents($urls, $securedDirCredentials),
+            'customerId' => $parameters->getCustomerId(),
+            'licenseKey' => $parameters->getLicenseKey(),
+            'webHook' => $parameters->getWebHook(),
+        ];
 
         $resolver = new OptionsResolver();
         $this->configureOptions($resolver);
@@ -42,7 +46,7 @@ final class ExportNotificationService extends NotificationService
         $notification->events = $options['events'];
         $notification->licenseKey = $options['licenseKey'];
         $notification->customerId = (int)$options['customerId'];
-        $notification->transaction = (new \DateTime())->format('YmdHis') . rand(111, 999);
+        $notification->transaction = (new \DateTime())->format('YmdHis') . random_int(111, 999);
         $notification->endPointUri = $options['webHook'];
 
         return $notification;
