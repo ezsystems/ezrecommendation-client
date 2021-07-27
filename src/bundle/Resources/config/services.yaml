@@ -8,6 +8,7 @@ imports:
     - { resource: services/converters.yaml }
     - { resource: services/credentials_checker.yaml }
     - { resource: services/events.yaml }
+    - { resource: services/export.yaml }
     - { resource: services/exporter.yaml }
     - { resource: services/factory.yaml }
     - { resource: services/fields.yaml }
