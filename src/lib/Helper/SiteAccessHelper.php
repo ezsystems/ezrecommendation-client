@@ -10,7 +10,8 @@ namespace EzSystems\EzRecommendationClient\Helper;
 
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess as CurrentSiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 
 /**
  * Provides utility to manipulate siteAccess.
@@ -22,23 +23,22 @@ final class SiteAccessHelper
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess */
-    private $siteAccess;
-
     /** @var array */
     private $siteAccessConfig;
 
     /** @var string */
     private $defaultSiteAccessName;
 
+    private SiteAccessServiceInterface $siteAccessService;
+
     public function __construct(
         ConfigResolverInterface $configResolver,
-        CurrentSiteAccess $siteAccess,
+        SiteAccessServiceInterface $siteAccessService,
         array $siteAccessConfig,
         string $defaultSiteAccessName = self::SYSTEM_DEFAULT_SITE_ACCESS_NAME
     ) {
         $this->configResolver = $configResolver;
-        $this->siteAccess = $siteAccess;
+        $this->siteAccessService = $siteAccessService;
         $this->siteAccessConfig = $siteAccessConfig;
         $this->defaultSiteAccessName = $defaultSiteAccessName;
     }
@@ -51,7 +51,7 @@ final class SiteAccessHelper
         return $this->configResolver->getParameter(
             'content.tree_root.location_id',
             null,
-            $siteAccessName ?: $this->siteAccess->name
+            $siteAccessName ?: $this->getCurrentScope()
         );
     }
 
@@ -90,7 +90,7 @@ final class SiteAccessHelper
     public function getSiteAccessesByCustomerId(?int $customerId): array
     {
         if ($customerId === null) {
-            return [$this->siteAccess->name];
+            return [$this->getCurrentScope()];
         }
 
         $siteAccesses = [];
@@ -131,7 +131,7 @@ final class SiteAccessHelper
         } elseif ($customerId) {
             $siteAccesses = $this->getSiteaccessesByCustomerId($customerId);
         } else {
-            $siteAccesses = [$this->siteAccess->name];
+            $siteAccesses = [$this->getCurrentScope()];
         }
 
         return $siteAccesses;
@@ -179,6 +179,13 @@ final class SiteAccessHelper
     public function isSiteAccessSameAsSystemDefault(string $siteAccessName): bool
     {
         return $siteAccessName === self::SYSTEM_DEFAULT_SITE_ACCESS_NAME;
+    }
+
+    private function getCurrentScope(): ?string
+    {
+        return null !== $this->siteAccessService->getCurrent()
+            ? $this->siteAccessService->getCurrent()->name
+            : null;
     }
 
     /**
