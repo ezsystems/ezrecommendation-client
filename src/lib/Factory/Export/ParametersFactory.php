@@ -19,6 +19,15 @@ use Ibexa\Personalization\Value\Export\Parameters;
 
 final class ParametersFactory implements ParametersFactoryInterface
 {
+    private const PARAMETERS_NAMESPACE = 'ezrecommendation';
+    private const HOST_URI_PARAMETER_NAME = 'host_uri';
+    private const NOTIFIER_ENDPOINT_PARAMETER_NAME = 'api.notifier.endpoint';
+    private const REQUIRED_OPTIONS = [
+        'customer_id',
+        'license_key',
+        'siteaccess',
+    ];
+
     private CredentialsResolverInterface $credentialsResolver;
 
     private ConfigResolverInterface $configResolver;
@@ -271,8 +280,8 @@ final class ParametersFactory implements ParametersFactoryInterface
     private function getHostUri(string $siteAccess): string
     {
         return $this->configResolver->getParameter(
-            'host_uri',
-            'ezrecommendation',
+            self::HOST_URI_PARAMETER_NAME,
+            self::PARAMETERS_NAMESPACE,
             $siteAccess
         );
     }
@@ -280,8 +289,8 @@ final class ParametersFactory implements ParametersFactoryInterface
     private function getWebHook(int $customerId, string $siteAccess): string
     {
         return $this->configResolver->getParameter(
-                'api.notifier.endpoint',
-                'ezrecommendation',
+                self::NOTIFIER_ENDPOINT_PARAMETER_NAME,
+                self::PARAMETERS_NAMESPACE,
                 $siteAccess
             ) . sprintf(Notifier::ENDPOINT_PATH, $customerId);
     }
@@ -323,20 +332,6 @@ final class ParametersFactory implements ParametersFactoryInterface
      */
     private function getMissingRequiredOptions(array $options): array
     {
-        $missingOptions = [];
-
-        if (!isset($options['customer_id'])) {
-            $missingOptions[] = 'customer_id';
-        }
-
-        if (!isset($options['license_key'])) {
-            $missingOptions[] = 'license_key';
-        }
-
-        if (!isset($options['siteaccess'])) {
-            $missingOptions[] = 'siteaccess';
-        }
-
-        return $missingOptions;
+        return array_diff(self::REQUIRED_OPTIONS, $options);
     }
 }
