@@ -96,8 +96,9 @@ final class ParametersFactory implements ParametersFactoryInterface
             'languages' => $options['languages'],
             'host' => $options['host'] ?? $this->getHostUri($siteAccess),
             'web_hook' => $options['web_hook'] ?? $this->getWebHook(
-                    (int)$customerId,
-                    $siteAccess),
+                (int)$customerId,
+                $siteAccess
+            ),
             'page_size' => $options['page_size'],
         ];
     }
