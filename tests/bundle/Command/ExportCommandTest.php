@@ -13,10 +13,6 @@ use EzSystems\EzRecommendationClient\Exception\MissingExportParameterException;
 
 final class ExportCommandTest extends AbstractCommandTestCase
 {
-    protected function setUp(): void
-    {
-        parent::setUp();
-    }
 
     protected static function getCommandName(): string
     {
