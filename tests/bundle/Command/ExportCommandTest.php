@@ -24,7 +24,7 @@ final class ExportCommandTest extends AbstractCommandTestCase
         $siteAccess = 'undefined_siteaccess';
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(
-            sprintf('SiteAccess %s doesn\'t exists', $siteAccess)
+            sprintf('SiteAccess %s doesn\'t exist', $siteAccess)
         );
         $this->commandTester->execute(
             [
