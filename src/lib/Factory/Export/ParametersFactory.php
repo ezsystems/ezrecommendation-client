@@ -332,6 +332,6 @@ final class ParametersFactory implements ParametersFactoryInterface
      */
     private function getMissingRequiredOptions(array $options): array
     {
-        return array_diff(self::REQUIRED_OPTIONS, $options);
+        return array_diff(self::REQUIRED_OPTIONS, array_keys($options));
     }
 }
