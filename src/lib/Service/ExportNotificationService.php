@@ -46,7 +46,7 @@ final class ExportNotificationService extends NotificationService
         $notification->events = $options['events'];
         $notification->licenseKey = $options['licenseKey'];
         $notification->customerId = (int)$options['customerId'];
-        $notification->transaction = (new \DateTime())->format('YmdHis') . random_int(111, 999);
+        $notification->transaction = date('YmdHis') . random_int(111, 999);
         $notification->endPointUri = $options['webHook'];
 
         return $notification;
