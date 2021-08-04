@@ -73,7 +73,7 @@ final class ParametersFactoryTest extends TestCase
      */
     public function testCreateFromAllOptions(): void
     {
-        $this->getAllSiteAccesses();
+        $this->configureSiteAccessServiceToReturnAllSiteAccesses();
 
         self::assertEquals(
             Parameters::fromArray($this->options),
@@ -119,7 +119,7 @@ final class ParametersFactoryTest extends TestCase
                 '12345-12345-12345-12345'
             ));
 
-        $this->getHostUriAndApiNotifierUri($siteAccess);
+        $this->configureConfigResolverToReturnHostUriAndApiNotifierUri($siteAccess);
 
         self::assertEquals(
             Parameters::fromArray($this->options),
@@ -155,7 +155,7 @@ final class ParametersFactoryTest extends TestCase
             ->with($siteAccess)
             ->willReturn(true);
 
-        $this->getHostUriAndApiNotifierUri($siteAccess);
+        $this->configureConfigResolverToReturnHostUriAndApiNotifierUri($siteAccess);
 
         self::assertEquals(
             Parameters::fromArray($this->options),
@@ -179,7 +179,7 @@ final class ParametersFactoryTest extends TestCase
             'host' => null,
         ];
 
-        $this->getAllSiteAccesses();
+        $this->configureSiteAccessServiceToReturnAllSiteAccesses();
 
         $this->credentialsResolver
             ->expects(self::at(0))
@@ -193,7 +193,7 @@ final class ParametersFactoryTest extends TestCase
             ->with($secondSiteAccess)
             ->willReturn(true);
 
-        $this->getHostUriAndApiNotifierUri($firstSiteAccess);
+        $this->configureConfigResolverToReturnHostUriAndApiNotifierUri($firstSiteAccess);
 
         self::assertEquals(
             Parameters::fromArray($this->options),
@@ -211,7 +211,7 @@ final class ParametersFactoryTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf('SiteAccess %s doesn\'t exists', $siteAccess));
 
-        $this->getAllSiteAccesses();
+        $this->configureSiteAccessServiceToReturnAllSiteAccesses();
 
         $this->parametersFactory->create(
             [
@@ -228,7 +228,7 @@ final class ParametersFactoryTest extends TestCase
         );
     }
 
-    private function getAllSiteAccesses(): void
+    private function configureSiteAccessServiceToReturnAllSiteAccesses(): void
     {
         $this->siteAccessService
             ->method('getAll')
@@ -240,26 +240,16 @@ final class ParametersFactoryTest extends TestCase
             );
     }
 
-    private function getHostUriAndApiNotifierUri(string $siteAccess): void
+    private function configureConfigResolverToReturnHostUriAndApiNotifierUri(string $siteAccess): void
     {
         $this->configResolver
-            ->expects(self::at(0))
+            ->expects(self::atLeastOnce())
             ->method('getParameter')
-            ->with(
-                'host_uri',
-                'ezrecommendation',
-                $siteAccess
-            )
-            ->willReturn('https://127.0.0.1');
-
-        $this->configResolver
-            ->expects(self::at(1))
-            ->method('getParameter')
-            ->with(
-                'api.notifier.endpoint',
-                'ezrecommendation',
-                $siteAccess
-            )
-            ->willReturn('https://reco-engine.com');
+            ->willReturn(self::returnValueMap(
+                [
+                    ['host_uri', 'ezrecommendation', $siteAccess, 'https://127.0.0.1'],
+                    ['api.notifier.endpoint', 'ezrecommendation', $siteAccess, 'https://reco-engine.com'],
+                ]
+            ));
     }
 }

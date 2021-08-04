@@ -46,6 +46,10 @@ final class ParametersFactory implements ParametersFactoryInterface
         $this->siteAccessService = $siteAccessService;
     }
 
+    /**
+     * @throws \EzSystems\EzRecommendationClient\Exception\MissingExportParameterException
+     * @throws \EzSystems\EzRecommendationClient\Exception\InvalidArgumentException
+     */
     public function create(array $options, string $type): Parameters
     {
         $this->exportParametersType = $type;
@@ -168,7 +172,7 @@ final class ParametersFactory implements ParametersFactoryInterface
             );
         }
 
-        if (isset($options['customer_id'], $options['license_key'], $options['siteaccess']) {
+        if (isset($options['customer_id'], $options['license_key'], $options['siteaccess'])) {
             return [
                 'customer_id' => $options['customer_id'],
                 'license_key' => $options['license_key'],
