@@ -48,7 +48,7 @@ final class ExportCommandTest extends AbstractCommandTestCase
     }
 
     /**
-     * @return array<array<array<string>|string>>.
+     * @return array<array{array<string>, string}>.
      */
     public function provideForTestCommandThrowExceptionWhenRequiredParametersAreMissing(): array
     {
