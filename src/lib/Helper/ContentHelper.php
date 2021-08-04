@@ -160,10 +160,6 @@ final class ContentHelper
             $criteria[] = new Criterion\Subtree($options['path']);
         }
 
-        if (!isset($options['hidden'])) {
-            $criteria[] = new Criterion\Visibility(Criterion\Visibility::VISIBLE);
-        }
-
         $criteria[] = $this->generateSubtreeCriteria((int)$options['customerId'], $options['siteaccess']);
 
         $query = new Query();
