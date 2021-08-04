@@ -34,7 +34,7 @@ final class ExportCommandTest extends AbstractCommandTestCase
     }
 
     /**
-     * @param array<array<array<string>|string>> $parameters
+     * @param array<string, string> $parameters
      *
      * @dataProvider provideForTestCommandThrowExceptionWhenRequiredParametersAreMissing
      */
