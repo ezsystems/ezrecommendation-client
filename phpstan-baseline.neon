@@ -81,11 +81,6 @@ parameters:
 			path: src/bundle/Controller/ExportController.php
 
 		-
-			message: "#^Parameter \\#2 \\$values of method Symfony\\\\Component\\\\HttpFoundation\\\\ResponseHeaderBag\\:\\:set\\(\\) expects array\\<string\\>\\|string, int\\|false given\\.$#"
-			count: 1
-			path: src/bundle/Controller/ExportController.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\RecommendationController\\:\\:getTemplate\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: src/bundle/Controller/RecommendationController.php
@@ -376,16 +371,6 @@ parameters:
 			path: src/lib/Event/Subscriber/AbstractCoreEventSubscriber.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/ContentEventSubscriber.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\LocationEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/LocationEventSubscriber.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\LocationEventSubscriber\\:\\:swapLocation\\(\\) has parameter \\$locations with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/LocationEventSubscriber.php
@@ -396,22 +381,12 @@ parameters:
 			path: src/lib/Event/Subscriber/LocationEventSubscriber.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ObjectStateEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/ObjectStateEventSubscriber.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationEventSubscriber\\:\\:extractRecommendationItems\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationEventSubscriber\\:\\:getRecommendationRequest\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
 
@@ -461,11 +436,6 @@ parameters:
 			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationRandomContentEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
-
-		-
 			message: "#^PHPDoc tag @param for parameter \\$contentService with type eZ\\\\Publish\\\\API\\\\Repository\\\\SearchService is not subtype of native type eZ\\\\Publish\\\\API\\\\Repository\\\\ContentService\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
@@ -491,27 +461,12 @@ parameters:
 			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\TrashEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/TrashEventSubscriber.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\UserAPIRequestDefaultSourceEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/UserAPIRequestDefaultSourceEventSubscriber.php
-
-		-
 			message: "#^Cannot access property \\$source on EzSystems\\\\EzRecommendationClient\\\\SPI\\\\UserAPIRequest\\|null\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/UserCollectionGeneratorEventSubscriber.php
 
 		-
 			message: "#^Cannot access property \\$xmlBody on EzSystems\\\\EzRecommendationClient\\\\SPI\\\\UserAPIRequest\\|null\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/UserCollectionGeneratorEventSubscriber.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\UserCollectionGeneratorEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/UserCollectionGeneratorEventSubscriber.php
 
