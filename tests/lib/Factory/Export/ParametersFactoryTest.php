@@ -245,11 +245,11 @@ final class ParametersFactoryTest extends TestCase
         $this->configResolver
             ->expects(self::atLeastOnce())
             ->method('getParameter')
-            ->willReturn(self::returnValueMap(
+            ->willReturnMap(
                 [
                     ['host_uri', 'ezrecommendation', $siteAccess, 'https://127.0.0.1'],
                     ['api.notifier.endpoint', 'ezrecommendation', $siteAccess, 'https://reco-engine.com'],
                 ]
-            ));
+            );
     }
 }
