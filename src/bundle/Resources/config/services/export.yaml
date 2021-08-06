@@ -1,0 +1,10 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\Personalization\Export\Input\CommandInputResolver: ~
+
+    Ibexa\Personalization\Export\Input\CommandInputResolverInterface:
+        '@Ibexa\Personalization\Export\Input\CommandInputResolver'
