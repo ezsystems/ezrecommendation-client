@@ -17,7 +17,7 @@ final class CredentialsNotFoundException extends NotFoundException
         $message = 'Credentials for recommendation client are not set';
 
         if (null !== $siteAccess) {
-            $message .= ' for siteAccess: ' .  $siteAccess;
+            $message .= ' for siteAccess: ' . $siteAccess;
         }
 
         parent::__construct(

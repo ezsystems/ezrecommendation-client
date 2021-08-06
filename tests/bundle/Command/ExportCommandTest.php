@@ -13,7 +13,6 @@ use EzSystems\EzRecommendationClient\Exception\MissingExportParameterException;
 
 final class ExportCommandTest extends AbstractCommandTestCase
 {
-
     protected static function getCommandName(): string
     {
         return 'ibexa:recommendation:run-export';
