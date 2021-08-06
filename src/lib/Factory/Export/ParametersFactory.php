@@ -336,6 +336,10 @@ final class ParametersFactory implements ParametersFactoryInterface
      */
     private function getMissingRequiredOptions(array $options): array
     {
-        return array_diff(self::REQUIRED_OPTIONS, array_keys($options));
+        return array_diff(self::REQUIRED_OPTIONS, array_keys(
+            array_filter($options, static function (?string $option = null): bool {
+                return null !== $option;
+            })
+        ));
     }
 }
