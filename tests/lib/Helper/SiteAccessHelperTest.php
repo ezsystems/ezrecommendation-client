@@ -9,7 +9,9 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Helper;
 
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess as CurrentSiteAccess;
+use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use EzSystems\EzRecommendationClient\Helper\SiteAccessHelper;
 use PHPUnit\Framework\TestCase;
 
@@ -18,27 +20,33 @@ class SiteAccessHelperTest extends TestCase
     /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
+    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface|\PHPUnit\Framework\MockObject\MockObject */
+    private SiteAccessServiceInterface $siteAccessService;
+
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->configResolver = $this->getMockBuilder('eZ\Publish\Core\MVC\ConfigResolverInterface')->getMock();
+        $this->configResolver = $this->createMock(ConfigResolverInterface::class);
+        $this->siteAccessService = $this->createMock(SiteAccessServiceInterface::class);
     }
 
     public function testGetRootLocationBySiteAccessNameWithoutParameterSpecified()
     {
+        $this->siteAccessService
+            ->expects(self::atLeastOnce())
+            ->method('getCurrent')
+            ->willReturn(new SiteAccess('foo', 'test'));
+
         $this->configResolver
             ->expects($this->once())
             ->method('getParameter')
             ->with($this->equalTo('content.tree_root.location_id'))
-            ->willReturn(123)
-        ;
-
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
+            ->willReturn(123);
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             [],
             'default'
         );
@@ -54,14 +62,11 @@ class SiteAccessHelperTest extends TestCase
             ->expects($this->once())
             ->method('getParameter')
             ->with($this->equalTo('content.tree_root.location_id'), null, 'foo')
-            ->willReturn(123)
-        ;
-
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
+            ->willReturn(123);
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             [],
             'default'
         );
@@ -82,21 +87,17 @@ class SiteAccessHelperTest extends TestCase
             ->expects($this->at(0))
             ->method('getParameter')
             ->with($this->equalTo('content.tree_root.location_id'), null, 'abc')
-            ->willReturn(1)
-        ;
+            ->willReturn(1);
 
         $this->configResolver
             ->expects($this->at(1))
             ->method('getParameter')
             ->with($this->equalTo('content.tree_root.location_id'), null, 'cde')
-            ->willReturn(2)
-        ;
-
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
+            ->willReturn(2);
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             [],
             'default'
         );
@@ -112,14 +113,11 @@ class SiteAccessHelperTest extends TestCase
             ->expects($this->once())
             ->method('getParameter')
             ->with($this->equalTo('languages'))
-            ->willReturn(['eng-GB', 'fre-FR'])
-        ;
-
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
+            ->willReturn(['eng-GB', 'fre-FR']);
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             [],
             'default'
         );
@@ -135,33 +133,29 @@ class SiteAccessHelperTest extends TestCase
             ->expects($this->once())
             ->method('getParameter')
             ->with($this->equalTo('languages'), null, 'foo')
-            ->willReturn(['eng-GB', 'fre-FR'])
-        ;
-
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
+            ->willReturn(['eng-GB', 'fre-FR']);
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             [],
             'default'
         );
 
         $result = $siteAccessHelper->getLanguages(1542, 'foo');
 
-        $this->assertEquals(['eng-GB'], $result);
+        $this->assertEquals(
+            ['eng-GB'], $result
+        );
     }
 
     public function testGetLanguagesByCustomerId()
     {
         $this->configResolver
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getParameter')
             ->with($this->equalTo('languages'), null, 'foo')
-            ->willReturn(['eng-GB', 'fre-FR'])
-        ;
-
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
+            ->willReturn(['eng-GB', 'fre-FR']);
 
         $siteAccessConfig = [
             'default' => [
@@ -178,24 +172,28 @@ class SiteAccessHelperTest extends TestCase
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             $siteAccessConfig,
             'default'
         );
 
-        $result = $siteAccessHelper->getLanguages(123, null);
-
         // should return only one language: main language by matched siteAccess
-        $this->assertEquals(['eng-GB'], $result);
+        $this->assertEquals(
+            ['eng-GB'],
+            $siteAccessHelper->getLanguages(123, null)
+        );
     }
 
     public function testGetSiteAccessesByCustomerIdWithoutCustomerId()
     {
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
+        $this->siteAccessService
+            ->expects(self::atLeastOnce())
+            ->method('getCurrent')
+            ->willReturn(new SiteAccess('foo', 'test'));
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             [],
             'default'
         );
@@ -207,8 +205,6 @@ class SiteAccessHelperTest extends TestCase
 
     public function testGetSiteAccessesByCustomerId()
     {
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
-
         $siteAccessConfig = [
             'default' => [
                 'authentication' => [
@@ -229,7 +225,7 @@ class SiteAccessHelperTest extends TestCase
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             $siteAccessConfig,
             'default'
         );
@@ -241,8 +237,6 @@ class SiteAccessHelperTest extends TestCase
 
     public function testGetSiteAccessesByCustomerIdWithChangedDefaultSiteAccess()
     {
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
-
         $siteAccessConfig = [
             'default' => [
                 'authentication' => [
@@ -263,7 +257,7 @@ class SiteAccessHelperTest extends TestCase
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             $siteAccessConfig,
             'foo'
         );
@@ -275,8 +269,6 @@ class SiteAccessHelperTest extends TestCase
 
     public function testGetSiteAccessesByCustomerIdWithChangedDefaultSiteAccessDifferentCustomerId()
     {
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
-
         $siteAccessConfig = [
             'default' => [
                 'authentication' => [
@@ -297,7 +289,7 @@ class SiteAccessHelperTest extends TestCase
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             $siteAccessConfig,
             'foo'
         );
@@ -309,8 +301,6 @@ class SiteAccessHelperTest extends TestCase
 
     public function testGetSiteAccessesByCustomerIdWithMultipleConfig()
     {
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
-
         $siteAccessConfig = [
             'default' => [
                 'authentication' => [
@@ -331,7 +321,7 @@ class SiteAccessHelperTest extends TestCase
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             $siteAccessConfig,
             'default'
         );
@@ -343,8 +333,6 @@ class SiteAccessHelperTest extends TestCase
 
     public function testGetSiteAccessesByCustomerIdWithChangedDefaultSiteAccessAndMultipleConfig()
     {
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
-
         $siteAccessConfig = [
             'default' => [
                 'authentication' => [
@@ -365,7 +353,7 @@ class SiteAccessHelperTest extends TestCase
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             $siteAccessConfig,
             'foo'
         );
@@ -377,8 +365,6 @@ class SiteAccessHelperTest extends TestCase
 
     public function testGetSiteAccessesByCustomerIdWithWrongCustomerId()
     {
-        $siteAccess = new CurrentSiteAccess('foo', 'test');
-
         $siteAccessConfig = [
             'default' => [
                 'authentication' => [
@@ -394,7 +380,7 @@ class SiteAccessHelperTest extends TestCase
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             $siteAccessConfig
         );
 
@@ -406,13 +392,16 @@ class SiteAccessHelperTest extends TestCase
 
     public function testGetSiteAccesses()
     {
-        $siteAccess = new CurrentSiteAccess('default', 'test');
+        $this->siteAccessService
+            ->expects(self::atLeastOnce())
+            ->method('getCurrent')
+            ->willReturn(new SiteAccess('default', 'test'));
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             [],
-            'foo'
+            'default'
         );
 
         $result = $siteAccessHelper->getSiteAccesses(null, null);
@@ -422,8 +411,6 @@ class SiteAccessHelperTest extends TestCase
 
     public function testGetSiteAccessesWithCustomerId()
     {
-        $siteAccess = new CurrentSiteAccess('default', 'test');
-
         $siteAccessConfig = [
             'foo' => [
                 'authentication' => [
@@ -434,7 +421,7 @@ class SiteAccessHelperTest extends TestCase
 
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             $siteAccessConfig,
             'foo'
         );
@@ -446,11 +433,9 @@ class SiteAccessHelperTest extends TestCase
 
     public function testGetSiteAccessesWithSiteAccess()
     {
-        $siteAccess = new CurrentSiteAccess('default', 'test');
-
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             [],
             'foo'
         );
@@ -462,11 +447,9 @@ class SiteAccessHelperTest extends TestCase
 
     public function testGetSiteAccessesWithWrongCustomerId()
     {
-        $siteAccess = new CurrentSiteAccess('default', 'test');
-
         $siteAccessHelper = new SiteAccessHelper(
             $this->configResolver,
-            $siteAccess,
+            $this->siteAccessService,
             [],
             'foo'
         );
