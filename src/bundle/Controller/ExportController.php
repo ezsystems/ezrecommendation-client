@@ -60,7 +60,11 @@ final class ExportController extends Controller
 
         $response->headers->set('Content-Type', 'mime/type');
         $response->headers->set('Content-Disposition', 'attachment;filename="' . $filePath);
-        $response->headers->set('Content-Length', filesize($this->fileManager->getDir() . $filePath));
+        $fileSize = filesize($this->fileManager->getDir() . $filePath);
+
+        if (is_int($fileSize)) {
+            $response->headers->set('Content-Length', (string)$fileSize);
+        }
 
         $response->setContent($content);
 

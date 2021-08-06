@@ -1,21 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Cannot call method getDefinition\\(\\) on Symfony\\\\Component\\\\Console\\\\Application\\|null\\.$#"
-			count: 1
-			path: src/bundle/Command/ExportCommand.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Command\\\\ExportCommand\\:\\:configure\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/bundle/Command/ExportCommand.php
-
-		-
-			message: "#^Parameter \\#5 \\$default of method Symfony\\\\Component\\\\Console\\\\Command\\\\Command\\:\\:addOption\\(\\) expects array\\<string\\>\\|bool\\|string\\|null, int given\\.$#"
-			count: 3
-			path: src/bundle/Command/ExportCommand.php
-
-		-
 			message: "#^Left side of && is always true\\.$#"
 			count: 1
 			path: src/bundle/Command/UserAttributesUpdateCommand.php
@@ -92,11 +77,6 @@ parameters:
 
 		-
 			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Authentication\\\\AuthenticatorInterface\\:\\:authenticateByFile\\(\\)\\.$#"
-			count: 1
-			path: src/bundle/Controller/ExportController.php
-
-		-
-			message: "#^Parameter \\#2 \\$values of method Symfony\\\\Component\\\\HttpFoundation\\\\ResponseHeaderBag\\:\\:set\\(\\) expects array\\<string\\>\\|string, int\\|false given\\.$#"
 			count: 1
 			path: src/bundle/Controller/ExportController.php
 
@@ -391,16 +371,6 @@ parameters:
 			path: src/lib/Event/Subscriber/AbstractCoreEventSubscriber.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/ContentEventSubscriber.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\LocationEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/LocationEventSubscriber.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\LocationEventSubscriber\\:\\:swapLocation\\(\\) has parameter \\$locations with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/LocationEventSubscriber.php
@@ -411,22 +381,12 @@ parameters:
 			path: src/lib/Event/Subscriber/LocationEventSubscriber.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ObjectStateEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/ObjectStateEventSubscriber.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationEventSubscriber\\:\\:extractRecommendationItems\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationEventSubscriber\\:\\:getRecommendationRequest\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
 
@@ -476,11 +436,6 @@ parameters:
 			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationRandomContentEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
-
-		-
 			message: "#^PHPDoc tag @param for parameter \\$contentService with type eZ\\\\Publish\\\\API\\\\Repository\\\\SearchService is not subtype of native type eZ\\\\Publish\\\\API\\\\Repository\\\\ContentService\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
@@ -506,27 +461,12 @@ parameters:
 			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\TrashEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/TrashEventSubscriber.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\UserAPIRequestDefaultSourceEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/UserAPIRequestDefaultSourceEventSubscriber.php
-
-		-
 			message: "#^Cannot access property \\$source on EzSystems\\\\EzRecommendationClient\\\\SPI\\\\UserAPIRequest\\|null\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/UserCollectionGeneratorEventSubscriber.php
 
 		-
 			message: "#^Cannot access property \\$xmlBody on EzSystems\\\\EzRecommendationClient\\\\SPI\\\\UserAPIRequest\\|null\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/UserCollectionGeneratorEventSubscriber.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\UserCollectionGeneratorEventSubscriber\\:\\:getSubscribedEvents\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/UserCollectionGeneratorEventSubscriber.php
 
@@ -554,16 +494,6 @@ parameters:
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Exception\\\\BadResponseException\\:\\:\\$handlerContext type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Exception/BadResponseException.php
-
-		-
-			message: "#^Parameter \\#3 \\$previous of method Exception\\:\\:__construct\\(\\) expects Throwable\\|null, EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Throwable\\|null given\\.$#"
-			count: 1
-			path: src/lib/Exception/CredentialsNotFoundException.php
-
-		-
-			message: "#^Parameter \\$previous of method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\CredentialsNotFoundException\\:\\:__construct\\(\\) has invalid typehint type EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Throwable\\.$#"
-			count: 1
-			path: src/lib/Exception/CredentialsNotFoundException.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\FileNotFoundException\\:\\:__construct\\(\\) has parameter \\$code with no typehint specified\\.$#"
@@ -611,6 +541,21 @@ parameters:
 			path: src/lib/Exception/InvalidRelationException.php
 
 		-
+			message: "#^Access to an undefined property Ibexa\\\\Personalization\\\\Value\\\\Export\\\\Parameters\\:\\:\\$lang\\.$#"
+			count: 3
+			path: src/lib/Exporter/Exporter.php
+
+		-
+			message: "#^Access to an undefined property Ibexa\\\\Personalization\\\\Value\\\\Export\\\\Parameters\\:\\:\\$page\\.$#"
+			count: 2
+			path: src/lib/Exporter/Exporter.php
+
+		-
+			message: "#^Call to an undefined method Ibexa\\\\Personalization\\\\Value\\\\Export\\\\Parameters\\:\\:getProperties\\(\\)\\.$#"
+			count: 1
+			path: src/lib/Exporter/Exporter.php
+
+		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exporter\\\\Exporter\\:\\:generateUrlList\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Exporter/Exporter.php
@@ -626,7 +571,7 @@ parameters:
 			path: src/lib/Exporter/Exporter.php
 
 		-
-			message: "#^Parameter \\#2 \\$lang of method EzSystems\\\\EzRecommendationClient\\\\Exporter\\\\Exporter\\:\\:generateUrlList\\(\\) expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$parameters of method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentServiceInterface\\:\\:fetchContent\\(\\) expects EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters, Ibexa\\\\Personalization\\\\Value\\\\Export\\\\Parameters given\\.$#"
 			count: 1
 			path: src/lib/Exporter/Exporter.php
 
@@ -634,31 +579,6 @@ parameters:
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exporter\\\\ExporterInterface\\:\\:run\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Exporter/ExporterInterface.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\ConfigurableExportParametersFactory\\:\\:create\\(\\) has parameter \\$properties with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Factory/ConfigurableExportParametersFactory.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\ConfigurableExportParametersFactory\\:\\:getMissingRequiredOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Factory/ConfigurableExportParametersFactory.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\ConfigurableExportParametersFactory\\:\\:getMissingRequiredOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Factory/ConfigurableExportParametersFactory.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\ExportParametersFactory\\:\\:create\\(\\) has parameter \\$properties with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Factory/ExportParametersFactory.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\ExportParametersFactoryInterface\\:\\:create\\(\\) has parameter \\$properties with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Factory/ExportParametersFactoryInterface.php
 
 		-
 			message: "#^Parameter \\#1 \\$str of function strtolower expects string, string\\|null given\\.$#"
@@ -1101,11 +1021,6 @@ parameters:
 			path: src/lib/SPI/Content.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\SPI\\\\ExportParametersFactoryDecorator\\:\\:create\\(\\) has parameter \\$properties with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/SPI/ExportParametersFactoryDecorator.php
-
-		-
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Notification\\:\\:\\$events type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/SPI/Notification.php
@@ -1279,11 +1194,6 @@ parameters:
 			message: "#^Parameter \\#1 \\$parameters of class EzSystems\\\\EzRecommendationClient\\\\Request\\\\ExportNotifierRequest constructor expects array\\<string\\>, array\\<string, mixed\\> given\\.$#"
 			count: 1
 			path: src/lib/Service/ExportNotificationService.php
-
-		-
-			message: "#^Cannot cast Symfony\\\\Component\\\\Validator\\\\ConstraintViolationListInterface to string\\.$#"
-			count: 1
-			path: src/lib/Service/ExportService.php
 
 		-
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Service\\\\ExportService\\:\\:\\$notificationService \\(EzSystems\\\\EzRecommendationClient\\\\Service\\\\ExportNotificationService\\) does not accept EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService\\.$#"
@@ -2004,31 +1914,6 @@ parameters:
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\EventNotificationServiceTest\\:\\:testSendNotification\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: tests/lib/Service/EventNotificationServiceTest.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:testCreateExportNotification\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/lib/Service/ExportNotificationServiceTest.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:testCreateInstanceOfEventNotificationService\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/lib/Service/ExportNotificationServiceTest.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:testSendNotification\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/lib/Service/ExportNotificationServiceTest.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:\\$notificationOptions type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/lib/Service/ExportNotificationServiceTest.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:\\$urls type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/lib/Service/ExportNotificationServiceTest.php
 
 		-
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\NotificationServiceTest\\:\\:\\$basicNotificationOptions type has no value type specified in iterable type array\\.$#"

@@ -8,10 +8,10 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Service;
 
-use EzSystems\EzRecommendationClient\Value\ExportParameters;
+use Ibexa\Personalization\Value\Export\Parameters;
 use Symfony\Component\Console\Output\OutputInterface;
 
 interface ExportServiceInterface
 {
-    public function process(ExportParameters $parameters, OutputInterface $output): void;
+    public function runExport(Parameters $parameters, OutputInterface $output): void;
 }

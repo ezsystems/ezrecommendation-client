@@ -19,4 +19,9 @@
     <extensions>
         <extension class="EzSystems\EzRecommendationClient\PHPUnit\BypassFinalHook"/>
     </extensions>
+    <php>
+        <env name="RECOMMENDATION_CUSTOMER_ID" value="0" />
+        <env name="RECOMMENDATION_LICENSE_KEY" value="" />
+        <env name="RECOMMENDATION_HOST_URI" value="" />
+    </php>
 </phpunit>

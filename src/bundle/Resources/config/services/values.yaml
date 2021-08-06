@@ -4,9 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    EzSystems\EzRecommendationClient\Value\:
-        resource: '../../../../src/lib/Value/*'
-
     EzSystems\EzRecommendationClient\Value\ContentDataVisitor:
         tags:
             - { name: ezpublish_rest.output.value_object_visitor, type: EzSystems\EzRecommendationClient\Value\ContentData }
