@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Service\Storage;
+namespace Ibexa\Tests\Personalization\Service\Storage;
 
-use EzSystems\EzRecommendationClient\Service\Storage\DataSourceService;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface;
-use EzSystems\EzRecommendationClient\Strategy\Storage\SupportedGroupItemStrategy;
-use EzSystems\EzRecommendationClient\Tests\Creator\DataSourceTestItemCreator;
-use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
+use Ibexa\Personalization\Service\Storage\DataSourceService;
+use Ibexa\Personalization\Strategy\Storage\SupportedGroupItemStrategy;
+use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
+use Ibexa\Tests\Personalization\Storage\AbstractDataSourceTestCase;
 
 final class DataSourceServiceTest extends AbstractDataSourceTestCase
 {

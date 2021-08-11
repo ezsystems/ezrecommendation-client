@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Export\Input;
+namespace Ibexa\Test\Personalization\Export\Input;
 
 use Ibexa\Personalization\Export\Input\CommandInputResolver;
 use Ibexa\Personalization\Export\Input\CommandInputResolverInterface;

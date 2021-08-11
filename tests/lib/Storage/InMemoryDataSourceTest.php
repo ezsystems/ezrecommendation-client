@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Storage;
+namespace Ibexa\Tests\Personalization\Storage;
 
 use EzSystems\EzRecommendationClient\Storage\InMemoryDataSource;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;

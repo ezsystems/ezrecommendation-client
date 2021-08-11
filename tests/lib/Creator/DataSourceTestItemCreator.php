@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Creator;
+namespace Ibexa\Tests\Personalization\Creator;
 
 use ArrayIterator;
-use EzSystems\EzRecommendationClient\Criteria\Criteria;
-use EzSystems\EzRecommendationClient\Value\Storage\Item;
-use EzSystems\EzRecommendationClient\Value\Storage\ItemGroup;
-use EzSystems\EzRecommendationClient\Value\Storage\ItemGroupList;
-use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
-use EzSystems\EzRecommendationClient\Value\Storage\ItemType;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 use Ibexa\Contracts\Personalization\Value\ItemTypeInterface;
+use Ibexa\Personalization\Criteria\Criteria;
+use Ibexa\Personalization\Value\Storage\Item;
+use Ibexa\Personalization\Value\Storage\ItemGroup;
+use Ibexa\Personalization\Value\Storage\ItemGroupList;
+use Ibexa\Personalization\Value\Storage\ItemList;
+use Ibexa\Personalization\Value\Storage\ItemType;
 use Traversable;
 
 final class DataSourceTestItemCreator

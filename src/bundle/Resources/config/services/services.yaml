@@ -4,27 +4,42 @@ services:
         autoconfigure: true
         public: false
 
-    EzSystems\EzRecommendationClient\Service\:
-        resource: '../../../../src/lib/Service/*'
-
     EzSystems\EzRecommendationClient\Service\ExportService:
         arguments:
             $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'
             $notificationService: '@EzSystems\EzRecommendationClient\Service\ExportNotificationService'
+
+    EzSystems\EzRecommendationClient\Service\ExportServiceInterface:
+        '@EzSystems\EzRecommendationClient\Service\ExportService'
+
+    EzSystems\EzRecommendationClient\Service\ExportNotificationService: ~
 
     EzSystems\EzRecommendationClient\Service\ContentService:
         arguments:
             $defaultAuthorId: '%ezrecommendation.default.author_id%'
             $defaultSiteAccess: '%ezpublish.siteaccess.default%'
 
+    EzSystems\EzRecommendationClient\Service\ContentServiceInterface:
+        '@EzSystems\EzRecommendationClient\Service\ContentService'
+
+    EzSystems\EzRecommendationClient\Service\RecommendationService: ~
+
+    EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface:
+        '@EzSystems\EzRecommendationClient\Service\RecommendationService'
+
+    EzSystems\EzRecommendationClient\Service\UserService: ~
+
+    EzSystems\EzRecommendationClient\Service\UserServiceInterface:
+        '@EzSystems\EzRecommendationClient\Service\UserService'
+
     EzSystems\EzRecommendationClient\Service\EventNotificationService:
         arguments:
             $clientCredentials: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'
             $exportCredentials: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'
 
-    EzSystems\EzRecommendationClient\Service\Storage\DataSourceService:
+    Ibexa\Personalization\Service\Storage\DataSourceService:
         arguments:
             $sources: !tagged_iterator ibexa.personalization.data_source
 
-    EzSystems\EzRecommendationClient\Service\Storage\DataSourceServiceInterface:
-        '@EzSystems\EzRecommendationClient\Service\Storage\DataSourceService'
+    Ibexa\Personalization\Service\Storage\DataSourceServiceInterface:
+        '@Ibexa\Personalization\Service\Storage\DataSourceService'

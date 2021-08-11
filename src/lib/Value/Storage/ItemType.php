@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Value\Storage;
+namespace Ibexa\Personalization\Value\Storage;
 
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
 use Ibexa\Contracts\Personalization\Value\ItemTypeInterface;

@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Strategy\Storage;
+namespace Ibexa\Tests\Personalization\Strategy\Storage;
 
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupByItemTypeAndLanguageStrategy;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface;
-use EzSystems\EzRecommendationClient\Tests\Creator\DataSourceTestItemCreator;
-use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
+use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
+use Ibexa\Tests\Personalization\Storage\AbstractDataSourceTestCase;
 
 final class GroupByItemTypeAndLanguageStrategyTest extends AbstractDataSourceTestCase
 {

@@ -48,6 +48,7 @@
     "autoload-dev": {
         "psr-4": {
             "EzSystems\\EzRecommendationClient\\Tests\\": "tests/lib/",
+            "Ibexa\\Tests\\Personalization\\": "tests/lib/",
             "Ibexa\\Tests\\Integration\\Personalization\\": "tests/integration/",
             "Ibexa\\Tests\\Bundle\\Personalization\\": "tests/bundle/"
         }

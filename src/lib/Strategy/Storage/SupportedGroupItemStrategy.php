@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Strategy\Storage;
+namespace Ibexa\Personalization\Strategy\Storage;
 
 final class SupportedGroupItemStrategy
 {
