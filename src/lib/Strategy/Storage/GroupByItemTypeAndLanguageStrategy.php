@@ -8,14 +8,15 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Strategy\Storage;
 
-use EzSystems\EzRecommendationClient\Criteria\Criteria;
-use EzSystems\EzRecommendationClient\Value\Storage\ItemGroup;
-use EzSystems\EzRecommendationClient\Value\Storage\ItemGroupList;
-use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
+use Ibexa\Personalization\Criteria\Criteria;
+use Ibexa\Personalization\Strategy\Storage\SupportedGroupItemStrategy;
+use Ibexa\Personalization\Value\Storage\ItemGroup;
+use Ibexa\Personalization\Value\Storage\ItemGroupList;
+use Ibexa\Personalization\Value\Storage\ItemList;
 
 final class GroupByItemTypeAndLanguageStrategy implements GroupItemStrategyInterface
 {

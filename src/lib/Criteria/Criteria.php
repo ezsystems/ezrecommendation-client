@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Criteria;
+namespace Ibexa\Personalization\Criteria;
 
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 

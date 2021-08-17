@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Strategy\Storage;
+namespace Ibexa\Tests\Personalization\Strategy\Storage;
 
 use EzSystems\EzRecommendationClient\Exception\UnsupportedGroupItemStrategy;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcher;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface;
-use EzSystems\EzRecommendationClient\Strategy\Storage\SupportedGroupItemStrategy;
-use EzSystems\EzRecommendationClient\Tests\Creator\DataSourceTestItemCreator;
-use EzSystems\EzRecommendationClient\Tests\Storage\AbstractDataSourceTestCase;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
+use Ibexa\Personalization\Strategy\Storage\SupportedGroupItemStrategy;
+use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
+use Ibexa\Tests\Personalization\Storage\AbstractDataSourceTestCase;
 
 final class GroupItemStrategyDispatcherTest extends AbstractDataSourceTestCase
 {

@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Service\Storage;
+namespace Ibexa\Personalization\Service\Storage;
 
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface;
-use EzSystems\EzRecommendationClient\Value\Storage\ItemGroupList;
-use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
+use Ibexa\Personalization\Value\Storage\ItemGroupList;
+use Ibexa\Personalization\Value\Storage\ItemList;
 
 final class DataSourceService implements DataSourceServiceInterface
 {

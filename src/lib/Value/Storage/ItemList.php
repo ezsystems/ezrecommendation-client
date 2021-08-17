@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Value\Storage;
+namespace Ibexa\Personalization\Value\Storage;
 
 use ArrayIterator;
 use Closure;

@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Tests\Storage;
+namespace Ibexa\Tests\Personalization\Storage;
 
-use EzSystems\EzRecommendationClient\Tests\Creator\DataSourceTestItemCreator;
-use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
+use Ibexa\Personalization\Value\Storage\ItemList;
+use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractDataSourceTestCase extends TestCase

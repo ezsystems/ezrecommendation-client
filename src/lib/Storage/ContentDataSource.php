@@ -15,13 +15,13 @@ use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\Core\QueryType\QueryType;
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
-use EzSystems\EzRecommendationClient\Value\Storage\Item;
-use EzSystems\EzRecommendationClient\Value\Storage\ItemList;
-use EzSystems\EzRecommendationClient\Value\Storage\ItemType;
 use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
 use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Personalization\Content\DataResolverInterface;
+use Ibexa\Personalization\Value\Storage\Item;
+use Ibexa\Personalization\Value\Storage\ItemList;
+use Ibexa\Personalization\Value\Storage\ItemType;
 
 final class ContentDataSource implements DataSourceInterface
 {
