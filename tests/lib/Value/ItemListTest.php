@@ -15,6 +15,9 @@ use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
 use Ibexa\Tests\Personalization\Storage\AbstractDataSourceTestCase;
 use OutOfBoundsException;
 
+/**
+ * @covers \Ibexa\Personalization\Value\Storage\ItemList
+ */
 final class ItemListTest extends AbstractDataSourceTestCase
 {
     public function testThrowExceptionWhenFirstElementNotExists(): void
