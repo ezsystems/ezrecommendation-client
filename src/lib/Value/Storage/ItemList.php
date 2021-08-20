@@ -14,6 +14,7 @@ use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 use IteratorAggregate;
+use OutOfBoundsException;
 use Traversable;
 
 /**
@@ -83,7 +84,7 @@ final class ItemList implements IteratorAggregate, ItemListInterface
     public function first(): ItemInterface
     {
         if (empty($this->items)) {
-            throw new ItemNotFoundException();
+            throw new OutOfBoundsException('Collection is empty');
         }
 
         return reset($this->items);
