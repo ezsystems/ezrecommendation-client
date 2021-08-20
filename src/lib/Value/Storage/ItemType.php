@@ -15,17 +15,28 @@ final class ItemType implements ItemTypeInterface
 {
     private string $identifier;
 
+    private int $id;
+
     private string $name;
 
-    public function __construct(string $identifier, string $name)
-    {
+    public function __construct(
+        string $identifier,
+        int $id,
+        string $name
+    ) {
         $this->identifier = $identifier;
+        $this->id = $id;
         $this->name = $name;
     }
 
     public function getIdentifier(): string
     {
         return $this->identifier;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function getName(): string
@@ -37,6 +48,7 @@ final class ItemType implements ItemTypeInterface
     {
         return new self(
             $contentType->identifier,
+            $contentType->id,
             $contentType->getName() ?? $contentType->identifier
         );
     }

@@ -31,25 +31,25 @@ final class GroupByItemTypeAndLanguageStrategyTest extends AbstractDataSourceTes
     {
         $criteria = $this->itemCreator->createTestCriteria(
             [
-                DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
-                DataSourceTestItemCreator::BLOG_IDENTIFIER,
+                DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
+                DataSourceTestItemCreator::BLOG_TYPE_IDENTIFIER,
             ],
             ['en', 'de', 'fr']
         );
         $criteriaArticlesEn = $this->itemCreator->createTestCriteria(
-            [DataSourceTestItemCreator::ARTICLE_IDENTIFIER],
+            [DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER],
             ['en'],
         );
         $criteriaArticlesDe = $this->itemCreator->createTestCriteria(
-            [DataSourceTestItemCreator::ARTICLE_IDENTIFIER],
+            [DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER],
             ['de'],
         );
         $criteriaBlogPostsEn = $this->itemCreator->createTestCriteria(
-            [DataSourceTestItemCreator::BLOG_IDENTIFIER],
+            [DataSourceTestItemCreator::BLOG_TYPE_IDENTIFIER],
             ['en'],
         );
         $criteriaBlogPostsFr = $this->itemCreator->createTestCriteria(
-            [DataSourceTestItemCreator::BLOG_IDENTIFIER],
+            [DataSourceTestItemCreator::BLOG_TYPE_IDENTIFIER],
             ['fr'],
         );
 

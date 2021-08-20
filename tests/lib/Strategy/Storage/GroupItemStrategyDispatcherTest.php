@@ -42,8 +42,8 @@ final class GroupItemStrategyDispatcherTest extends AbstractDataSourceTestCase
     {
         $criteria = $this->itemCreator->createTestCriteria(
             [
-                DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
-                DataSourceTestItemCreator::BLOG_IDENTIFIER,
+                DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
+                DataSourceTestItemCreator::BLOG_TYPE_IDENTIFIER,
             ],
             ['en', 'de', 'fr']
         );
@@ -66,7 +66,7 @@ final class GroupItemStrategyDispatcherTest extends AbstractDataSourceTestCase
     {
         $criteria = $this->itemCreator->createTestCriteria(
             [
-                DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
+                DataSourceTestItemCreator::PRODUCT_TYPE_IDENTIFIER,
             ],
             ['en']
         );

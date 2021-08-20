@@ -12,5 +12,7 @@ interface ItemTypeInterface
 {
     public function getName(): string;
 
+    public function getId(): int;
+
     public function getIdentifier(): string;
 }

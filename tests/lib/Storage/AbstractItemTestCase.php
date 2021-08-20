@@ -48,18 +48,18 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
 
         $counter = 1;
         $articleId = '1';
-        $articleLanguage = 'en';
 
         $this->assertFetchItem(
             $dataSource,
             $articleId,
-            $articleLanguage,
+            DataSourceTestItemCreator::LANGUAGE_EN,
             $this->itemCreator->createTestItem(
                 $counter,
                 $articleId,
-                DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                DataSourceTestItemCreator::ARTICLE_TYPE_ID,
+                DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
                 DataSourceTestItemCreator::ARTICLE_NAME,
-                $articleLanguage
+                DataSourceTestItemCreator::LANGUAGE_EN,
             )
         );
     }
@@ -77,8 +77,8 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
-                    DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
+                    DataSourceTestItemCreator::PRODUCT_TYPE_IDENTIFIER,
                 ],
                 ['pl']
             ),
@@ -88,7 +88,7 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
                 ],
                 ['en']
             ),
@@ -151,7 +151,7 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
 
         yield [
             $this->itemCreator->createTestCriteria(
-                [DataSourceTestItemCreator::ARTICLE_IDENTIFIER],
+                [DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER],
                 []
             ),
             $this->itemCreator->createTestItemList(),
@@ -160,8 +160,8 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
-                    DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
+                    DataSourceTestItemCreator::PRODUCT_TYPE_IDENTIFIER,
                 ],
                 ['pl']
             ),
@@ -171,8 +171,8 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
-                    DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
+                    DataSourceTestItemCreator::PRODUCT_TYPE_IDENTIFIER,
                 ],
                 ['en']
             ),
@@ -188,8 +188,8 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
-                    DataSourceTestItemCreator::BLOG_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
+                    DataSourceTestItemCreator::BLOG_TYPE_IDENTIFIER,
                 ],
                 ['en', 'fr', 'de'],
                 7
@@ -212,8 +212,8 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
-                    DataSourceTestItemCreator::BLOG_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
+                    DataSourceTestItemCreator::BLOG_TYPE_IDENTIFIER,
                 ],
                 ['en', 'fr', 'de'],
                 5,
