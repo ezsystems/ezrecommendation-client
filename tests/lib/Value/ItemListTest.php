@@ -23,15 +23,15 @@ final class ItemListTest extends AbstractDataSourceTestCase
     public function testThrowExceptionWhenFirstElementNotExists(): void
     {
         $itemList = new ItemList([]);
-        
+
         $this->expectException(OutOfBoundsException::class);
         $this->expectExceptionMessage('Collection is empty');
-        
+
         $itemList->first();
     }
 
     /**
-     * @dataProvider provideForTestFirst
+     * @dataProvider provideDataForTestFirst
      */
     public function testFirst(ItemListInterface $itemList, ItemInterface $expectedItem): void
     {
@@ -44,7 +44,7 @@ final class ItemListTest extends AbstractDataSourceTestCase
      *  \Ibexa\Contracts\Personalization\Value\ItemInterface
      * }>
      */
-    public function provideForTestFirst(): iterable
+    public function provideDataForTestFirst(): iterable
     {
         $firstArticle = $this->itemCreator->createTestItem(
             1,

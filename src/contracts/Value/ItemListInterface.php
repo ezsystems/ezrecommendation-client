@@ -36,7 +36,7 @@ interface ItemListInterface extends Traversable, Countable
     public function slice(int $offset, ?int $length = null): self;
 
     /**
-     * @throws \OutOfBoundsException
+     * @throws \eZ\Publish\API\Repository\Exceptions\OutOfBoundsException
      */
     public function first(): ItemInterface;
 }

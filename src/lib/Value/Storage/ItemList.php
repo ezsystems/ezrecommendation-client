@@ -10,11 +10,11 @@ namespace Ibexa\Personalization\Value\Storage;
 
 use ArrayIterator;
 use Closure;
+use eZ\Publish\API\Repository\Exceptions\OutOfBoundsException;
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 use IteratorAggregate;
-use OutOfBoundsException;
 use Traversable;
 
 /**
