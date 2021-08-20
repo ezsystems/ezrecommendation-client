@@ -33,16 +33,17 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         $item = $this->itemCreator->createTestItem(
             1,
             '1',
-            DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
+            DataSourceTestItemCreator::ARTICLE_TYPE_ID,
+            DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
             DataSourceTestItemCreator::ARTICLE_NAME,
-            'en'
+            DataSourceTestItemCreator::LANGUAGE_EN
         );
 
         $dataSourceService = new DataSourceService(
             [
                 $this->createDataSourceMockForGetItem(
                     '1',
-                    'en',
+                    DataSourceTestItemCreator::LANGUAGE_EN,
                     $item
                 ),
             ],
@@ -51,7 +52,7 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
 
         self::assertEquals(
             $item,
-            $dataSourceService->getItem('1', 'en')
+            $dataSourceService->getItem('1', DataSourceTestItemCreator::LANGUAGE_EN)
         );
     }
 
@@ -85,10 +86,10 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
     {
         $criteria = $this->itemCreator->createTestCriteria(
             [
-                DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
-                DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
+                DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
+                DataSourceTestItemCreator::PRODUCT_TYPE_IDENTIFIER,
             ],
-            ['en']
+            [DataSourceTestItemCreator::LANGUAGE_EN]
         );
         $products = $this->itemCreator->createTestItemListForEnglishProducts();
         $articles = $this->itemCreator->createTestItemListForEnglishArticles();
@@ -128,10 +129,14 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
     {
         $criteria = $this->itemCreator->createTestCriteria(
             [
-                DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
-                DataSourceTestItemCreator::BLOG_IDENTIFIER,
+                DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
+                DataSourceTestItemCreator::BLOG_TYPE_IDENTIFIER,
             ],
-            ['en', 'de', 'fr']
+            [
+                DataSourceTestItemCreator::LANGUAGE_EN,
+                DataSourceTestItemCreator::LANGUAGE_DE,
+                DataSourceTestItemCreator::LANGUAGE_FR,
+            ]
         );
 
         $expectedGroupList = $this->itemCreator->createTestItemGroupListForArticlesAndBlogPosts();
@@ -177,10 +182,10 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
-                    DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
+                    DataSourceTestItemCreator::PRODUCT_TYPE_IDENTIFIER,
                 ],
-                ['en']
+                [DataSourceTestItemCreator::LANGUAGE_EN]
             ),
             $this->itemCreator->createTestItemListForEnglishArticlesAndProducts(),
         ];
@@ -188,11 +193,11 @@ final class DataSourceServiceTest extends AbstractDataSourceTestCase
         yield [
             $this->itemCreator->createTestCriteria(
                 [
-                    DataSourceTestItemCreator::ARTICLE_IDENTIFIER,
-                    DataSourceTestItemCreator::BLOG_IDENTIFIER,
-                    DataSourceTestItemCreator::PRODUCT_IDENTIFIER,
+                    DataSourceTestItemCreator::ARTICLE_TYPE_IDENTIFIER,
+                    DataSourceTestItemCreator::BLOG_TYPE_IDENTIFIER,
+                    DataSourceTestItemCreator::PRODUCT_TYPE_IDENTIFIER,
                 ],
-                ['en', 'fr', 'de', 'no']
+                DataSourceTestItemCreator::ALL_LANGUAGES
             ),
             $this->createItems(),
         ];

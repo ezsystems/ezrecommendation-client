@@ -29,6 +29,7 @@ abstract class AbstractDataSourceTestCase extends TestCase
 
     /**
      * @phpstan-param ?iterable<string, array{
+     *  'item_type_id': int,
      *  'item_type_identifier': string,
      *  'item_type_name': string,
      *  'languages': array<string>,
