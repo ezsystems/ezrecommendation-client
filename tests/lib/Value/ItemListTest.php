@@ -22,10 +22,11 @@ final class ItemListTest extends AbstractDataSourceTestCase
 {
     public function testThrowExceptionWhenFirstElementNotExists(): void
     {
+        $itemList = new ItemList([]);
+        
         $this->expectException(OutOfBoundsException::class);
         $this->expectExceptionMessage('Collection is empty');
-
-        $itemList = new ItemList([]);
+        
         $itemList->first();
     }
 
