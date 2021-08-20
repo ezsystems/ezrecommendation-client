@@ -80,6 +80,15 @@ final class ItemList implements IteratorAggregate, ItemListInterface
         return new self(array_slice($this->items, $offset, $length));
     }
 
+    public function first(): ItemInterface
+    {
+        if (empty($this->items)) {
+            throw new ItemNotFoundException();
+        }
+
+        return reset($this->items);
+    }
+
     /**
      * @param \Traversable<\Ibexa\Contracts\Personalization\Value\ItemInterface> $traversable
      */

@@ -34,4 +34,9 @@ interface ItemListInterface extends Traversable, Countable
      * Returns a new ItemInterface collection sliced of $length elements starting at position $offset.
      */
     public function slice(int $offset, ?int $length = null): self;
+
+    /**
+     * @throws \EzSystems\EzRecommendationClient\Exception\ItemNotFoundException
+     */
+    public function first(): ItemInterface;
 }

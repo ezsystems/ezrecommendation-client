@@ -12,10 +12,16 @@ use Throwable;
 
 final class ItemNotFoundException extends NotFoundException
 {
-    public function __construct(string $itemId, string $language, int $code = 0, Throwable $previous = null)
+    public function __construct(?string $itemId = null, ?string $language = null, int $code = 0, Throwable $previous = null)
     {
+        $message = 'Item not found';
+
+        if (isset($itemId, $language)) {
+            $message .= sprintf(' with id: %s and language: %s', $itemId, $language);
+        }
+
         parent::__construct(
-            sprintf('Item not found with id: %s and language: %s', $itemId, $language),
+            $message,
             $code,
             $previous
         );
