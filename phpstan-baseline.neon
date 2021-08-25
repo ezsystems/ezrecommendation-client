@@ -1651,11 +1651,6 @@ parameters:
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnDeleteLocationMethod\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnHideLocationMethod\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
