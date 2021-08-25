@@ -10,7 +10,6 @@ namespace EzSystems\EzRecommendationClient\Tests\Event\Subscriber;
 
 use eZ\Publish\API\Repository\Events\Location\CopySubtreeEvent;
 use eZ\Publish\API\Repository\Events\Location\CreateLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\DeleteLocationEvent;
 use eZ\Publish\API\Repository\Events\Location\HideLocationEvent;
 use eZ\Publish\API\Repository\Events\Location\MoveSubtreeEvent;
 use eZ\Publish\API\Repository\Events\Location\SwapLocationEvent;
