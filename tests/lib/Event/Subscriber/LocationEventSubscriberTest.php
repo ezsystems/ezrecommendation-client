@@ -94,7 +94,6 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
         return [
             [CopySubtreeEvent::class],
             [CreateLocationEvent::class],
-            [DeleteLocationEvent::class],
             [HideLocationEvent::class],
             [MoveSubtreeEvent::class],
             [SwapLocationEvent::class],
@@ -338,7 +337,6 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
     public function updateLocationWithChildrenDataProvider(): array
     {
         return [
-            [DeleteLocationEvent::class, 'onDeleteLocation'],
             [HideLocationEvent::class, 'onHideLocation'],
             [UnhideLocationEvent::class, 'onUnhideLocation'],
         ];
