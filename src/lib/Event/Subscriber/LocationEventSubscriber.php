@@ -10,7 +10,6 @@ namespace EzSystems\EzRecommendationClient\Event\Subscriber;
 
 use eZ\Publish\API\Repository\Events\Location\CopySubtreeEvent;
 use eZ\Publish\API\Repository\Events\Location\CreateLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\DeleteLocationEvent;
 use eZ\Publish\API\Repository\Events\Location\HideLocationEvent;
 use eZ\Publish\API\Repository\Events\Location\MoveSubtreeEvent;
 use eZ\Publish\API\Repository\Events\Location\SwapLocationEvent;
@@ -31,7 +30,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
         return [
             CopySubtreeEvent::class => ['onCopySubtree', parent::EVENT_PRIORITY],
             CreateLocationEvent::class => ['onCreateLocation', parent::EVENT_PRIORITY],
-            DeleteLocationEvent::class => ['onDeleteLocation', parent::EVENT_PRIORITY],
             HideLocationEvent::class => ['onHideLocation', parent::EVENT_PRIORITY],
             MoveSubtreeEvent::class => ['onMoveSubtree', parent::EVENT_PRIORITY],
             SwapLocationEvent::class => ['onSwapLocation', parent::EVENT_PRIORITY],
@@ -63,19 +61,6 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
             __METHOD__,
             EventNotification::ACTION_UPDATE,
             $event->getContentInfo()
-        );
-    }
-
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     */
-    public function onDeleteLocation(DeleteLocationEvent $event): void
-    {
-        $this->updateLocationWithChildren(
-            $event->getLocation(),
-            __METHOD__,
-            EventNotification::ACTION_DELETE,
         );
     }
 
