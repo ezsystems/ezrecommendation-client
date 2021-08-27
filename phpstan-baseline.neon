@@ -81,11 +81,6 @@ parameters:
 			path: src/bundle/Controller/ExportController.php
 
 		-
-			message: "#^Parameter \\#2 \\$values of method Symfony\\\\Component\\\\HttpFoundation\\\\ResponseHeaderBag\\:\\:set\\(\\) expects array\\<string\\>\\|string\\|null, int\\|false given\\.$#"
-			count: 1
-			path: src/bundle/Controller/ExportController.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\RecommendationController\\:\\:getTemplate\\(\\) should return string but returns string\\|null\\.$#"
 			count: 1
 			path: src/bundle/Controller/RecommendationController.php
