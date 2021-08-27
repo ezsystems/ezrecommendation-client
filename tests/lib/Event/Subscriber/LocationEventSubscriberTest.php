@@ -10,7 +10,6 @@ namespace EzSystems\EzRecommendationClient\Tests\Event\Subscriber;
 
 use eZ\Publish\API\Repository\Events\Location\CopySubtreeEvent;
 use eZ\Publish\API\Repository\Events\Location\CreateLocationEvent;
-use eZ\Publish\API\Repository\Events\Location\DeleteLocationEvent;
 use eZ\Publish\API\Repository\Events\Location\HideLocationEvent;
 use eZ\Publish\API\Repository\Events\Location\MoveSubtreeEvent;
 use eZ\Publish\API\Repository\Events\Location\SwapLocationEvent;
@@ -94,7 +93,6 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
         return [
             [CopySubtreeEvent::class],
             [CreateLocationEvent::class],
-            [DeleteLocationEvent::class],
             [HideLocationEvent::class],
             [MoveSubtreeEvent::class],
             [SwapLocationEvent::class],
@@ -129,28 +127,6 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             ->willReturn($this->contentInfo);
 
         $this->locationEventSubscriber->onCreateLocation($event);
-    }
-
-    public function testCallOnDeleteLocationMethod()
-    {
-        $event = $this->createMock(DeleteLocationEvent::class);
-        $event
-            ->expects($this->once())
-            ->method('getLocation')
-            ->willReturn($this->location);
-
-        $this->locationServiceMock
-            ->expects($this->atLeastOnce())
-            ->method('loadLocationChildren')
-            ->with($this->equalTo($this->location))
-            ->willReturn($this->emptyLocationChildren);
-
-        $this->locationServiceMock
-            ->expects($this->atLeastOnce())
-            ->method('loadLocation')
-            ->willReturn($this->location);
-
-        $this->locationEventSubscriber->onDeleteLocation($event);
     }
 
     public function testCallOnHideLocationMethod()
@@ -360,7 +336,6 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
     public function updateLocationWithChildrenDataProvider(): array
     {
         return [
-            [DeleteLocationEvent::class, 'onDeleteLocation'],
             [HideLocationEvent::class, 'onHideLocation'],
             [UnhideLocationEvent::class, 'onUnhideLocation'],
         ];
