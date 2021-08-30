@@ -51,9 +51,6 @@ final class ContentDataSource implements DataSourceInterface
         $this->logger = $logger;
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     */
     public function countItems(CriteriaInterface $criteria): int
     {
         try {
@@ -62,7 +59,7 @@ final class ContentDataSource implements DataSourceInterface
             $languageFilter = ['languages' => $criteria->getLanguages()];
 
             return $this->searchService->findContent($query, $languageFilter)->totalCount ?? 0;
-        } catch (NotFoundException $exception) {
+        } catch (NotFoundException | InvalidArgumentException $exception) {
             $this->logger->error($exception->getMessage());
 
             return 0;
