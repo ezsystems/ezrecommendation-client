@@ -28,9 +28,13 @@ use Psr\Log\LoggerInterface;
 final class ContentDataSource implements DataSourceInterface
 {
     private SearchService $searchService;
+
     private ContentService $contentService;
+
     private QueryType $queryType;
+
     private DataResolverInterface $dataResolver;
+
     private LoggerInterface $logger;
 
     public function __construct(
