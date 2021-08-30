@@ -153,8 +153,8 @@ final class ContentDataSourceTest extends AbstractContentDataSourceTestCase
             [DataSourceTestItemCreator::LANGUAGE_EN, DataSourceTestItemCreator::LANGUAGE_DE]
         );
 
-        yield[$criteria, 0, $this->createSearchHits()];
-        yield[
+        yield [$criteria, 0, $this->createSearchHits()];
+        yield [
             $criteria,
             3,
             $this->createSearchHits(
@@ -185,7 +185,7 @@ final class ContentDataSourceTest extends AbstractContentDataSourceTestCase
         $productEn = $this->createContentProduct(3, DataSourceTestItemCreator::LANGUAGE_EN);
 
         yield [$criteria, new ItemList([]), [], []];
-        yield[
+        yield [
             $criteria,
             $this->itemCreator->createTestItemList(
                 $this->itemCreator->createTestItem(
