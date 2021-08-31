@@ -174,7 +174,7 @@ abstract class AbstractContentDataSourceTestCase extends AbstractDataSourceTestC
     /**
      * @param array<\eZ\Publish\API\Repository\Values\Content\Search\SearchHit> $searchHits
      */
-    protected function configureSearchService(
+    protected function configureSearchServiceToReturnSearchResult(
         Query $query,
         CriteriaInterface $criteria,
         int $expectedCount,

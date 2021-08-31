@@ -31,7 +31,7 @@ final class ContentDataSourceTest extends AbstractContentDataSourceTestCase
         $query = $this->getQuery($criteria);
         $query->limit = 0;
         $this->configureQueryTypeToReturnQuery($query, $criteria);
-        $this->configureSearchService($query, $criteria, $expectedCount, $searchHits);
+        $this->configureSearchServiceToReturnSearchResult($query, $criteria, $expectedCount, $searchHits);
 
         self::assertEquals(
             $expectedCount,
@@ -80,7 +80,7 @@ final class ContentDataSourceTest extends AbstractContentDataSourceTestCase
         $query = $this->getQuery($criteria);
         $query->limit = $criteria->getLimit();
         $this->configureQueryTypeToReturnQuery($query, $criteria);
-        $this->configureSearchService($query, $criteria, $expectedItems->count(), $searchHits);
+        $this->configureSearchServiceToReturnSearchResult($query, $criteria, $expectedItems->count(), $searchHits);
         $this->configureDataResolverToReturnItemAttributes($contentFieldsMap);
 
         self::assertEquals(
