@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace Ibexa\Personalization\Storage;
 
 use eZ\Publish\API\Repository\ContentService;
+use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
 use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
 use eZ\Publish\API\Repository\SearchService;
@@ -22,6 +23,7 @@ use Ibexa\Personalization\Content\DataResolverInterface;
 use Ibexa\Personalization\Value\Storage\Item;
 use Ibexa\Personalization\Value\Storage\ItemList;
 use Ibexa\Personalization\Value\Storage\ItemType;
+use Psr\Log\LoggerInterface;
 
 final class ContentDataSource implements DataSourceInterface
 {
@@ -33,48 +35,58 @@ final class ContentDataSource implements DataSourceInterface
 
     private DataResolverInterface $dataResolver;
 
+    private LoggerInterface $logger;
+
     public function __construct(
         SearchService $searchService,
         ContentService $contentService,
         QueryType $queryType,
-        DataResolverInterface $dataResolver
+        DataResolverInterface $dataResolver,
+        LoggerInterface $logger
     ) {
         $this->searchService = $searchService;
         $this->contentService = $contentService;
         $this->queryType = $queryType;
         $this->dataResolver = $dataResolver;
+        $this->logger = $logger;
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     */
     public function countItems(CriteriaInterface $criteria): int
     {
-        $query = $this->queryType->getQuery(['criteria' => $criteria]);
-        $query->limit = 0;
-        $languageFilter = ['languages' => $criteria->getLanguages()];
+        try {
+            $query = $this->queryType->getQuery(['criteria' => $criteria]);
+            $query->limit = 0;
+            $languageFilter = ['languages' => $criteria->getLanguages()];
 
-        return $this->searchService->findContent($query, $languageFilter)->totalCount ?? 0;
+            return $this->searchService->findContent($query, $languageFilter)->totalCount ?? 0;
+        } catch (NotFoundException | InvalidArgumentException $exception) {
+            $this->logger->error($exception->getMessage());
+
+            return 0;
+        }
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     */
     public function fetchItems(CriteriaInterface $criteria): iterable
     {
-        $query = $this->queryType->getQuery(['criteria' => $criteria]);
-        $query->performCount = false;
-        $query->limit = $criteria->getLimit();
-        $query->offset = $criteria->getOffset();
-        $languageFilter = ['languages' => $criteria->getLanguages()];
+        try {
+            $query = $this->queryType->getQuery(['criteria' => $criteria]);
+            $query->performCount = false;
+            $query->limit = $criteria->getLimit();
+            $query->offset = $criteria->getOffset();
+            $languageFilter = ['languages' => $criteria->getLanguages()];
 
-        $items = [];
+            $items = [];
 
-        foreach ($this->searchService->findContent($query, $languageFilter) as $hit) {
-            $items[] = $this->createItem($hit->valueObject);
+            foreach ($this->searchService->findContent($query, $languageFilter) as $hit) {
+                $items[] = $this->createItem($hit->valueObject);
+            }
+
+            return new ItemList($items);
+        } catch (NotFoundException | InvalidArgumentException $exception) {
+            $this->logger->error($exception->getMessage());
+
+            return new ItemList([]);
         }
-
-        return new ItemList($items);
     }
 
     public function fetchItem(string $id, string $language): ItemInterface
