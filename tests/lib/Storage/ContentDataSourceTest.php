@@ -16,6 +16,9 @@ use Ibexa\Contracts\Personalization\Value\ItemListInterface;
 use Ibexa\Personalization\Value\Storage\ItemList;
 use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
 
+/**
+ * @covers \Ibexa\Personalization\Storage\ContentDataSource
+ */
 final class ContentDataSourceTest extends AbstractContentDataSourceTestCase
 {
     /**
