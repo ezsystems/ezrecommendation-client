@@ -10,6 +10,7 @@ namespace Ibexa\Personalization\Value\Storage;
 
 use ArrayIterator;
 use Closure;
+use eZ\Publish\API\Repository\Exceptions\OutOfBoundsException;
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
 use Ibexa\Contracts\Personalization\Value\ItemInterface;
 use Ibexa\Contracts\Personalization\Value\ItemListInterface;
@@ -78,6 +79,15 @@ final class ItemList implements IteratorAggregate, ItemListInterface
     public function slice(int $offset, ?int $length = null): ItemListInterface
     {
         return new self(array_slice($this->items, $offset, $length));
+    }
+
+    public function first(): ItemInterface
+    {
+        if (empty($this->items)) {
+            throw new OutOfBoundsException('Collection is empty');
+        }
+
+        return reset($this->items);
     }
 
     /**
