@@ -64,7 +64,7 @@ final class LoginListener
 
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event): void
     {
-        if (!$event->getRequest()->get('is_rest_request')) {
+        if ($event->getRequest()->get('is_rest_request')) {
             return;
         }
 
