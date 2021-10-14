@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Personalization\Storage;
+namespace Ibexa\Tests\PersonalizationClient\Storage;
 
-use Ibexa\Contracts\Personalization\Value\ItemListInterface;
-use Ibexa\Personalization\Value\Storage\ItemList;
-use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
+use Ibexa\PersonalizationClient\Value\Storage\ItemList;
+use Ibexa\Tests\PersonalizationClient\Creator\DataSourceTestItemCreator;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractDataSourceTestCase extends TestCase

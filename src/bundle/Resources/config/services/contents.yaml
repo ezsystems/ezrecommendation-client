@@ -4,7 +4,7 @@ services:
         autoconfigure: true
         public: false
 
-    Ibexa\Personalization\Content\DataResolver: ~
+    Ibexa\PersonalizationClient\Content\DataResolver: ~
 
-    Ibexa\Personalization\Content\DataResolverInterface:
-        '@Ibexa\Personalization\Content\DataResolver'
+    Ibexa\PersonalizationClient\Content\DataResolverInterface:
+        '@Ibexa\PersonalizationClient\Content\DataResolver'

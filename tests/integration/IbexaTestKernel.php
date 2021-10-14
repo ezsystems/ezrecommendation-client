@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Integration\Personalization;
+namespace Ibexa\Tests\Integration\PersonalizationClient;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use eZ\Bundle\EzPublishCoreBundle\EzPublishCoreBundle;

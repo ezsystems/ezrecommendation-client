@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Factory\Export;
+namespace Ibexa\PersonalizationClient\Factory\Export;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
@@ -15,7 +15,7 @@ use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
 use EzSystems\EzRecommendationClient\Exception\CredentialsNotFoundException;
 use EzSystems\EzRecommendationClient\Exception\InvalidArgumentException;
 use EzSystems\EzRecommendationClient\Exception\MissingExportParameterException;
-use Ibexa\Personalization\Value\Export\Parameters;
+use Ibexa\PersonalizationClient\Value\Export\Parameters;
 
 final class ParametersFactory implements ParametersFactoryInterface
 {

@@ -11,7 +11,7 @@ namespace EzSystems\EzRecommendationClient\Service;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
 use EzSystems\EzRecommendationClient\Exporter\ExporterInterface;
 use EzSystems\EzRecommendationClient\File\FileManagerInterface;
-use Ibexa\Personalization\Value\Export\Parameters;
+use Ibexa\PersonalizationClient\Value\Export\Parameters;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

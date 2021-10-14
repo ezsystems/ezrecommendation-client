@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Test\Personalization\Factory\Export;
+namespace Ibexa\Test\PersonalizationClient\Factory\Export;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
@@ -14,9 +14,9 @@ use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
 use EzSystems\EzRecommendationClient\Exception\InvalidArgumentException;
 use EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials;
-use Ibexa\Personalization\Factory\Export\ParametersFactory;
-use Ibexa\Personalization\Factory\Export\ParametersFactoryInterface;
-use Ibexa\Personalization\Value\Export\Parameters;
+use Ibexa\PersonalizationClient\Factory\Export\ParametersFactory;
+use Ibexa\PersonalizationClient\Factory\Export\ParametersFactoryInterface;
+use Ibexa\PersonalizationClient\Value\Export\Parameters;
 use PHPUnit\Framework\TestCase;
 
 final class ParametersFactoryTest extends TestCase

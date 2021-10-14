@@ -16,10 +16,10 @@ services:
     EzSystems\EzRecommendationClient\Factory\TokenFactoryInterface:
         '@EzSystems\EzRecommendationClient\Factory\TokenFactory'
 
-    Ibexa\Personalization\Factory\Export\ParametersFactory:
+    Ibexa\PersonalizationClient\Factory\Export\ParametersFactory:
         arguments:
             $siteAccessService: '@ezpublish.siteaccess_service'
             $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'
 
-    Ibexa\Personalization\Factory\Export\ParametersFactoryInterface:
-        '@Ibexa\Personalization\Factory\Export\ParametersFactory'
+    Ibexa\PersonalizationClient\Factory\Export\ParametersFactoryInterface:
+        '@Ibexa\PersonalizationClient\Factory\Export\ParametersFactory'

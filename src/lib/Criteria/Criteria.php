@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Criteria;
+namespace Ibexa\PersonalizationClient\Criteria;
 
-use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
 
 final class Criteria implements CriteriaInterface
 {

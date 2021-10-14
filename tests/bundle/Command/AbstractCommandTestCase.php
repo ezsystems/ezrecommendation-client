@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Bundle\Personalization\Command;
+namespace Ibexa\Tests\Bundle\PersonalizationClient\Command;
 
-use Ibexa\Tests\Integration\Personalization\IbexaKernelTestCase;
+use Ibexa\Tests\Integration\PersonalizationClient\IbexaKernelTestCase;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;

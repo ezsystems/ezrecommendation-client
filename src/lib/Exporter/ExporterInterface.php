@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exporter;
 
-use Ibexa\Personalization\Value\Export\Parameters;
+use Ibexa\PersonalizationClient\Value\Export\Parameters;
 use Symfony\Component\Console\Output\OutputInterface;
 
 interface ExporterInterface

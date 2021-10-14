@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Contracts\Personalization\Value;
+namespace Ibexa\Contracts\PersonalizationClient\Value;
 
 use Countable;
 use Traversable;
 
 /**
- * @extends Traversable<\Ibexa\Contracts\Personalization\Value\ItemGroupInterface>
+ * @extends Traversable<\Ibexa\Contracts\PersonalizationClient\Value\ItemGroupInterface>
  */
 interface ItemGroupListInterface extends Traversable, Countable
 {
     /**
-     * @return iterable<\Ibexa\Contracts\Personalization\Value\ItemGroupInterface>
+     * @return iterable<\Ibexa\Contracts\PersonalizationClient\Value\ItemGroupInterface>
      */
     public function getGroups(): iterable;
 }

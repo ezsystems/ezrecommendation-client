@@ -4,7 +4,7 @@ services:
         autoconfigure: true
         public: false
 
-    Ibexa\Personalization\Export\Input\CommandInputResolver: ~
+    Ibexa\PersonalizationClient\Export\Input\CommandInputResolver: ~
 
-    Ibexa\Personalization\Export\Input\CommandInputResolverInterface:
-        '@Ibexa\Personalization\Export\Input\CommandInputResolver'
+    Ibexa\PersonalizationClient\Export\Input\CommandInputResolverInterface:
+        '@Ibexa\PersonalizationClient\Export\Input\CommandInputResolver'

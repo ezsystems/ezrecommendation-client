@@ -6,23 +6,23 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Value\Storage;
+namespace Ibexa\PersonalizationClient\Value\Storage;
 
 use ArrayIterator;
-use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemGroupListInterface;
 use IteratorAggregate;
 use Traversable;
 
 /**
- * @implements IteratorAggregate<\Ibexa\Contracts\Personalization\Value\ItemGroupInterface>
+ * @implements IteratorAggregate<\Ibexa\Contracts\PersonalizationClient\Value\ItemGroupInterface>
  */
 final class ItemGroupList implements IteratorAggregate, ItemGroupListInterface
 {
-    /** @var array<\Ibexa\Contracts\Personalization\Value\ItemGroupInterface> */
+    /** @var array<\Ibexa\Contracts\PersonalizationClient\Value\ItemGroupInterface> */
     private array $groups;
 
     /**
-     * @param array<\Ibexa\Contracts\Personalization\Value\ItemGroupInterface> $groups
+     * @param array<\Ibexa\Contracts\PersonalizationClient\Value\ItemGroupInterface> $groups
      */
     public function __construct(array $groups)
     {

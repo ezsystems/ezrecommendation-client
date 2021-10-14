@@ -11,7 +11,7 @@ namespace EzSystems\EzRecommendationClient\Service;
 use EzSystems\EzRecommendationClient\Request\ExportNotifierRequest;
 use EzSystems\EzRecommendationClient\SPI\Notification;
 use EzSystems\EzRecommendationClient\Value\ExportNotification;
-use Ibexa\Personalization\Value\Export\Parameters;
+use Ibexa\PersonalizationClient\Value\Export\Parameters;
 use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

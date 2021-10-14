@@ -6,19 +6,19 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Personalization\Strategy\Storage;
+namespace Ibexa\Tests\PersonalizationClient\Strategy\Storage;
 
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupByItemTypeAndLanguageStrategy;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface;
-use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
-use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
-use Ibexa\Tests\Personalization\Storage\AbstractDataSourceTestCase;
+use Ibexa\Contracts\PersonalizationClient\Storage\DataSourceInterface;
+use Ibexa\Tests\PersonalizationClient\Creator\DataSourceTestItemCreator;
+use Ibexa\Tests\PersonalizationClient\Storage\AbstractDataSourceTestCase;
 
 final class GroupByItemTypeAndLanguageStrategyTest extends AbstractDataSourceTestCase
 {
     private GroupItemStrategyInterface $strategy;
 
-    /** @var \Ibexa\Contracts\Personalization\Storage\DataSourceInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\PersonalizationClient\Storage\DataSourceInterface|\PHPUnit\Framework\MockObject\MockObject */
     private DataSourceInterface $dataSource;
 
     public function setUp(): void

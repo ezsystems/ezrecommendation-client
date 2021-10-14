@@ -4,6 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    Ibexa\Personalization\Storage\ContentDataSource:
+    Ibexa\PersonalizationClient\Storage\ContentDataSource:
         arguments:
-            $queryType: '@Ibexa\Personalization\QueryType\ContentDataSourceQueryType'
+            $queryType: '@Ibexa\PersonalizationClient\QueryType\ContentDataSourceQueryType'

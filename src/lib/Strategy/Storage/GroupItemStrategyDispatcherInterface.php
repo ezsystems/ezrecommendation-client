@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Strategy\Storage;
 
-use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
-use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
-use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Storage\DataSourceInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemGroupListInterface;
 
 interface GroupItemStrategyDispatcherInterface
 {

@@ -6,25 +6,25 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Service\Storage;
+namespace Ibexa\PersonalizationClient\Service\Storage;
 
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface;
-use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
-use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
-use Ibexa\Contracts\Personalization\Value\ItemInterface;
-use Ibexa\Contracts\Personalization\Value\ItemListInterface;
-use Ibexa\Personalization\Value\Storage\ItemGroupList;
-use Ibexa\Personalization\Value\Storage\ItemList;
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemGroupListInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
+use Ibexa\PersonalizationClient\Value\Storage\ItemGroupList;
+use Ibexa\PersonalizationClient\Value\Storage\ItemList;
 
 final class DataSourceService implements DataSourceServiceInterface
 {
-    /** @var iterable<\Ibexa\Contracts\Personalization\Storage\DataSourceInterface> */
+    /** @var iterable<\Ibexa\Contracts\PersonalizationClient\Storage\DataSourceInterface> */
     private iterable $sources;
 
     private GroupItemStrategyDispatcherInterface $groupItemStrategyDispatcher;
 
-    /** @param iterable<\Ibexa\Contracts\Personalization\Storage\DataSourceInterface> $sources */
+    /** @param iterable<\Ibexa\Contracts\PersonalizationClient\Storage\DataSourceInterface> $sources */
     public function __construct(
         iterable $sources,
         GroupItemStrategyDispatcherInterface $groupItemStrategyDispatcher

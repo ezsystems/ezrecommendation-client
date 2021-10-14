@@ -6,17 +6,17 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Personalization\Value;
+namespace Ibexa\Tests\PersonalizationClient\Value;
 
-use Ibexa\Contracts\Personalization\Value\ItemInterface;
-use Ibexa\Contracts\Personalization\Value\ItemListInterface;
-use Ibexa\Personalization\Value\Storage\ItemList;
-use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
-use Ibexa\Tests\Personalization\Storage\AbstractDataSourceTestCase;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
+use Ibexa\PersonalizationClient\Value\Storage\ItemList;
+use Ibexa\Tests\PersonalizationClient\Creator\DataSourceTestItemCreator;
+use Ibexa\Tests\PersonalizationClient\Storage\AbstractDataSourceTestCase;
 use OutOfBoundsException;
 
 /**
- * @covers \Ibexa\Personalization\Value\Storage\ItemList
+ * @covers \Ibexa\PersonalizationClient\Value\Storage\ItemList
  */
 final class ItemListTest extends AbstractDataSourceTestCase
 {
@@ -40,8 +40,8 @@ final class ItemListTest extends AbstractDataSourceTestCase
 
     /**
      * @phpstan-return iterable<array{
-     *  \Ibexa\Contracts\Personalization\Value\ItemListInterface,
-     *  \Ibexa\Contracts\Personalization\Value\ItemInterface
+     *  \Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface,
+     *  \Ibexa\Contracts\PersonalizationClient\Value\ItemInterface
      * }>
      */
     public function provideDataForTestFirst(): iterable
