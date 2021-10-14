@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Content;
+namespace Ibexa\PersonalizationClient\Content;
 
 use eZ\Publish\API\Repository\Values\Content\Content;
 

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Strategy\Storage;
+namespace Ibexa\PersonalizationClient\Strategy\Storage;
 
 final class SupportedGroupItemStrategy
 {

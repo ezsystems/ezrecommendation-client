@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Value\Storage;
+namespace Ibexa\PersonalizationClient\Value\Storage;
 
 use eZ\Publish\API\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Personalization\Value\ItemTypeInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemTypeInterface;
 
 final class ItemType implements ItemTypeInterface
 {

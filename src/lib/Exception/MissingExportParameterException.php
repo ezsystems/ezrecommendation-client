@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exception;
 
-use Ibexa\Personalization\Factory\Export\ParametersFactoryInterface;
+use Ibexa\PersonalizationClient\Factory\Export\ParametersFactoryInterface;
 use Throwable;
 
 final class MissingExportParameterException extends ExportException

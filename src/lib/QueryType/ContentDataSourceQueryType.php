@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\QueryType;
+namespace Ibexa\PersonalizationClient\QueryType;
 
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\Core\QueryType\OptionsResolverBasedQueryType;
-use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentDataSourceQueryType extends OptionsResolverBasedQueryType

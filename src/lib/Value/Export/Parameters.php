@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Value\Export;
+namespace Ibexa\PersonalizationClient\Value\Export;
 
 use EzSystems\EzRecommendationClient\Helper\ParamsConverterHelper;
 

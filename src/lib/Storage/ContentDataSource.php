@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Storage;
+namespace Ibexa\PersonalizationClient\Storage;
 
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\Exceptions\InvalidArgumentException;
@@ -16,13 +16,13 @@ use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\Core\QueryType\QueryType;
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
-use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
-use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
-use Ibexa\Contracts\Personalization\Value\ItemInterface;
-use Ibexa\Personalization\Content\DataResolverInterface;
-use Ibexa\Personalization\Value\Storage\Item;
-use Ibexa\Personalization\Value\Storage\ItemList;
-use Ibexa\Personalization\Value\Storage\ItemType;
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Storage\DataSourceInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemInterface;
+use Ibexa\PersonalizationClient\Content\DataResolverInterface;
+use Ibexa\PersonalizationClient\Value\Storage\Item;
+use Ibexa\PersonalizationClient\Value\Storage\ItemList;
+use Ibexa\PersonalizationClient\Value\Storage\ItemType;
 use Psr\Log\LoggerInterface;
 
 final class ContentDataSource implements DataSourceInterface

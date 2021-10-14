@@ -6,9 +6,9 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Factory\Export;
+namespace Ibexa\PersonalizationClient\Factory\Export;
 
-use Ibexa\Personalization\Value\Export\Parameters;
+use Ibexa\PersonalizationClient\Value\Export\Parameters;
 
 interface ParametersFactoryInterface
 {

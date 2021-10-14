@@ -6,12 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Service\Storage;
+namespace Ibexa\PersonalizationClient\Service\Storage;
 
-use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
-use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
-use Ibexa\Contracts\Personalization\Value\ItemInterface;
-use Ibexa\Contracts\Personalization\Value\ItemListInterface;
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemGroupListInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
 
 /**
  * @internal

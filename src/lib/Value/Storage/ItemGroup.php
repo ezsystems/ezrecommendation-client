@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Value\Storage;
+namespace Ibexa\PersonalizationClient\Value\Storage;
 
-use Ibexa\Contracts\Personalization\Value\ItemGroupInterface;
-use Ibexa\Contracts\Personalization\Value\ItemListInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemGroupInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
 
 final class ItemGroup implements ItemGroupInterface
 {

@@ -8,15 +8,15 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Strategy\Storage;
 
-use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
-use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
-use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
-use Ibexa\Contracts\Personalization\Value\ItemListInterface;
-use Ibexa\Personalization\Criteria\Criteria;
-use Ibexa\Personalization\Strategy\Storage\SupportedGroupItemStrategy;
-use Ibexa\Personalization\Value\Storage\ItemGroup;
-use Ibexa\Personalization\Value\Storage\ItemGroupList;
-use Ibexa\Personalization\Value\Storage\ItemList;
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Storage\DataSourceInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemGroupListInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
+use Ibexa\PersonalizationClient\Criteria\Criteria;
+use Ibexa\PersonalizationClient\Strategy\Storage\SupportedGroupItemStrategy;
+use Ibexa\PersonalizationClient\Value\Storage\ItemGroup;
+use Ibexa\PersonalizationClient\Value\Storage\ItemGroupList;
+use Ibexa\PersonalizationClient\Value\Storage\ItemList;
 
 final class GroupByItemTypeAndLanguageStrategy implements GroupItemStrategyInterface
 {
@@ -51,7 +51,7 @@ final class GroupByItemTypeAndLanguageStrategy implements GroupItemStrategyInter
     }
 
     /**
-     * @param iterable<\Ibexa\Contracts\Personalization\Value\ItemInterface> $items
+     * @param iterable<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface> $items
      */
     private function getItemList(iterable $items): ItemListInterface
     {

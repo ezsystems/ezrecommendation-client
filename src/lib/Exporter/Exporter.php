@@ -13,7 +13,7 @@ use eZ\Publish\API\Repository\Repository;
 use EzSystems\EzRecommendationClient\File\ExportFileGenerator;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
 use EzSystems\EzRecommendationClient\Service\ContentServiceInterface;
-use Ibexa\Personalization\Value\Export\Parameters;
+use Ibexa\PersonalizationClient\Value\Export\Parameters;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

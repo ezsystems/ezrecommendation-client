@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Export\Input;
+namespace Ibexa\PersonalizationClient\Export\Input;
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputInterface;

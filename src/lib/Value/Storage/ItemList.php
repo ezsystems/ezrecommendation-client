@@ -6,27 +6,27 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Personalization\Value\Storage;
+namespace Ibexa\PersonalizationClient\Value\Storage;
 
 use ArrayIterator;
 use Closure;
 use eZ\Publish\API\Repository\Exceptions\OutOfBoundsException;
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
-use Ibexa\Contracts\Personalization\Value\ItemInterface;
-use Ibexa\Contracts\Personalization\Value\ItemListInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
 use IteratorAggregate;
 use Traversable;
 
 /**
- * @implements IteratorAggregate<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+ * @implements IteratorAggregate<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface>
  */
 final class ItemList implements IteratorAggregate, ItemListInterface
 {
-    /** @var array<\Ibexa\Contracts\Personalization\Value\ItemInterface> */
+    /** @var array<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface> */
     private array $items;
 
     /**
-     * @param array<\Ibexa\Contracts\Personalization\Value\ItemInterface> $items
+     * @param array<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface> $items
      */
     public function __construct(array $items)
     {
@@ -91,7 +91,7 @@ final class ItemList implements IteratorAggregate, ItemListInterface
     }
 
     /**
-     * @param \Traversable<\Ibexa\Contracts\Personalization\Value\ItemInterface> $traversable
+     * @param \Traversable<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface> $traversable
      */
     public static function fromTraversable(Traversable $traversable): ItemListInterface
     {
