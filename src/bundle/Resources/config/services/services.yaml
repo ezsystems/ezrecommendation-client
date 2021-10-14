@@ -37,9 +37,9 @@ services:
             $clientCredentials: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'
             $exportCredentials: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'
 
-    Ibexa\Personalization\Service\Storage\DataSourceService:
+    Ibexa\PersonalizationClient\Service\Storage\DataSourceService:
         arguments:
             $sources: !tagged_iterator ibexa.personalization.data_source
 
-    Ibexa\Personalization\Service\Storage\DataSourceServiceInterface:
-        '@Ibexa\Personalization\Service\Storage\DataSourceService'
+    Ibexa\PersonalizationClient\Service\Storage\DataSourceServiceInterface:
+        '@Ibexa\PersonalizationClient\Service\Storage\DataSourceService'

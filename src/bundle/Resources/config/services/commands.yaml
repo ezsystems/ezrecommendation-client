@@ -4,7 +4,7 @@ services:
         autoconfigure: true
         public: false
 
-    Ibexa\Bundle\Personalization\Command\ExportCommand:
+    Ibexa\Bundle\PersonalizationClient\Command\ExportCommand:
         tags:
             - { name: console.command }
             - { name: monolog.logger, channel: ibexa-recommendation }

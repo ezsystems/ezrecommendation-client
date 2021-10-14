@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Bundle\Personalization\Command;
+namespace Ibexa\Bundle\PersonalizationClient\Command;
 
 use eZ\Bundle\EzPublishCoreBundle\Command\BackwardCompatibleCommand;
 use EzSystems\EzRecommendationClient\Http\HttpEnvironmentInterface;
 use EzSystems\EzRecommendationClient\Service\ExportServiceInterface;
-use Ibexa\Personalization\Export\Input\CommandInputResolverInterface;
-use Ibexa\Personalization\Factory\Export\ParametersFactoryInterface;
+use Ibexa\PersonalizationClient\Export\Input\CommandInputResolverInterface;
+use Ibexa\PersonalizationClient\Factory\Export\ParametersFactoryInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
