@@ -6,13 +6,13 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Contracts\Personalization\Value;
+namespace Ibexa\Contracts\PersonalizationClient\Value;
 
 use Countable;
 use Traversable;
 
 /**
- * @extends Traversable<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+ * @extends Traversable<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface>
  */
 interface ItemListInterface extends Traversable, Countable
 {
@@ -26,7 +26,7 @@ interface ItemListInterface extends Traversable, Countable
     /**
      * Returns a new ItemInterface collection containing matched elements.
      *
-     * @phpstan-param callable(\Ibexa\Contracts\Personalization\Value\ItemInterface=): bool $predicate
+     * @phpstan-param callable(\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface=): bool $predicate
      */
     public function filter(callable $predicate): self;
 

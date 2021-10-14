@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Contracts\Personalization\Criteria;
+namespace Ibexa\Contracts\PersonalizationClient\Criteria;
 
 interface CriteriaInterface
 {

@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Contracts\Personalization\Value;
+namespace Ibexa\Contracts\PersonalizationClient\Value;
 
 interface ItemInterface
 {
