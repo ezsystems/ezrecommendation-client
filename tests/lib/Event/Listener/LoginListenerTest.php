@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Personalization\Event\Listener;
+namespace Ibexa\Tests\PersonalizationClient\Event\Listener;
 
 use eZ\Publish\API\Repository\UserService;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
