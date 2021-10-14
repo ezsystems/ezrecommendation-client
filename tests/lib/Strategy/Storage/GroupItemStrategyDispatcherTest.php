@@ -6,16 +6,16 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Personalization\Strategy\Storage;
+namespace Ibexa\Tests\PersonalizationClient\Strategy\Storage;
 
 use EzSystems\EzRecommendationClient\Exception\UnsupportedGroupItemStrategy;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcher;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface;
 use EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface;
-use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
-use Ibexa\Personalization\Strategy\Storage\SupportedGroupItemStrategy;
-use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
-use Ibexa\Tests\Personalization\Storage\AbstractDataSourceTestCase;
+use Ibexa\Contracts\PersonalizationClient\Storage\DataSourceInterface;
+use Ibexa\PersonalizationClient\Strategy\Storage\SupportedGroupItemStrategy;
+use Ibexa\Tests\PersonalizationClient\Creator\DataSourceTestItemCreator;
+use Ibexa\Tests\PersonalizationClient\Storage\AbstractDataSourceTestCase;
 
 final class GroupItemStrategyDispatcherTest extends AbstractDataSourceTestCase
 {
@@ -24,7 +24,7 @@ final class GroupItemStrategyDispatcherTest extends AbstractDataSourceTestCase
     /** @var \EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyInterface|\PHPUnit\Framework\MockObject\MockObject */
     private GroupItemStrategyInterface $groupByItemTypeAndLanguages;
 
-    /** @var \Ibexa\Contracts\Personalization\Storage\DataSourceInterface|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\Contracts\PersonalizationClient\Storage\DataSourceInterface|\PHPUnit\Framework\MockObject\MockObject */
     private DataSourceInterface $dataSource;
 
     public function setUp(): void

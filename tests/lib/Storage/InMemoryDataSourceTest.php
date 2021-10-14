@@ -6,11 +6,11 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Personalization\Storage;
+namespace Ibexa\Tests\PersonalizationClient\Storage;
 
 use EzSystems\EzRecommendationClient\Storage\InMemoryDataSource;
-use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
-use Ibexa\Contracts\Personalization\Value\ItemListInterface;
+use Ibexa\Contracts\PersonalizationClient\Storage\DataSourceInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
 
 final class InMemoryDataSourceTest extends AbstractItemTestCase
 {

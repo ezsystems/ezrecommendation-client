@@ -6,18 +6,18 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Personalization\Storage;
+namespace Ibexa\Tests\PersonalizationClient\Storage;
 
 use eZ\Publish\API\Repository\Values\Content\Content as ApiContent;
 use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
-use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
-use Ibexa\Contracts\Personalization\Value\ItemListInterface;
-use Ibexa\Personalization\Value\Storage\ItemList;
-use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
+use Ibexa\PersonalizationClient\Value\Storage\ItemList;
+use Ibexa\Tests\PersonalizationClient\Creator\DataSourceTestItemCreator;
 
 /**
- * @covers \Ibexa\Personalization\Storage\ContentDataSource
+ * @covers \Ibexa\PersonalizationClient\Storage\ContentDataSource
  */
 final class ContentDataSourceTest extends AbstractContentDataSourceTestCase
 {
@@ -144,7 +144,7 @@ final class ContentDataSourceTest extends AbstractContentDataSourceTestCase
 
     /**
      * @phpstan-return iterable<array{
-     *  \Ibexa\Contracts\Personalization\Criteria\CriteriaInterface,
+     *  \Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface,
      *  int,
      *  array<\eZ\Publish\API\Repository\Values\Content\Search\SearchHit>
      * }>
@@ -170,8 +170,8 @@ final class ContentDataSourceTest extends AbstractContentDataSourceTestCase
 
     /**
      * @phpstan-return iterable<array{
-     *  \Ibexa\Contracts\Personalization\Criteria\CriteriaInterface,
-     *  \Ibexa\Contracts\Personalization\Value\ItemListInterface,
+     *  \Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface,
+     *  \Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface,
      *  array<\eZ\Publish\API\Repository\Values\Content\Search\SearchHit>,
      *  array<array{\eZ\Publish\API\Repository\Values\Content\Content, array<string>}>
      * }>

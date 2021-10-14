@@ -12,7 +12,7 @@ use EzSystems\EzRecommendationClient\API\Notifier;
 use EzSystems\EzRecommendationClient\Service\ExportNotificationService;
 use EzSystems\EzRecommendationClient\Value\ExportNotification;
 use GuzzleHttp\Psr7\Response;
-use Ibexa\Personalization\Value\Export\Parameters;
+use Ibexa\PersonalizationClient\Value\Export\Parameters;
 
 class ExportNotificationServiceTest extends NotificationServiceTest
 {
@@ -25,7 +25,7 @@ class ExportNotificationServiceTest extends NotificationServiceTest
     /** @var array<string> */
     private $notificationOptions;
 
-    /** @var \Ibexa\Personalization\Value\Export\Parameters */
+    /** @var \Ibexa\PersonalizationClient\Value\Export\Parameters */
     private $exportParameters;
 
     public function setUp(): void

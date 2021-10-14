@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Integration\Personalization;
+namespace Ibexa\Tests\Integration\PersonalizationClient;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

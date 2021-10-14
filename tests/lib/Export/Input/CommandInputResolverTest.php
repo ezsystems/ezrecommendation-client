@@ -6,10 +6,10 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Test\Personalization\Export\Input;
+namespace Ibexa\Test\PersonalizationClient\Export\Input;
 
-use Ibexa\Personalization\Export\Input\CommandInputResolver;
-use Ibexa\Personalization\Export\Input\CommandInputResolverInterface;
+use Ibexa\PersonalizationClient\Export\Input\CommandInputResolver;
+use Ibexa\PersonalizationClient\Export\Input\CommandInputResolverInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\InputArgument;

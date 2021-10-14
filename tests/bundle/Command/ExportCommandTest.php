@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Bundle\Personalization\Command;
+namespace Ibexa\Tests\Bundle\PersonalizationClient\Command;
 
 use EzSystems\EzRecommendationClient\Exception\InvalidArgumentException;
 use EzSystems\EzRecommendationClient\Exception\MissingExportParameterException;

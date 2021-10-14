@@ -6,21 +6,21 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Personalization\Creator;
+namespace Ibexa\Tests\PersonalizationClient\Creator;
 
 use ArrayIterator;
-use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
-use Ibexa\Contracts\Personalization\Value\ItemGroupInterface;
-use Ibexa\Contracts\Personalization\Value\ItemGroupListInterface;
-use Ibexa\Contracts\Personalization\Value\ItemInterface;
-use Ibexa\Contracts\Personalization\Value\ItemListInterface;
-use Ibexa\Contracts\Personalization\Value\ItemTypeInterface;
-use Ibexa\Personalization\Criteria\Criteria;
-use Ibexa\Personalization\Value\Storage\Item;
-use Ibexa\Personalization\Value\Storage\ItemGroup;
-use Ibexa\Personalization\Value\Storage\ItemGroupList;
-use Ibexa\Personalization\Value\Storage\ItemList;
-use Ibexa\Personalization\Value\Storage\ItemType;
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemGroupInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemGroupListInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemTypeInterface;
+use Ibexa\PersonalizationClient\Criteria\Criteria;
+use Ibexa\PersonalizationClient\Value\Storage\Item;
+use Ibexa\PersonalizationClient\Value\Storage\ItemGroup;
+use Ibexa\PersonalizationClient\Value\Storage\ItemGroupList;
+use Ibexa\PersonalizationClient\Value\Storage\ItemList;
+use Ibexa\PersonalizationClient\Value\Storage\ItemType;
 use Traversable;
 
 final class DataSourceTestItemCreator
@@ -60,7 +60,7 @@ final class DataSourceTestItemCreator
      *  'limit': int,
      * }> $itemsConfig
      *
-     * @return Traversable<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+     * @return Traversable<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface>
      */
     public function createTestItems(?iterable $itemsConfig = null): Traversable
     {
@@ -238,7 +238,7 @@ final class DataSourceTestItemCreator
     }
 
     /**
-     * @return array<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+     * @return array<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface>
      */
     public function createTestItemsForEnglishArticles(): array
     {
@@ -263,7 +263,7 @@ final class DataSourceTestItemCreator
     }
 
     /**
-     * @return array<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+     * @return array<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface>
      */
     public function createTestItemsForGermanArticles(): array
     {
@@ -288,7 +288,7 @@ final class DataSourceTestItemCreator
     }
 
     /**
-     * @return array<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+     * @return array<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface>
      */
     public function createTestItemsForEnglishBlogPosts(): array
     {
@@ -321,7 +321,7 @@ final class DataSourceTestItemCreator
     }
 
     /**
-     * @return array<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+     * @return array<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface>
      */
     public function createTestItemsForEnglishProducts(): array
     {
@@ -374,7 +374,7 @@ final class DataSourceTestItemCreator
      *  'limit': int,
      * }> $testItemsConfig
      *
-     * @return Traversable<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+     * @return Traversable<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface>
      */
     private function createTestItemsForConfig(iterable $testItemsConfig): Traversable
     {
@@ -399,7 +399,7 @@ final class DataSourceTestItemCreator
      *  'limit': int,
      * }> $testItemsConfig
      *
-     * @return iterable<int, iterable<\Ibexa\Contracts\Personalization\Value\ItemInterface>>
+     * @return iterable<int, iterable<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface>>
      */
     private function createTestItemsForConcreteConfig(iterable $testItemsConfig): iterable
     {
@@ -421,7 +421,7 @@ final class DataSourceTestItemCreator
     /**
      * @param array<string> $languages
      *
-     * @return array<\Ibexa\Contracts\Personalization\Value\ItemInterface>
+     * @return array<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface>
      */
     private function createTestItemsForGivenLanguages(
         int $itemTypeId,

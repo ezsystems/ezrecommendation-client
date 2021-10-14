@@ -6,15 +6,15 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Personalization\Storage;
+namespace Ibexa\Tests\PersonalizationClient\Storage;
 
 use EzSystems\EzRecommendationClient\Exception\ItemNotFoundException;
-use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
-use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
-use Ibexa\Contracts\Personalization\Value\ItemInterface;
-use Ibexa\Contracts\Personalization\Value\ItemListInterface;
-use Ibexa\Personalization\Value\Storage\ItemList;
-use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Storage\DataSourceInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
+use Ibexa\PersonalizationClient\Value\Storage\ItemList;
+use Ibexa\Tests\PersonalizationClient\Creator\DataSourceTestItemCreator;
 
 abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
 {
@@ -30,7 +30,7 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
     }
 
     /**
-     * @param iterable<\Ibexa\Contracts\Personalization\Value\ItemInterface> $expectedItems
+     * @param iterable<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface> $expectedItems
      *
      * @dataProvider providerForTestFetchItems
      * @dataProvider providerForTestFetchItemListWithLimit
@@ -229,7 +229,7 @@ abstract class AbstractItemTestCase extends AbstractDataSourceTestCase
     }
 
     /**
-     * @param iterable<\Ibexa\Contracts\Personalization\Value\ItemInterface> $expectedItems
+     * @param iterable<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface> $expectedItems
      */
     protected function assertFetchItems(
         DataSourceInterface $source,

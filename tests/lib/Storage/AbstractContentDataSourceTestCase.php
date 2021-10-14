@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace Ibexa\Tests\Personalization\Storage;
+namespace Ibexa\Tests\PersonalizationClient\Storage;
 
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\SearchService;
@@ -22,11 +22,11 @@ use eZ\Publish\Core\QueryType\QueryType;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
 use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
-use Ibexa\Contracts\Personalization\Criteria\CriteriaInterface;
-use Ibexa\Contracts\Personalization\Storage\DataSourceInterface;
-use Ibexa\Personalization\Content\DataResolverInterface;
-use Ibexa\Personalization\Storage\ContentDataSource;
-use Ibexa\Tests\Personalization\Creator\DataSourceTestItemCreator;
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Storage\DataSourceInterface;
+use Ibexa\PersonalizationClient\Content\DataResolverInterface;
+use Ibexa\PersonalizationClient\Storage\ContentDataSource;
+use Ibexa\Tests\PersonalizationClient\Creator\DataSourceTestItemCreator;
 use Psr\Log\LoggerInterface;
 
 abstract class AbstractContentDataSourceTestCase extends AbstractDataSourceTestCase
@@ -49,7 +49,7 @@ abstract class AbstractContentDataSourceTestCase extends AbstractDataSourceTestC
     /** @var \eZ\Publish\Core\QueryType\QueryType|mixed|\PHPUnit\Framework\MockObject\MockObject */
     protected QueryType $queryType;
 
-    /** @var \Ibexa\Personalization\Content\DataResolverInterface|mixed|\PHPUnit\Framework\MockObject\MockObject */
+    /** @var \Ibexa\PersonalizationClient\Content\DataResolverInterface|mixed|\PHPUnit\Framework\MockObject\MockObject */
     protected DataResolverInterface $dataResolver;
 
     /** @var \Psr\Log\LoggerInterface|mixed|\PHPUnit\Framework\MockObject\MockObject */
