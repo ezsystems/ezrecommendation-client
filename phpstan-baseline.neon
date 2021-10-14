@@ -541,17 +541,17 @@ parameters:
 			path: src/lib/Exception/InvalidRelationException.php
 
 		-
-			message: "#^Access to an undefined property Ibexa\\\\Personalization\\\\Value\\\\Export\\\\Parameters\\:\\:\\$lang\\.$#"
+			message: "#^Access to an undefined property Ibexa\\\\PersonalizationClient\\\\Value\\\\Export\\\\Parameters\\:\\:\\$lang\\.$#"
 			count: 3
 			path: src/lib/Exporter/Exporter.php
 
 		-
-			message: "#^Access to an undefined property Ibexa\\\\Personalization\\\\Value\\\\Export\\\\Parameters\\:\\:\\$page\\.$#"
+			message: "#^Access to an undefined property Ibexa\\\\PersonalizationClient\\\\Value\\\\Export\\\\Parameters\\:\\:\\$page\\.$#"
 			count: 2
 			path: src/lib/Exporter/Exporter.php
 
 		-
-			message: "#^Call to an undefined method Ibexa\\\\Personalization\\\\Value\\\\Export\\\\Parameters\\:\\:getProperties\\(\\)\\.$#"
+			message: "#^Call to an undefined method Ibexa\\\\PersonalizationClient\\\\Value\\\\Export\\\\Parameters\\:\\:getProperties\\(\\)\\.$#"
 			count: 1
 			path: src/lib/Exporter/Exporter.php
 
@@ -571,7 +571,7 @@ parameters:
 			path: src/lib/Exporter/Exporter.php
 
 		-
-			message: "#^Parameter \\#2 \\$parameters of method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentServiceInterface\\:\\:fetchContent\\(\\) expects EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters, Ibexa\\\\Personalization\\\\Value\\\\Export\\\\Parameters given\\.$#"
+			message: "#^Parameter \\#2 \\$parameters of method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentServiceInterface\\:\\:fetchContent\\(\\) expects EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters, Ibexa\\\\PersonalizationClient\\\\Value\\\\Export\\\\Parameters given\\.$#"
 			count: 1
 			path: src/lib/Exporter/Exporter.php
 
