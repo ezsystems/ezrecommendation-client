@@ -3,10 +3,10 @@ imports:
     - { resource: services/authenticators.yaml }
     - { resource: services/client.yaml }
     - { resource: services/commands.yaml }
+    - { resource: services/config.yaml }
     - { resource: services/contents.yaml }
     - { resource: services/controllers.yaml }
     - { resource: services/converters.yaml }
-    - { resource: services/credentials_checker.yaml }
     - { resource: services/events.yaml }
     - { resource: services/export.yaml }
     - { resource: services/exporter.yaml }
