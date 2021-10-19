@@ -7,8 +7,5 @@ services:
     EzSystems\EzRecommendationClient\File\:
         resource: '../../../../src/lib/File/*'
 
-    EzSystems\EzRecommendationClient\File\ExportFileGenerator:
-        $outputGenerator: '@ezpublish_rest.output.generator.json'
-
     EzSystems\EzRecommendationClient\File\FileManager:
         $exportDocumentRoot: '%ezrecommendation.default.export.document_root%'

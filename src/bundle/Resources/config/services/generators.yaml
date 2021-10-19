@@ -4,9 +4,21 @@ services:
         autoconfigure: true
         public: false
 
+    Ibexa\PersonalizationClient\Generator\ItemList\ItemListElementGenerator: ~
+
+    Ibexa\PersonalizationClient\Generator\ItemList\ItemListElementGeneratorInterface:
+        '@Ibexa\PersonalizationClient\Generator\ItemList\ItemListElementGenerator'
+
+    Ibexa\PersonalizationClient\Generator\File\ExportFileGenerator:
+        tags:
+            - { name: monolog.logger, channel: ibexa-recommendation }
+        arguments:
+            $outputGenerator: '@ezpublish_rest.output.generator.json'
+
+    Ibexa\PersonalizationClient\Generator\File\ExportFileGeneratorInterface:
+        '@Ibexa\PersonalizationClient\Generator\File\ExportFileGenerator'
+
     Ibexa\PersonalizationClient\Generator\SecureUniqueStringGenerator: ~
 
     Ibexa\PersonalizationClient\Generator\UniqueStringGeneratorInterface:
         '@Ibexa\PersonalizationClient\Generator\SecureUniqueStringGenerator'
-
-    EzSystems\EzRecommendationClient\Generator\ContentListElementGenerator: ~

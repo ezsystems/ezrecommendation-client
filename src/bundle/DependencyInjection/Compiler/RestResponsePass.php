@@ -24,7 +24,7 @@ final class RestResponsePass implements CompilerPassInterface
 
         $responseRenderers = [];
 
-        foreach ($container->findTaggedServiceIds('ezrecommendation.rest.response_type') as $id => $tags) {
+        foreach ($container->findTaggedServiceIds('ibexa.personalization.rest.response_type') as $id => $tags) {
             $responseRenderers[$tags[0]['type']] = new Reference($id);
         }
 

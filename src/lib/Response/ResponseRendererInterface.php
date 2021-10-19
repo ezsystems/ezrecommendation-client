@@ -9,11 +9,12 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Response;
 
 use EzSystems\EzPlatformRest\Output\Generator;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
 
-interface ResponseInterface
+/**
+ * @internal
+ */
+interface ResponseRendererInterface
 {
-    /**
-     * @param $data
-     */
-    public function render(Generator $generator, $data): Generator;
+    public function render(Generator $generator, ItemListInterface $itemList): Generator;
 }
