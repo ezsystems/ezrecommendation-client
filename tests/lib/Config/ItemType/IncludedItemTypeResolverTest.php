@@ -160,6 +160,6 @@ final class IncludedItemTypeResolverTest extends TestCase
         $this->logger
             ->expects(self::once())
             ->method('warning')
-            ->with($message);
+            ->with(self::matches($message));
     }
 }
