@@ -3,7 +3,7 @@ includes:
 
 parameters:
     ignoreErrors:
-        - "#^Cannot call method warning\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
+        - "#^Cannot call method (log|debug|info|notice|warning|error|critical|alert|emergency)\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
 
     level: max
     paths:
