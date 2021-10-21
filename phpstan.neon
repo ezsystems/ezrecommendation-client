@@ -2,6 +2,9 @@ includes:
     - phpstan-baseline.neon
 
 parameters:
+    ignoreErrors:
+        - "#^Cannot call method (log|debug|info|notice|warning|error|critical|alert|emergency)\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
+
     level: max
     paths:
         - src
