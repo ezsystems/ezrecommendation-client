@@ -9,6 +9,10 @@ services:
             tags:
                 - { name: ibexa.personalization.group_item.strategy }
 
+        Ibexa\PersonalizationClient\Strategy\Credentials\ExportCredentialsStrategyInterface:
+            tags:
+                - { name: ibexa.personalization.export_credentials.strategy }
+
     EzSystems\EzRecommendationClient\Strategy\Storage\GroupByItemTypeAndLanguageStrategy: ~
 
     EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcher:
@@ -20,3 +24,21 @@ services:
 
     EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcherInterface:
         '@EzSystems\EzRecommendationClient\Strategy\Storage\GroupItemStrategyDispatcher'
+
+    Ibexa\PersonalizationClient\Strategy\Credentials\BasicMethodStrategy: ~
+
+    Ibexa\PersonalizationClient\Strategy\Credentials\UserMethodStrategy:
+        arguments:
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'
+
+    Ibexa\PersonalizationClient\Strategy\Credentials\NoneMethodStrategy: ~
+
+    Ibexa\PersonalizationClient\Strategy\Credentials\ExportCredentialsStrategyDispatcher:
+        arguments:
+            $credentialMethodStrategies: !tagged_iterator
+                tag: ibexa.personalization.export_credentials.strategy
+                default_index_method: getIndex
+                index_by: key
+
+    Ibexa\PersonalizationClient\Strategy\Credentials\ExportCredentialsStrategyDispatcherInterface:
+        '@Ibexa\PersonalizationClient\Strategy\Credentials\ExportCredentialsStrategyDispatcher'

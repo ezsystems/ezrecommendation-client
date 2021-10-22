@@ -6,11 +6,12 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClient\Value;
+namespace Ibexa\PersonalizationClient\Generator\Password;
 
-final class ExportMethod
+/**
+ * @internal
+ */
+interface PasswordGeneratorInterface
 {
-    const BASIC = 'basic';
-    const USER = 'user';
-    const NONE = 'none';
+    public function generate(): string;
 }
