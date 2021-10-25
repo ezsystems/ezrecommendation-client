@@ -10,6 +10,7 @@ namespace EzSystems\EzRecommendationClient\Helper;
 
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException;
 
 final class UserHelper
 {
@@ -28,23 +29,25 @@ final class UserHelper
     }
 
     /**
-     * @return string
+     * @throws \Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException
      */
-    public function getCurrentUser()
+    public function getCurrentUser(): string
     {
-        if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY') // user has just logged in
-            || $this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED') // user has logged in using remember_me cookie
+        if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY') // user has just logged in
+            && !$this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED') // user has logged in using remember_me cookie
         ) {
-            $authenticationToken = $this->tokenStorage->getToken();
-            $user = $authenticationToken->getUser();
-
-            if (\is_string($user)) {
-                return $user;
-            } elseif (method_exists($user, 'getAPIUser')) {
-                return $user->getAPIUser()->id;
-            }
-
-            return (string) $authenticationToken->getUsername();
+            return '';
         }
+
+        $authenticationToken = $this->tokenStorage->getToken();
+        $user = $authenticationToken->getUser();
+
+        if (\is_string($user)) {
+            return $user;
+        } elseif (method_exists($user, 'getAPIUser')) {
+            return $user->getAPIUser()->id;
+        }
+
+        return (string) $authenticationToken->getUsername();
     }
 }
