@@ -916,11 +916,6 @@ parameters:
 			path: src/lib/Helper/UserHelper.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\UserHelper\\:\\:getCurrentUser\\(\\) should return string but return statement is missing\\.$#"
-			count: 1
-			path: src/lib/Helper/UserHelper.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getCustomerId\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
 			count: 1
 			path: src/lib/Mapper/ExportRequestMapper.php
