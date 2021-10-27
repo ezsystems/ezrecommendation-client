@@ -36,3 +36,5 @@ class EzRecommendationClient {
             });
     }
 }
+
+window.EzRecommendationClient = EzRecommendationClient;
