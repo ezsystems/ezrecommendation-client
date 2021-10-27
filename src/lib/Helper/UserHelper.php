@@ -8,6 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Helper;
 
+use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -41,10 +42,10 @@ final class UserHelper
         $authenticationToken = $this->tokenStorage->getToken();
         $user = $authenticationToken->getUser();
 
-        if (\is_string($user)) {
+        if (is_string($user)) {
             return $user;
-        } elseif (method_exists($user, 'getAPIUser')) {
-            return $user->getAPIUser()->id;
+        } elseif ($user instanceof UserInterface) {
+            return (string) $user->getAPIUser()->id;
         }
 
         return (string) $authenticationToken->getUsername();
