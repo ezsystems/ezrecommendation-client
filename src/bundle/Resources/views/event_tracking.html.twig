@@ -2,16 +2,18 @@
     {% autoescape 'js' %}
 
     (function () {
-        const recommendationItems = document.querySelectorAll('a[data-recommendation-ping-api]');
-        const ezRecommendationClient = new EzRecommendationClient();
+        window.addEventListener('DOMContentLoaded', (event) => {
+            const recommendationItems = document.querySelectorAll('a[data-recommendation-ping-api]');
+            const ezRecommendationClient = new EzRecommendationClient();
 
-        recommendationItems.forEach(item => {
-            item.addEventListener('click', event => {
-                const url = event.currentTarget.dataset.recommendationPingApi;
+            recommendationItems.forEach(item => {
+                item.addEventListener('click', event => {
+                    const url = event.currentTarget.dataset.recommendationPingApi;
 
-                if (url && top === self) {
-                    ezRecommendationClient.ping(url);
-                }
+                    if (url && top === self) {
+                        ezRecommendationClient.ping(url);
+                    }
+                });
             });
         });
     })();
