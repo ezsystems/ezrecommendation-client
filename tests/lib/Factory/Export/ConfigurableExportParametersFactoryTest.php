@@ -10,6 +10,7 @@ namespace Ibexa\Tests\PersonalizationClient\Factory\Export;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
+use EzSystems\EzRecommendationClient\Exception\ExportCredentialsNotFoundException;
 use EzSystems\EzRecommendationClient\Exception\MissingExportParameterException;
 use EzSystems\EzRecommendationClient\Factory\ConfigurableExportParametersFactory;
 use EzSystems\EzRecommendationClient\Factory\ExportParametersFactoryInterface;
@@ -103,8 +104,8 @@ final class ConfigurableExportParametersFactoryTest extends TestCase
             'host' => null,
         ];
 
-        $this->configureCredentialsResolverToReturnIfCredentialsAreConfiguredForSiteAccess($siteAccess, true);
         $this->configureSiteAccessHelperToReturnSiteAccessName($siteAccess);
+        $this->configureCredentialsResolverToReturnIfCredentialsAreConfiguredForSiteAccess($siteAccess, true);
         $this->configureCredentialsResolverToReturnRecommendationClientCredentials(
             $siteAccess,
             12345,
@@ -135,6 +136,28 @@ final class ConfigurableExportParametersFactoryTest extends TestCase
         );
 
         $this->parametersFactory->create($parameters);
+    }
+
+    public function testThrowExportCredentialsNotFoundException(): void
+    {
+        $siteAccess = 'foo';
+
+        $this->configureSiteAccessHelperToReturnSiteAccessName($siteAccess);
+        $this->configureCredentialsResolverToReturnIfCredentialsAreConfiguredForSiteAccess(
+            $siteAccess,
+            false
+        );
+
+        $this->expectException(ExportCredentialsNotFoundException::class);
+        $this->expectExceptionMessage('Recommendation client export credentials are not set for siteAccess: foo');
+
+        $this->parametersFactory->create(
+            [
+                'customerId' => null,
+                'licenseKey' => null,
+                'siteaccess' => null,
+            ]
+        );
     }
 
     /**
