@@ -12,4 +12,4 @@ services:
     EzSystems\EzRecommendationClient\Factory\ConfigurableExportParametersFactory:
         arguments:
             $innerService: '@EzSystems\EzRecommendationClient\Factory\ExportParametersFactory'
-            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver'
+            $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'

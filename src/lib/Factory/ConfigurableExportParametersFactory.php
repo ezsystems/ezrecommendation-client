@@ -20,6 +20,12 @@ use EzSystems\EzRecommendationClient\Value\Parameters;
 
 final class ConfigurableExportParametersFactory extends ExportParametersFactoryDecorator
 {
+    private const REQUIRED_OPTIONS = [
+        'customerId',
+        'licenseKey',
+        'siteaccess',
+    ];
+
     /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface */
     private $credentialsResolver;
 
@@ -51,28 +57,29 @@ final class ConfigurableExportParametersFactory extends ExportParametersFactoryD
      */
     public function create(array $properties = []): ExportParameters
     {
-        if (!empty($this->getMissingRequiredOptions($properties))) {
+        $missingRequiredOptions = $this->getMissingRequiredOptions($properties);
+        if (!empty($missingRequiredOptions)) {
             throw new MissingExportParameterException(sprintf(
                 'Required parameters %s are missing',
-                implode(', ', $this->getMissingRequiredOptions($properties))
+                implode(', ', $missingRequiredOptions)
             ));
         }
 
         $properties['siteaccess'] = $properties['siteaccess'] ?? $this->getSiteAccess();
 
         if (!isset($properties['customerId']) && !isset($properties['licenseKey'])) {
-            /** @var \EzSystems\EzRecommendationClient\Value\Config\ExportCredentials $credentials */
+            /** @var \EzSystems\EzRecommendationClient\Value\Config\EzRecommendationClientCredentials $credentials */
             $credentials = $this->credentialsResolver->getCredentials($properties['siteaccess']);
 
-            if (!$this->credentialsResolver->hasCredentials()) {
+            if (!$this->credentialsResolver->hasCredentials($properties['siteaccess'])) {
                 throw new ExportCredentialsNotFoundException(sprintf(
                    'Recommendation client export credentials are not set for siteAccess: %s',
                     $properties['siteaccess']
                 ));
             }
 
-            $properties['customerId'] = $credentials->getLogin();
-            $properties['licenseKey'] = $credentials->getPassword();
+            $properties['customerId'] = $credentials->getCustomerId();
+            $properties['licenseKey'] = $credentials->getLicenseKey();
         }
 
         $properties['host'] = $properties['host'] ?? $this->getHostUri($properties['siteaccess']);
@@ -107,24 +114,23 @@ final class ConfigurableExportParametersFactory extends ExportParametersFactoryD
         ) . sprintf(Notifier::ENDPOINT_PATH, $customerId);
     }
 
+    /**
+     * Returns missing required options
+     * If one of required options has been passed to command then user must pass all options
+     * If all required options are missing then options will be automatically taken from configuration.
+     */
     private function getMissingRequiredOptions(array $options): array
     {
-        $missingOptions = [];
+        $missingRequiredOptions = array_diff(self::REQUIRED_OPTIONS, array_keys(
+            array_filter($options, static function (?string $option = null): bool {
+                return null !== $option;
+            })
+        ));
 
-        if (isset($options['customerId']) || isset($options['licenseKey'])) {
-            if (!isset($options['customerId'])) {
-                $missingOptions[] = 'customerId';
-            }
-
-            if (!isset($options['licenseKey'])) {
-                $missingOptions[] = 'licenseKey';
-            }
-
-            if (!isset($options['siteaccess'])) {
-                $missingOptions[] = 'siteaccess';
-            }
+        if (!empty(array_diff(self::REQUIRED_OPTIONS, $missingRequiredOptions))) {
+            return array_intersect(self::REQUIRED_OPTIONS, $missingRequiredOptions);
         }
 
-        return $missingOptions;
+        return [];
     }
 }
