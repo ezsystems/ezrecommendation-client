@@ -4,9 +4,9 @@ services:
         autoconfigure: true
         public: false
 
-    Ibexa\PersonalizationClient\Generator\Password\RandomPasswordGenerator: ~
+    Ibexa\PersonalizationClient\Generator\UniqueStringGenerator: ~
 
-    Ibexa\PersonalizationClient\Generator\Password\PasswordGeneratorInterface:
-        '@Ibexa\PersonalizationClient\Generator\Password\RandomPasswordGenerator'
+    Ibexa\PersonalizationClient\Generator\UniqueStringGeneratorInterface:
+        '@Ibexa\PersonalizationClient\Generator\UniqueStringGenerator'
 
     EzSystems\EzRecommendationClient\Generator\ContentListElementGenerator: ~
