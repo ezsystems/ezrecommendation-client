@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\PersonalizationClient\Strategy\Credentials;
 
-use Ibexa\PersonalizationClient\Generator\Credentials\LoginGeneratorInterface;
-use Ibexa\PersonalizationClient\Generator\Credentials\PasswordGeneratorInterface;
 use Ibexa\PersonalizationClient\Generator\UniqueStringGeneratorInterface;
 use Ibexa\PersonalizationClient\Strategy\Credentials\BasicMethodStrategy;
 use Ibexa\PersonalizationClient\Strategy\Credentials\ExportCredentialsStrategyInterface;
