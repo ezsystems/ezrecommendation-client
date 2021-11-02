@@ -9,23 +9,27 @@ declare(strict_types=1);
 namespace Ibexa\PersonalizationClient\Strategy\Credentials;
 
 use EzSystems\EzRecommendationClient\Value\ExportMethod;
-use Ibexa\PersonalizationClient\Generator\Password\PasswordGeneratorInterface;
+use Ibexa\PersonalizationClient\Generator\UniqueStringGeneratorInterface;
 use Ibexa\PersonalizationClient\Value\Export\Credentials;
 
 final class BasicMethodStrategy implements ExportCredentialsStrategyInterface
 {
-    private const USER_LOGIN = 'ibx';
+    private const LOGIN_LENGTH = 10;
+    private const PASSWORD_LENGTH = 30;
 
-    private PasswordGeneratorInterface $passwordGenerator;
+    private UniqueStringGeneratorInterface $uniqueStringGenerator;
 
-    public function __construct(PasswordGeneratorInterface $passwordGenerator)
+    public function __construct(UniqueStringGeneratorInterface $uniqueStringGenerator)
     {
-        $this->passwordGenerator = $passwordGenerator;
+        $this->uniqueStringGenerator = $uniqueStringGenerator;
     }
 
     public function getCredentials(?string $siteAccess = null): Credentials
     {
-        return new Credentials(self::USER_LOGIN, $this->passwordGenerator->generate());
+        return new Credentials(
+            $this->uniqueStringGenerator->generate(self::LOGIN_LENGTH),
+            $this->uniqueStringGenerator->generate(self::PASSWORD_LENGTH)
+        );
     }
 
     public static function getIndex(): string
