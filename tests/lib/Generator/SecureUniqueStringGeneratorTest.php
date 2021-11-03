@@ -25,7 +25,7 @@ final class SecureUniqueStringGeneratorTest extends TestCase
         $this->uniqueStringGenerator = new SecureUniqueStringGenerator();
     }
 
-    public function testThrowExceptionWhenLengthIsLessThan0(): void
+    public function testThrowExceptionWhenLengthIsLessThan1(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('Length must be greater than 0');
