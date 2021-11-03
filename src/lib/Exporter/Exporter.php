@@ -8,172 +8,234 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exporter;
 
-use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
-use eZ\Publish\API\Repository\Repository;
-use EzSystems\EzRecommendationClient\File\ExportFileGenerator;
-use EzSystems\EzRecommendationClient\Helper\ContentHelper;
-use EzSystems\EzRecommendationClient\Service\ContentServiceInterface;
+use Exception;
+use EzSystems\EzRecommendationClient\File\FileManagerInterface;
+use EzSystems\EzRecommendationClient\Service\ExportNotificationServiceInterface;
+use EzSystems\EzRecommendationClient\Value\Export\EventList;
+use EzSystems\EzRecommendationClient\Value\ExportMethod;
+use Ibexa\Contracts\PersonalizationClient\Criteria\CriteriaInterface;
+use Ibexa\Contracts\PersonalizationClient\Value\ItemGroupInterface;
+use Ibexa\PersonalizationClient\Config\ItemType\IncludedItemTypeResolverInterface;
+use Ibexa\PersonalizationClient\Criteria\Criteria;
+use Ibexa\PersonalizationClient\Generator\File\ExportFileGeneratorInterface;
+use Ibexa\PersonalizationClient\Service\Export\ExportServiceInterface;
+use Ibexa\PersonalizationClient\Service\Storage\DataSourceServiceInterface;
+use Ibexa\PersonalizationClient\Strategy\Storage\SupportedGroupItemStrategy;
+use Ibexa\PersonalizationClient\Value\Export\Credentials;
+use Ibexa\PersonalizationClient\Value\Export\Event;
+use Ibexa\PersonalizationClient\Value\Export\FileSettings;
 use Ibexa\PersonalizationClient\Value\Export\Parameters;
-use Psr\Log\LoggerInterface;
-use Symfony\Component\Console\Output\OutputInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
+use Psr\Log\NullLogger;
 
 /**
  * Generates and export content to Recommendation Server.
  */
-final class Exporter implements ExporterInterface
+final class Exporter implements ExporterInterface, LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     private const API_ENDPOINT_URL = '%s/api/ezp/v2/ez_recommendation/v1/exportDownload/%s';
+    private const FILE_FORMAT_NAME = '%s_%s_%d';
 
-    /** @var \eZ\Publish\API\Repository\Repository */
-    private $repository;
+    private DataSourceServiceInterface $dataSourceService;
 
-    /** @var \EzSystems\EzRecommendationClient\File\ExportFileGenerator */
-    private $exportFileGenerator;
+    private ExportServiceInterface $exportService;
 
-    /** @var \eZ\Publish\API\Repository\ContentTypeService */
-    private $contentTypeService;
+    private IncludedItemTypeResolverInterface $itemTypeResolver;
 
-    /** @var \EzSystems\EzRecommendationClient\Service\ContentServiceInterface */
-    private $contentService;
+    private ExportFileGeneratorInterface $exportFileGenerator;
 
-    /** @var \EzSystems\EzRecommendationClient\Helper\ContentHelper */
-    private $contentHelper;
+    private FileManagerInterface $fileManager;
 
-    /** @var \Psr\Log\LoggerInterface */
-    private $logger;
+    private ExportNotificationServiceInterface $notificationService;
 
     public function __construct(
-        Repository $repository,
-        ExportFileGenerator $exportFileGenerator,
-        ContentTypeServiceInterface $contentTypeService,
-        ContentServiceInterface $contentService,
-        ContentHelper $contentHelper,
-        LoggerInterface $logger
+        DataSourceServiceInterface $dataSourceService,
+        ExportServiceInterface $exportService,
+        IncludedItemTypeResolverInterface $itemTypeResolver,
+        ExportFileGeneratorInterface $exportFileGenerator,
+        FileManagerInterface $fileManager,
+        ExportNotificationServiceInterface $notificationService
     ) {
-        $this->repository = $repository;
+        $this->dataSourceService = $dataSourceService;
+        $this->exportService = $exportService;
+        $this->itemTypeResolver = $itemTypeResolver;
         $this->exportFileGenerator = $exportFileGenerator;
-        $this->contentTypeService = $contentTypeService;
-        $this->contentService = $contentService;
-        $this->contentHelper = $contentHelper;
-        $this->logger = $logger;
+        $this->fileManager = $fileManager;
+        $this->notificationService = $notificationService;
+        $this->logger = new NullLogger();
     }
 
     /**
-     * {@inheritdoc}
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \Exception
      */
-    public function run(Parameters $parameters, string $chunkDir, OutputInterface $output): array
+    public function export(Parameters $parameters): void
     {
-        $urls = [];
+        try {
+            $events = $this->getExportEvents($parameters);
 
-        $output->writeln(sprintf('Exporting %s content types', \count($parameters->getItemTypeIdentifierList())));
+            $this->logger->info(sprintf('Exporting %s item types', $events->countItemTypes()));
 
-        foreach ($parameters->getItemTypeIdentifierList() as $id) {
-            $contentTypeId = (int)$id;
-            $urls[$contentTypeId] = $this->getContentForGivenLanguages($contentTypeId, $chunkDir, $parameters, $output);
+            $response = $this->notificationService->sendNotification($parameters, $events);
+
+            if (null === $response) {
+                $this->logger->info('Ibexa Recommendation Response: no response');
+
+                return;
+            }
+
+            $this->logger->info(sprintf('Ibexa Recommendation Response: %s', $response->getBody()));
+        } catch (Exception $e) {
+            $this->logger->error(sprintf('Error during export: %s', $e->getMessage()));
+
+            throw $e;
+        }
+    }
+
+    public function hasExportItems(Parameters $parameters): bool
+    {
+        return $this->dataSourceService->getItems($this->createCriteria($parameters, false))->count() > 0;
+    }
+
+    public function getExportEvents(Parameters $parameters): EventList
+    {
+        $this->fileManager->lock();
+
+        $siteAccess = $parameters->getSiteaccess();
+        $chunkDir = $this->fileManager->createChunkDir();
+        $credentials = $this->exportService->getCredentials($siteAccess);
+        $generatedEvents = [];
+
+        if (ExportMethod::BASIC === $this->exportService->getAuthenticationMethod($siteAccess)) {
+            $this->secureDir($chunkDir, $credentials);
         }
 
-        return $urls;
+        $this->logger->info('Fetching items from data sources');
+
+        $groupedItems = $this->dataSourceService->getGroupedItems(
+            $this->createCriteria($parameters, true),
+            SupportedGroupItemStrategy::GROUP_BY_ITEM_TYPE_AND_LANGUAGE
+        );
+
+        foreach ($groupedItems->getGroups() as $group) {
+            $generatedEvents[] = $this->createEvent($group, $chunkDir, $parameters, $credentials);
+        }
+
+        $this->fileManager->unlock();
+
+        return new EventList($generatedEvents);
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     */
-    private function getContentForGivenLanguages(
-        int $contentTypeId,
+    private function secureDir(string $chunkDir, Credentials $credentials): void
+    {
+        [$login, $password] = [$credentials->getLogin(), $credentials->getPassword()];
+
+        if (isset($login, $password)) {
+            $this->fileManager->secureDir($chunkDir, $login, $password);
+        }
+    }
+
+    private function createCriteria(Parameters $parameters, bool $useLogger): CriteriaInterface
+    {
+        return new Criteria(
+            $this->itemTypeResolver->resolve(
+                $parameters->getItemTypeIdentifierList(),
+                $useLogger,
+                $parameters->getSiteaccess()
+            ),
+            $parameters->getLanguages(),
+            $parameters->getPageSize()
+        );
+    }
+
+    private function createEvent(
+        ItemGroupInterface $itemGroup,
         string $chunkDir,
         Parameters $parameters,
-        OutputInterface $output): array
-    {
-        $contents = [];
+        Credentials $credentials
+    ): Event {
+        $generatedUrls = [];
+        $items = $itemGroup->getItems();
+        $itemType = $items->first()->getType();
+        [$identifier, $language] = explode('_', $itemGroup->getIdentifier());
+        $count = $items->count();
+        $pageSize = $parameters->getPageSize();
+        $length = ceil($count / $pageSize);
+        $this->logger->info(
+            sprintf(
+                'Fetching %s items of item type: identifier %s (language: %s)',
+                $count,
+                $identifier,
+                $language
+            )
+        );
 
-        foreach ($parameters->languages as $lang) {
-            $parameters->lang = $lang;
+        for ($i = 1; $i <= $length; ++$i) {
+            $page = $i;
+            $offset = $page * $pageSize - $pageSize;
+            $filename = sprintf(self::FILE_FORMAT_NAME, $identifier, $language, $page);
+            $chunkPath = $chunkDir . $filename;
+            $exportFileSettings = new FileSettings(
+                $items->slice($offset, $pageSize),
+                $identifier,
+                $language,
+                $page,
+                $chunkPath
+            );
 
-            $options = [
-                'lang' => $lang,
-                'languages' => $parameters->getLanguages(),
-                'pageSize' => $parameters->getPageSize(),
-                'customerId' => $parameters->getCustomerId(),
-                'siteaccess' => $parameters->getSiteaccess(),
-            ];
-            $count = $this->contentHelper->countContentItemsByContentTypeId($contentTypeId, $options);
-
-            $info = sprintf('Fetching %s items of contentTypeId %s (language: %s)', $count, $contentTypeId, $parameters->lang);
-            $output->writeln($info);
-            $this->logger->info($info);
-
-            for ($i = 1; $i <= ceil($count / $parameters->pageSize); ++$i) {
-                $filename = sprintf('%d_%s_%d', $contentTypeId, $lang, $i);
-                $chunkPath = $chunkDir . $filename;
-                $parameters->page = $i;
-
-                $this->generateFileForContentType($contentTypeId, $chunkPath, $parameters, $output);
-
-                $contents[$lang] = $this->generateUrlList(
-                    $contentTypeId,
-                    $parameters->lang,
-                    $this->generateUrl($parameters->host, $chunkPath, $output)
-                );
-            }
+            $this->generateExportFile($exportFileSettings);
+            $generatedUrls[] = $this->generateFileUrl($parameters->getHost(), $chunkPath);
         }
 
-        return $contents;
+        $this->checkItemTypeIdentifiers($identifier, $items);
+
+        return new Event(
+            $itemType->getId(),
+            $itemType->getName(),
+            $language,
+            $generatedUrls,
+            $credentials
+        );
     }
 
-    private function generateFileForContentType(
-        int $contentTypeId,
-        string $chunkPath,
-        Parameters $parameters,
-        OutputInterface $output): void
+    private function generateExportFile(FileSettings $exportFileSettings): void
     {
-        $content = $this->repository->sudo(
-            function () use ($contentTypeId, $parameters, $output) {
-                return $this->contentService->fetchContent($contentTypeId, $parameters, $output);
-            }
-        );
-
-        $output->writeln(sprintf(
-            'Generating file for contentTypeId: %s, language: %s, chunk: #%s',
-            $contentTypeId,
-            $parameters->lang,
-            $parameters->page
+        $this->logger->info(sprintf(
+            'Generating file for item type identifier: %s, language: %s, chunk: #%s',
+            $exportFileSettings->getIdentifier(),
+            $exportFileSettings->getLanguage(),
+            $exportFileSettings->getChunkPath()
         ));
 
-        $this->exportFileGenerator->generateFile($content, $chunkPath, $parameters->getProperties());
-
-        unset($content);
+        $this->exportFileGenerator->generate($exportFileSettings);
     }
 
-    private function generateUrl(string $host, string $chunkPath, OutputInterface $output): string
+    private function generateFileUrl(string $host, string $chunkPath): string
     {
-        $url = sprintf(
-            self::API_ENDPOINT_URL,
-            $host, $chunkPath
-        );
-
-        $info = sprintf('Generating url: %s', $url);
-        $output->writeln($info);
-        $this->logger->info($info);
+        $url = sprintf(self::API_ENDPOINT_URL, $host, $chunkPath);
+        $this->logger->info(sprintf('Generating url: %s', $url));
 
         return $url;
     }
 
     /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
+     * @param iterable<\Ibexa\Contracts\PersonalizationClient\Value\ItemInterface> $items
      */
-    private function generateUrlList(int $contentTypeId, string $lang, string $url): array
+    private function checkItemTypeIdentifiers(string $groupItemTypeIdentifier, iterable $items): void
     {
-        $contentType = $this->contentTypeService->loadContentType($contentTypeId);
+        foreach ($items as $item) {
+            $itemTypeIdentifier = $item->getType()->getIdentifier();
 
-        return [
-            'urlList' => [$url],
-            'contentTypeName' => $contentType->getName($lang) ?? $contentType->getName($contentType->mainLanguageCode),
-        ];
+            if ($groupItemTypeIdentifier !== $itemTypeIdentifier) {
+                $this->logger->info(sprintf(
+                    'Item: %s has different item type identifier: %s than group item type %s',
+                    $item->getId(),
+                    $itemTypeIdentifier,
+                    $groupItemTypeIdentifier
+                ));
+            }
+        }
     }
 }

@@ -9,9 +9,15 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Exporter;
 
 use Ibexa\PersonalizationClient\Value\Export\Parameters;
-use Symfony\Component\Console\Output\OutputInterface;
 
 interface ExporterInterface
 {
-    public function run(Parameters $parameters, string $chunkDir, OutputInterface $output): array;
+    public function export(Parameters $parameters): void;
+
+    /**
+     * @return iterable<\Ibexa\PersonalizationClient\Value\Export\Event>
+     */
+    public function getExportEvents(Parameters $parameters): iterable;
+
+    public function hasExportItems(Parameters $parameters): bool;
 }

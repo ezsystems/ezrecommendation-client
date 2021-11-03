@@ -4,11 +4,11 @@ services:
         autoconfigure: true
         public: false
 
-    EzSystems\EzRecommendationClient\Exporter\:
-        resource: '../../../../src/lib/Exporter/*'
-
     EzSystems\EzRecommendationClient\Exporter\Exporter:
-        arguments:
-            $repository: '@ezpublish.api.repository'
         tags:
-            - { name: monolog.logger, channel: ezrecommendation }
+            - { name: monolog.logger, channel: ibexa-recommendation }
+        arguments:
+            $notificationService: '@EzSystems\EzRecommendationClient\Service\ExportNotificationService'
+
+    EzSystems\EzRecommendationClient\Exporter\ExporterInterface:
+        '@EzSystems\EzRecommendationClient\Exporter\Exporter'
