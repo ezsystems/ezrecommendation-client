@@ -8,11 +8,12 @@ declare(strict_types=1);
 
 namespace Ibexa\PersonalizationClient\Strategy\Credentials;
 
-use EzSystems\EzRecommendationClient\Value\ExportMethod;
 use Ibexa\PersonalizationClient\Value\Export\Credentials;
 
 final class NoneMethodStrategy implements ExportCredentialsStrategyInterface
 {
+    public const EXPORT_AUTH_METHOD_TYPE = 'none';
+
     public function getCredentials(?string $siteAccess = null): Credentials
     {
         return new Credentials();
@@ -20,6 +21,6 @@ final class NoneMethodStrategy implements ExportCredentialsStrategyInterface
 
     public static function getIndex(): string
     {
-        return ExportMethod::NONE;
+        return self::EXPORT_AUTH_METHOD_TYPE;
     }
 }

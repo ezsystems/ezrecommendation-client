@@ -8,12 +8,13 @@ declare(strict_types=1);
 
 namespace Ibexa\PersonalizationClient\Strategy\Credentials;
 
-use EzSystems\EzRecommendationClient\Value\ExportMethod;
 use Ibexa\PersonalizationClient\Generator\UniqueStringGeneratorInterface;
 use Ibexa\PersonalizationClient\Value\Export\Credentials;
 
 final class BasicMethodStrategy implements ExportCredentialsStrategyInterface
 {
+    public const EXPORT_AUTH_METHOD_TYPE = 'basic';
+
     private const LOGIN_LENGTH = 10;
     private const PASSWORD_LENGTH = 30;
 
@@ -34,6 +35,6 @@ final class BasicMethodStrategy implements ExportCredentialsStrategyInterface
 
     public static function getIndex(): string
     {
-        return ExportMethod::BASIC;
+        return self::EXPORT_AUTH_METHOD_TYPE;
     }
 }

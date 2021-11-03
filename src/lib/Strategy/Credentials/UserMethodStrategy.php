@@ -9,11 +9,12 @@ declare(strict_types=1);
 namespace Ibexa\PersonalizationClient\Strategy\Credentials;
 
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
-use EzSystems\EzRecommendationClient\Value\ExportMethod;
 use Ibexa\PersonalizationClient\Value\Export\Credentials;
 
 final class UserMethodStrategy implements ExportCredentialsStrategyInterface
 {
+    public const EXPORT_AUTH_METHOD_TYPE = 'user';
+
     private CredentialsResolverInterface $credentialsResolver;
 
     public function __construct(CredentialsResolverInterface $credentialsResolver)
@@ -31,6 +32,6 @@ final class UserMethodStrategy implements ExportCredentialsStrategyInterface
 
     public static function getIndex(): string
     {
-        return ExportMethod::USER;
+        return self::EXPORT_AUTH_METHOD_TYPE;
     }
 }
