@@ -36,7 +36,7 @@ final class SecureUniqueStringGenerator implements UniqueStringGeneratorInterfac
 
         $value = '';
         for ($i = 0; $i < $length; ++$i) {
-            $value .= $this->alphabet[random_int(0, $this->alphabetLength)];
+            $value .= $this->alphabet[random_int(0, $this->alphabetLength - 1)];
         }
 
         return $value;
