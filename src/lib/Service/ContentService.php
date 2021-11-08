@@ -13,6 +13,7 @@ use eZ\Publish\API\Repository\ContentTypeService as ContentTypeServiceInterface;
 use eZ\Publish\API\Repository\Exceptions\UnauthorizedException;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\Content as APIContent;
+use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\API\Repository\Values\ContentType\ContentType as APIContentType;
 use eZ\Publish\Core\Repository\Values\Content\Content as CoreContent;
 use EzSystems\EzRecommendationClient\Field\Value;
@@ -149,12 +150,14 @@ final class ContentService implements ContentServiceInterface
      *
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
      */
     public function setContent(CoreContent $content, ContentOptions $options): array
     {
-        $contentType = $this->contentTypeService->loadContentType($content->contentInfo->contentTypeId);
+        $contentInfo = $content->contentInfo;
+        $contentType = $this->contentTypeService->loadContentType($contentInfo->contentTypeId);
         $this->value->setFieldDefinitionsList($contentType);
-        $location = $this->locationService->loadLocation($content->contentInfo->mainLocationId);
+        $location = $this->locationService->loadLocation($contentInfo->mainLocationId);
         $language = $options->lang ?? $location->contentInfo->mainLanguageCode;
 
         $uriParams = [
@@ -176,9 +179,26 @@ final class ContentService implements ContentServiceInterface
             'locations' => [
                 'href' => '/api/ezp/v2/content/objects/' . $content->id . '/locations',
             ],
-            'categoryPath' => $location->pathString,
+            'categoryPath' => $this->getCategoryPaths($contentInfo),
             'fields' => $this->setFields($content, $contentType, $options, $language),
         ];
+    }
+
+    /**
+     * @return array<string>
+     *
+     * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     */
+    private function getCategoryPaths(ContentInfo $contentInfo): array
+    {
+        $categoryPaths = [];
+        $locations = $this->locationService->loadLocations($contentInfo);
+
+        foreach ($locations as $location) {
+            $categoryPaths[] = $location->pathString;
+        }
+
+        return $categoryPaths;
     }
 
     /**
