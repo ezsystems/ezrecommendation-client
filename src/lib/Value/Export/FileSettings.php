@@ -13,9 +13,13 @@ use Ibexa\Contracts\PersonalizationClient\Value\ItemListInterface;
 final class FileSettings
 {
     private ItemListInterface $itemList;
+
     private string $identifier;
+
     private string $language;
+
     private int $page;
+
     private string $chunkPath;
 
     public function __construct(
