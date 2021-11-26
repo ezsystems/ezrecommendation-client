@@ -74,6 +74,15 @@ final class LoginListener
             return;
         }
 
+        $customerId = $this->configResolver->getParameter(
+            'authentication.customer_id',
+            Parameters::NAMESPACE
+        );
+
+        if (empty($customerId)) {
+            return;
+        }
+
         if (!$event->getRequest()->cookies->has(RecommendationSession::RECOMMENDATION_SESSION_KEY)) {
             if (!$this->session->isStarted()) {
                 $this->session->start();
