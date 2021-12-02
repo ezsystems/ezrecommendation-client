@@ -31,23 +31,24 @@ final class UserHelper
     /**
      * @throws \Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException
      */
-    public function getCurrentUser(): string
+    public function getCurrentUser(): ?string
     {
         if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY') // user has just logged in
             && !$this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED') // user has logged in using remember_me cookie
         ) {
-            return '';
+            return null;
         }
 
         $authenticationToken = $this->tokenStorage->getToken();
-        $user = $authenticationToken->getUser();
+        if (null === $authenticationToken) {
+            return null;
+        }
 
-        if (is_string($user)) {
-            return $user;
-        } elseif ($user instanceof UserInterface) {
+        $user = $authenticationToken->getUser();
+        if ($user instanceof UserInterface) {
             return (string) $user->getAPIUser()->id;
         }
 
-        return (string) $authenticationToken->getUsername();
+        return $authenticationToken->getUserIdentifier();
     }
 }
