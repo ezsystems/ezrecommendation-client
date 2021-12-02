@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\PersonalizationClient\Event\Listener;
 
-use eZ\Publish\API\Repository\UserService;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Event\Listener\LoginListener;
@@ -29,7 +28,7 @@ final class LoginListenerTest extends TestCase
 {
     private const RECOMMENDATION_SESSION_KEY = 'recommendation-session-id';
     private const SESSION_ID = 'eZSESSID123456789';
-    private const CUSTOMER_ID = 12345;
+    private const CUSTOMER_ID = '12345';
     private const ENDPOINT_URL = 'https://reco.engine.test';
     private const CONFIG_NAMESPACE = 'ezrecommendation';
 
@@ -44,9 +43,6 @@ final class LoginListenerTest extends TestCase
 
     /** @var \GuzzleHttp\Client|\PHPUnit\Framework\MockObject\MockObject */
     private $guzzleClient;
-
-    /** @var \eZ\Publish\API\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
-    private $userService;
 
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $configResolver;
@@ -66,7 +62,6 @@ final class LoginListenerTest extends TestCase
         $this->session = $this->createMock(SessionInterface::class);
         $this->client = $this->createMock(EzRecommendationClientInterface::class);
         $this->guzzleClient = $this->createMock(Client::class);
-        $this->userService = $this->createMock(UserService::class);
         $this->configResolver = $this->createMock(ConfigResolverInterface::class);
         $this->logger = $this->createMock(LoggerInterface::class);
         $this->token = $this->createMock(TokenInterface::class);
@@ -74,7 +69,6 @@ final class LoginListenerTest extends TestCase
             $this->authorizationChecker,
             $this->session,
             $this->client,
-            $this->userService,
             $this->configResolver,
             $this->logger
         );
@@ -88,6 +82,19 @@ final class LoginListenerTest extends TestCase
     public function testDoNotStartSessionWhenUserIsNotAuthenticated(): void
     {
         $this->configureAuthorizationCheckerToReturnIsUserAuthenticated(false, false);
+        $this->assertSessionNotStarted(false);
+    }
+
+    public function testDoNotStartSessionWhenCustomerIdIsNotConfigured(): void
+    {
+        $this->configureAuthorizationCheckerToReturnIsUserAuthenticated(true, true);
+
+        $this->configResolver
+            ->expects(self::once())
+            ->method('getParameter')
+            ->with('authentication.customer_id', self::CONFIG_NAMESPACE)
+            ->willReturn('');
+
         $this->assertSessionNotStarted(false);
     }
 
@@ -205,9 +212,11 @@ final class LoginListenerTest extends TestCase
             ->method('getParameter')
             ->withConsecutive(
                 ['authentication.customer_id', self::CONFIG_NAMESPACE],
+                ['authentication.customer_id', self::CONFIG_NAMESPACE],
                 ['api.event_tracking.endpoint', self::CONFIG_NAMESPACE],
             )
             ->willReturnOnConsecutiveCalls(
+                self::CUSTOMER_ID,
                 self::CUSTOMER_ID,
                 self::ENDPOINT_URL
             );
@@ -215,9 +224,9 @@ final class LoginListenerTest extends TestCase
 
     private function getEndpointUri(
         string $endpointUrl,
-        int $customerId,
+        string $customerId,
         string $sessionId
     ): string {
-        return sprintf($endpointUrl . '/api/%d/login/%s/', $customerId, $sessionId);
+        return sprintf($endpointUrl . '/api/%s/login/%s/', $customerId, $sessionId);
     }
 }

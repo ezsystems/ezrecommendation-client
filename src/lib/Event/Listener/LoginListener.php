@@ -8,7 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Event\Listener;
 
-use eZ\Publish\API\Repository\UserService as UserServiceInterface;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Value\Parameters;
@@ -34,9 +33,6 @@ final class LoginListener
     /** @var \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface */
     private $client;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
-    private $userService;
-
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
@@ -50,14 +46,12 @@ final class LoginListener
         AuthorizationCheckerInterface $authorizationChecker,
         SessionInterface $session,
         EzRecommendationClientInterface $client,
-        UserServiceInterface $userService,
         ConfigResolverInterface $configResolver,
         LoggerInterface $logger
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->session = $session;
         $this->client = $client;
-        $this->userService = $userService;
         $this->configResolver = $configResolver;
         $this->logger = $logger;
     }
@@ -74,12 +68,7 @@ final class LoginListener
             return;
         }
 
-        $customerId = $this->configResolver->getParameter(
-            'authentication.customer_id',
-            Parameters::NAMESPACE
-        );
-
-        if (empty($customerId)) {
+        if (empty($this->getCustomerId())) {
             return;
         }
 
@@ -108,15 +97,20 @@ final class LoginListener
         }
     }
 
+    private function getCustomerId(): ?string
+    {
+        return (string) $this->configResolver->getParameter(
+            'authentication.customer_id',
+            Parameters::NAMESPACE
+        );
+    }
+
     /**
      * Returns notification API end-point.
      */
     private function getNotificationEndpoint(): string
     {
-        $customerId = $this->configResolver->getParameter(
-            'authentication.customer_id',
-            Parameters::NAMESPACE
-        );
+        $customerId = $this->getCustomerId();
         $trackingEndPoint = $this->configResolver->getParameter(
             Parameters::API_SCOPE . '.event_tracking.endpoint',
             Parameters::NAMESPACE
