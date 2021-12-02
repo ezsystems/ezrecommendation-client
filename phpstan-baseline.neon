@@ -21,11 +21,6 @@ parameters:
 			path: src/bundle/Command/UserAttributesUpdateCommand.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentController\\:\\:getQuery\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentController.php
-
-		-
 			message: "#^PHPDoc tag @param has invalid value \\(\\\\Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag ParameterBag \\$parameterBag\\)\\: Unexpected token \"ParameterBag\", expected variable at offset 65$#"
 			count: 1
 			path: src/bundle/Controller/ContentController.php
@@ -49,11 +44,6 @@ parameters:
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$lang \\(string\\|null\\) does not accept bool\\|float\\|int\\|string\\|null\\.$#"
 			count: 1
 			path: src/bundle/Controller/ContentController.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentTypeController\\:\\:getQuery\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentTypeController\\:\\:prepareContentByContentTypeIds\\(\\) has parameter \\$contentTypeIds with no value type specified in iterable type array\\.$#"
@@ -366,6 +356,11 @@ parameters:
 			path: src/lib/Event/Listener/LoginListener.php
 
 		-
+			message: "#^Call to function is_string\\(\\) with Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserInterface\\|null will always evaluate to false\\.$#"
+			count: 1
+			path: src/lib/Event/Listener/LoginListener.php
+
+		-
 			message: "#^Cannot call method debug\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
 			count: 2
 			path: src/lib/Event/Listener/LoginListener.php
@@ -381,14 +376,9 @@ parameters:
 			path: src/lib/Event/Listener/LoginListener.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:__construct\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
+			message: "#^Parameter \\#1 \\$object of function method_exists expects object\\|string, Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserInterface\\|null given\\.$#"
 			count: 1
-			path: src/lib/Event/RecommendationResponseEvent.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:getParameterBag\\(\\) return type has no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Event/RecommendationResponseEvent.php
+			path: src/lib/Event/Listener/LoginListener.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:getParameterBag\\(\\) should return Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag but returns Psr\\\\Http\\\\Message\\\\ResponseInterface\\|null\\.$#"
@@ -427,11 +417,6 @@ parameters:
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationEventSubscriber\\:\\:extractRecommendationItems\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationEventSubscriber\\:\\:getRecommendationRequest\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
 
@@ -826,11 +811,6 @@ parameters:
 			path: src/lib/Helper/ExportProcessRunnerHelper.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ExportProcessRunnerHelper\\:\\:run\\(\\) return type has no value type specified in iterable type Symfony\\\\Component\\\\Process\\\\Process\\.$#"
-			count: 1
-			path: src/lib/Helper/ExportProcessRunnerHelper.php
-
-		-
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ExportProcessRunnerHelper\\:\\:\\$phpPath \\(string\\) does not accept string\\|false\\.$#"
 			count: 1
 			path: src/lib/Helper/ExportProcessRunnerHelper.php
@@ -911,6 +891,11 @@ parameters:
 			path: src/lib/Helper/SiteAccessHelper.php
 
 		-
+			message: "#^Call to function is_string\\(\\) with Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserInterface\\|null will always evaluate to false\\.$#"
+			count: 1
+			path: src/lib/Helper/UserHelper.php
+
+		-
 			message: "#^Cannot call method getUser\\(\\) on Symfony\\\\Component\\\\Security\\\\Core\\\\Authentication\\\\Token\\\\TokenInterface\\|null\\.$#"
 			count: 1
 			path: src/lib/Helper/UserHelper.php
@@ -919,51 +904,6 @@ parameters:
 			message: "#^Cannot call method getUsername\\(\\) on Symfony\\\\Component\\\\Security\\\\Core\\\\Authentication\\\\Token\\\\TokenInterface\\|null\\.$#"
 			count: 1
 			path: src/lib/Helper/UserHelper.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getCustomerId\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getFields\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getImage\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getLang\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getLicenseKey\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getPath\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getSiteAccess\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getVisibility\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\ExportRequestMapper\\:\\:getWebHook\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
 
 		-
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$fields \\(array\\<string\\>\\) does not accept string\\|null\\.$#"
