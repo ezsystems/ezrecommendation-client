@@ -123,7 +123,6 @@ final class LoginListener
     private function getUser(TokenInterface $authenticationToken): string
     {
         $user = $authenticationToken->getUser();
-
         if ($user instanceof UserInterface) {
             return (string) $user->getAPIUser()->id;
         }

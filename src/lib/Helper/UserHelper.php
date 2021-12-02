@@ -9,23 +9,16 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Helper;
 
 use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 final class UserHelper
 {
-    /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface */
-    private $authorizationChecker;
+    /** @var \Symfony\Component\Security\Core\Security */
+    private $security;
 
-    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
-    private $tokenStorage;
-
-    public function __construct(
-        AuthorizationCheckerInterface $authorizationChecker,
-        TokenStorageInterface $tokenStorage
-    ) {
-        $this->authorizationChecker = $authorizationChecker;
-        $this->tokenStorage = $tokenStorage;
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
     }
 
     /**
@@ -33,22 +26,21 @@ final class UserHelper
      */
     public function getCurrentUser(): ?string
     {
-        if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY') // user has just logged in
-            && !$this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED') // user has logged in using remember_me cookie
+        if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY') // user has just logged in
+            && !$this->security->isGranted('IS_AUTHENTICATED_REMEMBERED') // user has logged in using remember_me cookie
         ) {
             return null;
         }
 
-        $authenticationToken = $this->tokenStorage->getToken();
-        if (null === $authenticationToken) {
+        $user = $this->security->getUser();
+        if (null === $user) {
             return null;
         }
 
-        $user = $authenticationToken->getUser();
         if ($user instanceof UserInterface) {
             return (string) $user->getAPIUser()->id;
         }
 
-        return $authenticationToken->getUserIdentifier();
+        return $user->getUserIdentifier();
     }
 }
