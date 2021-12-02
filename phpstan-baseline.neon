@@ -376,6 +376,11 @@ parameters:
 			path: src/lib/Event/Listener/LoginListener.php
 
 		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Listener\\\\LoginListener\\:\\:getCustomerId\\(\\) never returns null so it can be removed from the return typehint\\.$#"
+			count: 1
+			path: src/lib/Event/Listener/LoginListener.php
+
+		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:__construct\\(\\) has parameter \\$parameterBag with no value type specified in iterable type Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag\\.$#"
 			count: 1
 			path: src/lib/Event/RecommendationResponseEvent.php
