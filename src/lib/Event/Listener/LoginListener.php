@@ -10,6 +10,7 @@ namespace EzSystems\EzRecommendationClient\Event\Listener;
 
 use eZ\Publish\API\Repository\UserService as UserServiceInterface;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 use EzSystems\EzRecommendationClient\Value\Session as RecommendationSession;
@@ -122,13 +123,10 @@ final class LoginListener
     private function getUser(TokenInterface $authenticationToken): string
     {
         $user = $authenticationToken->getUser();
-
-        if (\is_string($user)) {
-            return $user;
-        } elseif (method_exists($user, 'getAPIUser')) {
+        if ($user instanceof UserInterface) {
             return (string) $user->getAPIUser()->id;
         }
 
-        return (string) $authenticationToken->getUsername();
+        return $authenticationToken->getUserIdentifier();
     }
 }
