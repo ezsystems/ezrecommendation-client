@@ -98,7 +98,7 @@ final class LoginListener
         }
     }
 
-    private function getCustomerId(): ?string
+    private function getCustomerId(): string
     {
         return (string) $this->configResolver->getParameter(
             'authentication.customer_id',
