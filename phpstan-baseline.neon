@@ -356,27 +356,12 @@ parameters:
 			path: src/lib/Event/Listener/LoginListener.php
 
 		-
-			message: "#^Call to function is_string\\(\\) with Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserInterface\\|null will always evaluate to false\\.$#"
-			count: 1
-			path: src/lib/Event/Listener/LoginListener.php
-
-		-
 			message: "#^Cannot call method debug\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
 			count: 2
 			path: src/lib/Event/Listener/LoginListener.php
 
 		-
 			message: "#^Cannot call method error\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
-			count: 1
-			path: src/lib/Event/Listener/LoginListener.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Listener\\\\LoginListener\\:\\:getCustomerId\\(\\) never returns null so it can be removed from the return typehint\\.$#"
-			count: 1
-			path: src/lib/Event/Listener/LoginListener.php
-
-		-
-			message: "#^Parameter \\#1 \\$object of function method_exists expects object\\|string, Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserInterface\\|null given\\.$#"
 			count: 1
 			path: src/lib/Event/Listener/LoginListener.php
 
@@ -889,21 +874,6 @@ parameters:
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Helper\\\\SiteAccessHelper\\:\\:\\$siteAccessConfig type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Helper/SiteAccessHelper.php
-
-		-
-			message: "#^Call to function is_string\\(\\) with Symfony\\\\Component\\\\Security\\\\Core\\\\User\\\\UserInterface\\|null will always evaluate to false\\.$#"
-			count: 1
-			path: src/lib/Helper/UserHelper.php
-
-		-
-			message: "#^Cannot call method getUser\\(\\) on Symfony\\\\Component\\\\Security\\\\Core\\\\Authentication\\\\Token\\\\TokenInterface\\|null\\.$#"
-			count: 1
-			path: src/lib/Helper/UserHelper.php
-
-		-
-			message: "#^Cannot call method getUsername\\(\\) on Symfony\\\\Component\\\\Security\\\\Core\\\\Authentication\\\\Token\\\\TokenInterface\\|null\\.$#"
-			count: 1
-			path: src/lib/Helper/UserHelper.php
 
 		-
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$fields \\(array\\<string\\>\\) does not accept string\\|null\\.$#"

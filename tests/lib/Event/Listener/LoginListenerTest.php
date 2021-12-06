@@ -17,6 +17,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Authentication\Token\AbstractToken;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
@@ -64,7 +65,7 @@ final class LoginListenerTest extends TestCase
         $this->guzzleClient = $this->createMock(Client::class);
         $this->configResolver = $this->createMock(ConfigResolverInterface::class);
         $this->logger = $this->createMock(LoggerInterface::class);
-        $this->token = $this->createMock(TokenInterface::class);
+        $this->token = $this->createMock(AbstractToken::class);
         $this->loginListener = new LoginListener(
             $this->authorizationChecker,
             $this->session,

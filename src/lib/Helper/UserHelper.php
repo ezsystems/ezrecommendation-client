@@ -9,45 +9,38 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Helper;
 
 use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Security;
 
 final class UserHelper
 {
-    /** @var \Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface */
-    private $authorizationChecker;
+    /** @var \Symfony\Component\Security\Core\Security */
+    private $security;
 
-    /** @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface */
-    private $tokenStorage;
-
-    public function __construct(
-        AuthorizationCheckerInterface $authorizationChecker,
-        TokenStorageInterface $tokenStorage
-    ) {
-        $this->authorizationChecker = $authorizationChecker;
-        $this->tokenStorage = $tokenStorage;
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
     }
 
     /**
      * @throws \Symfony\Component\Security\Core\Exception\AuthenticationCredentialsNotFoundException
      */
-    public function getCurrentUser(): string
+    public function getCurrentUser(): ?string
     {
-        if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY') // user has just logged in
-            && !$this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED') // user has logged in using remember_me cookie
+        if (!$this->security->isGranted('IS_AUTHENTICATED_FULLY') // user has just logged in
+            && !$this->security->isGranted('IS_AUTHENTICATED_REMEMBERED') // user has logged in using remember_me cookie
         ) {
-            return '';
+            return null;
         }
 
-        $authenticationToken = $this->tokenStorage->getToken();
-        $user = $authenticationToken->getUser();
+        $user = $this->security->getUser();
+        if (null === $user) {
+            return null;
+        }
 
-        if (is_string($user)) {
-            return $user;
-        } elseif ($user instanceof UserInterface) {
+        if ($user instanceof UserInterface) {
             return (string) $user->getAPIUser()->id;
         }
 
-        return (string) $authenticationToken->getUsername();
+        return $user->getUserIdentifier();
     }
 }
