@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace Ibexa\Tests\PersonalizationClient\Event\Listener;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Event\Listener\LoginListener;
 use GuzzleHttp\Client;
@@ -29,7 +31,7 @@ final class LoginListenerTest extends TestCase
 {
     private const RECOMMENDATION_SESSION_KEY = 'recommendation-session-id';
     private const SESSION_ID = 'eZSESSID123456789';
-    private const CUSTOMER_ID = '12345';
+    private const CUSTOMER_ID = 12345;
     private const ENDPOINT_URL = 'https://reco.engine.test';
     private const CONFIG_NAMESPACE = 'ezrecommendation';
 
@@ -57,6 +59,9 @@ final class LoginListenerTest extends TestCase
     /** @var \EzSystems\EzRecommendationClient\Event\Listener\LoginListener */
     private $loginListener;
 
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService */
+    private $siteAccessService;
+
     protected function setUp(): void
     {
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
@@ -66,12 +71,14 @@ final class LoginListenerTest extends TestCase
         $this->configResolver = $this->createMock(ConfigResolverInterface::class);
         $this->logger = $this->createMock(LoggerInterface::class);
         $this->token = $this->createMock(AbstractToken::class);
+        $this->siteAccessService = $this->createMock(SiteAccessService::class);
         $this->loginListener = new LoginListener(
             $this->authorizationChecker,
             $this->session,
             $this->client,
             $this->configResolver,
-            $this->logger
+            $this->logger,
+            $this->siteAccessService
         );
     }
 
@@ -90,11 +97,22 @@ final class LoginListenerTest extends TestCase
     {
         $this->configureAuthorizationCheckerToReturnIsUserAuthenticated(true, true);
 
-        $this->configResolver
+        $this->siteAccessService
             ->expects(self::once())
+            ->method('getCurrent')
+            ->willReturn(new SiteAccess('ezdemo_site'));
+
+        $this->configResolver
+            ->expects(self::atLeastOnce())
             ->method('getParameter')
-            ->with('authentication.customer_id', self::CONFIG_NAMESPACE)
-            ->willReturn('');
+            ->withConsecutive(
+                ['api.event_tracking.endpoint', self::CONFIG_NAMESPACE],
+                ['authentication.customer_id', self::CONFIG_NAMESPACE],
+            )
+            ->willReturnOnConsecutiveCalls(
+                self::ENDPOINT_URL,
+                null
+            );
 
         $this->assertSessionNotStarted(false);
     }
@@ -208,26 +226,29 @@ final class LoginListenerTest extends TestCase
 
     private function configureConfigResolverToReturnEndpointParameters(): void
     {
+        $this->siteAccessService
+            ->expects(self::once())
+            ->method('getCurrent')
+            ->willReturn(new SiteAccess('ezdemo_site'));
+
         $this->configResolver
             ->expects(self::atLeastOnce())
             ->method('getParameter')
             ->withConsecutive(
-                ['authentication.customer_id', self::CONFIG_NAMESPACE],
-                ['authentication.customer_id', self::CONFIG_NAMESPACE],
                 ['api.event_tracking.endpoint', self::CONFIG_NAMESPACE],
+                ['authentication.customer_id', self::CONFIG_NAMESPACE],
             )
             ->willReturnOnConsecutiveCalls(
-                self::CUSTOMER_ID,
-                self::CUSTOMER_ID,
-                self::ENDPOINT_URL
+                self::ENDPOINT_URL,
+                self::CUSTOMER_ID
             );
     }
 
     private function getEndpointUri(
         string $endpointUrl,
-        string $customerId,
+        int $customerId,
         string $sessionId
     ): string {
-        return sprintf($endpointUrl . '/api/%s/login/%s/', $customerId, $sessionId);
+        return sprintf($endpointUrl . '/api/%d/login/%s/', $customerId, $sessionId);
     }
 }

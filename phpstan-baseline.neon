@@ -356,12 +356,7 @@ parameters:
 			path: src/lib/Event/Listener/LoginListener.php
 
 		-
-			message: "#^Cannot call method debug\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
-			count: 2
-			path: src/lib/Event/Listener/LoginListener.php
-
-		-
-			message: "#^Cannot call method error\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
+			message: "#^Cannot access property \\$name on eZ\\\\Publish\\\\Core\\\\MVC\\\\Symfony\\\\SiteAccess|null\\.$#"
 			count: 1
 			path: src/lib/Event/Listener/LoginListener.php
 
