@@ -10,7 +10,7 @@ namespace Ibexa\Tests\PersonalizationClient\Event\Listener;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\SiteAccess;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Event\Listener\LoginListener;
 use GuzzleHttp\Client;
@@ -59,7 +59,7 @@ final class LoginListenerTest extends TestCase
     /** @var \EzSystems\EzRecommendationClient\Event\Listener\LoginListener */
     private $loginListener;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
     private $siteAccessService;
 
     protected function setUp(): void
@@ -71,7 +71,7 @@ final class LoginListenerTest extends TestCase
         $this->configResolver = $this->createMock(ConfigResolverInterface::class);
         $this->logger = $this->createMock(LoggerInterface::class);
         $this->token = $this->createMock(AbstractToken::class);
-        $this->siteAccessService = $this->createMock(SiteAccessService::class);
+        $this->siteAccessService = $this->createMock(SiteAccessServiceInterface::class);
         $this->loginListener = new LoginListener(
             $this->authorizationChecker,
             $this->session,
@@ -104,15 +104,21 @@ final class LoginListenerTest extends TestCase
 
         $this->configResolver
             ->expects(self::atLeastOnce())
-            ->method('getParameter')
+            ->method('hasParameter')
             ->withConsecutive(
                 ['api.event_tracking.endpoint', self::CONFIG_NAMESPACE],
                 ['authentication.customer_id', self::CONFIG_NAMESPACE],
             )
             ->willReturnOnConsecutiveCalls(
-                self::ENDPOINT_URL,
-                null
+                true,
+                false
             );
+
+        $this->configResolver
+            ->expects(self::once())
+            ->method('getParameter')
+            ->with('api.event_tracking.endpoint', self::CONFIG_NAMESPACE)
+            ->willReturn(self::ENDPOINT_URL);
 
         $this->assertSessionNotStarted(false);
     }
@@ -230,6 +236,18 @@ final class LoginListenerTest extends TestCase
             ->expects(self::once())
             ->method('getCurrent')
             ->willReturn(new SiteAccess('ezdemo_site'));
+
+        $this->configResolver
+            ->expects(self::atLeastOnce())
+            ->method('hasParameter')
+            ->withConsecutive(
+                ['api.event_tracking.endpoint', self::CONFIG_NAMESPACE],
+                ['authentication.customer_id', self::CONFIG_NAMESPACE],
+            )
+            ->willReturnOnConsecutiveCalls(
+                true,
+                true
+            );
 
         $this->configResolver
             ->expects(self::atLeastOnce())

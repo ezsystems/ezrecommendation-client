@@ -10,7 +10,7 @@ namespace EzSystems\EzRecommendationClient\Event\Listener;
 
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
-use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 use EzSystems\EzRecommendationClient\Value\Session as RecommendationSession;
@@ -41,7 +41,7 @@ final class LoginListener
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessService */
+    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
     private $siteAccessService;
 
     public function __construct(
@@ -50,7 +50,7 @@ final class LoginListener
         EzRecommendationClientInterface $client,
         ConfigResolverInterface $configResolver,
         LoggerInterface $logger,
-        SiteAccessService $siteAccessService
+        SiteAccessServiceInterface $siteAccessService
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->session = $session;
@@ -76,7 +76,7 @@ final class LoginListener
         $endpoint = $this->getEndpoint($siteAccessName);
         $customerId = $this->getCustomerId($siteAccessName);
 
-        if (empty($customerId) || empty($endpoint)) {
+        if (!isset($customerId, $endpoint)) {
             return;
         }
 
@@ -87,7 +87,12 @@ final class LoginListener
             $event->getRequest()->cookies->set(RecommendationSession::RECOMMENDATION_SESSION_KEY, $this->session->getId());
         }
 
-        $notificationUri = $this->getNotificationUri($endpoint, $customerId, $event);
+        $notificationUri = $this->getNotificationUri(
+            $endpoint,
+            $customerId,
+            (string) $event->getRequest()->cookies->get(RecommendationSession::RECOMMENDATION_SESSION_KEY),
+            $this->getUser($event->getAuthenticationToken())
+        );
 
         $this->logger->debug(sprintf('Send login event notification to Recommendation: %s', $notificationUri));
 
@@ -103,8 +108,18 @@ final class LoginListener
 
     private function getCustomerId(string $siteAccessName): ?int
     {
-        return $this->configResolver->getParameter(
-            'authentication.customer_id',
+        $parameterNameCustomerId = 'authentication.customer_id';
+
+        if (!$this->configResolver->hasParameter(
+            $parameterNameCustomerId,
+            Parameters::NAMESPACE,
+            $siteAccessName
+        )) {
+            return null;
+        }
+
+        return (int) $this->configResolver->getParameter(
+            $parameterNameCustomerId,
             Parameters::NAMESPACE,
             $siteAccessName
         );
@@ -112,8 +127,18 @@ final class LoginListener
 
     private function getEndpoint(string $siteAccessName): ?string
     {
+        $parameterNameTrackingEndpoint = Parameters::API_SCOPE . '.event_tracking.endpoint';
+
+        if (!$this->configResolver->hasParameter(
+            $parameterNameTrackingEndpoint,
+            Parameters::NAMESPACE,
+            $siteAccessName
+        )) {
+            return null;
+        }
+
         return $this->configResolver->getParameter(
-            Parameters::API_SCOPE . '.event_tracking.endpoint',
+            $parameterNameTrackingEndpoint,
             Parameters::NAMESPACE,
             $siteAccessName
         );
@@ -122,14 +147,14 @@ final class LoginListener
     /**
      * Returns notification API end-point.
      */
-    private function getNotificationUri(string $endpoint, int $customerId, InteractiveLoginEvent $event): string
+    private function getNotificationUri(string $endpoint, int $customerId, string $sessionId, string $userId): string
     {
         return sprintf('%s/api/%d/%s/%s/%s',
             $endpoint,
             $customerId,
             'login',
-            $event->getRequest()->cookies->get(RecommendationSession::RECOMMENDATION_SESSION_KEY),
-            $this->getUser($event->getAuthenticationToken())
+            $sessionId,
+            $userId
         );
     }
 
