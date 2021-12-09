@@ -72,7 +72,13 @@ final class LoginListener
             return;
         }
 
-        $siteAccessName = $this->siteAccessService->getCurrent()->name;
+        $currentSiteAccess = $this->siteAccessService->getCurrent();
+
+        if (empty($currentSiteAccess)) {
+            return;
+        }
+
+        $siteAccessName = $currentSiteAccess->name;
         $endpoint = $this->getEndpoint($siteAccessName);
         $customerId = $this->getCustomerId($siteAccessName);
 

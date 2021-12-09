@@ -356,11 +356,6 @@ parameters:
 			path: src/lib/Event/Listener/LoginListener.php
 
 		-
-			message: "#^Cannot access property \\$name on eZ\\\\Publish\\\\Core\\\\MVC\\\\Symfony\\\\SiteAccess|null\\.$#"
-			count: 1
-			path: src/lib/Event/Listener/LoginListener.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:getParameterBag\\(\\) should return Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag but returns Psr\\\\Http\\\\Message\\\\ResponseInterface\\|null\\.$#"
 			count: 1
 			path: src/lib/Event/RecommendationResponseEvent.php
