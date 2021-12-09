@@ -74,7 +74,7 @@ final class LoginListener
 
         $currentSiteAccess = $this->siteAccessService->getCurrent();
 
-        if (empty($currentSiteAccess)) {
+        if ($currentSiteAccess === null) {
             return;
         }
 
