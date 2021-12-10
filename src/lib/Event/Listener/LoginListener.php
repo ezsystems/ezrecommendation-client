@@ -81,22 +81,23 @@ final class LoginListener
         $siteAccessName = $currentSiteAccess->name;
         $endpoint = $this->getEndpoint($siteAccessName);
         $customerId = $this->getCustomerId($siteAccessName);
+        $sessionKey = RecommendationSession::RECOMMENDATION_SESSION_KEY;
 
         if (!isset($customerId, $endpoint)) {
             return;
         }
 
-        if (!$event->getRequest()->cookies->has(RecommendationSession::RECOMMENDATION_SESSION_KEY)) {
+        if (!$event->getRequest()->cookies->has($sessionKey)) {
             if (!$this->session->isStarted()) {
                 $this->session->start();
             }
-            $event->getRequest()->cookies->set(RecommendationSession::RECOMMENDATION_SESSION_KEY, $this->session->getId());
+            $event->getRequest()->cookies->set($sessionKey, $this->session->getId());
         }
 
         $notificationUri = $this->getNotificationUri(
             $endpoint,
             $customerId,
-            (string) $event->getRequest()->cookies->get(RecommendationSession::RECOMMENDATION_SESSION_KEY),
+            (string) $event->getRequest()->cookies->get($sessionKey),
             $this->getUser($event->getAuthenticationToken())
         );
 
