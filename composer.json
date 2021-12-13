@@ -10,17 +10,17 @@
         }
     ],
     "require": {
-        "php": "^7.3",
+        "php": "^7.3 || ^8.0",
+        "ezsystems/doctrine-dbal-schema": "^1.0@dev",
+        "ezsystems/ezplatform-content-forms": "^1.0@dev",
         "ezsystems/ezplatform-kernel": "^1.0@dev",
         "ezsystems/ezplatform-rest": "^1.0@dev",
         "ezsystems/ezplatform-richtext": "^2.0@dev",
-        "ezsystems/ezplatform-content-forms": "^1.0@dev",
-        "ezsystems/doctrine-dbal-schema": "^1.0@dev",
+        "guzzlehttp/guzzle": "~6.0",
+        "ramsey/uuid": "^3.9",
         "symfony/framework-bundle": "^5.0",
         "symfony/twig-bundle": "^5.0",
-        "guzzlehttp/guzzle": "~6.0",
-        "webmozart/assert": "^1.0",
-        "ramsey/uuid": "^3.9"
+        "webmozart/assert": "^1.0"
     },
     "require-dev": {
         "dg/bypass-finals": "^1.1",
