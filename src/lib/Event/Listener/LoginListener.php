@@ -131,7 +131,7 @@ final class LoginListener
             $siteAccessName
         );
 
-        return $customerId === 0 ? null : $customerId;
+        return $customerId ?: null;
     }
 
     private function getEndpoint(string $siteAccessName): ?string
