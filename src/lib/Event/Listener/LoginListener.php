@@ -125,11 +125,13 @@ final class LoginListener
             return null;
         }
 
-        return (int) $this->configResolver->getParameter(
+        $customerId = (int)$this->configResolver->getParameter(
             $parameterNameCustomerId,
             Parameters::NAMESPACE,
             $siteAccessName
         );
+
+        return $customerId === 0 ? null : $customerId;
     }
 
     private function getEndpoint(string $siteAccessName): ?string
