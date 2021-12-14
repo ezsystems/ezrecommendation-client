@@ -8,6 +8,8 @@ services:
         resource: '../../../../src/lib/Event/*'
 
     EzSystems\EzRecommendationClient\Event\Listener\LoginListener:
+        arguments:
+            $siteAccessService: '@ezpublish.siteaccess_service'
         tags:
             - { name: kernel.event_listener, event: security.interactive_login, priority: 255 }
             - { name: monolog.logger, channel: ezrecommendation }

@@ -8,8 +8,9 @@ declare(strict_types=1);
 
 namespace Ibexa\Tests\PersonalizationClient\Event\Listener;
 
-use eZ\Publish\API\Repository\UserService;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Event\Listener\LoginListener;
 use GuzzleHttp\Client;
@@ -46,9 +47,6 @@ final class LoginListenerTest extends TestCase
     /** @var \GuzzleHttp\Client|\PHPUnit\Framework\MockObject\MockObject */
     private $guzzleClient;
 
-    /** @var \eZ\Publish\API\Repository\UserService|\PHPUnit\Framework\MockObject\MockObject */
-    private $userService;
-
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface|\PHPUnit\Framework\MockObject\MockObject */
     private $configResolver;
 
@@ -61,23 +59,26 @@ final class LoginListenerTest extends TestCase
     /** @var \EzSystems\EzRecommendationClient\Event\Listener\LoginListener */
     private $loginListener;
 
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
+    private $siteAccessService;
+
     protected function setUp(): void
     {
         $this->authorizationChecker = $this->createMock(AuthorizationCheckerInterface::class);
         $this->session = $this->createMock(SessionInterface::class);
         $this->client = $this->createMock(EzRecommendationClientInterface::class);
         $this->guzzleClient = $this->createMock(Client::class);
-        $this->userService = $this->createMock(UserService::class);
         $this->configResolver = $this->createMock(ConfigResolverInterface::class);
         $this->logger = $this->createMock(LoggerInterface::class);
         $this->token = $this->createMock(AbstractToken::class);
+        $this->siteAccessService = $this->createMock(SiteAccessServiceInterface::class);
         $this->loginListener = new LoginListener(
             $this->authorizationChecker,
             $this->session,
             $this->client,
-            $this->userService,
             $this->configResolver,
-            $this->logger
+            $this->logger,
+            $this->siteAccessService
         );
     }
 
@@ -89,6 +90,36 @@ final class LoginListenerTest extends TestCase
     public function testDoNotStartSessionWhenUserIsNotAuthenticated(): void
     {
         $this->configureAuthorizationCheckerToReturnIsUserAuthenticated(false, false);
+        $this->assertSessionNotStarted(false);
+    }
+
+    public function testDoNotStartSessionWhenCustomerIdIsNotConfigured(): void
+    {
+        $this->configureAuthorizationCheckerToReturnIsUserAuthenticated(true, true);
+
+        $this->siteAccessService
+            ->expects(self::once())
+            ->method('getCurrent')
+            ->willReturn(new SiteAccess('ezdemo_site'));
+
+        $this->configResolver
+            ->expects(self::atLeastOnce())
+            ->method('hasParameter')
+            ->withConsecutive(
+                ['api.event_tracking.endpoint', self::CONFIG_NAMESPACE],
+                ['authentication.customer_id', self::CONFIG_NAMESPACE],
+            )
+            ->willReturnOnConsecutiveCalls(
+                true,
+                false
+            );
+
+        $this->configResolver
+            ->expects(self::once())
+            ->method('getParameter')
+            ->with('api.event_tracking.endpoint', self::CONFIG_NAMESPACE)
+            ->willReturn(self::ENDPOINT_URL);
+
         $this->assertSessionNotStarted(false);
     }
 
@@ -201,16 +232,33 @@ final class LoginListenerTest extends TestCase
 
     private function configureConfigResolverToReturnEndpointParameters(): void
     {
+        $this->siteAccessService
+            ->expects(self::once())
+            ->method('getCurrent')
+            ->willReturn(new SiteAccess('ezdemo_site'));
+
+        $this->configResolver
+            ->expects(self::atLeastOnce())
+            ->method('hasParameter')
+            ->withConsecutive(
+                ['api.event_tracking.endpoint', self::CONFIG_NAMESPACE],
+                ['authentication.customer_id', self::CONFIG_NAMESPACE],
+            )
+            ->willReturnOnConsecutiveCalls(
+                true,
+                true
+            );
+
         $this->configResolver
             ->expects(self::atLeastOnce())
             ->method('getParameter')
             ->withConsecutive(
-                ['authentication.customer_id', self::CONFIG_NAMESPACE],
                 ['api.event_tracking.endpoint', self::CONFIG_NAMESPACE],
+                ['authentication.customer_id', self::CONFIG_NAMESPACE],
             )
             ->willReturnOnConsecutiveCalls(
-                self::CUSTOMER_ID,
-                self::ENDPOINT_URL
+                self::ENDPOINT_URL,
+                self::CUSTOMER_ID
             );
     }
 

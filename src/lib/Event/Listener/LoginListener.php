@@ -8,9 +8,9 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Event\Listener;
 
-use eZ\Publish\API\Repository\UserService as UserServiceInterface;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use eZ\Publish\Core\MVC\Symfony\Security\UserInterface;
+use eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 use EzSystems\EzRecommendationClient\Value\Session as RecommendationSession;
@@ -35,32 +35,29 @@ final class LoginListener
     /** @var \EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface */
     private $client;
 
-    /** @var \eZ\Publish\API\Repository\UserService */
-    private $userService;
-
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
-    /** @var \Psr\Log\LoggerInterface|null */
+    /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /**
-     * @param \Psr\Log\LoggerInterface $logger
-     */
+    /** @var \eZ\Publish\Core\MVC\Symfony\SiteAccess\SiteAccessServiceInterface */
+    private $siteAccessService;
+
     public function __construct(
         AuthorizationCheckerInterface $authorizationChecker,
         SessionInterface $session,
         EzRecommendationClientInterface $client,
-        UserServiceInterface $userService,
         ConfigResolverInterface $configResolver,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        SiteAccessServiceInterface $siteAccessService
     ) {
         $this->authorizationChecker = $authorizationChecker;
         $this->session = $session;
         $this->client = $client;
-        $this->userService = $userService;
         $this->configResolver = $configResolver;
         $this->logger = $logger;
+        $this->siteAccessService = $siteAccessService;
     }
 
     public function onSecurityInteractiveLogin(InteractiveLoginEvent $event): void
@@ -75,16 +72,32 @@ final class LoginListener
             return;
         }
 
-        if (!$event->getRequest()->cookies->has(RecommendationSession::RECOMMENDATION_SESSION_KEY)) {
+        $currentSiteAccess = $this->siteAccessService->getCurrent();
+
+        if ($currentSiteAccess === null) {
+            return;
+        }
+
+        $siteAccessName = $currentSiteAccess->name;
+        $endpoint = $this->getEndpoint($siteAccessName);
+        $customerId = $this->getCustomerId($siteAccessName);
+        $sessionKey = RecommendationSession::RECOMMENDATION_SESSION_KEY;
+
+        if (!isset($customerId, $endpoint)) {
+            return;
+        }
+
+        if (!$event->getRequest()->cookies->has($sessionKey)) {
             if (!$this->session->isStarted()) {
                 $this->session->start();
             }
-            $event->getRequest()->cookies->set(RecommendationSession::RECOMMENDATION_SESSION_KEY, $this->session->getId());
+            $event->getRequest()->cookies->set($sessionKey, $this->session->getId());
         }
 
-        $notificationUri = sprintf($this->getNotificationEndpoint() . '%s/%s/%s',
-            'login',
-            $event->getRequest()->cookies->get(RecommendationSession::RECOMMENDATION_SESSION_KEY),
+        $notificationUri = $this->getNotificationUri(
+            $endpoint,
+            $customerId,
+            (string) $event->getRequest()->cookies->get($sessionKey),
             $this->getUser($event->getAuthenticationToken())
         );
 
@@ -100,21 +113,58 @@ final class LoginListener
         }
     }
 
+    private function getCustomerId(string $siteAccessName): ?int
+    {
+        $parameterNameCustomerId = 'authentication.customer_id';
+
+        if (!$this->configResolver->hasParameter(
+            $parameterNameCustomerId,
+            Parameters::NAMESPACE,
+            $siteAccessName
+        )) {
+            return null;
+        }
+
+        $customerId = (int)$this->configResolver->getParameter(
+            $parameterNameCustomerId,
+            Parameters::NAMESPACE,
+            $siteAccessName
+        );
+
+        return $customerId ?: null;
+    }
+
+    private function getEndpoint(string $siteAccessName): ?string
+    {
+        $parameterNameTrackingEndpoint = Parameters::API_SCOPE . '.event_tracking.endpoint';
+
+        if (!$this->configResolver->hasParameter(
+            $parameterNameTrackingEndpoint,
+            Parameters::NAMESPACE,
+            $siteAccessName
+        )) {
+            return null;
+        }
+
+        return $this->configResolver->getParameter(
+            $parameterNameTrackingEndpoint,
+            Parameters::NAMESPACE,
+            $siteAccessName
+        );
+    }
+
     /**
      * Returns notification API end-point.
      */
-    private function getNotificationEndpoint(): string
+    private function getNotificationUri(string $endpoint, int $customerId, string $sessionId, string $userId): string
     {
-        $customerId = $this->configResolver->getParameter(
-            'authentication.customer_id',
-            Parameters::NAMESPACE
+        return sprintf('%s/api/%d/%s/%s/%s',
+            $endpoint,
+            $customerId,
+            'login',
+            $sessionId,
+            $userId
         );
-        $trackingEndPoint = $this->configResolver->getParameter(
-            Parameters::API_SCOPE . '.event_tracking.endpoint',
-            Parameters::NAMESPACE
-        );
-
-        return sprintf('%s/api/%s/', $trackingEndPoint, $customerId);
     }
 
     /**

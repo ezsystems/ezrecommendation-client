@@ -356,16 +356,6 @@ parameters:
 			path: src/lib/Event/Listener/LoginListener.php
 
 		-
-			message: "#^Cannot call method debug\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
-			count: 2
-			path: src/lib/Event/Listener/LoginListener.php
-
-		-
-			message: "#^Cannot call method error\\(\\) on Psr\\\\Log\\\\LoggerInterface\\|null\\.$#"
-			count: 1
-			path: src/lib/Event/Listener/LoginListener.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:getParameterBag\\(\\) should return Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag but returns Psr\\\\Http\\\\Message\\\\ResponseInterface\\|null\\.$#"
 			count: 1
 			path: src/lib/Event/RecommendationResponseEvent.php
