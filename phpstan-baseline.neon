@@ -191,7 +191,7 @@ parameters:
 			path: src/bundle/Serializer/Normalizer/UserCollectionNormalizer.php
 
 		-
-			message: "#^Parameter \\#2 \\$input1 of function array_map expects array, array\\|ArrayObject\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$array of function array_map expects array, array\\|ArrayObject\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: src/bundle/Serializer/Normalizer/UserCollectionNormalizer.php
 
@@ -216,7 +216,7 @@ parameters:
 			path: src/bundle/Serializer/Normalizer/UserNormalizer.php
 
 		-
-			message: "#^Parameter \\#2 \\$input1 of function array_map expects array, array\\|ArrayObject\\|bool\\|float\\|int\\|string\\|null given\\.$#"
+			message: "#^Parameter \\#2 \\$array of function array_map expects array, array\\|ArrayObject\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: src/bundle/Serializer/Normalizer/UserNormalizer.php
 
@@ -281,7 +281,7 @@ parameters:
 			path: src/lib/Authentication/ExportAuthenticator.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function trim expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function trim expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/lib/Authentication/ExportAuthenticator.php
 
@@ -616,7 +616,7 @@ parameters:
 			path: src/lib/Factory/ExportParametersFactoryInterface.php
 
 		-
-			message: "#^Parameter \\#1 \\$str of function strtolower expects string, string\\|null given\\.$#"
+			message: "#^Parameter \\#1 \\$string of function strtolower expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/lib/Factory/EzRecommendationClientAPIFactory.php
 
