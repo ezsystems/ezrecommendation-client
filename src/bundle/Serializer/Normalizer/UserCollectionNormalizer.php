@@ -55,7 +55,7 @@ final class UserCollectionNormalizer implements NormalizerInterface, NormalizerA
         $normalizedUsers = [];
         $normalizedUsers[self::ATTR_NAME] = array_map(static function ($item) {
             return $item[self::ATTR_NAME];
-        }, $users);
+        }, (array)$users);
 
         return $normalizedUsers;
     }
