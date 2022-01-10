@@ -8,7 +8,7 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Exception;
 
-class BadAPIEndpointParameterException extends APIException
+final class BadAPIEndpointParameterException extends APIException
 {
     public function __construct(?\Throwable $previous = null)
     {

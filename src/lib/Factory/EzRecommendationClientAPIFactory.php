@@ -65,7 +65,7 @@ final class EzRecommendationClientAPIFactory extends AbstractEzRecommendationCli
     }
 
     /**
-     * @throws BadAPIEndpointParameterException
+     * @throws \EzSystems\EzRecommendationClient\Exception\BadAPIEndpointParameterException
      */
     private function getApiEndPointParameterName(string $apiName): string
     {
