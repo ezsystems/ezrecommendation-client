@@ -13,6 +13,7 @@ use EzSystems\EzRecommendationClient\API\AbstractAPI;
 use EzSystems\EzRecommendationClient\API\AllowedAPI;
 use EzSystems\EzRecommendationClient\Client\EzRecommendationClientInterface;
 use EzSystems\EzRecommendationClient\Exception\BadAPICallException;
+use EzSystems\EzRecommendationClient\Exception\BadAPIEndpointParameterException;
 use EzSystems\EzRecommendationClient\Exception\InvalidArgumentException;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 
@@ -63,8 +64,17 @@ final class EzRecommendationClientAPIFactory extends AbstractEzRecommendationCli
         );
     }
 
+    /**
+     * @throws BadAPIEndpointParameterException
+     */
     private function getApiEndPointParameterName(string $apiName): string
     {
-        return ltrim(strtolower(preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $apiName)), '_');
+        $sanitizedApiName = preg_replace('/[A-Z]([A-Z](?![a-z]))*/', '_$0', $apiName);
+
+        if (!$sanitizedApiName) {
+            throw new BadAPIEndpointParameterException();
+        }
+
+        return strtolower(ltrim($sanitizedApiName, '_'));
     }
 }

@@ -63,6 +63,7 @@ final class ExportAuthenticator implements FileAuthenticatorInterface
      */
     public function authenticateByFile(string $filePath): bool
     {
+        $auth = [];
         $server = $this->requestStack->getCurrentRequest()->server;
 
         $user = $server->get(self::PHP_AUTH_USER);
@@ -77,8 +78,12 @@ final class ExportAuthenticator implements FileAuthenticatorInterface
 
         $fileContent = $this->fileManager->load($passFile);
 
-        list($auth['user'], $auth['pass']) = explode(':', trim($fileContent));
+        if (!$fileContent) {
+            return false;
+        }
 
-        return $user == $auth['user'] && $pass == $auth['pass'];
+        [$auth['user'], $auth['pass']] = explode(':', trim($fileContent));
+
+        return $user === $auth['user'] && $pass === $auth['pass'];
     }
 }

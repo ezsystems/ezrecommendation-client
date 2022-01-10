@@ -191,11 +191,6 @@ parameters:
 			path: src/bundle/Serializer/Normalizer/UserCollectionNormalizer.php
 
 		-
-			message: "#^Parameter \\#2 \\$array of function array_map expects array, array\\|ArrayObject\\|bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/bundle/Serializer/Normalizer/UserCollectionNormalizer.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserNormalizer\\:\\:getNormalizedAttributes\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/bundle/Serializer/Normalizer/UserNormalizer.php
@@ -212,11 +207,6 @@ parameters:
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserNormalizer\\:\\:normalize\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/bundle/Serializer/Normalizer/UserNormalizer.php
-
-		-
-			message: "#^Parameter \\#2 \\$array of function array_map expects array, array\\|ArrayObject\\|bool\\|float\\|int\\|string\\|null given\\.$#"
 			count: 1
 			path: src/bundle/Serializer/Normalizer/UserNormalizer.php
 
@@ -278,11 +268,6 @@ parameters:
 		-
 			message: "#^Cannot access property \\$server on Symfony\\\\Component\\\\HttpFoundation\\\\Request\\|null\\.$#"
 			count: 2
-			path: src/lib/Authentication/ExportAuthenticator.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function trim expects string, string\\|null given\\.$#"
-			count: 1
 			path: src/lib/Authentication/ExportAuthenticator.php
 
 		-
@@ -614,11 +599,6 @@ parameters:
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\ExportParametersFactoryInterface\\:\\:create\\(\\) has parameter \\$properties with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Factory/ExportParametersFactoryInterface.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of function strtolower expects string, string\\|null given\\.$#"
-			count: 1
-			path: src/lib/Factory/EzRecommendationClientAPIFactory.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\TokenFactory\\:\\:createAnonymousToken\\(\\) has parameter \\$roles with no value type specified in iterable type array\\.$#"

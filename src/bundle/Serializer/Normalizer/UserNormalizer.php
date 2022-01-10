@@ -63,7 +63,7 @@ final class UserNormalizer implements NormalizerInterface, NormalizerAwareInterf
         $normalizedAttributes = [];
         $normalizedAttributes['attribute'] = array_map(static function ($item) {
             return $item['attribute'];
-        }, $attributes);
+        }, (array)$attributes);
 
         return $normalizedAttributes;
     }
