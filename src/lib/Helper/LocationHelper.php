@@ -48,20 +48,18 @@ final class LocationHelper
     /**
      * Returns location path string based on $contentId.
      *
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     public function getParentLocationPathString(int $contentId): ?string
     {
-        $content = $this->contentService->loadContent($contentId);
-        $mainLocationId = $content->contentInfo->mainLocationId;
-        if (null === $mainLocationId) {
-            return null;
-        }
-
         try {
-            $location = $this->locationService->loadLocation($mainLocationId);
-            $parentLocation = $location->getParentLocation();
+            $content = $this->contentService->loadContent($contentId);
+            $mainLocation = $content->contentInfo->getMainLocation();
+            if (null === $mainLocation) {
+                return null;
+            }
+
+            $parentLocation = $mainLocation->getParentLocation();
 
             return null !== $parentLocation ? $parentLocation->pathString : null;
         } catch (NotFoundException $exception) {
