@@ -786,11 +786,6 @@ parameters:
 			path: src/lib/Helper/ImageHelper.php
 
 		-
-			message: "#^Parameter \\#1 \\$locationId of method eZ\\\\Publish\\\\API\\\\Repository\\\\LocationService\\:\\:loadLocation\\(\\) expects int, int\\|null given\\.$#"
-			count: 1
-			path: src/lib/Helper/LocationHelper.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ParamsConverterHelper\\:\\:getArrayFromString\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Helper/ParamsConverterHelper.php
