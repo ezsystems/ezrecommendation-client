@@ -39,8 +39,8 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "EzSystems\\EzRecommendationClient\\Tests\\": "tests/lib/",
-            "Ibexa\\Tests\\PersonalizationClient\\": "tests/lib/"
+            "Ibexa\\Tests\\Personalization\\": "tests/lib/",
+            "EzSystems\\EzRecommendationClient\\Tests\\": "tests/lib/"
         }
     },
     "scripts": {
