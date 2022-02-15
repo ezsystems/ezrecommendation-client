@@ -4,12 +4,6 @@ ez_recommendation.content_type.get_content:
         _controller: 'EzSystems\EzRecommendationClientBundle\Controller\ContentController::getContentAction'
     methods: [GET]
 
-ez_recommendation.content_type.get_content_type:
-    path: /ez_recommendation/v1/contenttypes/{idList}
-    defaults:
-        _controller: 'EzSystems\EzRecommendationClientBundle\Controller\ContentTypeController::getContentTypeAction'
-    methods: [GET]
-
 ez_recommendation.export.download:
     path: /ez_recommendation/v1/exportDownload/{filePath}
     defaults:
