@@ -10,10 +10,3 @@ ez_recommendation.export.download:
         _controller: 'EzSystems\EzRecommendationClientBundle\Controller\ExportController::downloadAction'
     requirements:
         filePath: '[a-zA-Z0-9\_\-\/]+'
-
-ez_recommendation.export.export:
-    path: /ez_recommendation/v1/runExport/{idList}
-    defaults:
-        _controller: 'EzSystems\EzRecommendationClientBundle\Controller\ExportController::exportAction'
-    methods: [GET]
-    prefix: '%ezpublish_rest.path_prefix%'
