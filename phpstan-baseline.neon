@@ -46,36 +46,6 @@ parameters:
 			path: src/bundle/Controller/ContentController.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentTypeController\\:\\:prepareContentByContentTypeIds\\(\\) has parameter \\$contentTypeIds with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentTypeController\\:\\:prepareContentByContentTypeIds\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentTypeController\\:\\:\\$locationService \\(eZ\\\\Publish\\\\Core\\\\Repository\\\\LocationService\\) does not accept eZ\\\\Publish\\\\API\\\\Repository\\\\LocationService\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentTypeController\\:\\:\\$searchService \\(eZ\\\\Publish\\\\Core\\\\Repository\\\\SearchService\\) does not accept eZ\\\\Publish\\\\API\\\\Repository\\\\SearchService\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$fields \\(array\\<string\\>\\) does not accept bool\\|float\\|int\\|string\\|null\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$lang \\(string\\|null\\) does not accept bool\\|float\\|int\\|string\\|null\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentTypeController.php
-
-		-
 			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Authentication\\\\AuthenticatorInterface\\:\\:authenticateByFile\\(\\)\\.$#"
 			count: 1
 			path: src/bundle/Controller/ExportController.php
@@ -841,36 +811,6 @@ parameters:
 			path: src/lib/Helper/SiteAccessHelper.php
 
 		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$fields \\(array\\<string\\>\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters\\:\\:\\$customerId \\(int\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters\\:\\:\\$hidden \\(string\\|null\\) does not accept int\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters\\:\\:\\$languages \\(array\\<string\\>\\) does not accept string\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters\\:\\:\\$licenseKey \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportParameters\\:\\:\\$webHook \\(string\\) does not accept string\\|null\\.$#"
-			count: 1
-			path: src/lib/Mapper/ExportRequestMapper.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Mapper\\\\RelationMapper\\:\\:__construct\\(\\) has parameter \\$fieldMappings with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Mapper/RelationMapper.php
@@ -1219,11 +1159,6 @@ parameters:
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentDataVisitor\\:\\:\\$responseRenderers type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Value/ContentDataVisitor.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ExportRequest\\:\\:getExportRequestParameters\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Value/ExportRequest.php
 
 		-
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\IdList\\:\\:\\$list type has no value type specified in iterable type array\\.$#"
