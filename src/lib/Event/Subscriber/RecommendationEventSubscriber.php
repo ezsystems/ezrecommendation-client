@@ -8,13 +8,13 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Event\Subscriber;
 
+use eZ\Publish\API\Repository\Values\Content\Content;
 use eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface;
 use EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent;
-use EzSystems\EzRecommendationClient\Helper\ContentTypeHelper;
-use EzSystems\EzRecommendationClient\Helper\LocationHelper;
 use EzSystems\EzRecommendationClient\Request\BasicRecommendationRequest as Request;
 use EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface;
 use EzSystems\EzRecommendationClient\SPI\RecommendationRequest;
+use Ibexa\Personalization\Config\Repository\RepositoryConfigResolverInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -23,11 +23,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class RecommendationEventSubscriber implements EventSubscriberInterface
 {
-    private const LOCALE_REQUEST_KEY = '_locale';
     private const DEFAULT_LOCALE = 'eng-GB';
-
-    /** @var \EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface */
-    private $recommendationService;
+    private const LOCALE_REQUEST_KEY = '_locale';
 
     /** @var \eZ\Publish\Core\MVC\Symfony\Locale\LocaleConverterInterface */
     private $localeConverter;
@@ -35,24 +32,22 @@ final class RecommendationEventSubscriber implements EventSubscriberInterface
     /** @var \Psr\Log\LoggerInterface */
     private $logger;
 
-    /** @var \EzSystems\EzRecommendationClient\Helper\ContentTypeHelper */
-    private $contentTypeHelper;
+    /** @var \EzSystems\EzRecommendationClient\Service\RecommendationServiceInterface */
+    private $recommendationService;
 
-    /** @var \EzSystems\EzRecommendationClient\Helper\LocationHelper */
-    private $locationHelper;
+    /** @var \Ibexa\Personalization\Config\Repository\RepositoryConfigResolverInterface */
+    private $repositoryConfigResolver;
 
     public function __construct(
-        RecommendationServiceInterface $recommendationService,
         LocaleConverterInterface $localeConverter,
         LoggerInterface $logger,
-        ContentTypeHelper $contentTypeHelper,
-        LocationHelper $locationHelper
+        RecommendationServiceInterface $recommendationService,
+        RepositoryConfigResolverInterface $repositoryConfigResolver
     ) {
-        $this->recommendationService = $recommendationService;
         $this->localeConverter = $localeConverter;
         $this->logger = $logger;
-        $this->contentTypeHelper = $contentTypeHelper;
-        $this->locationHelper = $locationHelper;
+        $this->recommendationService = $recommendationService;
+        $this->repositoryConfigResolver = $repositoryConfigResolver;
     }
 
     /**
@@ -88,15 +83,19 @@ final class RecommendationEventSubscriber implements EventSubscriberInterface
      */
     private function getRecommendationRequest(ParameterBag $parameterBag): RecommendationRequest
     {
-        $contextItems = (int) $parameterBag->get(Request::CONTEXT_ITEMS_KEY, 0);
+        $contextItem = null;
+        $content = $parameterBag->get(Request::CONTEXT_ITEMS_KEY);
+        if ($content instanceof Content) {
+            $contextItem = $this->repositoryConfigResolver->useRemoteId() ? $content->contentInfo->remoteId : $content->id;
+        }
 
         return new Request([
             RecommendationRequest::SCENARIO => $parameterBag->get(RecommendationRequest::SCENARIO, ''),
             Request::LIMIT_KEY => $parameterBag->get(Request::LIMIT_KEY, 3),
-            Request::CONTEXT_ITEMS_KEY => $contextItems,
-            Request::CONTENT_TYPE_KEY => $this->contentTypeHelper->getContentTypeId($this->contentTypeHelper->getContentTypeIdentifier($contextItems)),
-            Request::OUTPUT_TYPE_ID_KEY => $this->contentTypeHelper->getContentTypeId($parameterBag->get(Request::OUTPUT_TYPE_ID_KEY, '')),
-            Request::CATEGORY_PATH_KEY => $this->locationHelper->getParentLocationPathString($contextItems),
+            Request::CONTEXT_ITEMS_KEY => $contextItem,
+            Request::CONTENT_TYPE_KEY => $content->getContentType()->id,
+            Request::OUTPUT_TYPE_ID_KEY => $parameterBag->get(Request::OUTPUT_TYPE_ID_KEY),
+            Request::CATEGORY_PATH_KEY => $this->getCategoryPath($content),
             Request::LANGUAGE_KEY => $this->getRequestLanguage($parameterBag->get(self::LOCALE_REQUEST_KEY)),
             Request::ATTRIBUTES_KEY => $parameterBag->get(Request::ATTRIBUTES_KEY, []),
             Request::FILTERS_KEY => $parameterBag->get(Request::FILTERS_KEY, []),
@@ -119,5 +118,17 @@ final class RecommendationEventSubscriber implements EventSubscriberInterface
         $recommendationItems = json_decode($recommendations, true);
 
         return $this->recommendationService->getRecommendationItems($recommendationItems['recommendationItems']);
+    }
+
+    private function getCategoryPath(Content $content): ?string
+    {
+        $mainLocation = $content->contentInfo->getMainLocation();
+        if (null === $mainLocation) {
+            return null;
+        }
+
+        $parentLocation = $mainLocation->getParentLocation();
+
+        return null !== $parentLocation ? $parentLocation->pathString : null;
     }
 }
