@@ -11,14 +11,13 @@ namespace EzSystems\EzRecommendationClientBundle\Controller\REST;
 use eZ\Publish\API\Repository\Repository;
 use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\Query;
-use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use EzSystems\EzPlatformRest\Server\Controller as RestController;
 use EzSystems\EzPlatformRest\Server\Exceptions\AuthenticationFailedException;
 use EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface;
 use EzSystems\EzRecommendationClient\Service\ContentServiceInterface;
 use EzSystems\EzRecommendationClient\Value\Content;
 use EzSystems\EzRecommendationClient\Value\ContentData;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Ibexa\Personalization\QueryType\ContentQueryType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,30 +26,33 @@ final class ContentController extends RestController
     /** @var \eZ\Publish\API\Repository\Repository */
     protected $repository;
 
-    /** @var \eZ\Publish\API\Repository\SearchService */
-    private $searchService;
-
     /** @var \EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface */
     private $authenticator;
+
+    /** @var \Ibexa\Personalization\QueryType\ContentQueryType */
+    private $contentQueryType;
 
     /** @var \EzSystems\EzRecommendationClient\Service\ContentServiceInterface */
     private $contentService;
 
+    /** @var \eZ\Publish\API\Repository\SearchService */
+    private $searchService;
+
     public function __construct(
-        Repository $repository,
-        SearchService $searchService,
         AuthenticatorInterface $authenticator,
-        ContentServiceInterface $contentService
+        ContentQueryType $contentQueryType,
+        ContentServiceInterface $contentService,
+        Repository $repository,
+        SearchService $searchService
     ) {
+        $this->authenticator = $authenticator;
+        $this->contentQueryType = $contentQueryType;
+        $this->contentService = $contentService;
         $this->repository = $repository;
         $this->searchService = $searchService;
-        $this->authenticator = $authenticator;
-        $this->contentService = $contentService;
     }
 
     /**
-     * Prepares content for ContentData class.
-     *
      * @throws \Exception
      */
     public function getContentByIdAction(int $contentId, Request $request): ContentData
@@ -60,19 +62,19 @@ final class ContentController extends RestController
         }
 
         $requestQuery = $request->query;
-        $language = (string) $requestQuery->get('lang');
-        $criteria = [new Criterion\ContentId($contentId)];
         $contentItems = $this->getContentItems(
-            $this->getQuery($criteria, $language),
-            $language
+            $this->contentQueryType->getQuery(
+                [
+                    'contentId' => $contentId,
+                    'language' => $requestQuery->get('lang'),
+                ]
+            )
         );
 
-        return $this->getContentData($contentItems, $language);
+        return $this->getContentData($contentItems);
     }
 
     /**
-     * Prepares content for ContentData class.
-     *
      * @throws \Exception
      */
     public function getContentByRemoteIdAction(string $remoteId, Request $request): ContentData
@@ -82,14 +84,16 @@ final class ContentController extends RestController
         }
 
         $requestQuery = $request->query;
-        $language = (string) $requestQuery->get('lang');
-        $criteria = [new Criterion\RemoteId($remoteId)];
         $contentItems = $this->getContentItems(
-            $this->getQuery($criteria, $language),
-            $language
+            $this->contentQueryType->getQuery(
+                [
+                    'contentId' => $remoteId,
+                    'language' => $requestQuery->get('lang'),
+                ]
+            )
         );
 
-        return $this->getContentData($contentItems, $language);
+        return $this->getContentData($contentItems);
     }
 
     /**
@@ -97,47 +101,23 @@ final class ContentController extends RestController
      *
      * @throws \Exception
      */
-    private function getContentItems(Query $query, string $language): array
+    private function getContentItems(Query $query): array
     {
-        return $this->repository->sudo(function () use ($query, $language) {
-            return $this->searchService->findContent(
-                $query,
-                !empty($language) ? ['languages' => [$language]] : []
-            )->searchHits;
+        return $this->repository->sudo(function () use ($query) {
+            return $this->searchService->findContent($query)->searchHits;
         });
     }
 
     /**
      * @param array<\eZ\Publish\API\Repository\Values\Content\Search\SearchHit> $contentItems
      */
-    private function getContentData(array $contentItems, string $language): ContentData
+    private function getContentData(array $contentItems): ContentData
     {
         $contentData = $this->contentService->prepareContent(
             [$contentItems],
-            new Content(
-                [
-                    'lang' => $language,
-                ]
-            )
+            new Content()
         );
 
         return new ContentData($contentData);
-    }
-
-    /**
-     * @param array<\eZ\Publish\API\Repository\Values\Content\Query\Criterion> $criteria
-     */
-    private function getQuery(array $criteria, string $language): Query
-    {
-        //@TODO should be moved to separate class
-
-        if (!empty($language)) {
-            $criteria[] = new Criterion\LanguageCode($language);
-        }
-
-        $query = new Query();
-        $query->query = new Criterion\LogicalAnd($criteria);
-
-        return $query;
     }
 }
