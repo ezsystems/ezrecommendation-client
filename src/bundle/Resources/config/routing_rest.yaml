@@ -1,12 +1,22 @@
-ez_recommendation.content_type.get_content:
-    path: /ez_recommendation/v1/content/{idList}
+ez_recommendation.rest.content.get_by_id:
+    path: /ez_recommendation/v1/content/id/{contentId}
     defaults:
-        _controller: 'EzSystems\EzRecommendationClientBundle\Controller\ContentController::getContentAction'
+        _controller: 'EzSystems\EzRecommendationClientBundle\Controller\REST\ContentController::getContentByIdAction'
+    methods: [GET]
+    requirements:
+        contentId: '\d+'
+
+ez_recommendation.rest.content.get_by_remote_id:
+    path: /ez_recommendation/v1/content/remote-id/{remoteId}
+    defaults:
+        _controller: 'EzSystems\EzRecommendationClientBundle\Controller\REST\ContentController::getContentByRemoteIdAction'
+    requirements:
+        remoteId: '[a-zA-Z0-9\_\-\/]+'
     methods: [GET]
 
-ez_recommendation.export.download:
-    path: /ez_recommendation/v1/exportDownload/{filePath}
+ez_recommendation.rest.export.download:
+    path: /ez_recommendation/v1/export/download/{filePath}
     defaults:
-        _controller: 'EzSystems\EzRecommendationClientBundle\Controller\ExportController::downloadAction'
+        _controller: 'EzSystems\EzRecommendationClientBundle\Controller\REST\ExportController::downloadAction'
     requirements:
         filePath: '[a-zA-Z0-9\_\-\/]+'

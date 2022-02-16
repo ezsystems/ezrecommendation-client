@@ -6,7 +6,7 @@
  */
 declare(strict_types=1);
 
-namespace EzSystems\EzRecommendationClientBundle\Controller;
+namespace EzSystems\EzRecommendationClientBundle\Controller\REST;
 
 use EzSystems\EzPlatformRest\Server\Controller;
 use EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface;

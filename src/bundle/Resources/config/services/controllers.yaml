@@ -16,11 +16,12 @@ services:
         alias: EzSystems\EzRecommendationClientBundle\Controller\RecommendationController
         public: true
 
-    EzSystems\EzRecommendationClientBundle\Controller\ContentController:
+    # REST
+    EzSystems\EzRecommendationClientBundle\Controller\REST\ContentController:
         arguments:
             $authenticator: '@EzSystems\EzRecommendationClient\Authentication\ExportAuthenticator'
 
-    EzSystems\EzRecommendationClientBundle\Controller\ExportController:
+    EzSystems\EzRecommendationClientBundle\Controller\REST\ExportController:
         arguments:
             $authenticator: '@EzSystems\EzRecommendationClient\Authentication\ExportAuthenticator'
         tags:
