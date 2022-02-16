@@ -23,9 +23,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ContentController extends RestController
 {
-    /** @var \eZ\Publish\API\Repository\Repository */
-    protected $repository;
-
     /** @var \EzSystems\EzRecommendationClient\Authentication\AuthenticatorInterface */
     private $authenticator;
 
