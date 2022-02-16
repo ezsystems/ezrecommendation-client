@@ -192,7 +192,17 @@ class Configuration extends SiteAccessConfiguration
                     ->end()
                 ->end()
             ->end()
-        ;
+            ->arrayNode('repository')
+                ->children()
+                    ->arrayNode('content')
+                        ->children()
+                            ->booleanNode('use_remote_id')
+                                ->info('Use remote id instead of numeric content id to process recommendations')
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }

@@ -34,3 +34,5 @@ parameters:
 
     ezrecommendation.default.field.relations: []
     ezrecommendation.default.field.identifiers: []
+
+    ezrecommendation.default.repository.content.use_remote_id: false
