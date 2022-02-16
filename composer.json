@@ -33,6 +33,7 @@
     },
     "autoload": {
         "psr-4": {
+            "Ibexa\\Personalization\\": "src/lib/",
             "EzSystems\\EzRecommendationClientBundle\\": "src/bundle/",
             "EzSystems\\EzRecommendationClient\\": "src/lib/"
         }
