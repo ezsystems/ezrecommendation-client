@@ -47,8 +47,6 @@ final class ContentQueryType extends OptionsResolverBasedQueryType
      *  'contentId': int|string,
      *  'language': ?string,
      * } $parameters
-     *
-     * @return \eZ\Publish\API\Repository\Values\Content\Query
      */
     protected function doGetQuery(array $parameters): Query
     {
