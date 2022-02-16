@@ -1,0 +1,16 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzSystems\EzRecommendationClient\Config\CredentialsResolver: ~
+
+    EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver: ~
+
+    EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver: ~
+
+    Ibexa\Personalization\Config\Repository\RepositoryConfigResolver: ~
+
+    Ibexa\Personalization\Config\Repository\RepositoryConfigResolverInterface:
+        '@Ibexa\Personalization\Config\Repository\RepositoryConfigResolver'
