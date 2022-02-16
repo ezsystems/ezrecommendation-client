@@ -11,22 +11,33 @@ namespace Ibexa\Personalization\QueryType;
 use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\QueryType\OptionsResolverBasedQueryType;
-use Ibexa\Personalization\Config\Repository\RepositoryConfigResolverInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ContentQueryType extends OptionsResolverBasedQueryType
 {
-    /** @var \Ibexa\Personalization\Config\Repository\RepositoryConfigResolverInterface */
-    private $repositoryConfigResolver;
-
-    public function __construct(RepositoryConfigResolverInterface $repositoryConfigResolver)
-    {
-        $this->repositoryConfigResolver = $repositoryConfigResolver;
-    }
-
     public static function getName(): string
     {
         return 'Ibexa:Personalization:ContentQueryType';
+    }
+
+    public function getQueryForContentId(int $contentId, ?string $language = null): Query
+    {
+        return $this->getQuery(
+            [
+                'criteria' => [new Criterion\ContentId($contentId)],
+                'language' => $language,
+            ]
+        );
+    }
+
+    public function getQueryForContentRemoteId(string $remoteId, ?string $language = null): Query
+    {
+        return $this->getQuery(
+            [
+                'criteria' => [new Criterion\RemoteId($remoteId)],
+                'language' => $language,
+            ]
+        );
     }
 
     protected function configureOptions(OptionsResolver $optionsResolver): void
@@ -34,17 +45,17 @@ final class ContentQueryType extends OptionsResolverBasedQueryType
         $optionsResolver
             ->setDefaults(
                 [
-                    'contentId' => null,
+                    'criteria' => [],
                     'language' => null,
                 ]
             )
-            ->setAllowedTypes('contentId', ['int', 'string'])
+            ->setAllowedTypes('criteria', ['array'])
             ->setAllowedTypes('language', ['null', 'string']);
     }
 
     /**
      * @phpstan-param array{
-     *  'contentId': int|string,
+     *  'criteria': array<\eZ\Publish\API\Repository\Values\Content\Query\Criterion>,
      *  'language': ?string,
      * } $parameters
      */
@@ -52,33 +63,32 @@ final class ContentQueryType extends OptionsResolverBasedQueryType
     {
         $query = new Query();
 
-        $contentId = $parameters['contentId'];
-        $language = $parameters['language'];
-
-        $query->filter = new Criterion\LogicalAnd($this->buildCriteria($contentId, $language));
+        $query->filter = new Criterion\LogicalAnd(
+            $this->buildCriteria(
+                $parameters['criteria'],
+                $parameters['language']
+            )
+        );
 
         return $query;
     }
 
     /**
-     * @param int|string $contentId
+     * @param array<\eZ\Publish\API\Repository\Values\Content\Query\Criterion> $criteria
      *
      * @return array<\eZ\Publish\API\Repository\Values\Content\Query\Criterion>
      */
-    private function buildCriteria($contentId, ?string $language = null): array
+    private function buildCriteria(array $criteria, ?string $language = null): array
     {
-        $criteria[] = new Query\Criterion\Visibility(Query\Criterion\Visibility::VISIBLE);
-
-        if ($this->repositoryConfigResolver->useRemoteId()) {
-            $criteria[] = new Criterion\RemoteId((string) $contentId);
-        } else {
-            $criteria[] = new Criterion\ContentId((int) $contentId);
-        }
+        $additionalCriteria[] = new Query\Criterion\Visibility(Query\Criterion\Visibility::VISIBLE);
 
         if (!empty($language)) {
-            $criteria[] = new Criterion\LanguageCode($language);
+            $additionalCriteria[] = new Criterion\LanguageCode($language);
         }
 
-        return $criteria;
+        return array_merge(
+            $additionalCriteria,
+            $criteria,
+        );
     }
 }

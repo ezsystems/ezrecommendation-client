@@ -60,12 +60,7 @@ final class ContentController extends RestController
 
         $requestQuery = $request->query;
         $contentItems = $this->getContentItems(
-            $this->contentQueryType->getQuery(
-                [
-                    'contentId' => $contentId,
-                    'language' => $requestQuery->get('lang'),
-                ]
-            )
+            $this->contentQueryType->getQueryForContentId($contentId, (string) $requestQuery->get('lang'))
         );
 
         return $this->getContentData($contentItems);
@@ -82,12 +77,7 @@ final class ContentController extends RestController
 
         $requestQuery = $request->query;
         $contentItems = $this->getContentItems(
-            $this->contentQueryType->getQuery(
-                [
-                    'contentId' => $remoteId,
-                    'language' => $requestQuery->get('lang'),
-                ]
-            )
+            $this->contentQueryType->getQueryForContentRemoteId($remoteId, (string) $requestQuery->get('lang'))
         );
 
         return $this->getContentData($contentItems);
