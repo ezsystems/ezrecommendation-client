@@ -19,10 +19,15 @@ use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Value\Parameters;
 use Ibexa\Personalization\Config\Repository\RepositoryConfigResolverInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
-final class ContentHelper
+final class ContentHelper implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     private const UPDATE_CONTENT_URL_SUFFIX = '%s/api/ezp/v2/ez_recommendation/v1/content/%s/%s%s';
     private const CONTENT_ID_URL_PREFIX = 'id';
     private const CONTENT_REMOTE_ID_URL_PREFIX = 'remote-id';
@@ -39,9 +44,6 @@ final class ContentHelper
     /** @var \eZ\Publish\API\Repository\LocationService */
     private $locationService;
 
-    /** @var \Psr\Log\LoggerInterface */
-    private $logger;
-
     /** @var \Ibexa\Personalization\Config\Repository\RepositoryConfigResolverInterface */
     private $repositoryConfigResolver;
 
@@ -56,19 +58,19 @@ final class ContentHelper
         ContentServiceInterface $contentService,
         ContentTypeHelper $contentTypeHelper,
         LocationServiceInterface $locationService,
-        LoggerInterface $logger,
         RepositoryConfigResolverInterface $repositoryConfigResolver,
         SearchServiceInterface $searchService,
-        SiteAccessHelper $siteAccessHelper
+        SiteAccessHelper $siteAccessHelper,
+        ?LoggerInterface $logger = null
     ) {
         $this->configResolver = $configResolver;
         $this->contentService = $contentService;
         $this->contentTypeHelper = $contentTypeHelper;
         $this->locationService = $locationService;
-        $this->logger = $logger;
         $this->repositoryConfigResolver = $repositoryConfigResolver;
         $this->searchService = $searchService;
         $this->siteAccessHelper = $siteAccessHelper;
+        $this->logger = $logger ?? new NullLogger();
     }
 
     /**
