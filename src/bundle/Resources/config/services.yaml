@@ -5,7 +5,6 @@ imports:
     - { resource: services/commands.yaml }
     - { resource: services/config.yaml }
     - { resource: services/controllers.yaml }
-    - { resource: services/converters.yaml }
     - { resource: services/events.yaml }
     - { resource: services/exporter.yaml }
     - { resource: services/factory.yaml }

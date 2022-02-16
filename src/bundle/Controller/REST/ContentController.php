@@ -51,8 +51,6 @@ final class ContentController extends RestController
     /**
      * Prepares content for ContentData class.
      *
-     * @ParamConverter("list_converter")
-     *
      * @throws \Exception
      */
     public function getContentByIdAction(int $contentId, Request $request): ContentData
@@ -74,8 +72,6 @@ final class ContentController extends RestController
 
     /**
      * Prepares content for ContentData class.
-     *
-     * @ParamConverter("list_converter")
      *
      * @throws \Exception
      */
