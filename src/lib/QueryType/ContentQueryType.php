@@ -20,7 +20,7 @@ final class ContentQueryType extends OptionsResolverBasedQueryType
         return 'Ibexa:Personalization:ContentQueryType';
     }
 
-    public function getQueryForContentId(int $contentId, ?string $language = null): Query
+    public function getQueryByContentId(int $contentId, ?string $language = null): Query
     {
         return $this->getQuery(
             [
@@ -30,7 +30,7 @@ final class ContentQueryType extends OptionsResolverBasedQueryType
         );
     }
 
-    public function getQueryForContentRemoteId(string $remoteId, ?string $language = null): Query
+    public function getQueryByContentRemoteId(string $remoteId, ?string $language = null): Query
     {
         return $this->getQuery(
             [
