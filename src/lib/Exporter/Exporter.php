@@ -22,7 +22,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class Exporter implements ExporterInterface
 {
-    private const API_ENDPOINT_URL = '%s/api/ezp/v2/ez_recommendation/v1/exportDownload/%s';
+    private const API_ENDPOINT_URL = '%s/api/ezp/v2/ez_recommendation/v1/export/download/%s';
 
     /** @var \eZ\Publish\API\Repository\Repository */
     private $repository;

@@ -5,7 +5,6 @@ imports:
     - { resource: services/commands.yaml }
     - { resource: services/config.yaml }
     - { resource: services/controllers.yaml }
-    - { resource: services/converters.yaml }
     - { resource: services/events.yaml }
     - { resource: services/exporter.yaml }
     - { resource: services/factory.yaml }
@@ -15,6 +14,7 @@ imports:
     - { resource: services/helpers.yaml }
     - { resource: services/http.yaml }
     - { resource: services/mappers.yaml }
+    - { resource: services/query_types.yaml }
     - { resource: services/response.yaml }
     - { resource: services/services.yaml }
     - { resource: services/twig.yaml }

@@ -20,6 +20,7 @@ use EzSystems\EzRecommendationClient\Field\Value;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
 use EzSystems\EzRecommendationClient\SPI\Content as ContentOptions;
 use EzSystems\EzRecommendationClient\Value\ExportParameters;
+use Ibexa\Personalization\Config\Repository\RepositoryConfigResolverInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -27,6 +28,9 @@ use Symfony\Component\Routing\RouterInterface;
 
 final class ContentService implements ContentServiceInterface
 {
+    /** @var \EzSystems\EzRecommendationClient\Helper\ContentHelper */
+    private $contentHelper;
+
     /** @var \eZ\Publish\API\Repository\ContentService */
     private $contentService;
 
@@ -36,11 +40,11 @@ final class ContentService implements ContentServiceInterface
     /** @var \eZ\Publish\API\Repository\LocationService */
     private $locationService;
 
+    /** @var \Ibexa\Personalization\Config\Repository\RepositoryConfigResolverInterface */
+    private $repositoryConfigResolver;
+
     /** @var \Symfony\Component\Routing\RouterInterface */
     private $router;
-
-    /** @var \EzSystems\EzRecommendationClient\Helper\ContentHelper */
-    private $contentHelper;
 
     /** @var \EzSystems\EzRecommendationClient\Field\Value */
     private $value;
@@ -53,19 +57,21 @@ final class ContentService implements ContentServiceInterface
 
     public function __construct(
         APIContentServiceInterface $contentService,
+        ContentHelper $contentHelper,
         ContentTypeServiceInterface $contentTypeService,
         LocationServiceInterface $locationService,
+        RepositoryConfigResolverInterface $repositoryConfigResolver,
         RouterInterface $router,
-        ContentHelper $contentHelper,
         Value $value,
         int $defaultAuthorId,
         string $defaultSiteAccess
     ) {
+        $this->contentHelper = $contentHelper;
         $this->contentService = $contentService;
         $this->contentTypeService = $contentTypeService;
         $this->locationService = $locationService;
+        $this->repositoryConfigResolver = $repositoryConfigResolver;
         $this->router = $router;
-        $this->contentHelper = $contentHelper;
         $this->value = $value;
         $this->defaultAuthorId = $defaultAuthorId;
         $this->defaultSiteAccess = $defaultSiteAccess;
@@ -166,7 +172,7 @@ final class ContentService implements ContentServiceInterface
         ];
 
         return [
-            'contentId' => $content->id,
+            'contentId' => $this->repositoryConfigResolver->useRemoteId() ? $contentInfo->remoteId : $content->id,
             'contentTypeId' => $contentType->id,
             'identifier' => $contentType->identifier,
             'language' => $language,

@@ -1,0 +1,9 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Ibexa\Personalization\QueryType\ContentQueryType:
+        tags:
+            - { name: ezplatform.query_type }

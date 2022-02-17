@@ -21,39 +21,14 @@ parameters:
 			path: src/bundle/Command/UserAttributesUpdateCommand.php
 
 		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\\\Symfony\\\\Component\\\\HttpFoundation\\\\ParameterBag ParameterBag \\$parameterBag\\)\\: Unexpected token \"ParameterBag\", expected variable at offset 65$#"
-			count: 1
-			path: src/bundle/Controller/ContentController.php
-
-		-
-			message: "#^Parameter \\#1 \\$string of static method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ParamsConverterHelper\\:\\:getArrayFromString\\(\\) expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentController.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\ContentController\\:\\:\\$searchService \\(eZ\\\\Publish\\\\Core\\\\Repository\\\\SearchService\\) does not accept eZ\\\\Publish\\\\API\\\\Repository\\\\SearchService\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentController.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$fields \\(array\\<string\\>\\) does not accept array\\|null\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentController.php
-
-		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$lang \\(string\\|null\\) does not accept bool\\|float\\|int\\|string\\|null\\.$#"
-			count: 1
-			path: src/bundle/Controller/ContentController.php
-
-		-
 			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Authentication\\\\AuthenticatorInterface\\:\\:authenticateByFile\\(\\)\\.$#"
 			count: 1
-			path: src/bundle/Controller/ExportController.php
+			path: src/bundle/Controller/REST/ExportController.php
 
 		-
 			message: "#^Parameter \\#2 \\$values of method Symfony\\\\Component\\\\HttpFoundation\\\\ResponseHeaderBag\\:\\:set\\(\\) expects array\\<string\\>\\|string\\|null, int\\|false given\\.$#"
 			count: 1
-			path: src/bundle/Controller/ExportController.php
+			path: src/bundle/Controller/REST/ExportController.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Controller\\\\RecommendationController\\:\\:getTemplate\\(\\) should return string but returns string\\|null\\.$#"
@@ -687,11 +662,6 @@ parameters:
 
 		-
 			message: "#^Cannot access property \\$contentInfo on eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\Content\\|null\\.$#"
-			count: 1
-			path: src/lib/Helper/ContentHelper.php
-
-		-
-			message: "#^Interface eZ\\\\Publish\\\\API\\\\Repository\\\\SearchService referenced with incorrect case\\: eZ\\\\Publish\\\\Api\\\\Repository\\\\SearchService\\.$#"
 			count: 1
 			path: src/lib/Helper/ContentHelper.php
 

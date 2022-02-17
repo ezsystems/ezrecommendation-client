@@ -18,47 +18,59 @@ use eZ\Publish\API\Repository\Values\Content\Query;
 use eZ\Publish\API\Repository\Values\Content\Query\Criterion;
 use eZ\Publish\Core\MVC\ConfigResolverInterface;
 use EzSystems\EzRecommendationClient\Value\Parameters;
+use Ibexa\Personalization\Config\Repository\RepositoryConfigResolverInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
-final class ContentHelper
+final class ContentHelper implements LoggerAwareInterface
 {
-    /** @var \eZ\Publish\Api\Repository\SearchService */
-    private $searchService;
+    use LoggerAwareTrait;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
-    private $contentService;
-
-    /** @var \eZ\Publish\API\Repository\LocationService */
-    private $locationService;
+    private const UPDATE_CONTENT_URL_SUFFIX = '%s/api/ezp/v2/ez_recommendation/v1/content/%s/%s%s';
+    private const CONTENT_ID_URL_PREFIX = 'id';
+    private const CONTENT_REMOTE_ID_URL_PREFIX = 'remote-id';
 
     /** @var \eZ\Publish\Core\MVC\ConfigResolverInterface */
     private $configResolver;
 
+    /** @var \eZ\Publish\API\Repository\ContentService */
+    private $contentService;
+
     /** @var \EzSystems\EzRecommendationClient\Helper\ContentTypeHelper */
     private $contentTypeHelper;
+
+    /** @var \eZ\Publish\API\Repository\LocationService */
+    private $locationService;
+
+    /** @var \Ibexa\Personalization\Config\Repository\RepositoryConfigResolverInterface */
+    private $repositoryConfigResolver;
+
+    /** @var \eZ\Publish\API\Repository\SearchService */
+    private $searchService;
 
     /** @var \EzSystems\EzRecommendationClient\Helper\SiteAccessHelper */
     private $siteAccessHelper;
 
-    /** @var \Psr\Log\LoggerInterface */
-    private $logger;
-
     public function __construct(
-        ContentServiceInterface $contentService,
-        LocationServiceInterface $locationService,
-        SearchServiceInterface $searchService,
         ConfigResolverInterface $configResolver,
+        ContentServiceInterface $contentService,
         ContentTypeHelper $contentTypeHelper,
+        LocationServiceInterface $locationService,
+        RepositoryConfigResolverInterface $repositoryConfigResolver,
+        SearchServiceInterface $searchService,
         SiteAccessHelper $siteAccessHelper,
-        LoggerInterface $logger
+        ?LoggerInterface $logger = null
     ) {
-        $this->contentService = $contentService;
-        $this->locationService = $locationService;
-        $this->searchService = $searchService;
         $this->configResolver = $configResolver;
+        $this->contentService = $contentService;
         $this->contentTypeHelper = $contentTypeHelper;
+        $this->locationService = $locationService;
+        $this->repositoryConfigResolver = $repositoryConfigResolver;
+        $this->searchService = $searchService;
         $this->siteAccessHelper = $siteAccessHelper;
-        $this->logger = $logger;
+        $this->logger = $logger ?? new NullLogger();
     }
 
     /**
@@ -79,11 +91,17 @@ final class ContentHelper
      */
     public function getContentUri(ContentInfo $contentInfo, ?string $lang = null): string
     {
+        $useRemoteId = $this->repositoryConfigResolver->useRemoteId();
+        $contentId = $useRemoteId ? $contentInfo->remoteId : $contentInfo->id;
+        $prefix = $useRemoteId ? self::CONTENT_REMOTE_ID_URL_PREFIX : self::CONTENT_ID_URL_PREFIX;
+        $language = isset($lang) ? '?lang=' . $lang : '';
+
         return sprintf(
-            '%s/api/ezp/v2/ez_recommendation/v1/content/%s%s',
+            self::UPDATE_CONTENT_URL_SUFFIX,
             $this->configResolver->getParameter('host_uri', Parameters::NAMESPACE),
-            $contentInfo->id,
-            isset($lang) ? '?lang=' . $lang : ''
+            $prefix,
+            $contentId,
+            $language
         );
     }
 
