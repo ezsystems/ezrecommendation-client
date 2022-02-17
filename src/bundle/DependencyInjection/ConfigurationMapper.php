@@ -67,6 +67,14 @@ class ConfigurationMapper implements HookableConfigurationMapperInterface
             $contextualizer->setContextualParameter('user_api.default_source', $currentScope, $scopeSettings['user_api']['default_source']);
         }
 
+        if (isset($scopeSettings['repository']['content']['use_remote_id'])) {
+            $contextualizer->setContextualParameter(
+                'repository.content.use_remote_id',
+                $currentScope,
+                $scopeSettings['repository']['content']['use_remote_id']
+            );
+        }
+
         if (isset($scopeSettings['api'])) {
             $this->setApiSettings($contextualizer, $currentScope, $scopeSettings['api']);
         }
