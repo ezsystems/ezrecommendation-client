@@ -8,8 +8,6 @@ declare(strict_types=1);
 
 namespace EzSystems\EzRecommendationClient\Helper;
 
-use eZ\Publish\API\Repository\ContentService as ContentServiceInterface;
-use eZ\Publish\API\Repository\Exceptions\NotFoundException;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 
@@ -18,15 +16,9 @@ final class LocationHelper
     /** @var \eZ\Publish\API\Repository\LocationService */
     private $locationService;
 
-    /** @var \eZ\Publish\API\Repository\ContentService */
-    private $contentService;
-
-    public function __construct(
-        LocationServiceInterface $locationService,
-        ContentServiceInterface $contentService
-    ) {
+    public function __construct(LocationServiceInterface $locationService)
+    {
         $this->locationService = $locationService;
-        $this->contentService = $contentService;
     }
 
     /**
@@ -43,27 +35,5 @@ final class LocationHelper
         }
 
         return false;
-    }
-
-    /**
-     * Returns location path string based on $contentId.
-     *
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     */
-    public function getParentLocationPathString(int $contentId): ?string
-    {
-        try {
-            $content = $this->contentService->loadContent($contentId);
-            $mainLocation = $content->contentInfo->getMainLocation();
-            if (null === $mainLocation) {
-                return null;
-            }
-
-            $parentLocation = $mainLocation->getParentLocation();
-
-            return null !== $parentLocation ? $parentLocation->pathString : null;
-        } catch (NotFoundException $exception) {
-            return null;
-        }
     }
 }
