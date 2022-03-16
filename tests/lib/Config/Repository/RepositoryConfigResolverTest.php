@@ -40,7 +40,6 @@ final class RepositoryConfigResolverTest extends TestCase
     public function testDoNotUseRemoteIdWhenParameterIsNotDefined(): void
     {
         $this->mockConfigResolverHasParameter(false);
-        $this->mockConfigResolverGetParameter(false);
 
         self::assertFalse($this->repositoryConfigResolver->useRemoteId());
     }
