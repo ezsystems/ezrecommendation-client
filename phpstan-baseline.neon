@@ -661,11 +661,6 @@ parameters:
 			path: src/lib/Generator/ContentListElementGenerator.php
 
 		-
-			message: "#^Cannot access property \\$contentInfo on eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\Content\\|null\\.$#"
-			count: 1
-			path: src/lib/Helper/ContentHelper.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\:\\:countContentItemsByContentTypeId\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Helper/ContentHelper.php

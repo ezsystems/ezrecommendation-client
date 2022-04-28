@@ -59,7 +59,7 @@ final class EventNotificationService extends NotificationService
     {
         $credentials = $this->clientCredentials->getCredentials();
 
-        if (!$credentials || $this->contentTypeHelper->isContentTypeExcluded($contentInfo)) {
+        if (!$credentials || $this->contentTypeHelper->isContentTypeExcluded($contentInfo->getContentType())) {
             return;
         }
 
