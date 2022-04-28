@@ -65,17 +65,17 @@ final class UserTracking implements RuntimeExtensionInterface
      */
     public function trackUser(Content $content): ?string
     {
-        $contentInfo = $content->contentInfo;
-        if ($this->contentTypeHelper->isContentTypeExcluded($contentInfo)) {
+        $contentType = $content->getContentType();
+        if ($this->contentTypeHelper->isContentTypeExcluded($contentType)) {
             return null;
         }
 
-        $contentId = $this->repositoryConfigResolver->useRemoteId() ? $contentInfo->remoteId : $content->id;
+        $contentId = $this->repositoryConfigResolver->useRemoteId() ? $content->contentInfo->remoteId : $content->id;
 
         return $this->render(
             [
                 'contentId' => $contentId,
-                'contentTypeId' => $content->getContentType()->id,
+                'contentTypeId' => $contentType->id,
             ]
         );
     }

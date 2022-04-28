@@ -125,8 +125,11 @@ final class ContentHelper implements LoggerAwareInterface
     public function getIncludedContent(int $contentId, ?array $languages = null, ?int $versionNo = null): ?Content
     {
         $content = $this->getContent($contentId, $languages, $versionNo);
+        if (null === $content) {
+            return null;
+        }
 
-        return !$this->contentTypeHelper->isContentTypeExcluded($content->contentInfo) ? $content : null;
+        return !$this->contentTypeHelper->isContentTypeExcluded($content->getContentType()) ? $content : null;
     }
 
     /**

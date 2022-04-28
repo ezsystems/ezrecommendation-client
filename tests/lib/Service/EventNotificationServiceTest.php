@@ -9,6 +9,7 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClient\Tests\Service;
 
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\Core\Repository\Values\ContentType\ContentType;
 use EzSystems\EzRecommendationClient\API\Notifier;
 use EzSystems\EzRecommendationClient\Config\ExportCredentialsResolver;
 use EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver;
@@ -92,7 +93,14 @@ class EventNotificationServiceTest extends NotificationServiceTest
         $this->notificationService->sendNotification(
             'onHideLocation',
             EventNotification::ACTION_UPDATE,
-            new ContentInfo([])
+            new ContentInfo([
+                'contentType' => new ContentType(
+                    [
+                        'id' => 1,
+                        'identifier' => 'foo',
+                    ]
+                ),
+            ])
         );
     }
 }
