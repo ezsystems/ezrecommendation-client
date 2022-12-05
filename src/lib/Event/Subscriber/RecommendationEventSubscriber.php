@@ -77,29 +77,27 @@ final class RecommendationEventSubscriber implements EventSubscriberInterface
         $event->setRecommendationItems($this->extractRecommendationItems($response));
     }
 
-    /**
-     * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
-     * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
-     */
     private function getRecommendationRequest(ParameterBag $parameterBag): RecommendationRequest
     {
-        $contextItem = null;
-        $content = $parameterBag->get(Request::CONTEXT_ITEMS_KEY);
-        if ($content instanceof Content) {
-            $contextItem = $this->repositoryConfigResolver->useRemoteId() ? $content->contentInfo->remoteId : $content->id;
-        }
-
-        return new Request([
+        $parameters = [
             RecommendationRequest::SCENARIO => $parameterBag->get(RecommendationRequest::SCENARIO, ''),
             Request::LIMIT_KEY => $parameterBag->get(Request::LIMIT_KEY, 3),
-            Request::CONTEXT_ITEMS_KEY => $contextItem,
-            Request::CONTENT_TYPE_KEY => $content->getContentType()->id,
             Request::OUTPUT_TYPE_ID_KEY => $parameterBag->get(Request::OUTPUT_TYPE_ID_KEY),
-            Request::CATEGORY_PATH_KEY => $this->getCategoryPath($content),
             Request::LANGUAGE_KEY => $this->getRequestLanguage($parameterBag->get(self::LOCALE_REQUEST_KEY)),
             Request::ATTRIBUTES_KEY => $parameterBag->get(Request::ATTRIBUTES_KEY, []),
             Request::FILTERS_KEY => $parameterBag->get(Request::FILTERS_KEY, []),
-        ]);
+        ];
+
+        $content = $parameterBag->get(Request::CONTEXT_ITEMS_KEY);
+        if ($content instanceof Content) {
+            $parameters[Request::CONTEXT_ITEMS_KEY] = $this->repositoryConfigResolver->useRemoteId()
+                ? $content->contentInfo->remoteId
+                : $content->id;
+            $parameters[Request::CONTENT_TYPE_KEY] = $content->getContentType()->id;
+            $parameters[Request::CATEGORY_PATH_KEY] = $this->getCategoryPath($content);
+        }
+
+        return new Request($parameters);
     }
 
     private function getRequestLanguage(?string $locale): string
@@ -115,7 +113,7 @@ final class RecommendationEventSubscriber implements EventSubscriberInterface
 
         $recommendations = $response->getBody()->getContents();
 
-        $recommendationItems = json_decode($recommendations, true);
+        $recommendationItems = json_decode($recommendations, true, 512, JSON_THROW_ON_ERROR);
 
         return $this->recommendationService->getRecommendationItems($recommendationItems['recommendationItems']);
     }
