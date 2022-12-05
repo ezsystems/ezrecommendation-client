@@ -164,9 +164,13 @@ final class RecommendationRandomContentEventSubscriber implements EventSubscribe
 
         if ($value instanceof RichTextValue) {
             return $value->xml->textContent;
-        } elseif ($value instanceof TextLineValue) {
+        }
+
+        if ($value instanceof TextLineValue) {
             return $value->text;
         }
+
+        return (string) $value;
     }
 
     private function getImage(Content $content): ?string

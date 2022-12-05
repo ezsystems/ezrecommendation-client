@@ -207,11 +207,7 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
      */
     public function __call(string $name, array $arguments): AbstractAPI
     {
-        try {
-            return $this->eZRecommendationClientApiFactory->buildAPI($name, $this);
-        } catch (BadAPICallException $exception) {
-            $this->logger->error(self::ERROR_MESSAGE . $exception->getMessage());
-        }
+        return $this->eZRecommendationClientApiFactory->buildAPI($name, $this);
     }
 
     /**
