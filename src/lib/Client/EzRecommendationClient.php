@@ -10,7 +10,6 @@ namespace EzSystems\EzRecommendationClient\Client;
 
 use EzSystems\EzRecommendationClient\API\AbstractAPI;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
-use EzSystems\EzRecommendationClient\Exception\BadAPICallException;
 use EzSystems\EzRecommendationClient\Exception\BadResponseException;
 use EzSystems\EzRecommendationClient\Exception\CredentialsNotFoundException;
 use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory;
