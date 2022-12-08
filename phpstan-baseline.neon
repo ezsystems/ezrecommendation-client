@@ -6,7 +6,7 @@ parameters:
 			path: src/bundle/Command/ExportCommand.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Command\\\\ExportCommand\\:\\:configure\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Command\\\\ExportCommand\\:\\:configure\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/bundle/Command/ExportCommand.php
 
@@ -26,7 +26,7 @@ parameters:
 			path: src/bundle/Controller/REST/ExportController.php
 
 		-
-			message: "#^Parameter \\#2 \\$values of method Symfony\\\\Component\\\\HttpFoundation\\\\ResponseHeaderBag\\:\\:set\\(\\) expects array\\<string\\>\\|string\\|null, int\\|false given\\.$#"
+			message: "#^Parameter \\#2 \\$values of method Symfony\\\\Component\\\\HttpFoundation\\\\ResponseHeaderBag\\:\\:set\\(\\) expects array\\<string\\>\\|string\\|null, int\\<0, max\\>\\|false given\\.$#"
 			count: 1
 			path: src/bundle/Controller/REST/ExportController.php
 
@@ -41,19 +41,9 @@ parameters:
 			path: src/bundle/Controller/RecommendationController.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\Compiler\\\\RestResponsePass\\:\\:process\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\Compiler\\\\RestResponsePass\\:\\:process\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/bundle/DependencyInjection/Compiler/RestResponsePass.php
-
-		-
-			message: "#^Cannot call method arrayNode\\(\\) on Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeParentInterface\\|null\\.$#"
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration.php
-
-		-
-			message: "#^Parameter \\#1 \\$rootNode of method eZ\\\\Bundle\\\\EzPublishCoreBundle\\\\DependencyInjection\\\\Configuration\\\\SiteAccessAware\\\\Configuration\\:\\:generateScopeBaseNode\\(\\) expects Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\ArrayNodeDefinition, Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition given\\.$#"
-			count: 1
-			path: src/bundle/DependencyInjection/Configuration.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:mapConfig\\(\\) has parameter \\$scopeSettings with no value type specified in iterable type array\\.$#"
@@ -71,7 +61,7 @@ parameters:
 			path: src/bundle/DependencyInjection/ConfigurationMapper.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:setApiSettings\\(\\) has parameter \\$currentScope with no typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:setApiSettings\\(\\) has parameter \\$currentScope with no type specified\\.$#"
 			count: 1
 			path: src/bundle/DependencyInjection/ConfigurationMapper.php
 
@@ -81,12 +71,12 @@ parameters:
 			path: src/bundle/DependencyInjection/ConfigurationMapper.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:setFieldSettings\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:setFieldSettings\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/bundle/DependencyInjection/ConfigurationMapper.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:setFieldSettings\\(\\) has parameter \\$currentScope with no typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\ConfigurationMapper\\:\\:setFieldSettings\\(\\) has parameter \\$currentScope with no type specified\\.$#"
 			count: 1
 			path: src/bundle/DependencyInjection/ConfigurationMapper.php
 
@@ -96,24 +86,19 @@ parameters:
 			path: src/bundle/DependencyInjection/ConfigurationMapper.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\EzRecommendationClientExtension\\:\\:load\\(\\) has parameter \\$configs with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/bundle/DependencyInjection/EzRecommendationClientExtension.php
-
-		-
 			message: "#^Parameter \\#1 \\$configuration of method Symfony\\\\Component\\\\DependencyInjection\\\\Extension\\\\Extension\\:\\:processConfiguration\\(\\) expects Symfony\\\\Component\\\\Config\\\\Definition\\\\ConfigurationInterface, Symfony\\\\Component\\\\Config\\\\Definition\\\\ConfigurationInterface\\|null given\\.$#"
 			count: 1
 			path: src/bundle/DependencyInjection/EzRecommendationClientExtension.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\EzRecommendationClientBundle\\:\\:build\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\EzRecommendationClientBundle\\:\\:build\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/bundle/EzRecommendationClientBundle.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\AttributeNormalizer\\:\\:normalize\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
+			message: "#^Property EzSystems\\\\EzRecommendationClientBundle\\\\EzRecommendationClientBundle\\:\\:\\$extension \\(EzSystems\\\\EzRecommendationClientBundle\\\\DependencyInjection\\\\EzRecommendationClientExtension\\) on left side of \\?\\? is not nullable\\.$#"
 			count: 1
-			path: src/bundle/Serializer/Normalizer/AttributeNormalizer.php
+			path: src/bundle/EzRecommendationClientBundle.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\AttributeNormalizer\\:\\:normalize\\(\\) return type has no value type specified in iterable type array\\.$#"
@@ -122,11 +107,6 @@ parameters:
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserCollectionNormalizer\\:\\:getNormalizedUsers\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/bundle/Serializer/Normalizer/UserCollectionNormalizer.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserCollectionNormalizer\\:\\:normalize\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/bundle/Serializer/Normalizer/UserCollectionNormalizer.php
 
@@ -142,11 +122,6 @@ parameters:
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserNormalizer\\:\\:getNormalizedAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/bundle/Serializer/Normalizer/UserNormalizer.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\Serializer\\\\Normalizer\\\\UserNormalizer\\:\\:normalize\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/bundle/Serializer/Normalizer/UserNormalizer.php
 
@@ -201,11 +176,6 @@ parameters:
 			path: src/lib/API/AllowedAPI.php
 
 		-
-			message: "#^Access to an undefined property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Notification\\:\\:\\$transaction\\.$#"
-			count: 1
-			path: src/lib/API/Notifier.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\API\\\\User\\:\\:getHeaders\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/API/User.php
@@ -231,11 +201,6 @@ parameters:
 			path: src/lib/Client/EzRecommendationClient.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:__call\\(\\) should return EzSystems\\\\EzRecommendationClient\\\\API\\\\AbstractAPI but return statement is missing\\.$#"
-			count: 1
-			path: src/lib/Client/EzRecommendationClient.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:getHeadersAsString\\(\\) has parameter \\$headers with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Client/EzRecommendationClient.php
@@ -251,6 +216,11 @@ parameters:
 			path: src/lib/Client/EzRecommendationClient.php
 
 		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClient\\:\\:sendRequest\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClient.php
+
+		-
 			message: "#^Parameter \\#4 \\$previous of class EzSystems\\\\EzRecommendationClient\\\\Exception\\\\BadResponseException constructor expects Exception\\|null, Throwable\\|null given\\.$#"
 			count: 1
 			path: src/lib/Client/EzRecommendationClient.php
@@ -262,6 +232,11 @@ parameters:
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClientInterface\\:\\:__call\\(\\) has parameter \\$arguments with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Client/EzRecommendationClientInterface.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Client\\\\EzRecommendationClientInterface\\:\\:sendRequest\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Client/EzRecommendationClientInterface.php
 
@@ -291,7 +266,7 @@ parameters:
 			path: src/lib/Event/RecommendationResponseEvent.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:setRecommendationItems\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\RecommendationResponseEvent\\:\\:setRecommendationItems\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Event/RecommendationResponseEvent.php
 
@@ -326,11 +301,6 @@ parameters:
 			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
 
 		-
-			message: "#^Parameter \\#1 \\$parameters of class EzSystems\\\\EzRecommendationClient\\\\Request\\\\BasicRecommendationRequest constructor expects array\\<string\\>, array\\<string, mixed\\> given\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
-
-		-
 			message: "#^Parameter \\#1 \\$posixLocale of method eZ\\\\Publish\\\\Core\\\\MVC\\\\Symfony\\\\Locale\\\\LocaleConverterInterface\\:\\:convertToEz\\(\\) expects string, string\\|null given\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/RecommendationEventSubscriber.php
@@ -346,12 +316,7 @@ parameters:
 			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationRandomContentEventSubscriber\\:\\:getImage\\(\\) never returns null so it can be removed from the return typehint\\.$#"
-			count: 1
-			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationRandomContentEventSubscriber\\:\\:getIntro\\(\\) should return string but return statement is missing\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\RecommendationRandomContentEventSubscriber\\:\\:getImage\\(\\) never returns null so it can be removed from the return type\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
 
@@ -396,6 +361,11 @@ parameters:
 			path: src/lib/Event/Subscriber/RecommendationRandomContentEventSubscriber.php
 
 		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\TrashEventSubscriber\\:\\:getRelations\\(\\) should return array\\<eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\Relation\\> but returns iterable\\<eZ\\\\Publish\\\\API\\\\Repository\\\\Values\\\\Content\\\\Relation\\>\\.$#"
+			count: 1
+			path: src/lib/Event/Subscriber/TrashEventSubscriber.php
+
+		-
 			message: "#^Cannot access property \\$source on EzSystems\\\\EzRecommendationClient\\\\SPI\\\\UserAPIRequest\\|null\\.$#"
 			count: 1
 			path: src/lib/Event/Subscriber/UserCollectionGeneratorEventSubscriber.php
@@ -411,7 +381,7 @@ parameters:
 			path: src/lib/Event/Subscriber/UserCollectionGeneratorEventSubscriber.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\BadAPICallException\\:\\:__construct\\(\\) has parameter \\$name with no typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\BadAPICallException\\:\\:__construct\\(\\) has parameter \\$name with no type specified\\.$#"
 			count: 1
 			path: src/lib/Exception/BadAPICallException.php
 
@@ -436,22 +406,22 @@ parameters:
 			path: src/lib/Exception/CredentialsNotFoundException.php
 
 		-
-			message: "#^Parameter \\$previous of method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\CredentialsNotFoundException\\:\\:__construct\\(\\) has invalid typehint type EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Throwable\\.$#"
+			message: "#^Parameter \\$previous of method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\CredentialsNotFoundException\\:\\:__construct\\(\\) has invalid type EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Throwable\\.$#"
 			count: 1
 			path: src/lib/Exception/CredentialsNotFoundException.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\FileNotFoundException\\:\\:__construct\\(\\) has parameter \\$code with no typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\FileNotFoundException\\:\\:__construct\\(\\) has parameter \\$code with no type specified\\.$#"
 			count: 1
 			path: src/lib/Exception/FileNotFoundException.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\FileNotFoundException\\:\\:__construct\\(\\) has parameter \\$message with no typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\FileNotFoundException\\:\\:__construct\\(\\) has parameter \\$message with no type specified\\.$#"
 			count: 1
 			path: src/lib/Exception/FileNotFoundException.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidArgumentException\\:\\:__construct\\(\\) has parameter \\$message with no typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidArgumentException\\:\\:__construct\\(\\) has parameter \\$message with no type specified\\.$#"
 			count: 1
 			path: src/lib/Exception/InvalidArgumentException.php
 
@@ -461,7 +431,7 @@ parameters:
 			path: src/lib/Exception/InvalidArgumentException.php
 
 		-
-			message: "#^Parameter \\$previous of method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidArgumentException\\:\\:__construct\\(\\) has invalid typehint type EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Exception\\.$#"
+			message: "#^Parameter \\$previous of method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidArgumentException\\:\\:__construct\\(\\) has invalid type EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Exception\\.$#"
 			count: 1
 			path: src/lib/Exception/InvalidArgumentException.php
 
@@ -471,7 +441,7 @@ parameters:
 			path: src/lib/Exception/InvalidRelationException.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidRelationException\\:\\:__construct\\(\\) has parameter \\$message with no typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidRelationException\\:\\:__construct\\(\\) has parameter \\$message with no type specified\\.$#"
 			count: 1
 			path: src/lib/Exception/InvalidRelationException.php
 
@@ -481,7 +451,7 @@ parameters:
 			path: src/lib/Exception/InvalidRelationException.php
 
 		-
-			message: "#^Parameter \\$previous of method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidRelationException\\:\\:__construct\\(\\) has invalid typehint type EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Exception\\.$#"
+			message: "#^Parameter \\$previous of method EzSystems\\\\EzRecommendationClient\\\\Exception\\\\InvalidRelationException\\:\\:__construct\\(\\) has invalid type EzSystems\\\\EzRecommendationClient\\\\Exception\\\\Exception\\.$#"
 			count: 1
 			path: src/lib/Exception/InvalidRelationException.php
 
@@ -536,7 +506,17 @@ parameters:
 			path: src/lib/Factory/ExportParametersFactoryInterface.php
 
 		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\EzRecommendationClientAPIFactory\\:\\:buildAPI\\(\\) should return EzSystems\\\\EzRecommendationClient\\\\API\\\\AbstractAPI but returns object\\.$#"
+			count: 1
+			path: src/lib/Factory/EzRecommendationClientAPIFactory.php
+
+		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Factory\\\\TokenFactory\\:\\:createAnonymousToken\\(\\) has parameter \\$roles with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Factory/TokenFactory.php
+
+		-
+			message: "#^Variable \\$roles on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/lib/Factory/TokenFactory.php
 
@@ -553,6 +533,16 @@ parameters:
 		-
 			message: "#^Cannot call method convert\\(\\) on EzSystems\\\\EzPlatformRichTextBundle\\\\eZ\\\\RichText\\\\Converter\\\\Html5\\|null\\.$#"
 			count: 1
+			path: src/lib/Field/TypeValue.php
+
+		-
+			message: "#^Dead catch \\- LogicException is never thrown in the try block\\.$#"
+			count: 1
+			path: src/lib/Field/TypeValue.php
+
+		-
+			message: "#^Expression on left side of \\?\\? is not nullable\\.$#"
+			count: 2
 			path: src/lib/Field/TypeValue.php
 
 		-
@@ -601,22 +591,12 @@ parameters:
 			path: src/lib/Field/Value.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\Value\\:\\:getImageFieldIdentifier\\(\\) has parameter \\$contentId with no typehint specified\\.$#"
-			count: 1
-			path: src/lib/Field/Value.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\Value\\:\\:getImageFieldIdentifier\\(\\) should return string but return statement is missing\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\Value\\:\\:getImageFieldIdentifier\\(\\) has parameter \\$contentId with no type specified\\.$#"
 			count: 1
 			path: src/lib/Field/Value.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Field\\\\Value\\:\\:getParsedFieldValue\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Field/Value.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$contentId\\)\\: Unexpected token \"\\$contentId\", expected type at offset 78$#"
 			count: 1
 			path: src/lib/Field/Value.php
 
@@ -836,17 +816,12 @@ parameters:
 			path: src/lib/Request/UserMetadataRequest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Response\\\\HttpResponse\\:\\:render\\(\\) has parameter \\$data with no typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Response\\\\HttpResponse\\:\\:render\\(\\) has parameter \\$data with no type specified\\.$#"
 			count: 1
 			path: src/lib/Response/HttpResponse.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Response\\\\ResponseInterface\\:\\:render\\(\\) has parameter \\$data with no typehint specified\\.$#"
-			count: 1
-			path: src/lib/Response/ResponseInterface.php
-
-		-
-			message: "#^PHPDoc tag @param has invalid value \\(\\$data\\)\\: Unexpected token \"\\$data\", expected type at offset 18$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Response\\\\ResponseInterface\\:\\:render\\(\\) has parameter \\$data with no type specified\\.$#"
 			count: 1
 			path: src/lib/Response/ResponseInterface.php
 
@@ -879,11 +854,6 @@ parameters:
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Request\\:\\:getRequestAttributes\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/SPI/Request.php
-
-		-
-			message: "#^Access to an undefined property EzSystems\\\\EzRecommendationClient\\\\SPI\\\\Content\\:\\:\\$siteaccess\\.$#"
-			count: 1
-			path: src/lib/Service/ContentService.php
 
 		-
 			message: "#^Access to an undefined property eZ\\\\Publish\\\\Core\\\\Repository\\\\Values\\\\Content\\\\Content\\:\\:\\$valueObject\\.$#"
@@ -926,7 +896,7 @@ parameters:
 			path: src/lib/Service/ContentService.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareFields\\(\\) should return array but returns array\\|null\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareFields\\(\\) should return array but returns array\\<int, mixed\\>\\|null\\.$#"
 			count: 1
 			path: src/lib/Service/ContentService.php
 
@@ -996,11 +966,6 @@ parameters:
 			path: src/lib/Service/EventNotificationService.php
 
 		-
-			message: "#^Parameter \\#1 \\$parameters of class EzSystems\\\\EzRecommendationClient\\\\Request\\\\EventNotifierRequest constructor expects array\\<string\\>, array\\<string, mixed\\> given\\.$#"
-			count: 1
-			path: src/lib/Service/EventNotificationService.php
-
-		-
 			message: "#^Parameter \\#3 \\$exportCredentials of method EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\:\\:generateNotificationEvents\\(\\) expects EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\ExportCredentials, EzSystems\\\\EzRecommendationClient\\\\Value\\\\Config\\\\Credentials\\|null given\\.$#"
 			count: 1
 			path: src/lib/Service/EventNotificationService.php
@@ -1036,7 +1001,7 @@ parameters:
 			path: src/lib/Service/ExportNotificationService.php
 
 		-
-			message: "#^Parameter \\#1 \\$parameters of class EzSystems\\\\EzRecommendationClient\\\\Request\\\\ExportNotifierRequest constructor expects array\\<string\\>, array\\<string, mixed\\> given\\.$#"
+			message: "#^Variable \\$securedDirCredentials on left side of \\?\\? always exists and is not nullable\\.$#"
 			count: 1
 			path: src/lib/Service/ExportNotificationService.php
 
@@ -1066,7 +1031,7 @@ parameters:
 			path: src/lib/Service/RecommendationService.php
 
 		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Service\\\\RecommendationService\\:\\:\\$userService has no typehint specified\\.$#"
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Service\\\\RecommendationService\\:\\:\\$userService has no type specified\\.$#"
 			count: 1
 			path: src/lib/Service/RecommendationService.php
 
@@ -1106,7 +1071,7 @@ parameters:
 			path: src/lib/Value/ContentData.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentDataVisitor\\:\\:setResponseRenderers\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentDataVisitor\\:\\:setResponseRenderers\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Value/ContentDataVisitor.php
 
@@ -1116,7 +1081,7 @@ parameters:
 			path: src/lib/Value/ContentDataVisitor.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentDataVisitor\\:\\:visit\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Value\\\\ContentDataVisitor\\:\\:visit\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/lib/Value/ContentDataVisitor.php
 
@@ -1131,7 +1096,7 @@ parameters:
 			path: src/lib/Value/IdList.php
 
 		-
-			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\Output\\\\User\\:\\:\\$attributes has no typehint specified\\.$#"
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Value\\\\Output\\\\User\\:\\:\\$attributes has no type specified\\.$#"
 			count: 1
 			path: src/lib/Value/Output/User.php
 
@@ -1141,37 +1106,37 @@ parameters:
 			path: src/lib/Value/Output/UserCollection.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateByFile\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateByFile\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Authentication/ExportAuthenticatorTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateByFileWithRealFile\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateByFileWithRealFile\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Authentication/ExportAuthenticatorTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateByFileWithWrongCredenrials\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateByFileWithWrongCredenrials\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Authentication/ExportAuthenticatorTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateByFileWithWrongFile\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateByFileWithWrongFile\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Authentication/ExportAuthenticatorTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateWithMethodNone\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateWithMethodNone\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Authentication/ExportAuthenticatorTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateWithMethodUser\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateWithMethodUser\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Authentication/ExportAuthenticatorTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateWithMethodUserAndWrongCredentials\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Authentication\\\\ExportAuthenticatorTest\\:\\:testAuthenticateWithMethodUserAndWrongCredentials\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Authentication/ExportAuthenticatorTest.php
 
@@ -1181,47 +1146,52 @@ parameters:
 			path: tests/lib/Client/EzRecommendationClientTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testCreateEzRecommendationClientInstance\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testCreateEzRecommendationClientInstance\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Client/EzRecommendationClientTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testReturnCalledAPI\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testReturnCalledAPI\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Client/EzRecommendationClientTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testReturnFalseWhenCredentialsAreNotSet\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testReturnFalseWhenCredentialsAreNotSet\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Client/EzRecommendationClientTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testReturnHeadersAsString\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testReturnHeadersAsString\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Client/EzRecommendationClientTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testSendRequestAndReturnResponse\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testSendRequestAndReturnResponse\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Client/EzRecommendationClientTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testSendRequestAndThrowExceptionWhenCredentialsAreNotSet\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Client\\\\EzRecommendationClientTest\\:\\:testSendRequestAndThrowExceptionWhenCredentialsAreNotSet\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Client/EzRecommendationClientTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:testCreateCredentialsResolverInstance\\(\\) has no return typehint specified\\.$#"
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 1
+			path: tests/lib/Client/EzRecommendationClientTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:testCreateCredentialsResolverInstance\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Config/CredentialsResolverTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:testReturnFalseWhenOneOfRequiredCredentialsAreMissing\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:testReturnFalseWhenOneOfRequiredCredentialsAreMissing\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Config/CredentialsResolverTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:testShouldReturnTrueWhenRequiredCredentialsAreSet\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:testShouldReturnTrueWhenRequiredCredentialsAreSet\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Config/CredentialsResolverTest.php
 
@@ -1241,32 +1211,37 @@ parameters:
 			path: tests/lib/Config/CredentialsResolverTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\ExportCredentialsResolverTest\\:\\:testCreateExportCredentialsResolverInstance\\(\\) has no return typehint specified\\.$#"
+			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\CredentialsResolverTest\\:\\:\\$loggerMock is never read, only written\\.$#"
+			count: 1
+			path: tests/lib/Config/CredentialsResolverTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\ExportCredentialsResolverTest\\:\\:testCreateExportCredentialsResolverInstance\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Config/ExportCredentialsResolverTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\ExportCredentialsResolverTest\\:\\:testGetCredentialsForAuthenticationMethodUser\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\ExportCredentialsResolverTest\\:\\:testGetCredentialsForAuthenticationMethodUser\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Config/ExportCredentialsResolverTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\ExportCredentialsResolverTest\\:\\:testReturnNullWhenMethodIsUserAndHasCredentialsIsFalse\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\ExportCredentialsResolverTest\\:\\:testReturnNullWhenMethodIsUserAndHasCredentialsIsFalse\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Config/ExportCredentialsResolverTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\EzRecommendationClientCredentialsResolverTest\\:\\:testCreateEzRecommendationClientCredentialsResolverInstance\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\EzRecommendationClientCredentialsResolverTest\\:\\:testCreateEzRecommendationClientCredentialsResolverInstance\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Config/EzRecommendationClientCredentialsResolverTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\EzRecommendationClientCredentialsResolverTest\\:\\:testReturnGetEzRecommendationClientCredentials\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\EzRecommendationClientCredentialsResolverTest\\:\\:testReturnGetEzRecommendationClientCredentials\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Config/EzRecommendationClientCredentialsResolverTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\EzRecommendationClientCredentialsResolverTest\\:\\:testReturnNullWhenCredentialsAreNotSet\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Config\\\\EzRecommendationClientCredentialsResolverTest\\:\\:testReturnNullWhenCredentialsAreNotSet\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Config/EzRecommendationClientCredentialsResolverTest.php
 
@@ -1276,9 +1251,19 @@ parameters:
 			path: tests/lib/Event/Subscriber/AbstractCoreEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\AbstractCoreEventSubscriberTest\\:\\:testHasSubscribedEvent\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\AbstractCoreEventSubscriberTest\\:\\:testHasSubscribedEvent\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/AbstractCoreEventSubscriberTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/AbstractCoreEventSubscriberTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 2
+			path: tests/lib/Event/Subscriber/AbstractRepositoryEventSubscriberTest.php
 
 		-
 			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:onCopyContent\\(\\)\\.$#"
@@ -1321,43 +1306,48 @@ parameters:
 			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnCopyContentMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnCopyContentMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnDeleteContentMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnDeleteContentMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnHideContentMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnHideContentMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnPublishVersionMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnPublishVersionMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnRevealContentMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnRevealContentMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnUpdateContentMetadataMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCallOnUpdateContentMetadataMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCreateInstanceOfContentEventSubscriber\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ContentEventSubscriberTest\\:\\:testCreateInstanceOfContentEventSubscriber\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
 
 		-
 			message: "#^Parameter \\#1 \\$notificationService of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService, EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
 			count: 1
+			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 6
 			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
 
 		-
@@ -1371,47 +1361,47 @@ parameters:
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnCopySubtreeMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnCopySubtreeMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnCreateLocationMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnCreateLocationMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnHideLocationMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnHideLocationMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnMoveSubtreeMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnMoveSubtreeMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnSwapLocationMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnSwapLocationMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnUnhideLocationMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnUnhideLocationMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnUpdateLocationMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCallOnUpdateLocationMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCreateInstanceOfLocationEventSubscriber\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testCreateInstanceOfLocationEventSubscriber\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testUpdateSingleLocationWithChildren\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:testUpdateSingleLocationWithChildren\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
@@ -1441,6 +1431,11 @@ parameters:
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 7
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
 			message: "#^Unable to resolve the template type T in call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\)$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
@@ -1451,12 +1446,12 @@ parameters:
 			path: tests/lib/Event/Subscriber/ObjectStateEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ObjectStateEventSubscriberTest\\:\\:testCallOnSetContentStateMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ObjectStateEventSubscriberTest\\:\\:testCallOnSetContentStateMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/ObjectStateEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ObjectStateEventSubscriberTest\\:\\:testCreateInstanceOfObjectStateEventSubscriber\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\ObjectStateEventSubscriberTest\\:\\:testCreateInstanceOfObjectStateEventSubscriber\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/ObjectStateEventSubscriberTest.php
 
@@ -1466,12 +1461,17 @@ parameters:
 			path: tests/lib/Event/Subscriber/ObjectStateEventSubscriberTest.php
 
 		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/ObjectStateEventSubscriberTest.php
+
+		-
 			message: "#^Anonymous function has an unused use \\$contentInfo\\.$#"
 			count: 2
 			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:getRelationList\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:getRelationList\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
 
@@ -1486,17 +1486,17 @@ parameters:
 			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:testCallOnRecoverMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:testCallOnRecoverMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:testCallOnTrashMethod\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:testCallOnTrashMethod\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:testCreateInstanceOfTrashEventSubscriber\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:testCreateInstanceOfTrashEventSubscriber\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
 
@@ -1516,6 +1516,16 @@ parameters:
 			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
 
 		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 2
+			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 1
+			path: tests/lib/Factory/Export/ConfigurableExportParametersFactoryTest.php
+
+		-
 			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\API\\\\AllowedAPI\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:expects\\(\\)\\.$#"
 			count: 2
 			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
@@ -1526,92 +1536,97 @@ parameters:
 			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:testCreateEzRecommendationClientApiFactoryInstance\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:testCreateEzRecommendationClientApiFactoryInstance\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:testReturnAPIClass\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:testReturnAPIClass\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:testThrowExceptionWhenAPIClassDoesNotExists\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:testThrowExceptionWhenAPIClassDoesNotExists\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:testThrowExceptionWhenInvalidAPIKeyIsGiven\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Factory\\\\EzRecommendationClientAPIFactoryTest\\:\\:testThrowExceptionWhenInvalidAPIKeyIsGiven\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testCreateChunkDir\\(\\) has no return typehint specified\\.$#"
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 1
+			path: tests/lib/Factory/EzRecommendationClientAPIFactoryTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testCreateChunkDir\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testCreateChunkDirWithUnexistingDir\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testCreateChunkDirWithUnexistingDir\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testGetDir\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testGetDir\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testIsLockedWithLockedFile\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testIsLockedWithLockedFile\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testIsLockedWithoutLockedFile\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testIsLockedWithoutLockedFile\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testLoad\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testLoad\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testLoadUnexistingFile\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testLoadUnexistingFile\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testLock\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testLock\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testSave\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testSave\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testSecureDirWithMethodBasic\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testSecureDirWithMethodBasic\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testSecureDirWithMethodNone\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testSecureDirWithMethodNone\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testSecureDirWithMethodUser\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testSecureDirWithMethodUser\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testUnlock\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testUnlock\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testUnlockWithoutLockedFile\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\File\\\\FileManagerTest\\:\\:testUnlockWithoutLockedFile\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/File/FileManagerTest.php
 
@@ -1621,137 +1636,137 @@ parameters:
 			path: tests/lib/File/FileManagerTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:getArrayFromStringDataProvider\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:getArrayFromStringDataProvider\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/ParamsConverterHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:stringLists\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:stringLists\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/ParamsConverterHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetArrayFromString\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetArrayFromString\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/ParamsConverterHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetArrayFromString\\(\\) has parameter \\$expected with no typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetArrayFromString\\(\\) has parameter \\$expected with no type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/ParamsConverterHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetArrayFromString\\(\\) has parameter \\$input with no typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetArrayFromString\\(\\) has parameter \\$input with no type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/ParamsConverterHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromString\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromString\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/ParamsConverterHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromString\\(\\) has parameter \\$expected with no typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromString\\(\\) has parameter \\$expected with no type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/ParamsConverterHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromString\\(\\) has parameter \\$input with no typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromString\\(\\) has parameter \\$input with no type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/ParamsConverterHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromStringWitInvalidArgument\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromStringWitInvalidArgument\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/ParamsConverterHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromStringWithoutSeparator\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\ParamsConverterHelperTest\\:\\:testGetIdListFromStringWithoutSeparator\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/ParamsConverterHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetLanguageList\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetLanguageList\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetLanguagesByCustomerId\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetLanguagesByCustomerId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetMainLanguagesWithSiteAccess\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetMainLanguagesWithSiteAccess\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetRootLocationBySiteAccessName\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetRootLocationBySiteAccessName\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetRootLocationBySiteAccessNameWithoutParameterSpecified\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetRootLocationBySiteAccessNameWithoutParameterSpecified\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetRootLocationsBySiteAccesses\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetRootLocationsBySiteAccesses\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccesses\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccesses\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerId\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithChangedDefaultSiteAccess\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithChangedDefaultSiteAccess\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithChangedDefaultSiteAccessAndMultipleConfig\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithChangedDefaultSiteAccessAndMultipleConfig\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithChangedDefaultSiteAccessDifferentCustomerId\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithChangedDefaultSiteAccessDifferentCustomerId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithMultipleConfig\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithMultipleConfig\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithWrongCustomerId\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithWrongCustomerId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithoutCustomerId\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesByCustomerIdWithoutCustomerId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesWithCustomerId\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesWithCustomerId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesWithSiteAccess\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesWithSiteAccess\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesWithWrongCustomerId\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Helper\\\\SiteAccessHelperTest\\:\\:testGetSiteAccessesWithWrongCustomerId\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Helper/SiteAccessHelperTest.php
 
@@ -1766,32 +1781,37 @@ parameters:
 			path: tests/lib/Service/EventNotificationServiceTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\EventNotificationServiceTest\\:\\:testCreateEventNotification\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\EventNotificationServiceTest\\:\\:testCreateEventNotification\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Service/EventNotificationServiceTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\EventNotificationServiceTest\\:\\:testCreateInstanceOfEventNotificationService\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\EventNotificationServiceTest\\:\\:testCreateInstanceOfEventNotificationService\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Service/EventNotificationServiceTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\EventNotificationServiceTest\\:\\:testSendNotification\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\EventNotificationServiceTest\\:\\:testSendNotification\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Service/EventNotificationServiceTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:testCreateExportNotification\\(\\) has no return typehint specified\\.$#"
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
+			count: 5
+			path: tests/lib/Service/EventNotificationServiceTest.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:testCreateExportNotification\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Service/ExportNotificationServiceTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:testCreateInstanceOfEventNotificationService\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:testCreateInstanceOfEventNotificationService\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Service/ExportNotificationServiceTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:testSendNotification\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:testSendNotification\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: tests/lib/Service/ExportNotificationServiceTest.php
 
@@ -1802,6 +1822,11 @@ parameters:
 
 		-
 			message: "#^Property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Service\\\\ExportNotificationServiceTest\\:\\:\\$urls type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: tests/lib/Service/ExportNotificationServiceTest.php
+
+		-
+			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
 			count: 1
 			path: tests/lib/Service/ExportNotificationServiceTest.php
 

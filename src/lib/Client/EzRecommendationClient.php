@@ -10,7 +10,6 @@ namespace EzSystems\EzRecommendationClient\Client;
 
 use EzSystems\EzRecommendationClient\API\AbstractAPI;
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
-use EzSystems\EzRecommendationClient\Exception\BadAPICallException;
 use EzSystems\EzRecommendationClient\Exception\BadResponseException;
 use EzSystems\EzRecommendationClient\Exception\CredentialsNotFoundException;
 use EzSystems\EzRecommendationClient\Factory\EzRecommendationClientAPIFactory;
@@ -207,11 +206,7 @@ final class EzRecommendationClient implements EzRecommendationClientInterface
      */
     public function __call(string $name, array $arguments): AbstractAPI
     {
-        try {
-            return $this->eZRecommendationClientApiFactory->buildAPI($name, $this);
-        } catch (BadAPICallException $exception) {
-            $this->logger->error(self::ERROR_MESSAGE . $exception->getMessage());
-        }
+        return $this->eZRecommendationClientApiFactory->buildAPI($name, $this);
     }
 
     /**

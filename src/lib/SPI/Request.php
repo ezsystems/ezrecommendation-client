@@ -12,7 +12,7 @@ abstract class Request
 {
     /**
      * @param \EzSystems\EzRecommendationClient\SPI\Request $instance
-     * @param string[] $parameters
+     * @param array<string, mixed> $parameters
      */
     public function __construct(self $instance, array $parameters = [])
     {

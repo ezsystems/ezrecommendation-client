@@ -179,9 +179,9 @@ final class Value
             if (!empty($field->destinationContentId)) {
                 return $this->getImageFieldIdentifier($field->destinationContentId, $language, true);
             }
-        } else {
-            return $this->getConfiguredFieldIdentifier('image', $contentType);
         }
+
+        return $this->getConfiguredFieldIdentifier('image', $contentType);
     }
 
     /**
