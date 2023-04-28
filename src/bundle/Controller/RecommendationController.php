@@ -9,6 +9,8 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClientBundle\Controller;
 
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
+use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
+use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface;
 use EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -26,16 +28,26 @@ class RecommendationController
     /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface */
     private $credentialsResolver;
 
+    /** @var \Symfony\WebpackEncoreBundle\Asset\TagRenderer */
+    protected $encoreTagRenderer;
+
+    /** @var \Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface */
+    private $entrypointLookupCollection;
+
     /** @var \Twig\Environment */
     private $twig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         CredentialsResolverInterface $credentialsResolver,
+        TagRenderer $encoreTagRenderer,
+        EntrypointLookupCollectionInterface $entrypointLookupCollection,
         Environment $twig
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->credentialsResolver = $credentialsResolver;
+        $this->encoreTagRenderer = $encoreTagRenderer;
+        $this->entrypointLookupCollection = $entrypointLookupCollection;
         $this->twig = $twig;
     }
 
@@ -59,6 +71,9 @@ class RecommendationController
 
         $response = new Response();
         $response->setPrivate();
+
+        $this->encoreTagRenderer->reset();
+        $this->entrypointLookupCollection->getEntrypointLookup('ezplatform')->reset();
 
         return $response->setContent(
             $this->twig()->render($template, [

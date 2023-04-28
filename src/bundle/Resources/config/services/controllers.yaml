@@ -11,6 +11,8 @@ services:
         public: true
         arguments:
             $credentialsResolver: '@EzSystems\EzRecommendationClient\Config\EzRecommendationClientCredentialsResolver'
+            $encoreTagRenderer: '@webpack_encore.tag_renderer'
+            $entrypointLookupCollection: '@webpack_encore.entrypoint_lookup_collection'
 
     ez_recommendation:
         alias: EzSystems\EzRecommendationClientBundle\Controller\RecommendationController
