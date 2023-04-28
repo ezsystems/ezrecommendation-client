@@ -9,13 +9,13 @@ declare(strict_types=1);
 namespace EzSystems\EzRecommendationClientBundle\Controller;
 
 use EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface;
-use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
-use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface;
 use EzSystems\EzRecommendationClient\Event\RecommendationResponseEvent;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface;
+use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
 use Twig\Environment;
 
 class RecommendationController
