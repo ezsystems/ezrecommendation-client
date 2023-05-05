@@ -861,11 +861,6 @@ parameters:
 			path: src/lib/Service/ContentService.php
 
 		-
-			message: "#^Comparison operation \"\\>\" between int\\<1, max\\> and 0 is always true\\.$#"
-			count: 1
-			path: src/lib/Service/ContentService.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:fetchContent\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Service/ContentService.php
@@ -882,21 +877,6 @@ parameters:
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareContent\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Service/ContentService.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareFields\\(\\) has parameter \\$fields with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Service/ContentService.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareFields\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/lib/Service/ContentService.php
-
-		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareFields\\(\\) should return array but returns array\\<int, mixed\\>\\|null\\.$#"
 			count: 1
 			path: src/lib/Service/ContentService.php
 

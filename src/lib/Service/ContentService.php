@@ -254,10 +254,14 @@ final class ContentService implements ContentServiceInterface
 
     /**
      * Checks if fields are given, if not - returns all of them.
+     *
+     * @param array<string> $fields
+     *
+     * @return array<string>
      */
-    private function prepareFields(APIContentType $contentType, ?array $fields = null): array
+    private function prepareFields(APIContentType $contentType, array $fields): array
     {
-        if ($fields && \count($fields) > 0) {
+        if (empty($fields)) {
             return $fields;
         }
 
