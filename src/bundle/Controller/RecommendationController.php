@@ -29,7 +29,7 @@ class RecommendationController
     private $credentialsResolver;
 
     /** @var \Symfony\WebpackEncoreBundle\Asset\TagRenderer */
-    protected $encoreTagRenderer;
+    private $encoreTagRenderer;
 
     /** @var \Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface */
     private $entrypointLookupCollection;
