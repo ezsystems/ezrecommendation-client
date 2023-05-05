@@ -75,12 +75,17 @@ class RecommendationController
         $this->encoreTagRenderer->reset();
         $this->entrypointLookupCollection->getEntrypointLookup('ezplatform')->reset();
 
-        return $response->setContent(
+        $response->setContent(
             $this->twig()->render($template, [
             'recommendations' => $event->getRecommendationItems(),
             'templateId' => Uuid::uuid4()->toString(),
             ])
         );
+
+        $this->encoreTagRenderer->reset();
+        $this->entrypointLookupCollection->getEntrypointLookup('ezplatform')->reset();
+
+        return $response;
     }
 
     protected function twig(): Environment
