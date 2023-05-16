@@ -14,6 +14,8 @@ use Ramsey\Uuid\Uuid;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface;
+use Symfony\WebpackEncoreBundle\Asset\TagRenderer;
 use Twig\Environment;
 
 class RecommendationController
@@ -26,16 +28,26 @@ class RecommendationController
     /** @var \EzSystems\EzRecommendationClient\Config\CredentialsResolverInterface */
     private $credentialsResolver;
 
+    /** @var \Symfony\WebpackEncoreBundle\Asset\TagRenderer */
+    private $encoreTagRenderer;
+
+    /** @var \Symfony\WebpackEncoreBundle\Asset\EntrypointLookupCollectionInterface */
+    private $entrypointLookupCollection;
+
     /** @var \Twig\Environment */
     private $twig;
 
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
         CredentialsResolverInterface $credentialsResolver,
+        TagRenderer $encoreTagRenderer,
+        EntrypointLookupCollectionInterface $entrypointLookupCollection,
         Environment $twig
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->credentialsResolver = $credentialsResolver;
+        $this->encoreTagRenderer = $encoreTagRenderer;
+        $this->entrypointLookupCollection = $entrypointLookupCollection;
         $this->twig = $twig;
     }
 
@@ -60,12 +72,20 @@ class RecommendationController
         $response = new Response();
         $response->setPrivate();
 
-        return $response->setContent(
+        $this->encoreTagRenderer->reset();
+        $this->entrypointLookupCollection->getEntrypointLookup('ezplatform')->reset();
+
+        $response->setContent(
             $this->twig()->render($template, [
             'recommendations' => $event->getRecommendationItems(),
             'templateId' => Uuid::uuid4()->toString(),
             ])
         );
+
+        $this->encoreTagRenderer->reset();
+        $this->entrypointLookupCollection->getEntrypointLookup('ezplatform')->reset();
+
+        return $response;
     }
 
     protected function twig(): Environment
