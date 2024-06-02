@@ -128,15 +128,13 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
 
     /**
      * @throws \eZ\Publish\API\Repository\Exceptions\BadStateException
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     private function hideLocation(Location $location, bool $isChild = false): void
     {
-        $children = $this->locationService->loadLocationChildren($location)->locations;
-
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $child */
-        foreach ($children as $child) {
+        foreach ($this->loadLocationChildren($location) as $child) {
             $this->hideLocation($child, true);
         }
 
@@ -158,15 +156,13 @@ final class LocationEventSubscriber extends AbstractRepositoryEventSubscriber im
     }
 
     /**
+     * @throws \eZ\Publish\API\Repository\Exceptions\InvalidArgumentException
      * @throws \eZ\Publish\API\Repository\Exceptions\NotFoundException
      * @throws \eZ\Publish\API\Repository\Exceptions\UnauthorizedException
      */
     private function updateLocationWithChildren(Location $location, string $method, string $action): void
     {
-        $children = $this->locationService->loadLocationChildren($location)->locations;
-
-        /** @var \eZ\Publish\API\Repository\Values\Content\Location $child */
-        foreach ($children as $child) {
+        foreach ($this->loadLocationChildren($location) as $child) {
             $this->updateLocationWithChildren($child, $method, $action);
         }
 
