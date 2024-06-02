@@ -16,7 +16,6 @@ use eZ\Publish\API\Repository\Events\Location\SwapLocationEvent;
 use eZ\Publish\API\Repository\Events\Location\UnhideLocationEvent;
 use eZ\Publish\API\Repository\Events\Location\UpdateLocationEvent;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
-use eZ\Publish\API\Repository\Values\Content\LocationList;
 use eZ\Publish\API\Repository\Values\Content\LocationQuery;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchHit;
 use eZ\Publish\API\Repository\Values\Content\Search\SearchResult;
