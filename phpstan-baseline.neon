@@ -86,11 +86,6 @@ parameters:
 			path: src/bundle/DependencyInjection/ConfigurationMapper.php
 
 		-
-			message: "#^Parameter \\#1 \\$configuration of method Symfony\\\\Component\\\\DependencyInjection\\\\Extension\\\\Extension\\:\\:processConfiguration\\(\\) expects Symfony\\\\Component\\\\Config\\\\Definition\\\\ConfigurationInterface, Symfony\\\\Component\\\\Config\\\\Definition\\\\ConfigurationInterface\\|null given\\.$#"
-			count: 1
-			path: src/bundle/DependencyInjection/EzRecommendationClientExtension.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\EzRecommendationClientBundle\\:\\:build\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/bundle/EzRecommendationClientBundle.php
@@ -1236,6 +1231,11 @@ parameters:
 			path: tests/lib/Event/Subscriber/AbstractCoreEventSubscriberTest.php
 
 		-
+			message: "#^PHPDoc tag @var for property EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\AbstractCoreEventSubscriberTest\\:\\:\\$notificationServiceMock contains unresolvable type\\.$#"
+			count: 1
+			path: tests/lib/Event/Subscriber/AbstractCoreEventSubscriberTest.php
+
+		-
 			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/AbstractCoreEventSubscriberTest.php
@@ -1321,18 +1321,18 @@ parameters:
 			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$notificationService of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ContentEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService, EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
-
-		-
 			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
 			count: 6
 			path: tests/lib/Event/Subscriber/ContentEventSubscriberTest.php
 
 		-
 			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:expects\\(\\)\\.$#"
-			count: 4
+			count: 3
+			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
+
+		-
+			message: "#^Call to an undefined method EzSystems\\\\EzRecommendationClient\\\\Helper\\\\ContentHelper\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject\\:\\:method\\(\\)\\.$#"
+			count: 3
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
@@ -1386,16 +1386,6 @@ parameters:
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\LocationEventSubscriberTest\\:\\:updateLocationWithChildrenDataProvider\\(\\) return type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$notificationService of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\LocationEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService, EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
-
-		-
 			message: "#^Parameter \\#1 \\$originalClassName of method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) expects class\\-string\\<mixed\\>, string given\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/LocationEventSubscriberTest.php
@@ -1436,19 +1426,9 @@ parameters:
 			path: tests/lib/Event/Subscriber/ObjectStateEventSubscriberTest.php
 
 		-
-			message: "#^Parameter \\#1 \\$notificationService of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\ObjectStateEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService, EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
-			count: 1
-			path: tests/lib/Event/Subscriber/ObjectStateEventSubscriberTest.php
-
-		-
 			message: "#^Return type of call to method PHPUnit\\\\Framework\\\\TestCase\\:\\:createMock\\(\\) contains unresolvable type\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/ObjectStateEventSubscriberTest.php
-
-		-
-			message: "#^Anonymous function has an unused use \\$contentInfo\\.$#"
-			count: 2
-			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:getRelationList\\(\\) has no return type specified\\.$#"
@@ -1477,11 +1457,6 @@ parameters:
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Tests\\\\Event\\\\Subscriber\\\\TrashEventSubscriberTest\\:\\:testCreateInstanceOfTrashEventSubscriber\\(\\) has no return type specified\\.$#"
-			count: 1
-			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
-
-		-
-			message: "#^Parameter \\#1 \\$notificationService of class EzSystems\\\\EzRecommendationClient\\\\Event\\\\Subscriber\\\\TrashEventSubscriber constructor expects EzSystems\\\\EzRecommendationClient\\\\Service\\\\NotificationService, EzSystems\\\\EzRecommendationClient\\\\Service\\\\EventNotificationService\\|PHPUnit\\\\Framework\\\\MockObject\\\\MockObject given\\.$#"
 			count: 1
 			path: tests/lib/Event/Subscriber/TrashEventSubscriberTest.php
 

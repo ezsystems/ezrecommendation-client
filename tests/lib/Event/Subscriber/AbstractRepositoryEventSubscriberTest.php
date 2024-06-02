@@ -14,30 +14,26 @@ use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\Core\Query\QueryFactoryInterface;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
 use EzSystems\EzRecommendationClient\Helper\LocationHelper;
-use EzSystems\EzRecommendationClient\Service\EventNotificationService;
 
 abstract class AbstractRepositoryEventSubscriberTest extends AbstractCoreEventSubscriberTest
 {
-    /** @var \PHPUnit\Framework\MockObject\MockObject&\eZ\Publish\API\Repository\ContentService */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\API\Repository\ContentService */
     protected $contentServiceMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject&\eZ\Publish\API\Repository\LocationService */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\API\Repository\LocationService */
     protected $locationServiceMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject&\EzSystems\EzRecommendationClient\Helper\LocationHelper */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\EzSystems\EzRecommendationClient\Helper\LocationHelper */
     protected $locationHelperMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject&\EzSystems\EzRecommendationClient\Helper\ContentHelper */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\EzSystems\EzRecommendationClient\Helper\ContentHelper */
     protected $contentHelperMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject&\eZ\Publish\Core\Query\QueryFactoryInterface */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Query\QueryFactoryInterface */
     protected $queryFactoryMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject&\eZ\Publish\API\Repository\SearchService */
+    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\API\Repository\SearchService */
     protected $searchServiceMock;
-
-    /** @var \PHPUnit\Framework\MockObject\MockObject&\EzSystems\EzRecommendationClient\Service\EventNotificationService */
-    protected $notificationServiceMock;
 
     public function setUp(): void
     {
@@ -49,6 +45,5 @@ abstract class AbstractRepositoryEventSubscriberTest extends AbstractCoreEventSu
         $this->contentHelperMock = $this->createMock(ContentHelper::class);
         $this->queryFactoryMock = $this->createMock(QueryFactoryInterface::class);
         $this->searchServiceMock = $this->createMock(SearchService::class);
-        $this->notificationServiceMock = $this->createMock(EventNotificationService::class);
     }
 }

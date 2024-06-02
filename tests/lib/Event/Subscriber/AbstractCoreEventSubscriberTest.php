@@ -12,6 +12,7 @@ use eZ\Publish\API\Repository\Values\Content\ContentInfo;
 use eZ\Publish\Core\Repository\Values\Content\Content;
 use eZ\Publish\Core\Repository\Values\Content\Location;
 use eZ\Publish\Core\Repository\Values\Content\VersionInfo;
+use EzSystems\EzRecommendationClient\Service\EventNotificationService;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -25,6 +26,9 @@ abstract class AbstractCoreEventSubscriberTest extends TestCase
 
     /** @var \eZ\Publish\Core\Repository\Values\Content\Content */
     protected $content;
+
+    /** @var \PHPUnit\Framework\MockObject\MockObject&\EzSystems\EzRecommendationClient\Service\EventNotificationService */
+    protected $notificationServiceMock;
 
     public function setUp(): void
     {
@@ -42,6 +46,7 @@ abstract class AbstractCoreEventSubscriberTest extends TestCase
                 'contentInfo' => $this->contentInfo,
             ]),
         ]);
+        $this->notificationServiceMock = $this->createMock(EventNotificationService::class);
     }
 
     /**
