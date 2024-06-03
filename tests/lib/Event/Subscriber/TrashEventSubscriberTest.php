@@ -73,7 +73,7 @@ final class TrashEventSubscriberTest extends AbstractRepositoryEventSubscriberTe
 
         $event = $this->createMock(TrashEvent::class);
         $event
-            ->expects($this->atLeastOnce())
+            ->expects(self::atLeastOnce())
             ->method('getLocation')
             ->willReturn($this->location);
 
@@ -82,7 +82,7 @@ final class TrashEventSubscriberTest extends AbstractRepositoryEventSubscriberTe
             ->willReturn($this->getRelationList());
 
         $this->contentServiceMock
-            ->expects($this->atLeastOnce())
+            ->expects(self::atLeastOnce())
             ->method('loadContentInfo')
             ->willReturnOnConsecutiveCalls(
                 $relationContentInfo1,
@@ -91,7 +91,7 @@ final class TrashEventSubscriberTest extends AbstractRepositoryEventSubscriberTe
             );
 
         $this->notificationServiceMock
-            ->expects($this->exactly(4))
+            ->expects(self::exactly(4))
             ->method('sendNotification')
             ->withConsecutive(
                 [
@@ -130,7 +130,7 @@ final class TrashEventSubscriberTest extends AbstractRepositoryEventSubscriberTe
 
         $event = $this->createMock(RecoverEvent::class);
         $event
-            ->expects($this->atLeastOnce())
+            ->expects(self::atLeastOnce())
             ->method('getLocation')
             ->willReturn($this->location);
 
@@ -143,7 +143,7 @@ final class TrashEventSubscriberTest extends AbstractRepositoryEventSubscriberTe
             ->willReturn($this->getLocationChildrenSearchResult());
 
         $this->contentServiceMock
-            ->expects($this->atLeastOnce())
+            ->expects(self::atLeastOnce())
             ->method('loadContentInfo')
             ->willReturnOnConsecutiveCalls(
                 $relationContentInfo1,
@@ -156,7 +156,7 @@ final class TrashEventSubscriberTest extends AbstractRepositoryEventSubscriberTe
             ->willReturn($this->getRelationList());
 
         $this->notificationServiceMock
-            ->expects($this->exactly(5))
+            ->expects(self::exactly(5))
             ->method('sendNotification')
             ->withConsecutive(
                 [

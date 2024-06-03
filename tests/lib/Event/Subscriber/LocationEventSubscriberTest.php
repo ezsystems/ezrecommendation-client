@@ -92,7 +92,7 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
     {
         $event = $this->createMock(CopySubtreeEvent::class);
         $event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getLocation')
             ->willReturn($this->location);
 
@@ -110,7 +110,7 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             ]));
 
         $this->notificationServiceMock
-            ->expects($this->exactly(2))
+            ->expects(self::exactly(2))
             ->method('sendNotification')
             ->withConsecutive(
                 [
@@ -132,12 +132,12 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
     {
         $event = $this->createMock(CreateLocationEvent::class);
         $event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getContentInfo')
             ->willReturn($this->contentInfo);
 
         $this->notificationServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('sendNotification')
             ->with(
                 'EzSystems\EzRecommendationClient\Event\Subscriber\LocationEventSubscriber::onCreateLocation',
@@ -172,7 +172,7 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             ->willReturn(new SearchResult([]));
 
         $this->notificationServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('sendNotification')
             ->withConsecutive(
                 [
@@ -189,7 +189,7 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
     {
         $event = $this->createMock(MoveSubtreeEvent::class);
         $event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getLocation')
             ->willReturn($this->location);
 
@@ -207,7 +207,7 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             ]));
 
         $this->notificationServiceMock
-            ->expects($this->exactly(2))
+            ->expects(self::exactly(2))
             ->method('sendNotification')
             ->withConsecutive(
                 [
@@ -244,11 +244,11 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
 
         $event = $this->createMock(SwapLocationEvent::class);
         $event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getLocation1')
             ->willReturn($this->location);
         $event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getLocation2')
             ->willReturn($swappedLocation);
 
@@ -261,12 +261,12 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             ->willReturn(new SearchResult([]));
 
         $this->locationServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLocation')
             ->willReturn($this->location);
 
         $this->locationServiceMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadLocation')
             ->willReturn($swappedLocation);
 
@@ -275,7 +275,7 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             ->willReturnOnConsecutiveCalls($this->content, $swappedLocationContent);
 
         $this->notificationServiceMock
-            ->expects($this->exactly(2))
+            ->expects(self::exactly(2))
             ->method('sendNotification')
             ->withConsecutive(
                 [
@@ -297,7 +297,7 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
     {
         $event = $this->createMock(UnhideLocationEvent::class);
         $event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getLocation')
             ->willReturn($this->location);
 
@@ -310,7 +310,7 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             ->willReturn(new SearchResult([]));
 
         $this->locationServiceMock
-            ->expects($this->atLeastOnce())
+            ->expects(self::atLeastOnce())
             ->method('loadLocation')
             ->willReturn($this->location);
 
@@ -319,7 +319,7 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             ->willReturn($this->content);
 
         $this->notificationServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('sendNotification')
             ->withConsecutive(
                 [
@@ -336,12 +336,12 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
     {
         $event = $this->createMock(UpdateLocationEvent::class);
         $event
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getLocation')
             ->willReturn($this->location);
 
         $this->notificationServiceMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('sendNotification')
             ->withConsecutive(
                 [
@@ -365,7 +365,7 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
     ) {
         $eventMock = $this->createMock($event);
         $eventMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('getLocation')
             ->willReturn($this->location);
 
@@ -387,19 +387,19 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             );
 
         $this->locationServiceMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('loadLocation')
             ->with($this->equalTo($this->location1->id))
             ->willReturn($this->location1);
 
         $this->locationServiceMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('loadLocation')
             ->with($this->equalTo($this->location2->id))
             ->willReturn($this->location2);
 
         $this->locationServiceMock
-            ->expects($this->at(2))
+            ->expects(self::at(2))
             ->method('loadLocation')
             ->with($this->equalTo($this->location->id))
             ->willReturn($this->location);
@@ -414,7 +414,7 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             'internalFields' => [],
         ]);
         $this->contentHelperMock
-            ->expects($this->at(0))
+            ->expects(self::at(0))
             ->method('getIncludedContent')
             ->with($this->equalTo(self::CONTENT_ID + 1))
             ->willReturn($content1);
@@ -429,19 +429,19 @@ class LocationEventSubscriberTest extends AbstractRepositoryEventSubscriberTest
             'internalFields' => [],
         ]);
         $this->contentHelperMock
-            ->expects($this->at(1))
+            ->expects(self::at(1))
             ->method('getIncludedContent')
             ->with($this->equalTo(3))
             ->willReturn($content2);
 
         $this->contentHelperMock
-            ->expects($this->at(2))
+            ->expects(self::at(2))
             ->method('getIncludedContent')
             ->with($this->equalTo(self::CONTENT_ID))
             ->willReturn($this->content);
 
         $this->notificationServiceMock
-            ->expects($this->exactly(3))
+            ->expects(self::exactly(3))
             ->method('sendNotification')
             ->withConsecutive(
                 [
