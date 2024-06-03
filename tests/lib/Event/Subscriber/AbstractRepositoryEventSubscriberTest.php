@@ -23,16 +23,16 @@ abstract class AbstractRepositoryEventSubscriberTest extends AbstractCoreEventSu
     /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\API\Repository\LocationService */
     protected $locationServiceMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\EzSystems\EzRecommendationClient\Helper\LocationHelper */
+    /** @var \PHPUnit\Framework\MockObject\MockObject&\EzSystems\EzRecommendationClient\Helper\LocationHelper */
     protected $locationHelperMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\EzSystems\EzRecommendationClient\Helper\ContentHelper */
+    /** @var \PHPUnit\Framework\MockObject\MockObject&\EzSystems\EzRecommendationClient\Helper\ContentHelper */
     protected $contentHelperMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\Core\Query\QueryFactoryInterface */
+    /** @var \PHPUnit\Framework\MockObject\MockObject&\eZ\Publish\Core\Query\QueryFactoryInterface */
     protected $queryFactoryMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\API\Repository\SearchService */
+    /** @var \PHPUnit\Framework\MockObject\MockObject&\eZ\Publish\API\Repository\SearchService */
     protected $searchServiceMock;
 
     public function setUp(): void
