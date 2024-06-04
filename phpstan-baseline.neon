@@ -86,11 +86,6 @@ parameters:
 			path: src/bundle/DependencyInjection/ConfigurationMapper.php
 
 		-
-			message: "#^Parameter \\#1 \\$configuration of method Symfony\\\\Component\\\\DependencyInjection\\\\Extension\\\\Extension\\:\\:processConfiguration\\(\\) expects Symfony\\\\Component\\\\Config\\\\Definition\\\\ConfigurationInterface, Symfony\\\\Component\\\\Config\\\\Definition\\\\ConfigurationInterface\\|null given\\.$#"
-			count: 1
-			path: src/bundle/DependencyInjection/EzRecommendationClientExtension.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClientBundle\\\\EzRecommendationClientBundle\\:\\:build\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: src/bundle/EzRecommendationClientBundle.php
@@ -877,6 +872,11 @@ parameters:
 
 		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareContent\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/lib/Service/ContentService.php
+
+		-
+			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareFields\\(\\) should return array\\<string\\> but returns array\\<int\\<0, max\\>, mixed\\>\\|null\\.$#"
 			count: 1
 			path: src/lib/Service/ContentService.php
 
