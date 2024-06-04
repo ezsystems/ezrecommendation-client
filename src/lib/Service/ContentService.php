@@ -259,9 +259,9 @@ final class ContentService implements ContentServiceInterface
      *
      * @return array<string>
      */
-    private function prepareFields(APIContentType $contentType, array $fields): array
+    private function prepareFields(APIContentType $contentType, ?array $fields = null): array
     {
-        if (empty($fields)) {
+        if (!empty($fields)) {
             return $fields;
         }
 
