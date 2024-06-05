@@ -876,11 +876,6 @@ parameters:
 			path: src/lib/Service/ContentService.php
 
 		-
-			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:prepareFields\\(\\) should return array\\<string\\> but returns array\\<int\\<0, max\\>, mixed\\>\\|null\\.$#"
-			count: 1
-			path: src/lib/Service/ContentService.php
-
-		-
 			message: "#^Method EzSystems\\\\EzRecommendationClient\\\\Service\\\\ContentService\\:\\:setContent\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/lib/Service/ContentService.php

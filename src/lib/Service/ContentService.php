@@ -265,6 +265,7 @@ final class ContentService implements ContentServiceInterface
             return $fields;
         }
 
+        $fields = [];
         foreach ($contentType->getFieldDefinitions() as $field) {
             $fields[] = $field->identifier;
         }
