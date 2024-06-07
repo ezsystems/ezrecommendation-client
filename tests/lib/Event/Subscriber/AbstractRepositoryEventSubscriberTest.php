@@ -10,6 +10,8 @@ namespace EzSystems\EzRecommendationClient\Tests\Event\Subscriber;
 
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\LocationService;
+use eZ\Publish\API\Repository\SearchService;
+use eZ\Publish\Core\Query\QueryFactoryInterface;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
 use EzSystems\EzRecommendationClient\Helper\LocationHelper;
 
@@ -21,11 +23,17 @@ abstract class AbstractRepositoryEventSubscriberTest extends AbstractCoreEventSu
     /** @var \PHPUnit\Framework\MockObject\MockObject|\eZ\Publish\API\Repository\LocationService */
     protected $locationServiceMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\EzSystems\EzRecommendationClient\Helper\LocationHelper */
+    /** @var \PHPUnit\Framework\MockObject\MockObject&\EzSystems\EzRecommendationClient\Helper\LocationHelper */
     protected $locationHelperMock;
 
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\EzSystems\EzRecommendationClient\Helper\ContentHelper */
+    /** @var \PHPUnit\Framework\MockObject\MockObject&\EzSystems\EzRecommendationClient\Helper\ContentHelper */
     protected $contentHelperMock;
+
+    /** @var \PHPUnit\Framework\MockObject\MockObject&\eZ\Publish\Core\Query\QueryFactoryInterface */
+    protected $queryFactoryMock;
+
+    /** @var \PHPUnit\Framework\MockObject\MockObject&\eZ\Publish\API\Repository\SearchService */
+    protected $searchServiceMock;
 
     public function setUp(): void
     {
@@ -35,5 +43,7 @@ abstract class AbstractRepositoryEventSubscriberTest extends AbstractCoreEventSu
         $this->locationServiceMock = $this->createMock(LocationService::class);
         $this->locationHelperMock = $this->createMock(LocationHelper::class);
         $this->contentHelperMock = $this->createMock(ContentHelper::class);
+        $this->queryFactoryMock = $this->createMock(QueryFactoryInterface::class);
+        $this->searchServiceMock = $this->createMock(SearchService::class);
     }
 }

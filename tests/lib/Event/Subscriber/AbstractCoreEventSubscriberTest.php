@@ -18,9 +18,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 abstract class AbstractCoreEventSubscriberTest extends TestCase
 {
-    /** @var \PHPUnit\Framework\MockObject\MockObject|\EzSystems\EzRecommendationClient\Service\EventNotificationService */
-    protected $notificationServiceMock;
-
     /** @var \eZ\Publish\API\Repository\Values\Content\ContentInfo */
     protected $contentInfo;
 
@@ -30,9 +27,11 @@ abstract class AbstractCoreEventSubscriberTest extends TestCase
     /** @var \eZ\Publish\Core\Repository\Values\Content\Content */
     protected $content;
 
+    /** @var \PHPUnit\Framework\MockObject\MockObject&\EzSystems\EzRecommendationClient\Service\EventNotificationService */
+    protected $notificationServiceMock;
+
     public function setUp(): void
     {
-        $this->notificationServiceMock = $this->createMock(EventNotificationService::class);
         $this->contentInfo = new ContentInfo([
             'id' => 1,
             'contentTypeId' => 2,
@@ -47,6 +46,7 @@ abstract class AbstractCoreEventSubscriberTest extends TestCase
                 'contentInfo' => $this->contentInfo,
             ]),
         ]);
+        $this->notificationServiceMock = $this->createMock(EventNotificationService::class);
     }
 
     /**

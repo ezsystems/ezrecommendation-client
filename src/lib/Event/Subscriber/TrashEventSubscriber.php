@@ -13,7 +13,9 @@ use eZ\Publish\API\Repository\Events\Trash\RecoverEvent;
 use eZ\Publish\API\Repository\Events\Trash\TrashEvent;
 use eZ\Publish\API\Repository\LocationService as LocationServiceInterface;
 use eZ\Publish\API\Repository\Repository;
+use eZ\Publish\API\Repository\SearchService;
 use eZ\Publish\API\Repository\Values\Content\ContentInfo;
+use eZ\Publish\Core\Query\QueryFactoryInterface;
 use EzSystems\EzRecommendationClient\Helper\ContentHelper;
 use EzSystems\EzRecommendationClient\Helper\LocationHelper;
 use EzSystems\EzRecommendationClient\Service\NotificationService;
@@ -31,9 +33,19 @@ final class TrashEventSubscriber extends AbstractRepositoryEventSubscriber imple
         LocationServiceInterface $locationService,
         LocationHelper $locationHelper,
         ContentHelper $contentHelper,
+        QueryFactoryInterface $queryFactory,
+        SearchService $searchService,
         Repository $repository
     ) {
-        parent::__construct($notificationService, $contentService, $locationService, $locationHelper, $contentHelper);
+        parent::__construct(
+            $notificationService,
+            $contentService,
+            $locationService,
+            $locationHelper,
+            $contentHelper,
+            $queryFactory,
+            $searchService
+        );
 
         $this->repository = $repository;
     }
